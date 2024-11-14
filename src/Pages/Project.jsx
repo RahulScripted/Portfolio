@@ -5,10 +5,10 @@ import ProjectElement from '../components/ProjectElement'
 
 function Project() {
   return (
-    <div className='flex item-center justify-center flex-col lg:justify-between lg:flex-row p-5 lg:p-10 gap-10'>
+    <div className='flex item-center justify-center flex-col-reverse lg:justify-between lg:flex-row p-5 lg:p-10 gap-10'>
 
       {/* Left Part */}
-      <div className='w-full lg:w-1/2'>
+      <div className='relative w-full lg:sticky lg:top-10 lg:w-1/2 lg:h-screen'>
         <Cards />
       </div>
 

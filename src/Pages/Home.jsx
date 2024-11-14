@@ -11,7 +11,7 @@ function Home() {
     <div className='flex item-center justify-center flex-col lg:justify-between lg:flex-row relative p-5 lg:p-10 gap-4 mb-10'>
 
       {/* Left Part */}
-      <div className='relative w-full lg:sticky top-0 lg:w-1/2'>
+      <div className='relative w-full lg:sticky lg:top-10 lg:w-1/2 lg:h-screen'>
         <Cards />
       </div>
 
