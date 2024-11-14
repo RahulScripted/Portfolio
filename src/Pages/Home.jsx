@@ -4,6 +4,7 @@ import HomeElement from '../components/HomeElement';
 import Contact from '../components/Contact';
 import AboutElement from '../components/AboutElement';
 import Timeline from '../components/Timeline';
+import ProjectElement from '../components/ProjectElement';
 
 function Home() {
   return (
@@ -22,6 +23,9 @@ function Home() {
 
         {/* About - element */}
         <AboutElement />
+
+        {/* Project - element */}
+        <ProjectElement />
 
         {/* Experience - element */}
         <Timeline />
