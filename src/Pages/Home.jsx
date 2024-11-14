@@ -3,6 +3,7 @@ import Cards from '../components/Cards';
 import HomeElement from '../components/HomeElement';
 import Contact from '../components/Contact';
 import AboutElement from '../components/AboutElement';
+import Timeline from '../components/Timeline';
 
 function Home() {
   return (
@@ -21,6 +22,9 @@ function Home() {
 
         {/* About - element */}
         <AboutElement />
+
+        {/* Experience - element */}
+        <Timeline />
 
         {/* Contact - element */}
         <Contact />

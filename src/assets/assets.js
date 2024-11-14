@@ -25,6 +25,9 @@ import tailwind from './tailwind.svg'
 import vercel from './vercel.svg'
 import mysql from './mysql.svg'
 import cv from './cv.pdf'
+import open_source from './open_source.svg'
+import complete from './complete.svg'
+import building from './building.svg'
 
 export const assets = {
     arrow_black,
@@ -53,5 +56,36 @@ export const assets = {
     mysql,
     react,
     github_w,
-    cv
+    cv,
+    open_source,
+    complete,
+    building
 }
+
+
+export const timelineData = [
+    { 
+        img: building,
+        date: '8/11/2024', 
+        title: 'Working on internship', 
+        description: 'Started an internship with Codec Technologies India in web development.' 
+    },
+    { 
+        img: open_source,
+        date: '01/10/2024 - 11/11/2024', 
+        title: 'Completed GSSOC-Extd', 
+        description: 'Completed this rewarding journey with six hard-earned badges as a Contributor in the GirlScript Summer of Code 2024.' 
+    },
+    { 
+        img: complete,
+        date: '03/11/24 - 5/11/2024', 
+        title: 'Completed Postman Certification', 
+        description: 'Achieved Student Expert certification in API fundamentals.' 
+    },
+    { 
+        img: open_source,
+        date: '4/10/2024 - 24/10/2024', 
+        title: 'Complete Hacktoberfest-24', 
+        description: 'Successfully cleared all 4 contribution levels in Hacktoberfest 2024.' 
+    }
+];
