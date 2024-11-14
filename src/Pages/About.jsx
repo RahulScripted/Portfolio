@@ -13,7 +13,7 @@ function About() {
       </div>
 
        {/* Right Part */}
-      <div className="w-full flex flex-col max-sm:pl-5 pl-10 lg:pl-20 gap-10">
+      <div className="w-full flex flex-col max-sm:pl-5 pl-10 lg:pl-20 gap-28">
 
         {/* About - element */}
         <AboutElement />

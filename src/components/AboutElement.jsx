@@ -5,15 +5,15 @@ function AboutElement() {
 
   const rahulCV = './cv.pdf'
   return (
-    <div className='w-full flex flex-col gap-12'>
+    <div className='w-full flex flex-col gap-24'>
 
         {/* Text Part */}
         <div className='w-full flex flex-col gap-4'>
 
             {/* Heading */}
-            <h1 className="text-4xl md:text-7xl lg:text-12xl font-bold text-white">
-                ABOUT <br className='max-lg:hidden' />
-                <span className="text-[#353334]">ME</span>
+            <h1 className="text-5xl md:text-7xl lg:text-12xl font-bold text-white">
+                ABOUT
+                <span className="text-[#353334]"> ME</span>
             </h1>
             
             {/* Paragraph */}
@@ -29,10 +29,11 @@ function AboutElement() {
 
         {/* Skills */}
         <div className='w-full items-center justify-center flex flex-col gap-10'>
+
             {/* Heading */}
-            <h1 className="text-4xl md:text-7xl lg:text-12xl font-bold text-white">
-                MY <br className='max-lg:hidden' />
-                <span className="text-[#353334]">SKILLS</span>
+            <h1 className="text-5xl md:text-7xl lg:text-12xl font-bold text-white">
+                MY
+                <span className="text-[#353334]"> SKILLS</span>
             </h1>
 
             {/* Skill's Images */}

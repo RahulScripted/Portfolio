@@ -23,7 +23,7 @@ function Contact() {
   return (
     <div className="w-full min-h-screen flex items-center justify-center">
       <div className="w-full bg-transparent">
-        <h1 className='text-4xl md:text-6xl lg:text-10xl font-bold text-white mb-8'>
+        <h1 className='text-5xl md:text-7xl lg:text-10xl font-bold text-white mb-8'>
           LET'S CONNECT <br /> <span className='text-[#353334]'>TOGETHER</span>
         </h1>
 

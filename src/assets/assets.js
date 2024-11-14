@@ -68,24 +68,32 @@ export const timelineData = [
         img: building,
         date: '8/11/2024', 
         title: 'Working on internship', 
-        description: 'Started an internship with Codec Technologies India in web development.' 
+        description: 'Started an internship with Codec Technologies India in web development.',
+        btnText: 'View',
+        btnLink: 'https://drive.google.com/file/d/1DVeOSBq9lKtu8wtR_-EX8mnErX0vUqdZ/view?usp=drive_link'
     },
     { 
         img: open_source,
         date: '01/10/2024 - 11/11/2024', 
         title: 'Completed GSSOC-Extd', 
-        description: 'Completed this rewarding journey with six hard-earned badges as a Contributor in the GirlScript Summer of Code 2024.' 
+        description: 'Completed this rewarding journey with six hard-earned badges as a Contributor in the GirlScript Summer of Code 2024.',
+        btnText: 'View' ,
+        btnLink: 'https://drive.google.com/file/d/1O1aFAY6CQt1awOZcAInvY_dErQgmFhlW/view?usp=drive_link'
     },
     { 
         img: complete,
         date: '03/11/24 - 5/11/2024', 
         title: 'Completed Postman Certification', 
-        description: 'Achieved Student Expert certification in API fundamentals.' 
+        description: 'Achieved Student Expert certification in API fundamentals.',
+        btnText: 'View',
+        btnLink: 'https://api.badgr.io/public/assertions/7Osw76MmTBOm1Hz2B-hzOQ?identity__email=goswami.rahul1002%40gmail.com' 
     },
     { 
         img: open_source,
         date: '4/10/2024 - 24/10/2024', 
         title: 'Complete Hacktoberfest-24', 
-        description: 'Successfully cleared all 4 contribution levels in Hacktoberfest 2024.' 
+        description: 'Successfully cleared all 4 contribution levels in Hacktoberfest 2024.',
+        btnText: 'View' ,
+        btnLink: 'https://www.holopin.io/@goswami2001#badges'
     }
 ];

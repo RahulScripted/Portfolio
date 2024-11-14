@@ -15,7 +15,7 @@ function Home() {
       </div>
 
        {/* Right Part */}
-      <div className="w-full flex flex-col max-sm:pl-5 pl-10 lg:pl-20 gap-20">
+      <div className="w-full flex flex-col max-sm:pl-5 pl-10 lg:pl-20 gap-28">
 
         {/* Home - element */}
         <HomeElement />

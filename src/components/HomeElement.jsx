@@ -10,7 +10,7 @@ function HomeElement() {
         <div className="mb-12">
 
           {/* Heading */}
-          <h1 className="text-4xl md:text-7xl lg:text-12xl font-bold text-white">
+          <h1 className="text-5xl md:text-7xl lg:text-12xl font-bold text-white">
             RAHUL <br className='max-lg:hidden' />
             <span className="text-[#353334]">GOSWAMI</span>
           </h1>
