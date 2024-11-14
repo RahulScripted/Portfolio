@@ -34,12 +34,12 @@ function NavBar() {
         
         </Link>
 
-        {/* Thoughts Icon */}
-        <Link to="/thoughts" className="relative group cursor-pointer">
+        {/* Experience Icon */}
+        <Link to="/experience" className="relative group cursor-pointer">
           
-          <img className="transition-all ease-in-out group-hover:scale-110" width={25} src={assets.thoughts} alt="thoughts" />
+          <img className="transition-all ease-in-out group-hover:scale-110" width={25} src={assets.experience} alt="experience" />
           
-          <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-white text-xs absolute top-0 left-1/2 transform -translate-x-1/2 translate-y-10 bg-[#1C1A19] px-2 py-0.5 rounded-full">Thoughts</span>
+          <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-white text-xs absolute top-0 left-1/2 transform -translate-x-1/2 translate-y-10 bg-[#1C1A19] px-2 py-0.5 rounded-full">Experience</span>
         
         </Link>
       </div>

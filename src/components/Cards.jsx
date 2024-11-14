@@ -12,7 +12,7 @@ function Cards() {
         <h1 className='text-3xl font-semibold  mt-5'>Rahul Goswami</h1>
 
         {/* Profile Description */}
-        <p className='text-center mt-5 lg:mt-10'>I am in my final year at Bankura Unnayani Institute of Engineering, honing my skills to become a proficient front-end developer. With a strong foundation in C++, I am passionate about leveraging my programming expertise to create innovative and user-friendly web experiences.</p>
+        <p className='text-center mt-5 lg:mt-10'>I am passionate about leveraging my programming expertise to create innovative and user-friendly web experiences.</p>
 
         {/* Social Media */}
         <div className='mt-5 flex flex-wrap items-center justify-center gap-10'>
