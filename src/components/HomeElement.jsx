@@ -28,13 +28,13 @@ function HomeElement() {
 
           {/* Experience */}
           <div className="flex flex-col items-center">
-            <h1 className="text-5xl font-bold text-white">+0</h1>
+            <h1 className="text-7xl font-bold text-white">+0</h1>
             <h3 className="text-[#B0B0B0] font-semibold mt-2">Year Experience</h3>
           </div>
 
           {/* Projects */}
           <div className="flex flex-col items-center">
-            <h1 className="text-5xl font-bold text-white">+5</h1>
+            <h1 className="text-7xl font-bold text-white">+5</h1>
             <h3 className="text-[#B0B0B0] font-semibold mt-2">Projects</h3>
           </div>
 
@@ -81,7 +81,7 @@ function HomeElement() {
             <img width={30} src={assets.layout} alt="layout" />
 
             {/* Text */}
-            <h3 className='mt-5 text-black text-2xl font-semibold'>FRAMER, FIGMA, WORDPRESS, <br className='max-lg:hidden' /> REACTJS</h3>
+            <h3 className='mt-5 text-black text-2xl font-semibold'>HTML, CSS, JAVASCRIPT, <br className='max-lg:hidden' /> REACTJS</h3>
 
             {/* Link to Project Section */}
             <Link to="/project" className='flex items-center justify-end mt-7'>

@@ -23,7 +23,7 @@ const Timeline = () => {
                         alignItems: 'center',
                         justifyContent: 'center',
                     }}
-                    icon={<img width={20} src={event.img} alt='img'/>}
+                    icon={<img width={25} src={event.img} alt='img'/>}
                 >
                     {/* Subtitle */}
                     <h5 className='text-sm mb-2 font-medium'>{event.date}</h5>
@@ -36,7 +36,7 @@ const Timeline = () => {
                         fontWeight:'400', marginTop:'10px', marginBottom:'15px'
                     }}>{event.description}</p>
 
-                    <a href={event.btnLink}  target='_blank' rel='noopener noreferrer' className='px-5 py-1 bg-[#1C1A19] cursor-pointer text-white rounded-full'>{console.log(event.btnLink)}{event.btnText}</a>
+                    <a href={event.btnLink}  target='_blank' rel='noopener noreferrer' className='px-5 py-1 bg-[#1C1A19] cursor-pointer text-white rounded-full border hover:bg-white hover:text-[#1C1A19] transition-all duration-500'>{console.log(event.btnLink)}{event.btnText}</a>
 
                 </VerticalTimelineElement>
             ))}
