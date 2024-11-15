@@ -1,4 +1,5 @@
 import React from 'react'
+import { motion } from 'framer-motion';
 import { NavLink } from 'react-router-dom';
 import { assets } from '../assets/assets'
 
@@ -14,7 +15,16 @@ function NavBar() {
 
   return (
     <div className="w-full p-5 flex items-center justify-center">
-      <div className="bg-[#1C1A19] px-7 py-3 rounded-full flex gap-10 items-center justify-center">
+      <motion.div
+        className="bg-[#1C1A19] px-7 py-3 rounded-full flex gap-10 items-center justify-center"
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{
+          duration: 0.6,
+          ease: "easeInOut",
+          bounce: 0.3,
+        }}
+      >
         
         {/* Home Icon */}
         <NavLink style={navLinkStyle} to="/" className="relative group cursor-pointer">
@@ -51,7 +61,7 @@ function NavBar() {
           <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-white text-xs absolute top-0 left-1/2 transform -translate-x-1/2 translate-y-10 bg-[#1C1A19] px-2 py-0.5 rounded-full">Experience</span>
         
         </NavLink>
-      </div>
+      </motion.div>
     </div>
   )
 }

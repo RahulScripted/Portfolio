@@ -6,7 +6,7 @@ function Cards() {
     <div className='w-full pt-10 pb-10 pl-5 pr-5 h-auto lg:w-[350px] bg-white flex items-center justify-center flex-col rounded-md text-black text-center'>
 
         {/* Profile Image */}
-        <img className='w-[175px] lg:h-[280px] object-cover md:w-[200px] rounded-lg pt-5 pl-5 pr-5 bg-[#9E2101]' src={assets.profile_pic} alt="profile_pic" />
+        <img className='w-[175px] lg:h-[220px] object-cover md:w-[200px] rounded-lg pt-5 pl-5 pr-5 bg-[#9E2101]' src={assets.profile_pic} alt="profile_pic" />
 
         {/* Profile Name */}
         <h1 className='text-3xl font-semibold mt-5 lg:mt-7'>Rahul Goswami</h1>

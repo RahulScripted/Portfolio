@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion'; // Import motion from Framer Motion
 
 function Contact() {
   const [formData, setFormData] = useState({
@@ -55,12 +56,27 @@ function Contact() {
   return (
     <div className="w-full min-h-screen flex items-center justify-center text-black">
       <div className="w-full bg-transparent">
-        <h1 className="text-5xl md:text-7xl lg:text-10xl font-bold text-white mb-8">
+        <motion.h1
+          className="text-5xl md:text-7xl lg:text-10xl font-bold text-white mb-8"
+          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: -50 }}
+          transition={{ duration: 1 }}
+        >
           LET'S CONNECT <br /> <span className="text-[#353334]">TOGETHER</span>
-        </h1>
+        </motion.h1>
 
-        <form onSubmit={onSubmit} className="space-y-4">
-          <div>
+        <motion.form
+          onSubmit={onSubmit}
+          className="space-y-4"
+          whileInView={{ opacity: 1, x: 0 }}
+          initial={{ opacity: 0, x: -100 }}
+          transition={{ duration: 1 }}
+        >
+          <motion.div
+            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, x: -50 }}
+            transition={{ duration: 1 }}
+          >
             <label htmlFor="name" className="block text-white text-lg">Name</label>
             <input
               type="text"
@@ -72,9 +88,13 @@ function Contact() {
               placeholder="Enter your name"
               required
             />
-          </div>
+          </motion.div>
 
-          <div>
+          <motion.div
+            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, x: -50 }}
+            transition={{ duration: 1 }}
+          >
             <label htmlFor="email" className="block text-white text-lg">Email</label>
             <input
               type="email"
@@ -86,9 +106,13 @@ function Contact() {
               placeholder="Enter your email"
               required
             />
-          </div>
+          </motion.div>
 
-          <div>
+          <motion.div
+            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, x: -50 }}
+            transition={{ duration: 1 }}
+          >
             <label htmlFor="message" className="block text-white text-lg">Message</label>
             <textarea
               id="message"
@@ -100,28 +124,39 @@ function Contact() {
               rows="5"
               required
             ></textarea>
-          </div>
+          </motion.div>
 
-          <button
+          <motion.button
             type="submit"
             className="w-full py-3 bg-[#F46C38] text-white rounded-lg hover:bg-[#d05626] transition-all"
+            whileInView={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, scale: 0.5 }}
+            transition={{ duration: 0.5 }}
           >
             Submit
-          </button>
-        </form>
+          </motion.button>
+        </motion.form>
 
         {isPopupVisible && (
-          <div className="fixed inset-0 bg-[#2C2A29] bg-opacity-50 flex justify-center items-center text-white">
+          <motion.div
+            className="fixed inset-0 bg-[#2C2A29] bg-opacity-50 flex justify-center items-center text-white"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+          >
             <div className="bg-[#2C2A29] p-6 rounded-lg shadow-lg max-w-sm w-full text-center">
               <h3 className="text-lg font-semibold">{result}</h3>
-              <button
+              <motion.button
                 onClick={closePopup}
                 className="mt-4 px-4 py-2 bg-[#F46C38] text-white rounded-md hover:bg-[#d05626]"
+                whileInView={{ opacity: 1 }}
+                initial={{ opacity: 0 }}
+                transition={{ duration: 1 }}
               >
                 Close
-              </button>
+              </motion.button>
             </div>
-          </div>
+          </motion.div>
         )}
       </div>
     </div>

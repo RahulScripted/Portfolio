@@ -24,6 +24,7 @@ import javascript from './javascript.svg'
 import tailwind from './tailwind.svg'
 import vercel from './vercel.svg'
 import mysql from './mysql.svg'
+import framer from './framer.png'
 import cv from './cv.pdf'
 import open_source from './open_source.svg'
 import complete from './complete.svg'
@@ -60,6 +61,7 @@ export const assets = {
     mysql,
     react,
     github_w,
+    framer,
     cv,
     open_source,
     complete,
