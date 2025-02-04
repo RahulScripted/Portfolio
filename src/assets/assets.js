@@ -33,6 +33,7 @@ import projects1 from './projects1.png'
 import projects2 from './projects2.png'
 import projects3 from './projects3.png'
 import projects4 from './projects4.png'
+import projects5 from './projects5.png'
 
 export const assets = {
     arrow_black,
@@ -69,7 +70,8 @@ export const assets = {
     projects1,
     projects2,
     projects3,
-    projects4
+    projects4,
+    projects5
 }
 
 
