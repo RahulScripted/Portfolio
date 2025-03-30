@@ -77,14 +77,6 @@ export const assets = {
 
 export const timelineData = [
     { 
-        img: building,
-        date: '8/11/2024', 
-        title: 'Working on internship', 
-        description: 'Started an internship with Codec Technologies India in web development.',
-        btnText: 'View',
-        btnLink: 'https://drive.google.com/file/d/1DVeOSBq9lKtu8wtR_-EX8mnErX0vUqdZ/view?usp=drive_link'
-    },
-    { 
         img: open_source,
         date: '01/10/2024 - 11/11/2024', 
         title: 'Completed GSSOC-Extd', 
