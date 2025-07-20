@@ -1,5 +1,4 @@
-import React from 'react';
-import { motion } from 'framer-motion'; // Import motion from Framer Motion
+import { motion } from 'framer-motion';
 import { assets } from '../assets/assets';
 
 function AboutElement() {
@@ -50,7 +49,7 @@ function AboutElement() {
           whileInView="visible"
           viewport={{ Infinity }}
         >
-          Hi, I'm Rahul Goswami — a front-end developer passionate about creating clean, engaging user experiences. Currently in my final year at Bankura Unnayani Institute of Engineering, I've built various web projects using JavaScript, Tailwind CSS, and React.
+          Hi, I'm Rahul Goswami — a front-end developer driven by a passion for building clean, interactive, and user-friendly web interfaces. Currently working as a Junior Software Engineer (Frontend) at Mintifi, I bring a strong foundation in the MERN stack and a focus on crafting engaging digital experiences. I'm in the final year of my B.Tech in Information Technology at Bankura Unnayani Institute of Engineering, and have developed several full-stack projects, emphasizing scalable architecture, real-time interaction, and seamless UX.
         </motion.p>
 
         <a href={assets.cv} download={rahulCV.pdf} target='_blank'>

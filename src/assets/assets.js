@@ -27,13 +27,12 @@ import mysql from './mysql.svg'
 import framer from './framer.png'
 import cv from './cv.pdf'
 import open_source from './open_source.svg'
+import work from './work.svg'
 import complete from './complete.svg'
 import building from './building.svg'
 import projects1 from './projects1.png'
 import projects2 from './projects2.png'
 import projects3 from './projects3.png'
-import projects4 from './projects4.png'
-import projects5 from './projects5.png'
 
 export const assets = {
     arrow_black,
@@ -69,13 +68,19 @@ export const assets = {
     building,
     projects1,
     projects2,
-    projects3,
-    projects4,
-    projects5
+    projects3
 }
 
 
 export const timelineData = [
+    {
+        img: work,
+        date: '20/06/2025 - Present',
+        title: 'Junior Software Engineer',
+        description: 'Joined Mintifi as a Junior Software Engineer, contributing to scalable fintech solutions and working closely with the engineering team on frontend development and platform optimization.',
+        btnText: 'Company Website',
+        btnLink: 'https://mintifi.com/'
+    },
     { 
         img: open_source,
         date: '01/10/2024 - 11/11/2024', 

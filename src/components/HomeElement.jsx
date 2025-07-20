@@ -1,5 +1,4 @@
-import React from 'react';
-import { motion } from 'framer-motion'; // Import Framer Motion
+import { motion } from 'framer-motion';
 import { assets } from '../assets/assets';
 import { Link } from 'react-router-dom';
 
@@ -109,7 +108,7 @@ function HomeElement() {
           <img width={30} src={assets.layout} alt="layout" />
 
           {/* Text */}
-          <h3 className="mt-5 text-black text-2xl font-semibold">HTML, CSS, JAVASCRIPT, <br className="max-lg:hidden" /> REACTJS</h3>
+          <h3 className="mt-5 text-black text-2xl font-semibold">Frontend Development<br className="max-lg:hidden" /> React</h3>
 
           {/* Link to Project Section */}
           <Link to="/project" className="flex items-center justify-end mt-7">
