@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { assets } from '../assets/assets';
+import GithubContribution from './GithubContribution';
 
 function AboutElement() {
   const rahulCV = './cv.pdf';
@@ -221,6 +222,10 @@ function AboutElement() {
           </motion.div>
         </div>
       </div>
+
+      
+      {/* Contribution */}
+      <GithubContribution />
     </div>
   );
 }
