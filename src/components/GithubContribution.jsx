@@ -18,7 +18,7 @@ const GithubContribution = () => {
       
       {/* Heading Animation */}
       <motion.h1
-        className="text-5xl md:text-7xl lg:text-12xl font-bold text-white"
+        className="text-5xl md:text-7xl lg:text-12xl font-bold text-white hidden md:block"
         variants={headingVariant}
         initial="hidden"
         whileInView="visible"
@@ -33,6 +33,7 @@ const GithubContribution = () => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
+        className="hidden md:block"
       >
         <GitHubCalendar
           username="RahulScripted"
