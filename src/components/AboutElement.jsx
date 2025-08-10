@@ -196,30 +196,6 @@ function AboutElement() {
             <img className='hover:scale-110 duration-500' width={70} src={assets.github_w} alt="github" />
             <p className='text-md text-gray-400 font-semibold'>GITHUB</p>
           </motion.div>
-
-          {/* VERCEL */}
-          <motion.div
-            className='flex flex-col cursor-pointer items-center justify-center gap-2'
-            variants={skillVariant}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ Infinity }}
-          >
-            <img className='hover:scale-110 duration-500' width={70} src={assets.framer} alt="framer" />
-            <p className='text-md text-gray-400 font-semibold'>FRAMER</p>
-          </motion.div>
-
-          {/* VERCEL */}
-          <motion.div
-            className='flex flex-col cursor-pointer items-center justify-center gap-2'
-            variants={skillVariant}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ Infinity }}
-          >
-            <img className='hover:scale-110 duration-500' width={70} src={assets.vercel} alt="vercel" />
-            <p className='text-md text-gray-400 font-semibold'>VERCEL</p>
-          </motion.div>
         </div>
       </div>
 

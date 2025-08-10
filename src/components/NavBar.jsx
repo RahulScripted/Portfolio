@@ -1,4 +1,3 @@
-import React from 'react'
 import { motion } from 'framer-motion';
 import { NavLink } from 'react-router-dom';
 import { assets } from '../assets/assets'
@@ -59,6 +58,16 @@ function NavBar() {
           <img className="transition-all ease-in-out group-hover:scale-110" width={25} src={assets.experience} alt="experience" />
           
           <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-white text-xs absolute top-0 left-1/2 transform -translate-x-1/2 translate-y-10 bg-[#1C1A19] px-2 py-0.5 rounded-full">Experience</span>
+        
+        </NavLink>
+
+        
+        {/* Achievement Icon */}
+        <NavLink style={navLinkStyle}  to="/achievement" className="relative group cursor-pointer">
+          
+          <img className="transition-all ease-in-out group-hover:scale-110" width={25} src={assets.Achievement} alt="experience" />
+          
+          <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-white text-xs absolute top-0 left-1/2 transform -translate-x-1/2 translate-y-10 bg-[#1C1A19] px-2 py-0.5 rounded-full">Achievement</span>
         
         </NavLink>
       </motion.div>

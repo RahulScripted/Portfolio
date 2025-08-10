@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion';
 import { assets } from '../assets/assets';
-import { Link } from 'react-router-dom';
 
 function HomeElement() {
   return (
@@ -74,19 +73,13 @@ function HomeElement() {
           initial={{ opacity: 0, x: -50 }}
           whileHover={{ scale: 1.05 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.4, duration: 0.8 }}
+          transition={{ delay: 0.1, duration: 0.4 }}
         >
           {/* Image */}
           <img width={30} src={assets.stack} alt="stack" />
 
           {/* Text on Card */}
-          <h3 className="mt-5 text-2xl font-semibold">DYNAMIC <br className="max-md:hidden" /> ANIMATION, <br className="max-md:hidden" /> MOTION DESIGN</h3>
-
-          {/* Link to About */}
-          <Link to="/about" className="flex items-center justify-end mt-7">
-            {/* Arrow Image */}
-            <img className="absolute bottom-5 right-5 p-1 w-8 h-30 border border-white rounded-sm hover:opacity-75 transition-all duration-300" src={assets.arrow_white} alt="arrow_white" />
-          </Link>
+          <h3 className="mt-5 text-2xl font-semibold">DYNAMIC, ANIMATION <br className="max-md:hidden" /> MOTION DESIGN</h3>
         </motion.div>
 
         {/* 2nd Card */}
@@ -102,19 +95,13 @@ function HomeElement() {
           initial={{ opacity: 0, x: 50 }}
           whileHover={{ scale: 1.05 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.5, duration: 0.8 }}
+          transition={{ delay: 0.1, duration: 0.4 }}
         >
           {/* Image */}
           <img width={30} src={assets.layout} alt="layout" />
 
           {/* Text */}
-          <h3 className="mt-5 text-black text-2xl font-semibold">Frontend Development<br className="max-lg:hidden" /> React</h3>
-
-          {/* Link to Project Section */}
-          <Link to="/project" className="flex items-center justify-end mt-7">
-            {/* Arrow Image */}
-            <img className="absolute bottom-5 right-5 p-1 w-8 h-30 border border-black rounded-sm hover:opacity-75 transition-all duration-300" src={assets.arrow_black} alt="arrow_black" />
-          </Link>
+          <h3 className="mt-5 text-black text-2xl font-semibold">Frontend Development </h3>
         </motion.div>
       </div>
     </div>

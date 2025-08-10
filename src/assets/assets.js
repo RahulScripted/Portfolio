@@ -1,4 +1,3 @@
-import arrow_black from './arrow_black.svg'
 import arrow_right_up from './arrow_right_up.svg'
 import arrow_white from './arrow_white.svg'
 import folder from './folder.svg'
@@ -22,9 +21,7 @@ import github_w from './github_w.svg'
 import react from './react.svg'
 import javascript from './javascript.svg'
 import tailwind from './tailwind.svg'
-import vercel from './vercel.svg'
 import mysql from './mysql.svg'
-import framer from './framer.png'
 import cv from './cv.pdf'
 import open_source from './open_source.svg'
 import work from './work.svg'
@@ -33,9 +30,9 @@ import building from './building.svg'
 import projects1 from './projects1.png'
 import projects2 from './projects2.png'
 import projects3 from './projects3.png'
+import Achievement from './Achievement.svg'
 
 export const assets = {
-    arrow_black,
     arrow_right_up,
     arrow_white,
     folder,
@@ -55,20 +52,19 @@ export const assets = {
     css,
     javascript,
     cpp,
-    vercel,
     git,
     tailwind,
     mysql,
     react,
     github_w,
-    framer,
     cv,
     open_source,
     complete,
     building,
     projects1,
     projects2,
-    projects3
+    projects3,
+    Achievement
 }
 
 
