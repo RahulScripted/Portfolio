@@ -1,5 +1,7 @@
 import { motion } from 'framer-motion';
 import Cards from '../components/Cards';
+import Contact from '../components/Contact';
+import SwagsBadges from '../components/SwagsBadges';
 
 
 const Achievement = () => {
@@ -15,6 +17,28 @@ const Achievement = () => {
       >
         <Cards />
       </motion.div>
+
+      {/* Right Part */}
+      <div className="w-full flex flex-col max-sm:pl-5 pl-10 lg:pl-20 gap-28">
+        
+          {/* About - element */}
+          <motion.div 
+            initial={{ opacity: 0 }} 
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 0.3 }}
+          >
+            <SwagsBadges />
+          </motion.div>
+
+        {/* Contact - element */}
+          <motion.div 
+            initial={{ opacity: 0 }} 
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 0.6 }}
+          >
+            <Contact />
+          </motion.div>
+        </div>
     </div>
   )
 }
