@@ -31,8 +31,10 @@ import projects1 from './projects1.png'
 import projects2 from './projects2.png'
 import projects3 from './projects3.png'
 import Achievement from './Achievement.svg'
+import GFG from './GFG.jpg'
 
 export const assets = {
+    GFG,
     arrow_right_up,
     arrow_white,
     folder,

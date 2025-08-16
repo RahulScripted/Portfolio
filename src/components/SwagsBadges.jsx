@@ -1,7 +1,23 @@
 import { Tooltip } from 'antd'
 import { motion } from 'framer-motion';
+import  { assets } from '../assets/assets'
 
 const SwagsBadges = () => {
+
+  const swags = [
+    {
+        id: 1,
+        img: assets.GFG,
+        title: "GeeksForGeeks Swag",
+        description: "Completed 160 days challenge in GeeksForGeeks"
+    },
+    {
+        id: 2,
+        img: assets.GFG,
+        title: "Google Arcade Swag",
+        description: "Achieving Arcade Trooper in Google Arcade"
+    },
+  ]
 
   // Define animation variants for the elements
   const headingVariant = {
@@ -26,36 +42,24 @@ const SwagsBadges = () => {
             </motion.h1>
 
             <div className='w-full flex items-center justify-around'>
+                {swags.map((item,idx) => (
+                    <Tooltip
+                        title={item.description}
+                        key={idx}
+                        className='flex flex-col items-center justify-center'
+                    >   
+                        <div className='flex flex-col gap-3'>
 
-                {/* 1st ToolTip - GFG Swag */}
-                <Tooltip
-                    title="On Successfully completed GFG 160 days challenge"
-                    className='flex flex-col items-center justify-center'
-                >   
-                    <div className='flex flex-col gap-3'>
+                            {/* Image */}
+                            <div className='flex items-center justify-center w-[125px] h-[125px] rounded-full border-4 p-2 border-violet-600 overflow-hidden'>
+                                <img src={item.img} alt="Image" className='w-full h-full scale-[116%] cursor-pointer' />
+                            </div>
 
-                        {/* Image */}
-                        <div className='flex items-center justify-center w-[125px] h-[125px] rounded-full bg-red-700 border-2 border-violet-600'></div>
-
-                        {/* Sub Title */}
-                        <h3 className='text-center'>Geeksforgeeks Swag</h3>
-                    </div>
-                </Tooltip>
-
-                {/* 2nd ToolTip - Google Arcade */}
-                <Tooltip
-                    title="Achieving Trooper status in Google Arcade-2025"
-                    className='flex flex-col items-center justify-center'
-                >   
-                    <div className='flex flex-col gap-3'>
-
-                        {/* Image */}
-                        <div className='flex items-center justify-center w-[125px] h-[125px] rounded-full bg-red-700 border-2 border-violet-600'></div>
-
-                        {/* Sub Title */}
-                        <h3 className='text-center'>Google Arcade Swag</h3>
-                    </div>
-                </Tooltip>
+                            {/* Sub Title */}
+                            <h3 className='text-center'>{item.title}</h3>
+                        </div>
+                    </Tooltip>
+                ))}
             </div>
         </div>
 
