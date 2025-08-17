@@ -6,6 +6,7 @@ import Contact from '../components/Contact';
 import AboutElement from '../components/AboutElement';
 import Timeline from '../components/Timeline';
 import ProjectElement from '../components/ProjectElement';
+import SwagsBadges from '../components/SwagsBadges';
 
 function Home() {
   useEffect(() => {
@@ -65,6 +66,15 @@ function Home() {
           transition={{ duration: 1, delay: 1.2 }}
         >
           <Timeline />
+        </motion.div>
+
+        {/* Achievement - element */}
+        <motion.div 
+          initial={{ opacity: 0 }} 
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 1.2 }}
+        >
+          <SwagsBadges />
         </motion.div>
 
         {/* Contact - element */}

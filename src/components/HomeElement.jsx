@@ -14,7 +14,7 @@ function HomeElement() {
       >
         {/* Heading */}
         <h1 className="text-5xl md:text-7xl lg:text-12xl font-bold text-white">
-          RAHUL <br className="max-lg:hidden" />
+          RAHUL {" "}
           <motion.span 
             className="text-[#353334]"
             initial={{ opacity: 0 }}
@@ -32,9 +32,7 @@ function HomeElement() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.8 }}
         >
-          Passionate about creating intuitive and engaging <br className="max-md:hidden" />
-          user experiences. Specialize in transforming ideas <br className="max-md:hidden" />
-          into beautifully crafted products.
+          Creative and detail-oriented full-stack developer, specializing in building seamless and engaging user experiences. Adept at turning concepts into interactive, secure, and high-performing products using modern web technologies. Experienced in delivering scalable solutions through innovative design and collaborative problem-solving.
         </motion.p>
       </motion.div>
 
@@ -47,14 +45,14 @@ function HomeElement() {
       >
         {/* Experience */}
         <div className="flex flex-col items-center">
-          <h1 className="text-7xl font-bold text-white">+0</h1>
-          <h3 className="text-[#B0B0B0] font-semibold mt-2">Year Experience</h3>
+          <h1 className="text-7xl font-bold text-white">+0.3</h1>
+          <h3 className="text-[#B0B0B0] text-center font-semibold mt-2">Year Experience</h3>
         </div>
 
         {/* Projects */}
         <div className="flex flex-col items-center">
           <h1 className="text-7xl font-bold text-white">+5</h1>
-          <h3 className="text-[#B0B0B0] font-semibold mt-2">Projects</h3>
+          <h3 className="text-[#B0B0B0] text-center font-semibold mt-2">Projects</h3>
         </div>
       </motion.div>
 
@@ -101,7 +99,8 @@ function HomeElement() {
           <img width={30} src={assets.layout} alt="layout" />
 
           {/* Text */}
-          <h3 className="mt-5 text-black text-2xl font-semibold">Frontend Development </h3>
+          <h3 className="mt-5 text-black text-2xl font-semibold">Software Engineer</h3>
+          <h3 className="text-black text-2xl font-semibold">Frontend Development</h3>
         </motion.div>
       </div>
     </div>

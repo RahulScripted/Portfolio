@@ -32,9 +32,48 @@ import projects2 from './projects2.png'
 import projects3 from './projects3.png'
 import Achievement from './Achievement.svg'
 import GFG from './GFG.jpg'
+import Arcade from './Arcade.png'
+import Hacktoberfest0 from './Hacktoberfest0.png'
+import Hacktoberfest1 from './Hacktoberfest1.png'
+import Hacktoberfest2 from './Hacktoberfest2.png'
+import Hacktoberfest3 from './Hacktoberfest3.png'
+import Hacktoberfest4 from './Hacktoberfest4.png'
+import Postman from './Postman.png'
+import GirlScript1 from './GirlScript1.png'
+import GirlScript2 from './GirlScript2.png'
+import GirlScript3 from './GirlScript3.png'
+import GirlScript4 from './GirlScript4.png'
+import GirlScript5 from './GirlScript5.png'
+import Leetcode1 from './Leetcode1.gif'
+import Leetcode2 from './Leetcode2.gif'
+import Leetcode3 from './Leetcode3.gif'
+import Leetcode4 from './Leetcode4.gif'
+import Leetcode5 from './Leetcode5.gif'
+import Leetcode6 from './Leetcode6.gif'
+import Leetcode7 from './Leetcode7.gif'
+
 
 export const assets = {
     GFG,
+    Arcade,
+    Leetcode1,
+    Leetcode2,
+    Leetcode3,
+    Leetcode4,
+    Leetcode5,
+    Leetcode6,
+    Leetcode7,
+    Hacktoberfest0,
+    Hacktoberfest1,
+    Hacktoberfest2,
+    Hacktoberfest3,
+    Hacktoberfest4,
+    Postman,
+    GirlScript1,
+    GirlScript2,
+    GirlScript3,
+    GirlScript4,
+    GirlScript5,
     arrow_right_up,
     arrow_white,
     folder,
