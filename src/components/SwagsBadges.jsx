@@ -4,9 +4,10 @@ import  { assets } from '../assets/assets'
 import { useState } from 'react';
 
 const SwagsBadges = () => {
-    const [isOpen, setIsOpen] = useState(false)
-    const [selectedImage, setSelectedImage] = useState(null);
-
+  const [isOpen, setIsOpen] = useState(false)
+  const [selectedImage, setSelectedImage] = useState(null);
+  
+  // Swags
   const swags = [
     {
         id: 1,
@@ -22,112 +23,125 @@ const SwagsBadges = () => {
     },
   ]
 
+  // Badges
   const badges = [ 
     {
         id: 1,
         img: assets.Leetcode1,
-        title: "50 days Badge",
-        description: "Continuously solving 50 days Problems in Leetcode"
+        title: "50 days badge",
+        description: "Continuously solving 50 days problems in Leetcode"
     },
     {
         id: 2,
         img: assets.Leetcode2,
-        title: "October Leetcode Challenge",
-        description: "Complete October Leetcode Challenge"
+        title: "October Leetcode challenge",
+        description: "Complete October Leetcode challenge"
     },
     {
         id: 3,
         img: assets.Leetcode3,
-        title: "November Leetcode Challenge",
-        description: "Complete November Leetcode Challenge"
+        title: "November Leetcode challenge",
+        description: "Complete November Leetcode challenge"
     },
     {
         id: 4,
         img: assets.Leetcode4,
-        title: "Top Interview 150 Challenge",
-        description: "Complete Top Interview 150 Leetcode Challenge"
+        title: "Top Interview 150 challenge",
+        description: "Complete Top Interview 150 Leetcode challenge"
     },
     {
         id: 5,
         img: assets.Leetcode5,
-        title: "Leetcode 75 Challenge",
-        description: "Complete Leetcode 75 Leetcode Challenge"
+        title: "Leetcode 75 challenge",
+        description: "Complete Leetcode 75 Leetcode challenge"
     },
     {
         id: 6,
         img: assets.Leetcode6,
-        title: "Top 100 Liked Challenge",
-        description: "Complete Top 100 Liked Leetcode Challenge"
+        title: "Top 100 Liked challenge",
+        description: "Complete Top 100 Liked Leetcode challenge"
     },
     {
         id: 7,
         img: assets.Leetcode7,
-        title: "Top SQL 50 Challenge",
-        description: "Complete Top SQL 50 Leetcode Challenge"
+        title: "Top SQL 50 challenge",
+        description: "Complete Top SQL 50 Leetcode challenge"
     },
     {
         id: 8,
+        img: assets.CodeChef1,
+        title: "100 days badge",
+        description: "Complete 100 days streak challenge in CodeChef"
+    },
+    {
+        id: 9,
+        img: assets.CodeChef2,
+        title: "Solve 1000+ Problems",
+        description: "Solve 1000+ problems in CodeChef"
+    },
+    {
+        id: 10,
         img: assets.Hacktoberfest0,
         title: "Register in Hacktoberfest",
         description: "Register as a contributor in Hacktoberfest"
     },
     {
-        id: 9,
+        id: 11,
         img: assets.Hacktoberfest1,
         title: "Level 1 Badge in Hacktoberfest",
         description: "Achieving Level 1 Badge in Hacktoberfest"
     },
     {
-        id: 10,
+        id: 12,
         img: assets.Hacktoberfest2,
         title: "Level 2 Badge in Hacktoberfest",
         description: "Achieving Level 2 Badge in Hacktoberfest"
     },
     {
-        id: 11,
+        id: 13,
         img: assets.Hacktoberfest3,
         title: "Level 3 Badge in Hacktoberfest",
         description: "Achieving Level 3 Badge in Hacktoberfest"
     },
     {
-        id: 12,
+        id: 14,
         img: assets.Hacktoberfest4,
         title: "Level 4 Badge in Hacktoberfest",
         description: "Achieving Level 4 Badge in Hacktoberfest"
     },
     {
-        id: 13,
+        id: 15,
         img: assets.Postman,
         title: "Postman API Fundamentals",
         description: "Achieving Postman API Fundamentals Students Expert"
     },
     {
-        id: 14,
+        id: 16,
         img: assets.GirlScript1,
         title: "Explorer Badge",
         description: "Open-source contribution in GirlScript Summer of Code"
     },
     {
-        id: 15,
+        id: 17,
         img: assets.GirlScript2,
         title: "Adventurer Badge",
         description: "Open-source contribution in GirlScript Summer of Code"
     },
     {
-        id: 16,
+        id: 18,
         img: assets.GirlScript3,
         title: "Champion Badge",
         description: "Open-source contribution in GirlScript Summer of Code"
     },
     {
-        id: 17,
+        id: 19,
         img: assets.GirlScript4,
         title: "Summit Seeker Badge",
         description: "Open-source contribution in GirlScript Summer of Code"
     },
     
     {
-        id: 18,
+        id: 20,
         img: assets.GirlScript5,
         title: "TrailBrazer Badge",
         description: "Open-source contribution in GirlScript Summer of Code"

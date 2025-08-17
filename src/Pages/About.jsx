@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import Contact from '../components/Contact';
 import AboutElement from '../components/AboutElement';
 import Cards from '../components/Cards';
 
@@ -36,17 +35,7 @@ function About() {
         >
           <AboutElement />
         </motion.div>
-
-        {/* Contact - element */}
-        <motion.div 
-          initial={{ opacity: 0 }} 
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.6 }}
-        >
-          <Contact />
-        </motion.div>
       </div>
-
     </div>
   );
 }

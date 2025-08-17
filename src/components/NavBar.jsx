@@ -28,7 +28,7 @@ function NavBar() {
         {/* Home Icon */}
         <NavLink style={navLinkStyle} to="/" className="relative group cursor-pointer">
           
-          <img className="transition-all ease-in-out group-hover:scale-110" width={25} src={assets.home} alt="home" />
+          <img className="transition-all ease-in-out group-hover:scale-110 w-[25px]" src={assets.home} alt="home" />
           
           <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-white text-xs absolute top-0 left-1/2 transform -translate-x-1/2 translate-y-10 bg-[#1C1A19] px-2 py-0.5 rounded-full">Home</span>
         
@@ -37,7 +37,7 @@ function NavBar() {
         {/* About Icon */}
         <NavLink style={navLinkStyle}  to="/about" className="relative group cursor-pointer">
          
-          <img className="transition-all ease-in-out group-hover:scale-110" width={25} src={assets.folder} alt="about" />
+          <img className="transition-all ease-in-out group-hover:scale-110 w-[25px]" src={assets.folder} alt="about" />
          
           <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-white text-xs absolute top-0 left-1/2 transform -translate-x-1/2 translate-y-10 bg-[#1C1A19] px-2 py-0.5 rounded-full">About</span>
         
@@ -46,7 +46,7 @@ function NavBar() {
         {/* Projects Icon */}
         <NavLink style={navLinkStyle}  to="/project" className="relative group cursor-pointer">
           
-          <img className="transition-all ease-in-out group-hover:scale-110" width={25} src={assets.tool} alt="services" />
+          <img className="transition-all ease-in-out group-hover:scale-110 w-[25px]" src={assets.tool} alt="services" />
           
           <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-white text-xs absolute top-0 left-1/2 transform -translate-x-1/2 translate-y-10 bg-[#1C1A19] px-2 py-0.5 rounded-full">Projects</span>
         
@@ -55,7 +55,7 @@ function NavBar() {
         {/* Experience Icon */}
         <NavLink style={navLinkStyle}  to="/experience" className="relative group cursor-pointer">
           
-          <img className="transition-all ease-in-out group-hover:scale-110" width={25} src={assets.experience} alt="experience" />
+          <img className="transition-all ease-in-out group-hover:scale-110 w-[25px]" src={assets.experience} alt="experience" />
           
           <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-white text-xs absolute top-0 left-1/2 transform -translate-x-1/2 translate-y-10 bg-[#1C1A19] px-2 py-0.5 rounded-full">Experience</span>
         
@@ -65,7 +65,7 @@ function NavBar() {
         {/* Achievement Icon */}
         <NavLink style={navLinkStyle}  to="/achievement" className="relative group cursor-pointer">
           
-          <img className="transition-all ease-in-out group-hover:scale-110" width={25} src={assets.Achievement} alt="experience" />
+          <img className="transition-all ease-in-out group-hover:scale-110 w-[25px]"  src={assets.Achievement} alt="experience" />
           
           <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-white text-xs absolute top-0 left-1/2 transform -translate-x-1/2 translate-y-10 bg-[#1C1A19] px-2 py-0.5 rounded-full">Achievement</span>
         

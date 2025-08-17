@@ -51,6 +51,10 @@ import Leetcode4 from './Leetcode4.gif'
 import Leetcode5 from './Leetcode5.gif'
 import Leetcode6 from './Leetcode6.gif'
 import Leetcode7 from './Leetcode7.gif'
+import CodeChef1 from './CodeChef1.png'
+import CodeChef2 from './CodeChef2.png'
+import NextJs from './NextJs.svg'
+import TypeScript from './typescript.svg'
 
 
 export const assets = {
@@ -63,6 +67,8 @@ export const assets = {
     Leetcode5,
     Leetcode6,
     Leetcode7,
+    CodeChef1,
+    CodeChef2,
     Hacktoberfest0,
     Hacktoberfest1,
     Hacktoberfest2,
@@ -97,6 +103,8 @@ export const assets = {
     tailwind,
     mysql,
     react,
+    NextJs,
+    TypeScript,
     github_w,
     cv,
     open_source,

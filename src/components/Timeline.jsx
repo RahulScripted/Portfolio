@@ -1,11 +1,10 @@
-import React from 'react';
 import { VerticalTimeline, VerticalTimelineElement }  from 'react-vertical-timeline-component';
 import 'react-vertical-timeline-component/style.min.css';
 import { timelineData } from '../assets/assets';
 
 const Timeline = () => {
   return (
-    <div className='overflow-hidden flex flex-col gap-24'>
+    <div className='overflow-hidden flex flex-col gap-2'>
 
         {/* Tile */}
         <h1 className="text-5xl md:text-7xl lg:text-12xl font-bold text-white mb-12 text-center">

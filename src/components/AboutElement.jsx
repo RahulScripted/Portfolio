@@ -26,6 +26,62 @@ function AboutElement() {
     visible: { opacity: 1, scale: 1, transition: { duration: 0.8 } },
   };
 
+
+  const skillSet = [
+    {
+      id: 1,
+      img: assets.cpp,
+      title: "C++",
+    },
+    {
+      id: 2,
+      img: assets.html,
+      title: "HTML",
+    },{
+      id: 3,
+      img: assets.css,
+      title: "CSS",
+    },
+    {
+      id: 4,
+      img: assets.javascript,
+      title: "JavaScript",
+    },
+    {
+      id: 5,
+      img: assets.tailwind,
+      title: "Tailwind CSS",
+    },
+    {
+      id: 6,
+      img: assets.TypeScript,
+      title: "TypeScript",
+    },
+    {
+      id: 7,
+      img: assets.react,
+      title: "React.js",
+    },{
+      id: 8,
+      img: assets.NextJs,
+      title: "Next.js",
+    },
+    {
+      id: 9,
+      img: assets.mysql,
+      title: "My SQL",
+    },
+    {
+      id: 10,
+      img: assets.git,
+      title: "GIT",
+    },{
+      id: 11,
+      img: assets.github_w,
+      title: "GitHub",
+    },
+  ]
+
   return (
     <div className='w-full flex flex-col gap-24'>
       {/* Text Part */}
@@ -88,114 +144,19 @@ function AboutElement() {
 
         {/* Skill's Images */}
         <div className='w-full flex flex-wrap gap-10 text-center items-center justify-center md:items-start md:justify-start'>
-
-          {/* C++ */}
-          <motion.div
-            className='flex flex-col cursor-pointer items-center justify-center gap-2'
-            variants={skillVariant}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ Infinity }}
-          >
-            <img className='hover:scale-110 duration-500' width={70} src={assets.cpp} alt="cpp" />
-            <p className='text-md text-gray-400 font-semibold'>C++</p>
-          </motion.div>
-
-          {/* HTML */}
-          <motion.div
-            className='flex flex-col cursor-pointer items-center justify-center gap-2'
-            variants={skillVariant}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ Infinity }}
-          >
-            <img className='hover:scale-110 duration-500' width={70} src={assets.html} alt="html" />
-            <p className='text-md text-gray-400 font-semibold'>HTML</p>
-          </motion.div>
-
-          {/* CSS */}
-          <motion.div
-            className='flex flex-col cursor-pointer items-center justify-center gap-2'
-            variants={skillVariant}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
-            <img className='hover:scale-110 duration-500' width={70} src={assets.css} alt="css" />
-            <p className='text-md text-gray-400 font-semibold'>CSS</p>
-          </motion.div>
-
-          {/* JAVASCRIPT */}
-          <motion.div
-            className='flex flex-col cursor-pointer items-center justify-center gap-2'
-            variants={skillVariant}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ Infinity }}
-          >
-            <img className='hover:scale-110 duration-500' width={70} src={assets.javascript} alt="javascript" />
-            <p className='text-md text-gray-400 font-semibold'>JAVASCRIPT</p>
-          </motion.div>
-
-          {/* TAILWIND CSS */}
-          <motion.div
-            className='flex flex-col cursor-pointer items-center justify-center gap-2'
-            variants={skillVariant}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ Infinity }}
-          >
-            <img className='hover:scale-110 duration-500' width={70} src={assets.tailwind} alt="tailwind" />
-            <p className='text-md text-gray-400 font-semibold'>TAILWIND</p>
-          </motion.div>
-
-          {/* REACT */}
-          <motion.div
-            className='flex flex-col cursor-pointer items-center justify-center gap-2'
-            variants={skillVariant}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ Infinity }}
-          >
-            <img className='hover:scale-110 duration-500' width={70} src={assets.react} alt="react" />
-            <p className='text-md text-gray-400 font-semibold'>REACT</p>
-          </motion.div>
-
-          {/* MY SQL */}
-          <motion.div
-            className='flex flex-col cursor-pointer items-center justify-center gap-2'
-            variants={skillVariant}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ Infinity }}
-          >
-            <img className='hover:scale-110 duration-500' width={70} src={assets.mysql} alt="mysql" />
-            <p className='text-md text-gray-400 font-semibold'>MY SQL</p>
-          </motion.div>
-
-          {/* GIT */}
-          <motion.div
-            className='flex flex-col cursor-pointer items-center justify-center gap-2'
-            variants={skillVariant}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ Infinity }}
-          >
-            <img className='hover:scale-110 duration-500' width={70} src={assets.git} alt="git" />
-            <p className='text-md text-gray-400 font-semibold'>GIT</p>
-          </motion.div>
-
-          {/* GITHUB */}
-          <motion.div
-            className='flex flex-col cursor-pointer items-center justify-center gap-2'
-            variants={skillVariant}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ Infinity }}
-          >
-            <img className='hover:scale-110 duration-500' width={70} src={assets.github_w} alt="github" />
-            <p className='text-md text-gray-400 font-semibold'>GITHUB</p>
-          </motion.div>
+          {skillSet.map((item,idx) => (
+            <motion.div
+              key={idx}
+              className='flex flex-col cursor-pointer items-center justify-center gap-2'
+              variants={skillVariant}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ Infinity }}
+            >
+              <img className='hover:scale-110 duration-500' width={70} src={item.img} alt="Image" />
+              <p className='text-md text-gray-400 font-semibold'>{item.title}</p>
+            </motion.div>
+          ))}
         </div>
       </div>
 

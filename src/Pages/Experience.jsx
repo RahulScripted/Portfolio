@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
-import { motion } from 'framer-motion'; // Import motion from framer-motion
+import { useEffect } from 'react';
+import { motion } from 'framer-motion'; 
 import Timeline from '../components/Timeline';
 import Cards from '../components/Cards';
-import Contact from '../components/Contact';
 
 function Experience() {
   useEffect(() => {
@@ -35,15 +34,6 @@ function Experience() {
           transition={{ duration: 1, delay: 0.3 }} // Add delay for a sequential effect
         >
           <Timeline />
-        </motion.div>
-
-        {/* Contact - element */}
-        <motion.div
-          initial={{ x: 200, opacity: 0 }} // Initial state (off-screen to the right with 0 opacity)
-          animate={{ x: 0, opacity: 1 }} // Animate to normal position and full opacity
-          transition={{ duration: 1, type: "spring", stiffness: 100 }} // Add spring transition for smooth animation
-        >
-          <Contact />
         </motion.div>
       </div>
     </div>
