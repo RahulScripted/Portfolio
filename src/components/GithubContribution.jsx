@@ -14,7 +14,7 @@ const GithubContribution = () => {
   };
 
   return (
-    <div className="text-center mt-10 w-full flex flex-col items-center justify-center gap-5 md:gap-10">
+    <div className="text-center mt-0 md:mt-10 w-full flex flex-col items-center justify-center gap-5 md:gap-10">
       
       {/* Heading Animation */}
       <motion.h1

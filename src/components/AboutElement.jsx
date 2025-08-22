@@ -100,7 +100,7 @@ function AboutElement() {
 
         {/* Paragraph */}
         <motion.p
-          className="text-md md:text-lg text-gray-400"
+          className="text-xs md:text-lg text-gray-400"
           variants={paragraphVariant}
           initial="hidden"
           whileInView="visible"
@@ -111,7 +111,7 @@ function AboutElement() {
 
         <a href={assets.cv} download={rahulCV.pdf} target='_blank'>
           <motion.button
-            className='flex items-center justify-center gap-2 text-md border border-white px-5 py-2 rounded-md transition-all duration-500 cursor-pointer hover:bg-[#353334] hover:border-[#353334] group'
+            className='flex items-center justify-center gap-2 text-sm md:text-md border border-white px-3 md:px-5 py-1 md:py-2 rounded-md transition-all duration-500 cursor-pointer hover:bg-[#353334] hover:border-[#353334] group'
             variants={buttonVariant}
             initial="hidden"
             whileInView="visible"
@@ -153,8 +153,8 @@ function AboutElement() {
               whileInView="visible"
               viewport={{ Infinity }}
             >
-              <img className='hover:scale-110 duration-500' width={70} src={item.img} alt="Image" />
-              <p className='text-md text-gray-400 font-semibold'>{item.title}</p>
+              <img className='hover:scale-110 duration-500 w-[50px] md:w-[70px]' src={item.img} alt="Image" />
+              <p className='text-xs md:text-sm text-gray-400 font-semibold'>{item.title}</p>
             </motion.div>
           ))}
         </div>

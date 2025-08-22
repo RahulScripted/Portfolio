@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion'; // Import motion from Framer Motion
 
 function Contact() {
@@ -45,7 +45,7 @@ function Contact() {
         setResult(data.message);
       }
     } catch (error) {
-      setResult("An error occurred. Please try again.");
+      setResult("An error occurred. Please try again.", error.message);
     }
   };
 
@@ -62,7 +62,7 @@ function Contact() {
           initial={{ opacity: 0, y: -50 }}
           transition={{ duration: 1 }}
         >
-          LET'S CONNECT <br /> <span className="text-[#353334]">TOGETHER</span>
+          LET'S <br /> <span className="text-[#353334]">CONNECT</span>
         </motion.h1>
 
         <motion.form
@@ -77,14 +77,14 @@ function Contact() {
             initial={{ opacity: 0, x: -50 }}
             transition={{ duration: 1 }}
           >
-            <label htmlFor="name" className="block text-white text-lg">Name</label>
+            <label htmlFor="name" className="block text-white text-sm md:text-lg">Name</label>
             <input
               type="text"
               id="name"
               name="name"
               value={formData.name}
               onChange={handleChange}
-              className="w-full p-3 mt-2 bg-[#2C2A29] text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F46C38]"
+              className="w-full p-3 mt-2 bg-[#2C2A29] text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F46C38] text-sm md:text-lg"
               placeholder="Enter your name"
               required
             />
@@ -95,14 +95,14 @@ function Contact() {
             initial={{ opacity: 0, x: -50 }}
             transition={{ duration: 1 }}
           >
-            <label htmlFor="email" className="block text-white text-lg">Email</label>
+            <label htmlFor="email" className="block text-white text-sm md:text-lg">Email</label>
             <input
               type="email"
               id="email"
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className="w-full p-3 mt-2 bg-[#2C2A29] text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F46C38]"
+              className="w-full p-3 mt-2 bg-[#2C2A29] text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F46C38] text-sm md:text-lg"
               placeholder="Enter your email"
               required
             />
@@ -113,13 +113,13 @@ function Contact() {
             initial={{ opacity: 0, x: -50 }}
             transition={{ duration: 1 }}
           >
-            <label htmlFor="message" className="block text-white text-lg">Message</label>
+            <label htmlFor="message" className="block text-white text-sm md:text-lg">Message</label>
             <textarea
               id="message"
               name="message"
               value={formData.message}
               onChange={handleChange}
-              className="w-full p-3 mt-2 bg-[#2C2A29] text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F46C38] resize-none"
+              className="w-full p-3 mt-2 bg-[#2C2A29] text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F46C38] resize-none text-sm md:text-lg"
               placeholder="Enter your message"
               rows="5"
               required

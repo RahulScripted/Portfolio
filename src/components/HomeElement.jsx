@@ -27,7 +27,7 @@ function HomeElement() {
 
         {/* Paragraph */}
         <motion.p 
-          className="text-md md:text-lg text-gray-400 mt-4"
+          className="text-sm md:text-lg text-gray-400 mt-4"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.8 }}
@@ -45,13 +45,13 @@ function HomeElement() {
       >
         {/* Experience */}
         <div className="flex flex-col items-center">
-          <h1 className="text-7xl font-bold text-white">+0.3</h1>
+          <h1 className="text-5xl md:text-7xl font-bold text-white">+0.3</h1>
           <h3 className="text-[#B0B0B0] text-center font-semibold mt-2">Year Experience</h3>
         </div>
 
         {/* Projects */}
         <div className="flex flex-col items-center">
-          <h1 className="text-7xl font-bold text-white">+5</h1>
+          <h1 className="text-5xl md:text-7xl  font-bold text-white">+5</h1>
           <h3 className="text-[#B0B0B0] text-center font-semibold mt-2">Projects</h3>
         </div>
       </motion.div>
@@ -77,7 +77,7 @@ function HomeElement() {
           <img width={30} src={assets.stack} alt="stack" />
 
           {/* Text on Card */}
-          <h3 className="mt-5 text-2xl font-semibold">DYNAMIC, ANIMATION <br className="max-md:hidden" /> MOTION DESIGN</h3>
+          <h3 className="mt-5  text-lg md:text-2xl font-semibold">DYNAMIC, ANIMATION <br className="max-md:hidden" /> MOTION DESIGN</h3>
         </motion.div>
 
         {/* 2nd Card */}
@@ -99,8 +99,8 @@ function HomeElement() {
           <img width={30} src={assets.layout} alt="layout" />
 
           {/* Text */}
-          <h3 className="mt-5 text-black text-2xl font-semibold">Software Engineer</h3>
-          <h3 className="text-black text-2xl font-semibold">Frontend Development</h3>
+          <h3 className="mt-5 text-black text-lg md:text-2xl font-semibold">Software Engineer</h3>
+          <h3 className="text-black  text-lg md:text-2xl font-semibold">Frontend Development</h3>
         </motion.div>
       </div>
     </div>

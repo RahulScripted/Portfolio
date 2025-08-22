@@ -171,7 +171,7 @@ const SwagsBadges = () => {
   }
 
   return (
-    <div className='fle items-center justify-center flex-col overflow-hidden'>
+    <div className='w-full min-h-screen flex items-center justify-center flex-col overflow-x-hidden'>
 
         {/* Upper Part */}
         <div className='w-full flex flex-col items-center justify-center gap-12'>
@@ -204,7 +204,7 @@ const SwagsBadges = () => {
                             <div className='flex flex-col gap-3'>
 
                                 {/* Image */}
-                                <div className='flex items-center justify-center w-[100px] h-[100px] sm:w-[150px] sm:h-[150px] rounded-full border-4 border-violet-600 overflow-hidden'>
+                                <div className='flex items-center justify-center w-[100px] h-[100px] sm:w-[150px] sm:h-[150px] rounded-full border-2 md:border-4 border-violet-600 overflow-hidden'>
                                     <img src={item.img} alt="Image" className='w-full h-full object-cover cursor-pointer'  onClick={() => showImage(item.img)} />
                                 </div>
 
@@ -248,7 +248,7 @@ const SwagsBadges = () => {
                             <div className='flex flex-col w-[125px] gap-3'>
 
                                 {/* Image */}
-                                <div className='flex items-center justify-center w-[100px] h-[100px] rounded-full border-4 border-violet-600 overflow-hidden'>
+                                <div className='flex items-center justify-center w-[75px] md:w-[100px] h-[75px] md:h-[100px] rounded-full border-2 md:border-4 border-violet-600 overflow-hidden'>
                                     <img src={item.img} alt="Image" className='w-full h-full object-cover cursor-pointer'  onClick={() => showImage(item.img)} />
                                 </div>
 
