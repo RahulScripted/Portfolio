@@ -5,3 +5,9 @@
 body {
   @apply bg-primaryColor;
 }
+
+@media (max-width: 768px) {
+  .ant-tooltip {
+    display: none !important;
+  }
+}
