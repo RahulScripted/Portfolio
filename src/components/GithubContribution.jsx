@@ -38,7 +38,7 @@ const GithubContribution = () => {
         <GitHubCalendar
           username="RahulScripted"
           colorScheme="dark"
-          blockSize={10}
+          blockSize={13}
           blockMargin={5}
         />
       </motion.div>
