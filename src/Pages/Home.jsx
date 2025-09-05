@@ -17,7 +17,7 @@ function Home() {
   }, []);
 
   return (
-    <div className='flex item-center justify-center flex-col lg:justify-between lg:flex-row relative p-5 lg:p-10 gap-4 mb-10'>
+    <div className='w-full flex item-center justify-center flex-col lg:justify-between lg:flex-row relative p-5 lg:p-10 gap-4 mb-10'>
 
       {/* Left Part */}
       <motion.div 
@@ -30,7 +30,7 @@ function Home() {
       </motion.div>
 
       {/* Right Part */}
-      <div className="w-full flex flex-col max-sm:pl-5 pl-10 lg:pl-20 gap-16 md:gap-28">
+      <div className="w-full flex flex-col items-center justify-center gap-16 md:gap-28">
         
         {/* Home - element */}
         <motion.div 
@@ -78,13 +78,13 @@ function Home() {
         </motion.div>
 
         {/* Contact - element */}
-        <motion.div 
+        {/* <motion.div 
           initial={{ x: 200, opacity: 0 }} 
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 1, type: "spring", stiffness: 100 }}
         >
           <Contact />
-        </motion.div>
+        </motion.div> */}
       </div>
     </div>
   );

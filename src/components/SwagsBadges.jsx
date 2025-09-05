@@ -176,7 +176,7 @@ const SwagsBadges = () => {
         {/* Upper Part */}
         <div className='w-full flex flex-col items-center justify-center gap-12'>
            <motion.h1
-                className="text-5xl md:text-7xl lg:text-12xl font-bold text-white"
+                className="text-5xl md:text-7xl font-bold text-white"
                 variants={headingVariant}
                 initial="hidden"
                 whileInView="visible"

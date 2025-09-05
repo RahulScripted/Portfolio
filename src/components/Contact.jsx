@@ -55,19 +55,19 @@ function Contact() {
 
   return (
     <div className="w-full min-h-screen flex items-center justify-center text-black">
-      <div className="w-full bg-transparent">
+      <div className="w-full px-2 bg-transparent">
         <motion.h1
-          className="text-5xl md:text-7xl lg:text-10xl font-bold text-white mb-8"
+          className="w-full text-5xl md:text-7xl font-bold text-white mb-8"
           whileInView={{ opacity: 1, y: 0 }}
           initial={{ opacity: 0, y: -50 }}
           transition={{ duration: 1 }}
         >
-          LET'S <br /> <span className="text-[#353334]">CONNECT</span>
+          LET'S <span className="text-[#353334]">CONNECT</span>
         </motion.h1>
 
         <motion.form
           onSubmit={onSubmit}
-          className="space-y-4"
+          className="space-y-4 w-full"
           whileInView={{ opacity: 1, x: 0 }}
           initial={{ opacity: 0, x: -100 }}
           transition={{ duration: 1 }}

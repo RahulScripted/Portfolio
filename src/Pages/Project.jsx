@@ -25,7 +25,7 @@ function Project() {
       </motion.div>
 
       {/* Right Part */}
-      <div className="w-full flex flex-col max-sm:pl-2 lg:pl-20 gap-28">
+      <div className="w-full flex flex-col items-center justify-center gap-28">
         
         {/* Project - element */}
         <motion.div 
