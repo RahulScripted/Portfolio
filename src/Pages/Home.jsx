@@ -78,13 +78,14 @@ function Home() {
         </motion.div>
 
         {/* Contact - element */}
-        {/* <motion.div 
+        <motion.div 
           initial={{ x: 200, opacity: 0 }} 
           animate={{ x: 0, opacity: 1 }}
-          transition={{ duration: 1, type: "spring", stiffness: 100 }}
+          transition={{ duration: 1, delay: 1.2 }}
+          className="w-full"
         >
           <Contact />
-        </motion.div> */}
+        </motion.div>
       </div>
     </div>
   );

@@ -16,10 +16,10 @@ function Experience() {
       
       {/* Left Part */}
       <motion.div
-        className='relative w-full lg:sticky lg:top-10 lg:w-1/2 lg:h-screen'
-        initial={{ x: -100, opacity: 0 }} // Initial state (off-screen to the left with 0 opacity)
-        animate={{ x: 0, opacity: 1 }} // Animate to normal position and full opacity
-        transition={{ duration: 1, type: "spring", stiffness: 50 }} // Add spring transition for smooth animation
+        className='hidden md:block relative w-full lg:sticky lg:top-10 lg:w-1/2 lg:h-screen'
+        initial={{ x: -100, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 1, type: "spring", stiffness: 50 }} 
       >
         <Cards />
       </motion.div>

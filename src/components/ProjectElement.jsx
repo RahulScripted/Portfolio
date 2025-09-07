@@ -18,7 +18,7 @@ function ProjectElement() {
 
       {/* Project 1 */}
       <motion.div 
-        className='hover:bg-[#1C1A19] px-2 md:px-7 py-4 rounded-md flex flex-col md:flex-row justify-between items-center gap-3 md:gap-6 transition-all duration-300 cursor-pointer'
+        className='bg-[#1C1A19] px-2 md:px-7 py-4 rounded-md flex flex-col md:flex-row justify-between items-center gap-3 md:gap-6 transition-all duration-300 cursor-pointer'
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
@@ -71,7 +71,7 @@ function ProjectElement() {
 
       {/* Project 2 */}
       <motion.div 
-        className='hover:bg-[#1C1A19] px-7 py-4 rounded-md flex flex-col md:flex-row justify-between items-center gap-3 md:gap-6 transition-all duration-300 cursor-pointer'
+        className='bg-[#1C1A19] px-7 py-4 rounded-md flex flex-col md:flex-row justify-between items-center gap-3 md:gap-6 transition-all duration-300 cursor-pointer'
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
@@ -124,7 +124,7 @@ function ProjectElement() {
 
       {/* Project 3 */}
       <motion.div 
-        className='hover:bg-[#1C1A19] px-7 py-4 rounded-md flex flex-col md:flex-row justify-between items-center gap-3 md:gap-6 transition-all duration-300 cursor-pointer'
+        className='bg-[#1C1A19] px-7 py-4 rounded-md flex flex-col md:flex-row justify-between items-center gap-3 md:gap-6 transition-all duration-300 cursor-pointer'
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8 }}

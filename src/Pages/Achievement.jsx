@@ -9,7 +9,7 @@ const Achievement = () => {
 
       {/* Left Part */}
       <motion.div 
-        className='relative w-full lg:sticky lg:top-10 lg:w-1/2 lg:h-screen'
+        className='hidden md:block relative w-full lg:sticky lg:top-10 lg:w-1/2 lg:h-screen'
         initial={{ x: -100, opacity: 0 }} 
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 1, type: "spring", stiffness: 50 }}
@@ -20,7 +20,7 @@ const Achievement = () => {
       {/* Right Part */}
       <div className="w-full flex flex-col max-sm:pl-5 pl-10 lg:pl-20 gap-28">
         
-          {/* About - element */}
+          {/* Achievement - element */}
           <motion.div 
             initial={{ opacity: 0 }} 
             animate={{ opacity: 1 }}
