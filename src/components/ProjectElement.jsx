@@ -25,10 +25,9 @@ function ProjectElement() {
       >
         {/* Image */}
         <motion.img 
-          className='w-full md:w-52 h-auto lg:h-36 mb-4 md:mb-0 cursor-pointer pl-2 pr-2 pt-2 bg-[#F46C38] rounded-md object-cover' 
+          className='w-full md:w-96 h-auto lg:h-48 mb-4 md:mb-0 cursor-pointer pl-2 pr-2 pt-2 bg-[#F46C38] rounded-md object-fit' 
           src={assets.projects1} 
           alt="projects1" 
-          whileHover={{ scale: 1.1 }}
         />
         
         {/* Text Part */}
@@ -78,10 +77,9 @@ function ProjectElement() {
       >
         {/* Image */}
         <motion.img 
-          className='w-full md:w-52 h-auto lg:h-36 mb-4 md:mb-0 cursor-pointer pl-2 pr-2 pt-2 bg-[#F46C38] rounded-md object-cover' 
+         className='w-full md:w-96 h-auto lg:h-48 mb-4 md:mb-0 cursor-pointer pl-2 pr-2 pt-2 bg-[#F46C38] rounded-md object-fit' 
           src={assets.projects2} 
           alt="projects2" 
-          whileHover={{ scale: 1.1 }}
         />
         
         {/* Text Part */}
@@ -131,10 +129,9 @@ function ProjectElement() {
       >
         {/* Image */}
         <motion.img 
-          className='w-full md:w-52 h-auto lg:h-36 mb-4 md:mb-0 cursor-pointer pl-2 pr-2 pt-2 bg-[#F46C38] rounded-md object-cover' 
+          className='w-full md:w-96 h-auto lg:h-48 mb-4 md:mb-0 cursor-pointer pl-2 pr-2 pt-2 bg-[#F46C38] rounded-md object-fit' 
           src={assets.projects3} 
           alt="projects3" 
-          whileHover={{ scale: 1.1 }}
         />
         
         {/* Text Part */}

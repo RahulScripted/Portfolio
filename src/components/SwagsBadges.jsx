@@ -174,6 +174,50 @@ const SwagsBadges = () => {
     <div className='w-full min-h-screen flex items-center justify-center flex-col overflow-x-hidden'>
 
         {/* Upper Part */}
+        <div className='mt-10 w-full flex flex-col items-center justify-center gap-12'>
+           <motion.h1
+                className="text-5xl md:text-7xl lg:text-12xl font-bold text-white"
+                variants={headingVariant}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.2 }}
+                >
+                Bad
+                <span className="text-[#353334]">ges</span>
+            </motion.h1>
+            
+            <div className='w-full flex items-center justify-center flex-wrap gap-5 md:gap-10'>
+                {badges.map((item,idx) => (
+                    <motion.div
+                        key={idx}
+                        custom={idx}
+                        variants={itemVariant}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, amount: 0.2 }}
+                    >
+                        <Tooltip
+                            title={item.description}
+                            overlayInnerStyle={{ textAlign: "center" }} 
+                            className='flex flex-col items-center justify-center'
+                        >   
+                            <div className='flex flex-col w-[125px] gap-3'>
+
+                                {/* Image */}
+                                <div className='flex items-center justify-center w-[75px] md:w-[100px] h-[75px] md:h-[100px] rounded-full border-2 md:border-4 border-violet-600 overflow-hidden'>
+                                    <img src={item.img} alt="Image" className='w-full h-full object-cover cursor-pointer'  onClick={() => showImage(item.img)} />
+                                </div>
+
+                                {/* Sub Title */}
+                                <h3 className='text-center text-xs'>{item.title}</h3>
+                            </div>
+                        </Tooltip>
+                    </motion.div>
+                ))}
+            </div>
+        </div>
+
+        {/* Lower Part */}
         <div className='w-full flex flex-col items-center justify-center gap-12'>
            <motion.h1
                 className="text-5xl md:text-7xl font-bold text-white"
@@ -210,50 +254,6 @@ const SwagsBadges = () => {
 
                                 {/* Sub Title */}
                                 <h3 className='text-center'>{item.title}</h3>
-                            </div>
-                        </Tooltip>
-                    </motion.div>
-                ))}
-            </div>
-        </div>
-
-        {/* Lower Part */}
-        <div className='mt-20 w-full flex flex-col items-center justify-center gap-12'>
-           <motion.h1
-                className="text-5xl md:text-7xl lg:text-12xl font-bold text-white"
-                variants={headingVariant}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.2 }}
-                >
-                Bad
-                <span className="text-[#353334]">ges</span>
-            </motion.h1>
-            
-            <div className='w-full flex items-center justify-center flex-wrap gap-5 md:gap-10'>
-                {badges.map((item,idx) => (
-                    <motion.div
-                        key={idx}
-                        custom={idx}
-                        variants={itemVariant}
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true, amount: 0.2 }}
-                    >
-                        <Tooltip
-                            title={item.description}
-                            overlayInnerStyle={{ textAlign: "center" }} 
-                            className='flex flex-col items-center justify-center'
-                        >   
-                            <div className='flex flex-col w-[125px] gap-3'>
-
-                                {/* Image */}
-                                <div className='flex items-center justify-center w-[75px] md:w-[100px] h-[75px] md:h-[100px] rounded-full border-2 md:border-4 border-violet-600 overflow-hidden'>
-                                    <img src={item.img} alt="Image" className='w-full h-full object-cover cursor-pointer'  onClick={() => showImage(item.img)} />
-                                </div>
-
-                                {/* Sub Title */}
-                                <h3 className='text-center text-xs'>{item.title}</h3>
                             </div>
                         </Tooltip>
                     </motion.div>
