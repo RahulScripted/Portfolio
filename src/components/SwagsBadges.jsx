@@ -171,7 +171,7 @@ const SwagsBadges = () => {
   }
 
   return (
-    <div className='w-full min-h-screen flex items-center justify-center flex-col overflow-x-hidden'>
+    <div className='w-full min-h-screen flex items-center justify-center flex-col gap-10 overflow-x-hidden'>
 
         {/* Upper Part */}
         <div className='mt-10 w-full flex flex-col items-center justify-center gap-12'>
