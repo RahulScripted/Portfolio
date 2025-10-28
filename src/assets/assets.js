@@ -55,10 +55,12 @@ import CodeChef1 from './CodeChef1.png'
 import CodeChef2 from './CodeChef2.png'
 import NextJs from './NextJs.svg'
 import TypeScript from './typescript.svg'
+import Loader from './loader.gif'
 
 
 export const assets = {
     GFG,
+    Loader,
     Arcade,
     Leetcode1,
     Leetcode2,
