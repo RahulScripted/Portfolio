@@ -21,7 +21,7 @@ const App = () => {
   }, [location.pathname]);
 
   return (
-    <div className="bg-black min-h-screen text-white overflow-hidden">
+    <div className="bg-black min-h-screen text-white">
       {loading && <Loader />}
       <NavBar />
       <Routes>
