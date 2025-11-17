@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  @apply bg-primaryColor;
+  @apply bg-black;
 }
 
 @media (max-width: 768px) {

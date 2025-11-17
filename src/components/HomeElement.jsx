@@ -2,6 +2,14 @@ import { motion } from 'framer-motion';
 import { assets } from '../assets/assets';
 
 function HomeElement() {
+  
+  const startDate = new Date('2025-06-20'); 
+  const now = new Date();
+
+  const monthsDiff = (now.getFullYear() - startDate.getFullYear()) * 12 + (now.getMonth() - startDate.getMonth());
+
+  const yearsExperience = (monthsDiff / 12).toFixed(1);
+
   return (
     <div className="w-full">
 
@@ -45,7 +53,7 @@ function HomeElement() {
       >
         {/* Experience */}
         <div className="flex flex-col items-center">
-          <h1 className="text-5xl md:text-7xl font-bold text-white">+0.3</h1>
+          <h1 className="text-5xl md:text-7xl font-bold text-white">{yearsExperience}</h1>
           <h3 className="text-[#B0B0B0] text-center font-semibold mt-2">Year Experience</h3>
         </div>
 
