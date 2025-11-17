@@ -1,7 +1,15 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { assets } from '../assets/assets'
 
 function Cards() {
+  
+  const[count, setCount] = useState(0);
+  useEffect(() => {
+    fetch('https://api.countapi.xyz/hit/rahul-portfolio/visits')
+    .then(res => res.json())
+    .then(data => setCount(data.visits))
+  },[])
+
   return (
     <div className='w-full pt-10 pb-10 pl-5 pr-5 h-auto lg:w-[350px] bg-white flex items-center justify-center flex-col rounded-md text-black text-center'>
 
@@ -12,7 +20,7 @@ function Cards() {
         <h1 className='text-3xl font-semibold mt-5 lg:mt-7'>Rahul Goswami</h1>
 
         {/* Profile Description */}
-        <p className='text-center mt-5 lg:mt-16'>I am passionate about leveraging my programming expertise to create innovative and user-friendly web experiences.</p>
+        <p className='text-center mt-5 lg:mt-10'>I am passionate about leveraging my programming expertise to create innovative and user-friendly web experiences.</p>
 
         {/* Social Media */}
         <div className='mt-5 flex flex-wrap items-center justify-center gap-10'>
@@ -32,6 +40,9 @@ function Cards() {
                 <img width={30} src={assets.mail} alt="mail" />
             </a>
         </div>
+
+        {/* Profile Visitors */}
+        <h1 className='text-xl font-semibold mt-4'>Visitors: {count}</h1>
     </div>
   )
 }
