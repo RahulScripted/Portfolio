@@ -12,11 +12,13 @@
   "dependencies": {
     "antd": "^5.27.0",
     "framer-motion": "^12.0.0-alpha.1",
+    "gsap": "^3.13.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-github-calendar": "^4.5.9",
     "react-router-dom": "^6.28.0",
-    "react-vertical-timeline-component": "^3.6.0"
+    "react-vertical-timeline-component": "^3.6.0",
+    "three": "^0.181.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.13.0",
