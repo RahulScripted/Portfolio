@@ -7,8 +7,7 @@ function HomeElement() {
   const now = new Date();
 
   const monthsDiff = (now.getFullYear() - startDate.getFullYear()) * 12 + (now.getMonth() - startDate.getMonth());
-
-  const yearsExperience = (monthsDiff / 12).toFixed(1);
+  const yearsExperience = (Math.ceil((monthsDiff / 12) * 10) / 10).toFixed(1);
 
   return (
     <div className="w-full">
@@ -16,9 +15,9 @@ function HomeElement() {
       {/* Text Part */}
       <motion.div 
         className="mb-12"
-        initial={{ opacity: 0, y: -50 }} // Initial animation state
-        animate={{ opacity: 1, y: 0 }} // Final animation state
-        transition={{ duration: 0.8 }} // Animation duration
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
       >
         {/* Heading */}
         <h1 className="text-5xl md:text-7xl lg:text-12xl font-bold text-white">
