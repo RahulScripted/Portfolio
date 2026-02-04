@@ -2,13 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { assets } from '../assets/assets'
 
 function Cards() {
-  
-  const[count, setCount] = useState(0);
-  useEffect(() => {
-    fetch('https://api.countapi.xyz/hit/rahul-portfolio/visits')
-    .then(res => res.json())
-    .then(data => setCount(data.visits))
-  },[])
 
   return (
     <div className='w-full pt-10 pb-10 pl-5 pr-5 h-auto lg:w-[350px] bg-white flex items-center justify-center flex-col rounded-md text-black text-center'>
@@ -40,9 +33,6 @@ function Cards() {
                 <img width={30} src={assets.mail} alt="mail" />
             </a>
         </div>
-
-        {/* Profile Visitors */}
-        <h1 className='text-xl font-semibold mt-4'>Visitors: {count}</h1>
     </div>
   )
 }
