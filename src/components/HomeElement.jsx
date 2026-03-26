@@ -48,7 +48,7 @@ function HomeElement() {
 
       {/* Stats Section */}
       <motion.div 
-        className="flex flex-col md:flex-row items-center justify-center gap-10 mb-12"
+        className="flex flex-col md:flex-row items-center justify-start gap-10 mb-12"
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.3, duration: 0.8 }}
@@ -70,7 +70,7 @@ function HomeElement() {
       <div className="flex items-center justify-between gap-4 max-sm:flex-col md:flex-row md:justify-center">
         {/* 1st Card */}
         <motion.div 
-          className="w-full h-[250px] bg-[#F46C38] pl-10 pt-10 pr-5 pb-10 flex flex-col rounded-md cursor-pointer relative md:w-1/2"
+          className="w-full h-[220px] bg-[#F46C38] pl-10 pt-10 pr-5 pb-10 flex flex-col rounded-md cursor-pointer relative md:w-1/2"
           style={{
             backgroundImage: `url(${assets.bg_one}), url(${assets.bg_one})`,
             backgroundSize: 'cover, cover',
@@ -92,7 +92,7 @@ function HomeElement() {
 
         {/* 2nd Card */}
         <motion.div 
-          className="w-full h-[250px] bg-[#C5FF41] pl-10 pt-10 pr-5 pb-4 flex flex-col rounded-md cursor-pointer relative md:w-1/2"
+          className="w-full h-[220px] bg-[#C5FF41] pl-10 pt-10 pr-5 pb-4 flex flex-col rounded-md cursor-pointer relative md:w-1/2"
           style={{
             backgroundImage: `url(${assets.bg_two}), url(${assets.bg_two})`,
             backgroundSize: '500px 500px',
