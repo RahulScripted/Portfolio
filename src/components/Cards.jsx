@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
+import Lottie from 'lottie-react'
 import { assets } from '../assets/assets'
+import cardAnimation from '../assets/lottie files/card.json'
 
 function Cards() {
 
   return (
-    <div className='w-full pt-10 pb-10 pl-5 pr-5 h-auto lg:w-[350px] bg-white flex items-center justify-center flex-col rounded-md text-black text-center'>
+    <div className='w-full pt-10 pb-10 pl-5 pr-5 h-auto lg:w-[350px] bg-white flex items-center justify-center flex-col rounded-md text-black text-center relative overflow-hidden'>
 
         {/* Profile Image */}
         <img className='w-[175px] lg:h-[220px] object-cover md:w-[200px] rounded-lg pt-5 pl-5 pr-5 bg-[#9E2101]' src={assets.profile_pic} alt="profile_pic" />
@@ -14,6 +16,11 @@ function Cards() {
 
         {/* Profile Description */}
         <p className='text-center mt-5 lg:mt-10'>I am passionate about leveraging my programming expertise to create innovative and user-friendly web experiences.</p>
+
+        {/* Lottie Fish - spans full width top */}
+        <div className='absolute -top-8 left-0 w-full pointer-events-none z-50'>
+          <Lottie animationData={cardAnimation} loop />
+        </div>
 
         {/* Social Media */}
         <div className='mt-5 flex flex-wrap items-center justify-center gap-10'>

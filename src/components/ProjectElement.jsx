@@ -1,5 +1,7 @@
 import { motion } from 'framer-motion';
+import Lottie from 'lottie-react';
 import { assets } from '../assets/assets';
+import skillsAnimation from '../assets/lottie files/skills.json';
 
 function ProjectElement() {
   return (
@@ -54,16 +56,20 @@ function ProjectElement() {
           
           {/* Links */}
           <div className='flex justify-end items-center w-full mt-5'>
-            {/* Preview Link */}
-            <a 
-              className='text-sm md:text-md flex items-center justify-center gap-2 rounded-md px-5 py-2 text-black bg-[#ffffffe1] hover:bg-[#ffffff44] hover:text-white font-medium transition-all duration-500' 
-              href="https://imagify-frontend-hcjw.onrender.com/" 
-              target='_blank' 
-              rel="noopener noreferrer"
-            >
-              Preview
-              <img width={20} src={assets.arrow_right_up} alt="arrow_right_up" />
-            </a>
+            <div className='relative'>
+              <div className='absolute -top-14 left-1/2 -translate-x-1/2 w-[150px] md:w-[180px] pointer-events-none z-50'>
+                <Lottie animationData={skillsAnimation} loop />
+              </div>
+              <a 
+                className='text-sm md:text-md flex items-center justify-center gap-2 rounded-md px-5 py-2 text-black bg-[#ffffffe1] hover:bg-[#ffffff44] hover:text-white font-medium transition-all duration-500' 
+                href="https://imagify-frontend-hcjw.onrender.com/" 
+                target='_blank' 
+                rel="noopener noreferrer"
+              >
+                Preview
+                <img width={20} src={assets.arrow_right_up} alt="arrow_right_up" />
+              </a>
+            </div>
           </div>
         </div>
       </motion.div>
@@ -106,16 +112,20 @@ function ProjectElement() {
           
           {/* Links */}
           <div className='flex justify-end items-center w-full mt-5'>
-            {/* Preview Link */}
-            <a 
-              className='text-xs md:text-sm flex items-center justify-center gap-2 rounded-md px-5 py-2 text-black bg-[#ffffffe1] hover:bg-[#ffffff44] hover:text-white font-medium transition-all duration-500' 
-              href="https://quready.vercel.app/" 
-              target='_blank' 
-              rel="noopener noreferrer"
-            >
-              Preview
-              <img width={20} src={assets.arrow_right_up} alt="arrow_right_up" />
-            </a>
+            <div className='relative'>
+              <div className='absolute -top-14 left-1/2 -translate-x-1/2 w-[150px] md:w-[180px] pointer-events-none z-50'>
+                <Lottie animationData={skillsAnimation} loop />
+              </div>
+              <a 
+                className='text-xs md:text-sm flex items-center justify-center gap-2 rounded-md px-5 py-2 text-black bg-[#ffffffe1] hover:bg-[#ffffff44] hover:text-white font-medium transition-all duration-500' 
+                href="https://quready.vercel.app/" 
+                target='_blank' 
+                rel="noopener noreferrer"
+              >
+                Preview
+                <img width={20} src={assets.arrow_right_up} alt="arrow_right_up" />
+              </a>
+            </div>
           </div>
         </div>
       </motion.div>
@@ -158,16 +168,20 @@ function ProjectElement() {
           
           {/* Links */}
            <div className='flex justify-end items-center w-full mt-5'>
-            {/* Preview Link */}
-            <a 
-              className='text-xs md:text-sm flex items-center justify-center gap-2 rounded-md px-5 py-2 text-black bg-[#ffffffe1] hover:bg-[#ffffff44] hover:text-white font-medium transition-all duration-500' 
-              href="https://sorting-visualizer-rahul-goswamis-projects-c6755eb5.vercel.app/" 
-              target='_blank' 
-              rel="noopener noreferrer"
-            >
-              Preview
-              <img width={20} src={assets.arrow_right_up} alt="arrow_right_up" />
-            </a>
+            <div className='relative'>
+              <div className='absolute -top-14 left-1/2 -translate-x-1/2 w-[150px] md:w-[180px] pointer-events-none z-50'>
+                <Lottie animationData={skillsAnimation} loop />
+              </div>
+              <a 
+                className='text-xs md:text-sm flex items-center justify-center gap-2 rounded-md px-5 py-2 text-black bg-[#ffffffe1] hover:bg-[#ffffff44] hover:text-white font-medium transition-all duration-500' 
+                href="https://sorting-visualizer-rahul-goswamis-projects-c6755eb5.vercel.app/" 
+                target='_blank' 
+                rel="noopener noreferrer"
+              >
+                Preview
+                <img width={20} src={assets.arrow_right_up} alt="arrow_right_up" />
+              </a>
+            </div>
           </div>
         </div>
       </motion.div>

@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion';
+import Lottie from 'lottie-react';
 import { assets } from '../assets/assets';
 import GithubContribution from './GithubContribution';
+import skillsAnimation from '../assets/lottie files/skills.json';
 
 function AboutElement() {
   const rahulCV = './cv.pdf';
@@ -131,16 +133,21 @@ function AboutElement() {
       {/* Skills */}
       <div className='w-full items-center justify-center flex flex-col gap-10'>
         {/* Heading */}
-        <motion.h1
-          className="text-5xl md:text-7xl lg:text-12xl font-bold text-white"
-          variants={headingVariant}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ Infinity }}
-        >
-          MY
-          <span className="text-[#353334]"> SKILLS</span>
-        </motion.h1>
+        <div className='relative flex items-center gap-4'>
+          <motion.h1
+            className="text-5xl md:text-7xl lg:text-12xl font-bold text-white"
+            variants={headingVariant}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ Infinity }}
+          >
+            MY
+            <span className="text-[#353334]"> SKILLS</span>
+          </motion.h1>
+          <div className='absolute -top-10 left-1/2 -translate-x-1/2 w-[150px] md:w-[200px] pointer-events-none z-50'>
+            <Lottie animationData={skillsAnimation} loop />
+          </div>
+        </div>
 
         {/* Skill's Images */}
         <div className='w-full flex flex-wrap gap-10 text-center items-center justify-center md:items-start md:justify-start'>

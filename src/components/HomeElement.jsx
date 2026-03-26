@@ -6,8 +6,11 @@ function HomeElement() {
   const startDate = new Date('2025-06-20'); 
   const now = new Date();
 
+  const totalDays = Math.floor((now - startDate) / (1000 * 60 * 60 * 24));
   const monthsDiff = (now.getFullYear() - startDate.getFullYear()) * 12 + (now.getMonth() - startDate.getMonth());
-  const yearsExperience = (Math.ceil((monthsDiff / 12) * 10) / 10).toFixed(1);
+  const isMonths = monthsDiff < 12;
+  const experienceValue = isMonths ? Math.max(monthsDiff, 1) : (Math.ceil((monthsDiff / 12) * 10) / 10).toFixed(1);
+  const experienceLabel = isMonths ? (experienceValue === 1 ? 'Month Professional Experience' : 'Months Professional Experience') : 'Year Professional Experience';
 
   return (
     <div className="w-full">
@@ -45,15 +48,15 @@ function HomeElement() {
 
       {/* Stats Section */}
       <motion.div 
-        className="flex gap-10 mb-12"
+        className="flex flex-col md:flex-row items-center justify-center gap-10 mb-12"
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.3, duration: 0.8 }}
       >
         {/* Experience */}
         <div className="flex flex-col items-center">
-          <h1 className="text-5xl md:text-7xl font-bold text-white">{yearsExperience}</h1>
-          <h3 className="text-[#B0B0B0] text-center font-semibold mt-2">Year Experience</h3>
+          <h1 className="text-5xl md:text-7xl font-bold text-white">{experienceValue}</h1>
+          <h3 className="text-[#B0B0B0] text-center font-semibold mt-2">{experienceLabel}</h3>
         </div>
 
         {/* Projects */}
