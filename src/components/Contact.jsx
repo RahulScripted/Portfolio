@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { motion } from 'framer-motion'; // Import motion from Framer Motion
+import { motion } from 'framer-motion';
+import { assets } from '../assets/assets';
 
 function Contact() {
   const [formData, setFormData] = useState({
@@ -9,7 +10,7 @@ function Contact() {
   });
 
   const [result, setResult] = useState("");
-  const [isPopupVisible, setIsPopupVisible] = useState(false); // To control the popup visibility
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -21,8 +22,8 @@ function Contact() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    setResult(""); // Clear previous result
-    setIsPopupVisible(true); // Show the popup
+    setResult("");
+    setIsPopupVisible(true);
 
     const formDataToSend = new FormData();
     formDataToSend.append("name", formData.name);
@@ -45,7 +46,7 @@ function Contact() {
         setResult(data.message);
       }
     } catch (error) {
-      setResult("An error occurred. Please try again.", error.message);
+      setResult("An error occurred. Please try again.");
     }
   };
 
@@ -57,13 +58,30 @@ function Contact() {
     <div className="w-full min-h-screen flex items-center justify-center text-black">
       <div className="w-full px-2 bg-transparent">
         <motion.h1
-          className="w-full text-5xl md:text-7xl font-bold text-white mb-8"
+          className="w-full text-5xl md:text-7xl font-bold text-white mb-4"
           whileInView={{ opacity: 1, y: 0 }}
           initial={{ opacity: 0, y: -50 }}
           transition={{ duration: 1 }}
         >
           LET'S <span className="text-[#353334]">CONNECT</span>
         </motion.h1>
+
+        {/* Direct Contact Info */}
+        <motion.div
+          className="flex flex-wrap gap-4 mb-8 text-sm"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.3, duration: 0.6 }}
+        >
+          <a href="mailto:goswami.rahul1002@gmail.com" className="flex items-center gap-2 text-gray-400 hover:text-[#F46C38] transition-colors">
+            <img width={16} style={{filter: 'brightness(0) invert(0.7)'}} src={assets.mail} alt="email" />
+            goswami.rahul1002@gmail.com
+          </a>
+          <a href="https://www.linkedin.com/in/rahul-goswami-ba2b51232/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-gray-400 hover:text-[#F46C38] transition-colors">
+            <img width={16} style={{filter: 'brightness(0) invert(0.7)'}} src={assets.linkedin} alt="linkedin" />
+            LinkedIn
+          </a>
+        </motion.div>
 
         <motion.form
           onSubmit={onSubmit}

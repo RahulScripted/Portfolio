@@ -59,10 +59,16 @@ import Leetcode7 from './badges/Leetcode7.gif'
 import CodeChef1 from './badges/CodeChef1.png'
 import CodeChef2 from './badges/CodeChef2.png'
 
+// Platform Icons
+import leetcode_icon from './jpeg/leetcode.jpeg'
+import codechef_icon from './svgs/codechef.svg'
+import gfg_icon from './svgs/GeeksforGeeks.svg'
+import holopin_icon from './svgs/holopin.png'
+
 // Other
-import bg_one from './bg_one.svg'
-import bg_two from './bg_two.svg'
-import profile_pic from './profile_pic.jpg'
+import bg_one from './svgs/bg_one.svg'
+import bg_two from './svgs/bg_two.svg'
+import profile_pic from './jpeg/profile_pic.jpg'
 import cv from './cv.pdf'
 import Loader from './loader.gif'
 
@@ -124,7 +130,11 @@ export const assets = {
     projects1,
     projects2,
     projects3,
-    Achievement
+    Achievement,
+    leetcode_icon,
+    codechef_icon,
+    gfg_icon,
+    holopin_icon
 }
 
 

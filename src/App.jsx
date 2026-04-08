@@ -5,9 +5,8 @@ import NavBar from "./components/NavBar";
 import Home from './Pages/Home';
 import About from './Pages/About';
 import Project from './Pages/Project';
+import CodingArena from './Pages/CodingArena';
 import Footer from './components/Footer';
-import Experience from './Pages/Experience';
-import Achievement from './Pages/Achievement';
 import Loader from './components/Loader';
 
 const App = () => {
@@ -28,8 +27,8 @@ const App = () => {
           <Route path='/' element={<Home />} />
           <Route path='/about' element={<About />} />
           <Route path='/project' element={<Project />} />
-          <Route path='/experience' element={<Experience />} />
-          <Route path='/achievement' element={<Achievement />} />
+          <Route path='/arena' element={<CodingArena />} />
+
       </Routes>
       <Footer />
     </div>

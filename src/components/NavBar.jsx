@@ -3,73 +3,37 @@ import { NavLink } from 'react-router-dom';
 import { assets } from '../assets/assets'
 
 function NavBar() {
-  const navLinkStyle = ({ isActive }) => {
-    return {
-      transform: isActive ? 'scale(1.2)' : 'scale(1)',
-      color: isActive ? '#FFD700' : '#FFFFFF',
-      opacity: isActive ? 1 : 0.7,
-      transition: 'transform 0.3s ease, color 0.3s ease, box-shadow 0.3s ease',
-    };
-  };
+  const navLinkStyle = ({ isActive }) => ({
+    transform: isActive ? 'scale(1.2)' : 'scale(1)',
+    color: isActive ? '#FFD700' : '#FFFFFF',
+    opacity: isActive ? 1 : 0.7,
+    transition: 'transform 0.3s ease, color 0.3s ease, box-shadow 0.3s ease',
+  });
 
   return (
     <div className="w-full p-5 flex items-center justify-center">
       <motion.div
-        className="bg-[#1C1A19] px-7 py-3 rounded-full flex gap-10 items-center justify-center"
+        className="bg-[#1C1A19] px-7 py-3 rounded-full flex gap-6 md:gap-10 items-center justify-center"
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{
-          duration: 0.6,
-          ease: "easeInOut",
-          bounce: 0.3,
-        }}
+        transition={{ duration: 0.6, ease: "easeInOut", bounce: 0.3 }}
       >
-        
-        {/* Home Icon */}
         <NavLink style={navLinkStyle} to="/" className="relative group cursor-pointer">
-          
           <img className="transition-all ease-in-out group-hover:scale-110 w-[25px]" src={assets.home} alt="home" />
-          
           <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-white text-xs absolute top-0 left-1/2 transform -translate-x-1/2 translate-y-10 bg-[#1C1A19] px-2 py-0.5 rounded-full">Home</span>
-        
         </NavLink>
-        
-        {/* About Icon */}
-        <NavLink style={navLinkStyle}  to="/about" className="relative group cursor-pointer">
-         
+
+        <NavLink style={navLinkStyle} to="/about" className="relative group cursor-pointer">
           <img className="transition-all ease-in-out group-hover:scale-110 w-[25px]" src={assets.folder} alt="about" />
-         
           <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-white text-xs absolute top-0 left-1/2 transform -translate-x-1/2 translate-y-10 bg-[#1C1A19] px-2 py-0.5 rounded-full">About</span>
-        
         </NavLink>
 
-        {/* Projects Icon */}
-        <NavLink style={navLinkStyle}  to="/project" className="relative group cursor-pointer">
-          
-          <img className="transition-all ease-in-out group-hover:scale-110 w-[25px]" src={assets.tool} alt="services" />
-          
+        <NavLink style={navLinkStyle} to="/project" className="relative group cursor-pointer">
+          <img className="transition-all ease-in-out group-hover:scale-110 w-[25px]" src={assets.tool} alt="projects" />
           <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-white text-xs absolute top-0 left-1/2 transform -translate-x-1/2 translate-y-10 bg-[#1C1A19] px-2 py-0.5 rounded-full">Projects</span>
-        
         </NavLink>
 
-        {/* Experience Icon */}
-        <NavLink style={navLinkStyle}  to="/experience" className="relative group cursor-pointer">
-          
-          <img className="transition-all ease-in-out group-hover:scale-110 w-[25px]" src={assets.experience} alt="experience" />
-          
-          <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-white text-xs absolute top-0 left-1/2 transform -translate-x-1/2 translate-y-10 bg-[#1C1A19] px-2 py-0.5 rounded-full">Experience</span>
-        
-        </NavLink>
 
-        
-        {/* Achievement Icon */}
-        <NavLink style={navLinkStyle}  to="/achievement" className="relative group cursor-pointer">
-          
-          <img className="transition-all ease-in-out group-hover:scale-110 w-[25px]"  src={assets.Achievement} alt="experience" />
-          
-          <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-white text-xs absolute top-0 left-1/2 transform -translate-x-1/2 translate-y-10 bg-[#1C1A19] px-2 py-0.5 rounded-full">Achievement</span>
-        
-        </NavLink>
       </motion.div>
     </div>
   )

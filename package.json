@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "antd": "^5.27.0",
+    "canvas-confetti": "^1.9.4",
     "framer-motion": "^12.0.0-alpha.1",
     "gsap": "^3.13.0",
     "lottie-react": "^2.4.1",

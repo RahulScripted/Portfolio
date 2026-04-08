@@ -4,11 +4,12 @@ import Cards from '../components/Cards';
 import HomeElement from '../components/HomeElement';
 import Contact from '../components/Contact';
 import AboutElement from '../components/AboutElement';
-import Timeline from '../components/Timeline';
 import ProjectElement from '../components/ProjectElement';
-import SwagsBadges from '../components/SwagsBadges';
+import ExperienceSection from '../components/ExperienceSection';
+import CertificationsSection from '../components/CertificationsSection';
 
 function Home() {
+
   useEffect(() => {
     document.body.style.overflowX = 'hidden';
     return () => {
@@ -32,7 +33,7 @@ function Home() {
       {/* Right Part */}
       <div className="w-full flex flex-col items-center justify-center gap-16 md:gap-28">
         
-        {/* Home - element */}
+        {/* Hero */}
         <motion.div 
           initial={{ opacity: 0 }} 
           animate={{ opacity: 1 }}
@@ -41,7 +42,7 @@ function Home() {
           <HomeElement />
         </motion.div>
 
-        {/* About - element */}
+        {/* About */}
         <motion.div 
           initial={{ opacity: 0 }} 
           animate={{ opacity: 1 }}
@@ -50,7 +51,17 @@ function Home() {
           <AboutElement />
         </motion.div>
 
-        {/* Project - element */}
+        {/* Experience */}
+        <motion.div
+          className="w-full"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 0.8 }}
+        >
+          <ExperienceSection />
+        </motion.div>
+
+        {/* Projects */}
         <motion.div 
           initial={{ opacity: 0 }} 
           animate={{ opacity: 1 }}
@@ -59,25 +70,17 @@ function Home() {
           <ProjectElement />
         </motion.div>
 
-        {/* Experience - element */}
-        <motion.div 
-          initial={{ opacity: 0 }} 
+        {/* Certifications */}
+        <motion.div
+          className="w-full"
+          initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1.2 }}
+          transition={{ duration: 1, delay: 1.0 }}
         >
-          <Timeline />
+          <CertificationsSection />
         </motion.div>
 
-        {/* Achievement - element */}
-        <motion.div 
-          initial={{ opacity: 0 }} 
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1.2 }}
-        >
-          <SwagsBadges />
-        </motion.div>
-
-        {/* Contact - element */}
+        {/* Contact */}
         <motion.div 
           initial={{ x: 200, opacity: 0 }} 
           animate={{ x: 0, opacity: 1 }}
