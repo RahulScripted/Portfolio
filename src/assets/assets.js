@@ -5,15 +5,11 @@ import folder from './icons/folder.svg'
 import home from './icons/home.svg'
 import mail from './icons/mail.svg'
 import tool from './icons/tool.svg'
-import layout from './icons/layout.svg'
 import linkedin from './icons/linkedin.svg'
-import experience from './icons/experience.svg'
-import stack from './icons/stack.svg'
 import star from './icons/star.svg'
 import open_source from './icons/open_source.svg'
 import work from './icons/work.svg'
 import complete from './icons/complete.svg'
-import building from './icons/building.svg'
 import Achievement from './icons/Achievement.svg'
 
 // Skills
@@ -77,10 +73,11 @@ import Loader from './svgs/loader.svg'
 // Other
 import profile_pic from './jpeg/profile_pic.jpg'
 import cv from './cv.pdf'
-
+import Love from './svgs/love.svg'
 
 export const assets = {
     GFG,
+    Love,
     Loader,
     Arcade,
     Leetcode1,
@@ -110,10 +107,7 @@ export const assets = {
     home,
     mail,
     tool,
-    layout,
     linkedin,
-    experience,
-    stack,
     star,
     profile_pic,
     html,
@@ -138,7 +132,6 @@ export const assets = {
     cv,
     open_source,
     complete,
-    building,
     projects1,
     projects2,
     projects3,

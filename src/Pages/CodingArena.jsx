@@ -191,7 +191,7 @@ const PlatformCard = ({ platform, idx, isMobile }) => {
 
       {/* Overlay — slides up on hover */}
       <motion.div
-        className="absolute inset-0 bg-[#0a0a0a]/95 backdrop-blur-sm rounded-2xl flex flex-col items-center justify-center p-5 gap-4"
+        className="absolute inset-0 bg-[#0a0a0a]/95 backdrop-blur-sm rounded-2xl flex flex-col items-center justify-start p-5 gap-3 overflow-y-auto"
         initial={false}
         animate={{ y: showOverlay ? 0 : '100%' }}
         transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
@@ -202,10 +202,10 @@ const PlatformCard = ({ platform, idx, isMobile }) => {
               <img src={assets.Achievement} alt="" className="w-3 h-3 opacity-50" />
               Badges ({platform.badges.length})
             </p>
-            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 justify-items-center gap-3 w-full place-items-center">
+            <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 justify-items-center gap-2 w-full place-items-center">
               {platform.badges.map((badge, bIdx) => (
                 <div key={bIdx} className="flex flex-col items-center gap-1 group cursor-pointer">
-                  <div className="w-14 h-14 rounded-full border-2 overflow-hidden group-hover:scale-110 group-hover:shadow-[0_0_12px_-3px] transition-all"
+                  <div className="w-11 h-11 sm:w-14 sm:h-14 rounded-full border-2 overflow-hidden group-hover:scale-110 group-hover:shadow-[0_0_12px_-3px] transition-all"
                     style={{ borderColor: platform.color + '30' }}>
                     <img src={badge.img} alt={badge.title} className="w-full h-full object-cover" />
                   </div>

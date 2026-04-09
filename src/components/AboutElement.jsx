@@ -135,7 +135,7 @@ function AboutElement() {
           </a>
           <p className='text-xs text-gray-500 mt-0.5'>Bankura, West Bengal, India</p>
           <div className='flex items-center gap-4 mt-2'>
-            <p className='text-xs text-emerald-400 font-medium'>CGPA: 8.24 / 10</p>
+            <p className='text-xs text-emerald-400 font-medium'>CGPA: 8.29 / 10</p>
           </div>
 
           <div className='mt-4 pt-4 border-t border-white/5'>
