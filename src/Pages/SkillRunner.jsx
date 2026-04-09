@@ -234,6 +234,8 @@ function explode(parts, x, y) {
 }
 
 // ─── Component ────────────────────────────────────────────────────────────────
+const PIXEL_FONT = "'Press Start 2P', monospace";
+
 const SkillRunner = () => {
   const canvasRef    = useRef(null);
   const containerRef = useRef(null);
@@ -614,7 +616,7 @@ const SkillRunner = () => {
           // hand-drawn X mark instead of emoji
           drawXMark(ctx, item.x+ICON_SIZE/2, fy-6, 5, '#ff4444', 2);
           // TRAP text label
-          ctx.font='bold 7px monospace'; ctx.textAlign='center'; ctx.textBaseline='top';
+          ctx.font=`bold 5px ${PIXEL_FONT}`; ctx.textAlign='center'; ctx.textBaseline='top';
           ctx.fillStyle='#ff4444';
           ctx.fillText('TRAP', item.x+ICON_SIZE/2, fy+ICON_SIZE+2);
         } else {
@@ -676,7 +678,7 @@ const SkillRunner = () => {
       floats = floats.filter(f => {
         f.y-=0.6; f.life--;
         ctx.globalAlpha=f.life/35; ctx.fillStyle=f.color;
-        ctx.font='bold 10px monospace'; ctx.textAlign='center'; ctx.textBaseline='alphabetic';
+        ctx.font=`bold 7px ${PIXEL_FONT}`; ctx.textAlign='center'; ctx.textBaseline='alphabetic';
         ctx.fillText(f.text, f.x+ICON_SIZE/2, f.y);
         ctx.globalAlpha=1;
         return f.life>0;
@@ -693,9 +695,9 @@ const SkillRunner = () => {
         ctx.strokeStyle='rgba(255,80,80,0.7)'; ctx.lineWidth=2; ctx.stroke();
         drawSkull(ctx, W/2-128, H/2, 22, 'rgba(255,80,80,0.55)');
         drawSkull(ctx, W/2+128, H/2, 22, 'rgba(255,80,80,0.55)');
-        ctx.fillStyle='#ff6b6b'; ctx.font='bold 13px monospace';
+        ctx.fillStyle='#ff6b6b'; ctx.font=`bold 9px ${PIXEL_FONT}`;
         ctx.fillText(deathMsg, W/2, H/2-8);
-        ctx.fillStyle='rgba(255,100,100,0.55)'; ctx.font='bold 10px monospace';
+        ctx.fillStyle='rgba(255,100,100,0.55)'; ctx.font=`bold 7px ${PIXEL_FONT}`;
         ctx.fillText('GAME OVER — Restarting from scratch', W/2, H/2+14);
         if (phaseTimer<=0) fullReset();
       }
@@ -715,12 +717,12 @@ const SkillRunner = () => {
         ctx.strokeStyle='rgba(245,197,24,0.75)'; ctx.lineWidth=2; ctx.stroke();
         // big cup centred
         drawPixelCup(ctx, W/2, H/2-26, 38);
-        ctx.fillStyle='#f5c518'; ctx.font='bold 22px monospace';
+        ctx.fillStyle='#f5c518'; ctx.font=`bold 16px ${PIXEL_FONT}`;
         ctx.fillText('YOU WIN!', W/2, H/2+12);
-        ctx.fillStyle='#a5b4fc'; ctx.font='bold 11px monospace';
+        ctx.fillStyle='#a5b4fc'; ctx.font=`bold 7px ${PIXEL_FONT}`;
         ctx.fillText(`All ${TOTAL_SKILLS} skills collected  •  Score: ${sc}`, W/2, H/2+32);
         const pa = 0.4 + Math.sin(phaseTimer*0.07)*0.4;
-        ctx.globalAlpha=pa; ctx.fillStyle='#666'; ctx.font='bold 9px monospace';
+        ctx.globalAlpha=pa; ctx.fillStyle='#666'; ctx.font=`bold 6px ${PIXEL_FONT}`;
         ctx.fillText('Restarting soon...', W/2, H/2+50);
         ctx.globalAlpha=1;
         if (phaseTimer > 260) fullReset();
@@ -731,12 +733,12 @@ const SkillRunner = () => {
 
       // score — coin + number, no box
       drawPixelCoin(ctx, 20, 23, 8);
-      ctx.fillStyle='#a5b4fc'; ctx.font='bold 12px monospace';
+      ctx.fillStyle='#a5b4fc'; ctx.font=`bold 9px ${PIXEL_FONT}`;
       ctx.fillText(`${sc}`, 33, 28);
 
       // cup — right side, current score
       drawPixelCup(ctx, W-52, 23, 18);
-      ctx.fillStyle='#f5c518'; ctx.font='bold 12px monospace';
+      ctx.fillStyle='#f5c518'; ctx.font=`bold 9px ${PIXEL_FONT}`;
       ctx.fillText(`${sc}`, W-40, 28);
 
       frame++;
@@ -756,13 +758,13 @@ const SkillRunner = () => {
     >
       <div className="flex items-center justify-between mb-3">
         <div>
-          <h2 className="text-xl md:text-2xl font-bold font-mono">
+          <h2 className="text-xl md:text-2xl font-bold" style={{fontFamily:"'Press Start 2P', monospace"}}>
             <span className="text-indigo-400">Skill</span>
             <span className="text-zinc-600"> Runner</span>
           </h2>
         </div>
         <div className="flex items-center gap-3">
-          <span className="text-zinc-500 font-mono text-xs">Score: {score}</span>
+          <span className="text-zinc-500 text-[10px]" style={{fontFamily:"'Press Start 2P', monospace"}}>Score: {score}</span>
         </div>
       </div>
 
@@ -772,10 +774,10 @@ const SkillRunner = () => {
 
       {uniqueSkills.length>0 && (
         <div className="flex flex-wrap gap-1.5 mt-3">
-          <span className="text-zinc-600 text-[10px] font-mono uppercase tracking-wider self-center mr-1">Collected:</span>
+          <span className="text-zinc-600 text-[8px] uppercase tracking-wider self-center mr-1" style={{fontFamily:"'Press Start 2P', monospace"}}>Collected:</span>
           {uniqueSkills.map(s=>(
             <motion.span key={s} initial={{scale:0}} animate={{scale:1}}
-              className="px-2 py-0.5 bg-indigo-400/[0.07] border border-indigo-400/15 rounded-md text-indigo-300/80 text-[10px] font-mono"
+              className="px-2 py-0.5 bg-indigo-400/[0.07] border border-indigo-400/15 rounded-md text-indigo-300/80 text-[8px]" style={{fontFamily:"'Press Start 2P', monospace"}}
             >{s}</motion.span>
           ))}
         </div>
