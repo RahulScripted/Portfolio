@@ -74,9 +74,9 @@ const DonutChart = ({ segments, total, label, size = 120, strokeWidth = 12 }) =>
         <text x={size / 2} y={size / 2 - 6} textAnchor="middle" className="fill-white text-lg font-bold font-mono">{total}</text>
         <text x={size / 2} y={size / 2 + 10} textAnchor="middle" className="fill-zinc-500 text-[9px] font-mono">{label}</text>
       </svg>
-      <div className="flex flex-wrap justify-center gap-x-3 gap-y-1 mt-2">
+      <div className="flex flex-wrap justify-center gap-x-3 gap-y-1 mt-2 w-full text-center">
         {segments.map((seg, i) => (
-          <div key={i} className="flex items-center gap-1">
+          <div key={i} className="flex items-center justify-center gap-1">
             <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: seg.color }} />
             <span className="text-[9px] text-zinc-500 font-mono">{seg.label}: {seg.value}</span>
           </div>
@@ -92,8 +92,8 @@ const platforms = [
     id: 'leetcode', name: 'LeetCode', icon: assets.leetcode_icon,
     url: 'https://leetcode.com/u/RahulScripted/', color: '#FFC107',
     border: 'border-yellow-400/25', hoverBorder: 'hover:border-yellow-400/50',
-    chart: { segments: [{ label: 'Easy', value: 130, color: '#4ADE80' }, { label: 'Medium', value: 119, color: '#FBBF24' }, { label: 'Hard', value: 16, color: '#F87171' }], total: 265, label: 'Solved' },
-    stats: [{ label: 'Rating', value: '1712' }, { label: 'Rank', value: '532K' }, { label: 'Problems', value: '388+' }],
+    chart: { segments: [{ label: 'Easy', value: 126, color: '#4ADE80' }, { label: 'Medium', value: 227, color: '#FBBF24' }, { label: 'Hard', value: 35, color: '#F87171' }], total: 388, label: 'Solved' },
+    stats: [{ label: 'Contest Rating', value: '1,709' }, { label: 'Global Rank', value: '298,779' }, { label: 'Top', value: '12.64%' }, { label: 'Contests', value: '6' }, { label: 'Badges', value: '7' }, { label: 'Attempting', value: '4' }],
     badges: [
       { img: assets.Leetcode1, title: '50 Days Badge' }, { img: assets.Leetcode2, title: 'Oct Challenge' },
       { img: assets.Leetcode3, title: 'Nov Challenge' }, { img: assets.Leetcode4, title: 'Top 150' },
@@ -102,20 +102,19 @@ const platforms = [
     ],
   },
   {
-    id: 'codechef', name: 'CodeChef', icon: assets.codechef_icon,
+    id: 'codechef', name: 'CodeChef', icon: assets.codechef_icon, iconBg: true,
     url: 'https://www.codechef.com/users/explosion_king', color: '#FB923C',
     border: 'border-orange-400/25', hoverBorder: 'hover:border-orange-400/50',
     chart: { segments: [{ label: 'Solved', value: 1000, color: '#FB923C' }], total: '1000+', label: 'Problems' },
-    stats: [{ label: 'Stars', value: '3★' }, { label: 'Peak Rating', value: '1689' }, { label: 'Streak', value: '100 Days' }],
+    stats: [{ label: 'Stars', value: '3★ (Div 2)' }, { label: 'Peak Rating', value: '1689' }, { label: 'Contests', value: '18' }],
     badges: [{ img: assets.CodeChef1, title: '100 Days Streak' }, { img: assets.CodeChef2, title: '1000+ Problems' }],
   },
   {
-    id: 'gfg', name: 'GeeksForGeeks', icon: assets.gfg_icon,
+    id: 'gfg', name: 'GeeksForGeeks', icon: assets.gfg_icon, iconBg: true,
     url: 'https://www.geeksforgeeks.org/profile/goswamirap9x6', color: '#4ADE80',
     border: 'border-green-400/25', hoverBorder: 'hover:border-green-400/50',
-    expandable: false,
     chart: { segments: [{ label: 'Solved', value: 329, color: '#4ADE80' }], total: '329+', label: 'Problems' },
-    stats: [{ label: 'Institute Rank', value: '#1' }, { label: 'POTD Streak', value: '160 Days' }, { label: 'Problems', value: '329+' }],
+    stats: [{ label: 'Coding Score', value: '1140' }, { label: 'Institute Rank', value: '#1' }, { label: 'Problems', value: '329+' }, { label: 'Longest Streak', value: '200 Days' }, { label: 'POTDs Solved', value: '237' }, { label: 'Articles', value: '--' }],
     badges: [],
   },
   {
@@ -144,31 +143,31 @@ const platforms = [
 const PlatformCard = ({ platform, idx, isMobile }) => {
   const [hovered, setHovered] = useState(false);
   const [tapped, setTapped] = useState(false);
-  const expanded = platform.expandable === false ? false : (isMobile ? tapped : hovered);
+  const showOverlay = isMobile ? tapped : hovered;
 
   return (
     <motion.div
-      className={`bg-[#0a0a0a] ${platform.border} border rounded-2xl overflow-hidden transition-colors duration-300 ${platform.hoverBorder}`}
+      className={`relative bg-[#0a0a0a] ${platform.border} border rounded-2xl overflow-hidden transition-colors duration-300 ${platform.hoverBorder}`}
+      style={{ minHeight: 'var(--card-h)' }}
       initial={{ y: 30, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ delay: 0.2 + idx * 0.08, type: 'spring', stiffness: 80 }}
-      onClick={() => { if (isMobile && platform.expandable !== false) setTapped(p => !p); }}
+      onClick={() => { if (isMobile) setTapped(p => !p); }}
       onMouseEnter={() => { if (!isMobile) setHovered(true); }}
       onMouseLeave={() => { if (!isMobile) setHovered(false); }}
     >
-      {/* Always visible */}
+      {/* Always visible content */}
       <div className="p-5 flex flex-col items-center gap-3">
         <div className="flex items-center gap-3 w-full">
           <a href={platform.url} target="_blank" rel="noopener noreferrer" onClick={e => e.stopPropagation()}
-            className="w-10 h-10 rounded-full border overflow-hidden shrink-0 hover:scale-110 transition-transform"
+            className={`w-10 h-10 rounded-full border overflow-hidden shrink-0 hover:scale-110 transition-transform ${platform.iconBg ? 'bg-white/10 p-1' : ''}`}
             style={{ borderColor: platform.color + '40' }}>
-            <img src={platform.icon} alt={platform.name} className="w-full h-full object-cover" />
+            <img src={platform.icon} alt={platform.name} className={`w-full h-full ${platform.iconBg ? 'object-contain' : 'object-cover'}`} />
           </a>
           <h3 className="text-sm font-bold font-mono" style={{ color: platform.color }}>{platform.name}</h3>
         </div>
         <DonutChart segments={platform.chart.segments} total={platform.chart.total} label={platform.chart.label} />
 
-        {/* Always-visible details (Open Source) */}
         {platform.details && (
           <ul className="w-full space-y-1.5 mt-1">
             {platform.details.map((d, i) => (
@@ -180,85 +179,50 @@ const PlatformCard = ({ platform, idx, isMobile }) => {
           </ul>
         )}
 
-        {/* GFG always-visible stats (non-expandable) */}
-        {platform.expandable === false && (
-          <div className="grid grid-cols-3 gap-2 w-full mt-1">
-            {platform.stats.map((stat, sIdx) => (
-              <div key={sIdx} className="bg-black/60 border border-white/5 rounded-lg p-2.5 text-center">
-                <p className="text-zinc-600 text-[8px] font-mono uppercase tracking-wider">{stat.label}</p>
-                <p className="text-base font-bold font-mono mt-0.5" style={{ color: platform.color }}>{stat.value}</p>
-              </div>
-            ))}
-          </div>
-        )}
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-2 w-full mt-1">
+          {platform.stats.map((stat, sIdx) => (
+            <div key={sIdx} className="bg-black/60 border border-white/5 rounded-lg p-2.5 text-center">
+              <p className="text-zinc-600 text-[8px] font-mono uppercase tracking-wider">{stat.label}</p>
+              <p className="text-base font-bold font-mono mt-0.5" style={{ color: platform.color }}>{stat.value}</p>
+            </div>
+          ))}
+        </div>
       </div>
 
-      {/* Expandable section */}
-      {platform.expandable !== false && (
-        <motion.div
-          className="overflow-hidden"
-          initial={false}
-          animate={{ height: expanded ? 'auto' : 0, opacity: expanded ? 1 : 0 }}
-          transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
-        >
-          <div className="px-5 pb-5">
-            <div className="border-t border-white/5 pt-4">
-              <div className="grid grid-cols-3 gap-2 mb-4">
-                {platform.stats.map((stat, sIdx) => (
-                  <motion.div
-                    key={sIdx}
-                    className="bg-black/60 border border-white/5 rounded-lg p-2.5 text-center"
-                    initial={{ y: 10, opacity: 0 }}
-                    animate={expanded ? { y: 0, opacity: 1 } : { y: 10, opacity: 0 }}
-                    transition={{ delay: expanded ? sIdx * 0.05 : 0, duration: 0.25 }}
-                  >
-                    <p className="text-zinc-600 text-[8px] font-mono uppercase tracking-wider">{stat.label}</p>
-                    <p className="text-base font-bold font-mono mt-0.5" style={{ color: platform.color }}>{stat.value}</p>
-                  </motion.div>
-                ))}
-              </div>
-
-              {platform.badges.length > 0 && (
-                <div>
-                  <p className="text-zinc-500 text-[9px] font-mono uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                    <img src={assets.Achievement} alt="" className="w-3 h-3 opacity-50" />
-                    Badges ({platform.badges.length})
-                  </p>
-                  <div className="flex flex-wrap gap-3">
-                    {platform.badges.map((badge, bIdx) => (
-                      <motion.div
-                        key={bIdx}
-                        className="flex flex-col items-center gap-1 group cursor-pointer"
-                        initial={{ scale: 0.8, opacity: 0 }}
-                        animate={expanded ? { scale: 1, opacity: 1 } : { scale: 0.8, opacity: 0 }}
-                        transition={{ delay: expanded ? 0.1 + bIdx * 0.03 : 0, type: 'spring', stiffness: 200 }}
-                        whileHover={{ scale: 1.15 }}
-                      >
-                        <div className="w-12 h-12 rounded-full border-2 overflow-hidden group-hover:shadow-[0_0_12px_-3px] transition-all"
-                          style={{ borderColor: platform.color + '30' }}>
-                          <img src={badge.img} alt={badge.title} className="w-full h-full object-cover" />
-                        </div>
-                        <p className="text-[8px] text-zinc-600 text-center max-w-[60px] leading-tight group-hover:text-zinc-400 transition-colors">{badge.title}</p>
-                      </motion.div>
-                    ))}
+      {/* Overlay — slides up on hover */}
+      <motion.div
+        className="absolute inset-0 bg-[#0a0a0a]/95 backdrop-blur-sm rounded-2xl flex flex-col items-center justify-center p-5 gap-4"
+        initial={false}
+        animate={{ y: showOverlay ? 0 : '100%' }}
+        transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
+      >
+        {platform.badges.length > 0 && (
+          <>
+            <p className="text-zinc-500 text-[9px] font-mono uppercase tracking-wider flex items-center gap-1.5">
+              <img src={assets.Achievement} alt="" className="w-3 h-3 opacity-50" />
+              Badges ({platform.badges.length})
+            </p>
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 justify-items-center gap-3 w-full place-items-center">
+              {platform.badges.map((badge, bIdx) => (
+                <div key={bIdx} className="flex flex-col items-center gap-1 group cursor-pointer">
+                  <div className="w-14 h-14 rounded-full border-2 overflow-hidden group-hover:scale-110 group-hover:shadow-[0_0_12px_-3px] transition-all"
+                    style={{ borderColor: platform.color + '30' }}>
+                    <img src={badge.img} alt={badge.title} className="w-full h-full object-cover" />
                   </div>
+                  <p className="text-[8px] text-zinc-500 text-center max-w-[60px] leading-tight group-hover:text-zinc-300 transition-colors">{badge.title}</p>
                 </div>
-              )}
-
-              <motion.a
-                href={platform.url} target="_blank" rel="noopener noreferrer" onClick={e => e.stopPropagation()}
-                className="mt-3 block text-center text-[10px] font-mono uppercase tracking-wider py-2 rounded-lg border transition-all hover:bg-white/5"
-                style={{ color: platform.color, borderColor: platform.color + '25' }}
-                initial={{ y: 5, opacity: 0 }}
-                animate={expanded ? { y: 0, opacity: 1 } : { y: 5, opacity: 0 }}
-                transition={{ delay: expanded ? 0.2 : 0, duration: 0.2 }}
-              >
-                View Profile →
-              </motion.a>
+              ))}
             </div>
-          </div>
-        </motion.div>
-      )}
+          </>
+        )}
+        <a
+          href={platform.url} target="_blank" rel="noopener noreferrer" onClick={e => e.stopPropagation()}
+          className="block text-center text-[10px] font-mono uppercase tracking-wider py-2 px-6 rounded-lg border transition-all hover:bg-white/5"
+          style={{ color: platform.color, borderColor: platform.color + '25' }}
+        >
+          View Profile →
+        </a>
+      </motion.div>
     </motion.div>
   );
 };
@@ -275,23 +239,19 @@ const CodingArena = () => {
           <span className="text-emerald-400">CODING</span>
           <span className="text-zinc-600 mx-3">ARENA</span>
         </h1>
-        <p className="text-white text-sm font-mono mt-3 flex items-center justify-center gap-2">
-          <img src={assets.complete} alt="" className="w-4 h-4" style={{ filter: 'brightness(0) saturate(100%) invert(52%) sepia(72%) saturate(1057%) hue-rotate(338deg) brightness(97%) contrast(95%)' }} />
-          All platforms • All badges • All wins
-        </p>
-        <motion.div className="w-20 h-0.5 bg-emerald-400/40 mx-auto mt-4 rounded-full" initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ delay: 0.3, duration: 0.6 }} />
+        <motion.div className="w-20 h-0.5 bg-emerald-400/40 mx-auto mt-2 rounded-full" initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ delay: 0.3, duration: 0.6 }} />
       </motion.div>
 
       {/* Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" style={{ '--card-h': '480px' }}>
         {/* Overall Skills */}
         <motion.div
-          className="bg-[#0a0a0a] border border-emerald-400/15 rounded-2xl p-5"
+          className="bg-[#0a0a0a] border border-emerald-400/15 rounded-2xl p-5 self-start flex flex-col items-center justify-center"
+          style={{ minHeight: 'var(--card-h)' }}
           initial={{ y: 30, opacity: 0 }} animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.15, type: 'spring', stiffness: 80 }}
         >
           <h3 className="text-emerald-400 text-[10px] font-mono uppercase tracking-[0.2em] mb-2 text-center flex items-center justify-center gap-2">
-            <img src={assets.complete} alt="" className="w-3 h-3 opacity-60" style={{ filter: 'brightness(0) saturate(100%) invert(52%) sepia(72%) saturate(1057%) hue-rotate(338deg) brightness(97%) contrast(95%)' }} />
             Overall Skills
           </h3>
           <RadarChart />

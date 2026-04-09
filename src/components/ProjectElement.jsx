@@ -103,8 +103,8 @@ function ProjectElement() {
             {/* Impact Metrics — listed */}
             <ul className='mt-3 flex flex-col gap-1'>
               {project.metrics.map((m, i) => (
-                <li key={i} className='text-xs md:text-sm text-[#C5FF41] font-medium flex items-start gap-2'>
-                  <img width={12} className='mt-0.5 shrink-0' style={{filter: 'brightness(0) invert(0.7)'}} src={assets.star} alt="•" />
+                <li key={i} className='text-xs md:text-sm text-white font-medium flex items-start gap-2'>
+                  <img width={12} className='mt-0.5 shrink-0' src={assets.complete} alt="✓" style={{filter: 'brightness(0) invert(1)'}} />
                   {m}
                 </li>
               ))}

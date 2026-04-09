@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { assets } from '../assets/assets';
 
 function AboutElement() {
   const headingVariant = {
@@ -119,11 +120,21 @@ function AboutElement() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h3 className='text-lg md:text-xl font-semibold text-white'>Bachelor's Degree in Information Technology</h3>
-          <p className='text-sm text-gray-400 mt-1'>Bankura Unnayani Institute of Engineering</p>
-          <div className='flex items-center gap-4 mt-2'>
+          <div className='flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1'>
+            <h3 className='text-lg md:text-xl font-semibold text-white'>Bachelor's Degree in Information Technology</h3>
             <p className='text-xs text-[#F46C38] font-medium'>Aug 2022 – Jun 2025</p>
-            <span className='text-xs text-gray-500'>•</span>
+          </div>
+          <a
+            href="https://www.buie.ac.in/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className='inline-flex items-center gap-1.5 mt-1 text-sm text-gray-400 hover:text-[#F46C38] transition-colors'
+          >
+            Bankura Unnayani Institute of Engineering
+            <img width={12} src={assets.arrow_right_up} alt="link" style={{ filter: 'brightness(0) invert(0.6)' }} />
+          </a>
+          <p className='text-xs text-gray-500 mt-0.5'>Bankura, West Bengal, India</p>
+          <div className='flex items-center gap-4 mt-2'>
             <p className='text-xs text-emerald-400 font-medium'>CGPA: 8.24 / 10</p>
           </div>
 
