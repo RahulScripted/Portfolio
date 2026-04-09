@@ -106,7 +106,7 @@ const platforms = [
     url: 'https://www.codechef.com/users/explosion_king', color: '#FB923C',
     border: 'border-orange-400/25', hoverBorder: 'hover:border-orange-400/50',
     chart: { segments: [{ label: 'Solved', value: 1000, color: '#FB923C' }], total: '1000+', label: 'Problems' },
-    stats: [{ label: 'Stars', value: '3★ (Div 2)' }, { label: 'Peak Rating', value: '1689' }, { label: 'Contests', value: '18' }],
+    stats: [{ label: 'Stars', value: '3★' }, { label: 'Peak Rating', value: '1689' }, { label: 'Contests', value: '18' }],
     badges: [{ img: assets.CodeChef1, title: '100 Days Streak' }, { img: assets.CodeChef2, title: '1000+ Problems' }],
   },
   {
