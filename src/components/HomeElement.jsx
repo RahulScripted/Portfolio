@@ -60,7 +60,7 @@ function HomeElement() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.8 }}
         >
-          Detail-oriented frontend developer building clean, interactive, and high-performing user experiences. Currently a Junior Software Engineer at Mintifi, crafting scalable fintech interfaces with React, TypeScript & Tailwind CSS.
+          Detail-oriented Frontend Developer with a strong focus on crafting responsive, interactive, and performance-driven web applications. As a Junior Software Engineer at Mintifi, I contribute to building scalable fintech products using React, TypeScript, and Tailwind CSS, while ensuring clean architecture, reusable components, and efficient state management. I enjoy solving complex UI challenges and continuously improving user experience through modern frontend practices.
         </motion.p>
 
         {/* CTA Buttons */}
@@ -73,7 +73,7 @@ function HomeElement() {
           <a href={assets.cv} download="Rahul_Goswami_Resume.pdf" target="_blank">
             <button className="flex items-center gap-2 px-6 py-3 bg-[#F46C38] text-white rounded-lg font-semibold hover:bg-[#d05626] transition-all duration-300 cursor-pointer">
               Download Resume
-              <img width={18} src={assets.arrow_white} alt="download" />
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
             </button>
           </a>
           <button
@@ -88,7 +88,7 @@ function HomeElement() {
 
       {/* Stats */}
       <motion.div 
-        className="flex flex-col md:flex-row items-center justify-start gap-10 mb-12"
+        className="flex flex-col md:flex-row items-center justify-start gap-10"
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.3, duration: 0.8 }}
@@ -102,46 +102,6 @@ function HomeElement() {
           <h3 className="text-[#B0B0B0] text-center font-semibold mt-2">Projects</h3>
         </div>
       </motion.div>
-
-      {/* Cards */}
-      <div className="flex items-center justify-between gap-4 max-sm:flex-col md:flex-row md:justify-center">
-        <motion.div 
-          className="w-full h-[220px] bg-[#F46C38] pl-10 pt-10 pr-5 pb-10 flex flex-col rounded-md cursor-pointer relative md:w-1/2"
-          style={{
-            backgroundImage: `url(${assets.bg_one}), url(${assets.bg_one})`,
-            backgroundSize: 'cover, cover',
-            backgroundPosition: 'top right, bottom left',
-            backgroundRepeat: 'no-repeat,no-repeat',
-            backgroundBlendMode: 'overlay',
-          }}
-          initial={{ opacity: 0, x: -50 }}
-          whileHover={{ scale: 1.05 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.1, duration: 0.4 }}
-        >
-          <img width={30} src={assets.stack} alt="stack" />
-          <h3 className="mt-5 text-lg md:text-2xl font-semibold">DYNAMIC, ANIMATION <br className="max-md:hidden" /> MOTION DESIGN</h3>
-        </motion.div>
-
-        <motion.div 
-          className="w-full h-[220px] bg-[#C5FF41] pl-10 pt-10 pr-5 pb-4 flex flex-col rounded-md cursor-pointer relative md:w-1/2"
-          style={{
-            backgroundImage: `url(${assets.bg_two}), url(${assets.bg_two})`,
-            backgroundSize: '500px 500px',
-            backgroundPosition: 'top right, bottom left',
-            backgroundRepeat: 'no-repeat, no-repeat',
-            backgroundBlendMode: 'normal',
-          }}
-          initial={{ opacity: 0, x: 50 }}
-          whileHover={{ scale: 1.05 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.1, duration: 0.4 }}
-        >
-          <img width={30} src={assets.layout} alt="layout" />
-          <h3 className="mt-5 text-black text-lg md:text-2xl font-semibold">Software Engineer</h3>
-          <h3 className="text-black text-lg md:text-2xl font-semibold">Frontend Development</h3>
-        </motion.div>
-      </div>
     </div>
   );
 }

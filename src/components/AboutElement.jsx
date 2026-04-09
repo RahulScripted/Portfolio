@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { assets } from '../assets/assets';
+import SkillBadge from './Skills/SkillBadge';
 
 function AboutElement() {
   const headingVariant = {
@@ -88,12 +89,11 @@ function AboutElement() {
               <h3 className='text-sm md:text-base text-gray-500 font-semibold mb-3 uppercase tracking-wider'>{cat.label}</h3>
               <div className='flex flex-wrap gap-2'>
                 {cat.skills.map((skill) => (
-                  <span
+                  <SkillBadge
                     key={skill}
-                    className={`px-4 py-1.5 text-xs md:text-sm font-medium rounded-full border ${categoryColors[cat.label]}`}
-                  >
-                    {skill}
-                  </span>
+                    skill={skill}
+                    colorClass={categoryColors[cat.label]}
+                  />
                 ))}
               </div>
             </motion.div>

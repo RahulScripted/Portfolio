@@ -29,6 +29,14 @@ import NextJs from './skills/NextJs.svg'
 import react from './skills/react.svg'
 import tailwind from './skills/tailwind.svg'
 import TypeScript from './skills/typescript.svg'
+import sql from './skills/sql.svg'
+import antdesign from './skills/antdesign.svg'
+import materialui from './skills/materialui.svg'
+import vercel from './skills/vercel.svg'
+import postman from './skills/postman.svg'
+import gsapIcon from './skills/gsap.svg'
+import framermotion from './skills/framermotion.svg'
+import figma from './skills/figma.svg'
 
 // Projects
 import projects1 from './projects/projects1.png'
@@ -64,13 +72,11 @@ import leetcode_icon from './jpeg/leetcode.jpeg'
 import codechef_icon from './svgs/codechef.svg'
 import gfg_icon from './svgs/GeeksforGeeks.svg'
 import holopin_icon from './svgs/holopin.png'
+import Loader from './svgs/loader.svg'
 
 // Other
-import bg_one from './svgs/bg_one.svg'
-import bg_two from './svgs/bg_two.svg'
 import profile_pic from './jpeg/profile_pic.jpg'
 import cv from './cv.pdf'
-import Loader from './loader.gif'
 
 
 export const assets = {
@@ -109,8 +115,6 @@ export const assets = {
     experience,
     stack,
     star,
-    bg_one,
-    bg_two,
     profile_pic,
     html,
     css,
@@ -123,6 +127,14 @@ export const assets = {
     NextJs,
     TypeScript,
     github_w,
+    sql,
+    antdesign,
+    materialui,
+    vercel,
+    postman,
+    gsapIcon,
+    framermotion,
+    figma,
     cv,
     open_source,
     complete,

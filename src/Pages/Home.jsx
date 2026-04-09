@@ -7,6 +7,7 @@ import AboutElement from '../components/AboutElement';
 import ProjectElement from '../components/ProjectElement';
 import ExperienceSection from '../components/ExperienceSection';
 import CertificationsSection from '../components/CertificationsSection';
+import SkillRunner from '../Pages/SkillRunner';
 
 function Home() {
 
@@ -59,6 +60,16 @@ function Home() {
           transition={{ duration: 1, delay: 0.8 }}
         >
           <ExperienceSection />
+        </motion.div>
+
+        {/* Skill Runner */}
+        <motion.div
+          className="w-full"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 0.85 }}
+        >
+          <SkillRunner />
         </motion.div>
 
         {/* Projects */}

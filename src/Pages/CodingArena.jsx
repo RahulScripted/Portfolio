@@ -106,7 +106,7 @@ const platforms = [
     url: 'https://www.codechef.com/users/explosion_king', color: '#FB923C',
     border: 'border-orange-400/25', hoverBorder: 'hover:border-orange-400/50',
     chart: { segments: [{ label: 'Solved', value: 1000, color: '#FB923C' }], total: '1000+', label: 'Problems' },
-    stats: [{ label: 'Stars', value: '3★' }, { label: 'Peak Rating', value: '1689' }, { label: 'Contests', value: '18' }],
+    stats: [{ label: 'Stars', value: '3★' }, { label: 'Peak Rating', value: '1689' }, { label: 'Contests', value: '18' }, { label: 'Problems', value: '2273' }, { label: 'Skill Test', value: '93%' }],
     badges: [{ img: assets.CodeChef1, title: '100 Days Streak' }, { img: assets.CodeChef2, title: '1000+ Problems' }],
   },
   {
@@ -179,9 +179,9 @@ const PlatformCard = ({ platform, idx, isMobile }) => {
           </ul>
         )}
 
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-2 w-full mt-1">
+        <div className="flex flex-wrap justify-center gap-2 w-full mt-1">
           {platform.stats.map((stat, sIdx) => (
-            <div key={sIdx} className="bg-black/60 border border-white/5 rounded-lg p-2.5 text-center">
+            <div key={sIdx} className="bg-black/60 border border-white/5 rounded-lg p-2.5 text-center w-[calc(50%-4px)] sm:w-[calc(50%-4px)] md:w-[calc(25%-6px)]">
               <p className="text-zinc-600 text-[8px] font-mono uppercase tracking-wider">{stat.label}</p>
               <p className="text-base font-bold font-mono mt-0.5" style={{ color: platform.color }}>{stat.value}</p>
             </div>
@@ -243,7 +243,7 @@ const CodingArena = () => {
       </motion.div>
 
       {/* Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" style={{ '--card-h': '480px' }}>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" style={{ '--card-h': '400px' }}>
         {/* Overall Skills */}
         <motion.div
           className="bg-[#0a0a0a] border border-emerald-400/15 rounded-2xl p-5 self-start flex flex-col items-center justify-center"

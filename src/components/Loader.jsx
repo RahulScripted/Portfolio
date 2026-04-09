@@ -6,7 +6,7 @@ const Loader = () => {
       <img 
         src={assets.Loader} 
         alt="Loading..." 
-        className="w-64"
+        className="w-32"
       />
     </div>
   );

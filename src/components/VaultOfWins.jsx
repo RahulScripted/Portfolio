@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import gsap from 'gsap';
-import confetti from 'canvas-confetti';
 import { assets } from '../assets/assets';
 
 const statsData = [
@@ -91,7 +90,6 @@ const swagsData = [
 
 const VaultOfWins = ({ isOpen, onClose }) => {
   const modalRef = useRef(null);
-  const hasConfettiFired = useRef(false);
   const [flippedSwag, setFlippedSwag] = useState(null);
   const [activeTooltip, setActiveTooltip] = useState(null);
   const navigate = useNavigate();
@@ -103,12 +101,7 @@ const VaultOfWins = ({ isOpen, onClose }) => {
         { scale: 0.7, rotateY: -15, opacity: 0 },
         { scale: 1, rotateY: 0, opacity: 1, duration: 0.6, ease: 'back.out(1.7)' }
       );
-      if (!hasConfettiFired.current) {
-        setTimeout(() => {
-          confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 }, colors: ['#10b981', '#000000', '#F46C38', '#C5FF41'] });
-        }, 400);
-        hasConfettiFired.current = true;
-      }
+
     }
   }, [isOpen]);
 
