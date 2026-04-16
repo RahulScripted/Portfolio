@@ -20,6 +20,8 @@ const skillIconMap = {
   'GSAP': { icon: assets.gsapIcon, color: '#111' },
   'Framer Motion': { icon: assets.framermotion, color: '#111' },
   'Figma': { icon: assets.figma, color: '#111' },
+  'Jest': { icon: assets.jest, color: '#111' },
+  'Unit Testing': { icon: assets.jest, color: '#111' },
 };
 
 export default function SkillBadge({ skill, colorClass }) {

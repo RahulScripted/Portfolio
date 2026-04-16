@@ -30,6 +30,10 @@ function AboutElement() {
       label: 'Design & Animation',
       skills: ['GSAP', 'Framer Motion', 'Figma'],
     },
+    {
+      label: 'Testing',
+      skills: ['Unit Testing', 'Jest'],
+    },
   ];
 
   const categoryColors = {
@@ -37,6 +41,7 @@ function AboutElement() {
     'Frameworks & Libraries': 'bg-[rgba(168,85,247,0.15)] text-purple-400 border-[rgba(168,85,247,0.2)]',
     'Tools & Platforms': 'bg-[rgba(16,185,129,0.15)] text-emerald-400 border-[rgba(16,185,129,0.2)]',
     'Design & Animation': 'bg-[rgba(244,108,56,0.15)] text-[#F46C38] border-[rgba(244,108,56,0.2)]',
+    'Testing': 'bg-[rgba(153,66,91,0.15)] text-[#C63D54] border-[rgba(153,66,91,0.2)]',
   };
 
   return (

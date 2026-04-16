@@ -33,6 +33,7 @@ import postman from './skills/postman.svg'
 import gsapIcon from './skills/gsap.svg'
 import framermotion from './skills/framermotion.svg'
 import figma from './skills/figma.svg'
+import jest from './skills/jest.svg'
 
 // Projects
 import projects1 from './projects/projects1.png'
@@ -129,6 +130,7 @@ export const assets = {
     gsapIcon,
     framermotion,
     figma,
+    jest,
     cv,
     open_source,
     complete,

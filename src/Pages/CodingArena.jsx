@@ -13,13 +13,56 @@ const useIsMobile = () => {
   return isMobile;
 };
 
+// --- LeetCode live fetch hook ---
+const LC_USER = 'RahulScripted';
+const STATS_URL = `https://leetcode-stats-api.herokuapp.com/${LC_USER}`;
+const CONTEST_URL = `https://alfa-leetcode-api.onrender.com/${LC_USER}/contest`;
+
+const LC_FALLBACK = {
+  easy: 126, medium: 227, hard: 35, total: 388,
+  rating: '1,709', rank: '298,779', contests: '6',
+};
+
+const useLeetCodeStats = () => {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const [statsRes, contestRes] = await Promise.all([
+          fetch(STATS_URL).then(r => r.json()),
+          fetch(CONTEST_URL).then(r => r.json()),
+        ]);
+        if (cancelled) return;
+        if (statsRes.status === 'success') {
+          setData({
+            easy: statsRes.easySolved,
+            medium: statsRes.mediumSolved,
+            hard: statsRes.hardSolved,
+            total: statsRes.totalSolved,
+            rating: Math.round(contestRes.contestRating || 0).toLocaleString(),
+            rank: (contestRes.contestGlobalRanking || 0).toLocaleString(),
+            contests: String(contestRes.contestAttend || 0),
+          });
+        }
+      } catch { /* use fallback */ }
+      if (!cancelled) setLoading(false);
+    })();
+    return () => { cancelled = true; };
+  }, []);
+
+  return { lc: data || LC_FALLBACK, loading: loading && !data };
+};
+
 // --- Radar Chart ---
 const radarStats = [
+  { label: 'Development', value: 0.95 },
   { label: 'DSA', value: 0.9 },
-  { label: 'Frontend', value: 0.95 },
   { label: 'Open Source', value: 0.7 },
   { label: 'Problem Solving', value: 0.82 },
-  { label: 'Design', value: 0.87 },
+  { label: 'Testing', value: 0.72 },
 ];
 
 const RadarChart = () => {
@@ -86,27 +129,41 @@ const DonutChart = ({ segments, total, label, size = 120, strokeWidth = 12 }) =>
   );
 };
 
-// --- Data ---
-const platforms = [
-  {
-    id: 'leetcode', name: 'LeetCode', icon: assets.leetcode_icon,
-    url: 'https://leetcode.com/u/RahulScripted/', color: '#FFC107',
-    border: 'border-yellow-400/25', hoverBorder: 'hover:border-yellow-400/50',
-    chart: { segments: [{ label: 'Easy', value: 126, color: '#4ADE80' }, { label: 'Medium', value: 227, color: '#FBBF24' }, { label: 'Hard', value: 35, color: '#F87171' }], total: 388, label: 'Solved' },
-    stats: [{ label: 'Contest Rating', value: '1,709' }, { label: 'Global Rank', value: '298,779' }, { label: 'Top', value: '12.64%' }, { label: 'Contests', value: '6' }, { label: 'Badges', value: '7' }, { label: 'Attempting', value: '4' }],
-    badges: [
-      { img: assets.Leetcode1, title: '50 Days Badge' }, { img: assets.Leetcode2, title: 'Oct Challenge' },
-      { img: assets.Leetcode3, title: 'Nov Challenge' }, { img: assets.Leetcode4, title: 'Top 150' },
-      { img: assets.Leetcode5, title: 'LeetCode 75' }, { img: assets.Leetcode6, title: 'Top 100 Liked' },
-      { img: assets.Leetcode7, title: 'SQL 50' },
+// --- Build LeetCode platform from live/fallback data ---
+const buildLeetCodePlatform = (lc) => ({
+  id: 'leetcode', name: 'LeetCode', icon: assets.leetcode_icon,
+  url: 'https://leetcode.com/u/RahulScripted/', color: '#FFC107',
+  border: 'border-yellow-400/25', hoverBorder: 'hover:border-yellow-400/50',
+  chart: {
+    segments: [
+      { label: 'Easy', value: lc.easy, color: '#4ADE80' },
+      { label: 'Medium', value: lc.medium, color: '#FBBF24' },
+      { label: 'Hard', value: lc.hard, color: '#F87171' },
     ],
+    total: lc.total, label: 'Solved',
   },
+  stats: [
+    { label: 'Contest Rating', value: lc.rating },
+    { label: 'Global Rank', value: lc.rank },
+    { label: 'Contests', value: lc.contests },
+    { label: 'Badges', value: '7' },
+  ],
+  badges: [
+    { img: assets.Leetcode1, title: '50 Days Badge' }, { img: assets.Leetcode2, title: 'Oct Challenge' },
+    { img: assets.Leetcode3, title: 'Nov Challenge' }, { img: assets.Leetcode4, title: 'Top 150' },
+    { img: assets.Leetcode5, title: 'LeetCode 75' }, { img: assets.Leetcode6, title: 'Top 100 Liked' },
+    { img: assets.Leetcode7, title: 'SQL 50' },
+  ],
+});
+
+// --- Static platforms (no stable free APIs for CodeChef/GFG) ---
+const staticPlatforms = [
   {
     id: 'codechef', name: 'CodeChef', icon: assets.codechef_icon, iconBg: true,
     url: 'https://www.codechef.com/users/explosion_king', color: '#FB923C',
     border: 'border-orange-400/25', hoverBorder: 'hover:border-orange-400/50',
     chart: { segments: [{ label: 'Solved', value: 1000, color: '#FB923C' }], total: '1000+', label: 'Problems' },
-    stats: [{ label: 'Stars', value: '3★' }, { label: 'Peak Rating', value: '1689' }, { label: 'Contests', value: '18' }, { label: 'Problems', value: '2273' }, { label: 'Skill Test', value: '93%' }],
+    stats: [{ label: 'Stars', value: '3★' }, { label: 'Peak Rating', value: '1689' }, { label: 'Contests', value: '18' }, { label: 'Problems', value: '2273' }],
     badges: [{ img: assets.CodeChef1, title: '100 Days Streak' }, { img: assets.CodeChef2, title: '1000+ Problems' }],
   },
   {
@@ -114,7 +171,7 @@ const platforms = [
     url: 'https://www.geeksforgeeks.org/profile/goswamirap9x6', color: '#4ADE80',
     border: 'border-green-400/25', hoverBorder: 'hover:border-green-400/50',
     chart: { segments: [{ label: 'Solved', value: 329, color: '#4ADE80' }], total: '329+', label: 'Problems' },
-    stats: [{ label: 'Coding Score', value: '1140' }, { label: 'Institute Rank', value: '#1' }, { label: 'Problems', value: '329+' }, { label: 'Longest Streak', value: '200 Days' }, { label: 'POTDs Solved', value: '237' }, { label: 'Articles', value: '--' }],
+    stats: [{ label: 'Coding Score', value: '1140' }, { label: 'Institute Rank', value: '#1' }, { label: 'Problems', value: '329+' }, { label: 'POTDs Solved', value: '237' }],
     badges: [],
   },
   {
@@ -140,7 +197,7 @@ const platforms = [
 ];
 
 // --- Platform Card ---
-const PlatformCard = ({ platform, idx, isMobile }) => {
+const PlatformCard = ({ platform, idx, isMobile, loading }) => {
   const [hovered, setHovered] = useState(false);
   const [tapped, setTapped] = useState(false);
   const showOverlay = isMobile ? tapped : hovered;
@@ -157,7 +214,7 @@ const PlatformCard = ({ platform, idx, isMobile }) => {
       onMouseLeave={() => { if (!isMobile) setHovered(false); }}
     >
       {/* Always visible content */}
-      <div className="p-5 flex flex-col items-center gap-3">
+      <div className={`p-5 flex flex-col items-center gap-3${loading ? ' animate-pulse' : ''}`}>
         <div className="flex items-center gap-3 w-full">
           <a href={platform.url} target="_blank" rel="noopener noreferrer" onClick={e => e.stopPropagation()}
             className={`w-10 h-10 rounded-full border overflow-hidden shrink-0 hover:scale-110 transition-transform ${platform.iconBg ? 'bg-white/10 p-1' : ''}`}
@@ -165,6 +222,7 @@ const PlatformCard = ({ platform, idx, isMobile }) => {
             <img src={platform.icon} alt={platform.name} className={`w-full h-full ${platform.iconBg ? 'object-contain' : 'object-cover'}`} />
           </a>
           <h3 className="text-sm font-bold font-mono" style={{ color: platform.color }}>{platform.name}</h3>
+          {loading && <span className="text-[8px] text-zinc-600 font-mono ml-auto">fetching...</span>}
         </div>
         <DonutChart segments={platform.chart.segments} total={platform.chart.total} label={platform.chart.label} />
 
@@ -179,9 +237,9 @@ const PlatformCard = ({ platform, idx, isMobile }) => {
           </ul>
         )}
 
-        <div className="flex flex-wrap justify-center gap-2 w-full mt-1">
+        <div className="grid grid-cols-2 gap-2 w-full mt-1">
           {platform.stats.map((stat, sIdx) => (
-            <div key={sIdx} className="bg-black/60 border border-white/5 rounded-lg p-2.5 text-center w-[calc(50%-4px)] sm:w-[calc(50%-4px)] md:w-[calc(25%-6px)]">
+            <div key={sIdx} className="bg-black/60 border border-white/5 rounded-lg p-2.5 text-center">
               <p className="text-zinc-600 text-[8px] font-mono uppercase tracking-wider">{stat.label}</p>
               <p className="text-base font-bold font-mono mt-0.5" style={{ color: platform.color }}>{stat.value}</p>
             </div>
@@ -230,6 +288,8 @@ const PlatformCard = ({ platform, idx, isMobile }) => {
 // --- Main ---
 const CodingArena = () => {
   const isMobile = useIsMobile();
+  const { lc, loading } = useLeetCodeStats();
+  const platforms = [buildLeetCodePlatform(lc), ...staticPlatforms];
 
   return (
     <div className="min-h-screen bg-black px-4 py-10 md:px-10 lg:px-20">
@@ -258,7 +318,7 @@ const CodingArena = () => {
         </motion.div>
 
         {platforms.map((platform, idx) => (
-          <PlatformCard key={platform.id} platform={platform} idx={idx} isMobile={isMobile} />
+          <PlatformCard key={platform.id} platform={platform} idx={idx} isMobile={isMobile} loading={platform.id === 'leetcode' && loading} />
         ))}
       </div>
     </div>

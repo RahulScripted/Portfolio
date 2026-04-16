@@ -6,6 +6,12 @@ const headingVariant = {
   visible: { opacity: 1, y: 0, transition: { duration: 1 } },
 };
 
+const techStack = [
+  'React.js', 'React 19', 'Next.js', 'TypeScript', 'JavaScript', 'Redux Toolkit',
+  'Tailwind CSS', 'Ant Design', 'Material UI', 'TipTap', 'Recharts', 'Chart.js',
+  'Jest', 'Unit Testing', 'REST APIs', 'Git', 'GitHub', 'Postman', 'Figma', 'Agile Methodologies', "Forgejo", "Jira",
+];
+
 const projects = [
   {
     name: 'Customer App',
@@ -90,6 +96,16 @@ function ExperienceSection() {
               </ul>
             </motion.div>
           ))}
+        </div>
+
+        {/* Tech Stack */}
+        <div className="mt-5 pt-4 border-t border-white/5">
+          <h4 className="text-xs text-gray-500 font-semibold uppercase tracking-wider mb-2">Tech Stack Used</h4>
+          <div className="flex flex-wrap gap-1.5">
+            {techStack.map((t) => (
+              <span key={t} className="px-3 py-1 text-[10px] md:text-xs text-gray-400 bg-white/5 rounded-full border border-white/5">{t}</span>
+            ))}
+          </div>
         </div>
       </motion.div>
     </div>
