@@ -1,5 +1,5 @@
-import {Routes,Route, useLocation} from 'react-router-dom'
-import { useState, useEffect } from 'react'
+import {Routes,Route} from 'react-router-dom'
+import { useState } from 'react'
 import './index.css'
 import NavBar from "./components/NavBar";
 import Home from './Pages/Home';
@@ -11,17 +11,10 @@ import Loader from './components/Loader';
 
 const App = () => {
   const [loading, setLoading] = useState(true);
-  const location = useLocation();
-
-  useEffect(() => {
-    setLoading(true);
-    const timer = setTimeout(() => setLoading(false), 2000);
-    return () => clearTimeout(timer);
-  }, [location.pathname]);
 
   return (
     <div className="bg-black min-h-screen text-white">
-      {loading && <Loader />}
+      {loading && <Loader onComplete={() => setLoading(false)} />}
       <NavBar />
       <Routes>
           <Route path='/' element={<Home />} />
