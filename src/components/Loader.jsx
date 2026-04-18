@@ -1,8 +1,6 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 import gsap from 'gsap';
-import lottie from 'lottie-web';
 
-const LOTTIE_URL = 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/35984/LEGO_loader_chrisgannon.json';
 const SKILLS = ['React', 'Next.js', 'TypeScript', 'Tailwind', 'GSAP', 'JS'];
 const CODE_LINES = [
   'const dev = {',
@@ -13,13 +11,163 @@ const CODE_LINES = [
   '};',
 ];
 
+const BOX_POSITIONS = [
+  { x: -220, y: -120, left: 58, top: 108 },
+  { x: -260, y: 120, left: 25, top: 120 },
+  { x: 120, y: -190, left: 58, top: 64 },
+  { x: 280, y: -40, left: 91, top: 120 },
+  { x: 60, y: 200, left: 58, top: 132 },
+  { x: -220, y: -120, left: 25, top: 76 },
+  { x: -260, y: 120, left: 91, top: 76 },
+  { x: -240, y: 200, left: 58, top: 87 },
+];
+
+// Generate all keyframes as a CSS string
+const generateKeyframes = () => {
+  let css = '';
+  for (let i = 0; i < 8; i++) {
+    const delay = i * 4;
+    css += `
+@keyframes box-move${i} {
+  ${12 + delay}% { transform: translate(var(--x), var(--y)); }
+  ${25 + delay}%, 52% { transform: translate(0, 0); }
+  80% { transform: translate(0, -32px); }
+  90%, 100% { transform: translate(0, 188px); }
+}
+@keyframes box-scale${i} {
+  ${6 + delay}% { transform: rotateY(-47deg) rotateX(-15deg) rotateZ(15deg) scale(0); }
+  ${14 + delay}%, 100% { transform: rotateY(-47deg) rotateX(-15deg) rotateZ(15deg) scale(1); }
+}`;
+  }
+  css += `
+@keyframes ground {
+  0%, 65% { transform: rotateX(90deg) rotateY(0deg) translate(-48px, -120px) translateZ(100px) scale(0); }
+  75%, 90% { transform: rotateX(90deg) rotateY(0deg) translate(-48px, -120px) translateZ(100px) scale(1); }
+  100% { transform: rotateX(90deg) rotateY(0deg) translate(-48px, -120px) translateZ(100px) scale(0); }
+}
+@keyframes ground-shine {
+  0%, 70% { opacity: 0; }
+  75%, 87% { opacity: .2; }
+  100% { opacity: 0; }
+}
+@keyframes mask {
+  0%, 65% { opacity: 0; }
+  66%, 100% { opacity: 1; }
+}`;
+  return css;
+};
+
+const BoxesLoader = () => {
+  const duration = '3s';
+  const primary = 'rgba(244, 108, 56, 1)';
+  const primaryLight = '#f47a3e';
+  const primaryRgba = 'rgba(244, 108, 56, 0)';
+  const bg = '#000';
+
+  return (
+    <div className="boxes-loader" style={{
+      '--duration': duration,
+      '--primary': primary,
+      '--primary-light': primaryLight,
+      '--primary-rgba': primaryRgba,
+      '--background': bg,
+      width: 200, height: 320,
+      position: 'relative',
+      transformStyle: 'preserve-3d',
+    }}>
+      {/* Mask pseudo-elements as divs */}
+      {['right', 'left'].map((side) => (
+        <div key={side} style={{
+          width: 320, height: 140,
+          position: 'absolute',
+          ...(side === 'right' ? { right: '32%' } : { left: '32%' }),
+          bottom: -11,
+          background: bg,
+          transform: `translateZ(200px) rotate(${side === 'right' ? '20.5deg' : '-20.5deg'})`,
+          animation: `mask ${duration} linear forwards infinite`,
+          zIndex: 2,
+        }} />
+      ))}
+
+      {/* Ground */}
+      <div style={{
+        position: 'absolute', left: -50, bottom: -120,
+        transformStyle: 'preserve-3d',
+        transform: 'rotateY(-47deg) rotateX(-15deg) rotateZ(15deg) scale(1)',
+      }}>
+        <div style={{
+          transform: 'rotateX(90deg) rotateY(0deg) translate(-48px, -120px) translateZ(100px) scale(0)',
+          width: 200, height: 200,
+          background: `linear-gradient(45deg, ${primary} 0%, ${primary} 50%, ${primaryLight} 50%, ${primaryLight} 100%)`,
+          transformStyle: 'preserve-3d',
+          animation: `ground ${duration} linear forwards infinite`,
+          position: 'relative',
+        }}>
+          <div style={{
+            width: 156, height: 300, opacity: 0,
+            background: `linear-gradient(${primary}, ${primaryRgba})`,
+            position: 'absolute',
+            transform: 'rotateX(90deg) rotateY(0deg) translate(44px, 162px) translateZ(-50px)',
+            animation: `ground-shine ${duration} linear forwards infinite`,
+          }} />
+          <div style={{
+            width: 156, height: 300, opacity: 0,
+            background: `linear-gradient(${primary}, ${primaryRgba})`,
+            position: 'absolute',
+            transform: 'rotateX(90deg) rotateY(90deg) translate(0px, 177px) translateZ(150px)',
+            animation: `ground-shine ${duration} linear forwards infinite`,
+          }} />
+        </div>
+      </div>
+
+      {/* Boxes */}
+      {BOX_POSITIONS.map((box, i) => (
+        <div key={i} style={{
+          '--x': `${box.x}px`,
+          '--y': `${box.y}px`,
+          position: 'absolute',
+          left: box.left, top: box.top,
+          animation: `box-move${i} ${duration} linear forwards infinite`,
+          transform: `translate(var(--x), var(--y))`,
+        }}>
+          <div style={{
+            backgroundColor: primary,
+            width: 48, height: 48,
+            position: 'relative',
+            transformStyle: 'preserve-3d',
+            animation: `box-scale${i} ${duration} ease forwards infinite`,
+            transform: 'rotateY(-47deg) rotateX(-15deg) rotateZ(15deg) scale(0)',
+          }}>
+            {/* Top face */}
+            <div style={{
+              position: 'absolute',
+              backgroundColor: 'inherit',
+              width: 48, height: 48,
+              transform: 'rotateX(90deg) rotateY(0deg) translate(0px, -24px) translateZ(24px)',
+              filter: 'brightness(1.2)',
+            }} />
+            {/* Right face */}
+            <div style={{
+              position: 'absolute',
+              backgroundColor: 'inherit',
+              width: 48, height: 48,
+              transform: 'rotateX(0deg) rotateY(90deg) translate(24px, 0px) translateZ(24px)',
+              filter: 'brightness(1.4)',
+            }} />
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
+
 const Loader = ({ onComplete }) => {
   const rootRef = useRef(null);
   const [visible, setVisible] = useState(true);
 
   const r = {
     canvas: useRef(null),
-    lottieBox: useRef(null),
+    loaderBox: useRef(null),
     counter: useRef(null),
     progressTrack: useRef(null),
     progressBar: useRef(null),
@@ -88,12 +236,6 @@ const Loader = ({ onComplete }) => {
     if (!rootRef.current) return;
     const cleanupParticles = initParticles(r.canvas.current);
 
-    const anim = lottie.loadAnimation({
-      container: r.lottieBox.current,
-      renderer: 'svg', loop: true, autoplay: true, path: LOTTIE_URL,
-    });
-    anim.setSpeed(3.24);
-
     const codeEl = r.codeBlock.current;
     const typeCode = (tl, startTime) => {
       let acc = '';
@@ -137,7 +279,7 @@ const Loader = ({ onComplete }) => {
         { top: '100%', opacity: 0, duration: 1.5, ease: 'power2.inOut' }, 0.3)
 
     // PHASE 2
-      .fromTo(r.lottieBox.current,
+      .fromTo(r.loaderBox.current,
         { scale: 0, opacity: 0 },
         { scale: 1, opacity: 1, duration: 1, ease: 'elastic.out(1, 0.6)' }, 0.8)
       .fromTo(r.counter.current,
@@ -155,7 +297,6 @@ const Loader = ({ onComplete }) => {
       }, 1)
       .to(r.progressBar.current, { width: '100%', duration: 4, ease: 'power1.inOut' }, 1);
 
-    // Code + skills only on desktop
     if (!isMobile) {
       m.fromTo(r.codeBlock.current,
         { opacity: 0, x: -30 },
@@ -168,7 +309,7 @@ const Loader = ({ onComplete }) => {
 
     // PHASE 3
     m
-      .to(r.lottieBox.current, { scale: 0.3, opacity: 0, y: -40, duration: 0.5, ease: 'power3.in' }, 5.2)
+      .to(r.loaderBox.current, { scale: 0.3, opacity: 0, y: -40, duration: 0.5, ease: 'power3.in' }, 5.2)
       .to(r.counter.current, { opacity: 0, y: -20, scale: 0.8, duration: 0.4, ease: 'power3.in' }, 5.3)
       .to(r.progressTrack.current, { opacity: 0, scaleX: 0, duration: 0.4 }, 5.3);
 
@@ -212,12 +353,11 @@ const Loader = ({ onComplete }) => {
       .to(r.curtainBottom.current, { yPercent: 100, duration: 0.8, ease: 'power4.inOut' }, '-=0.8')
       .call(() => {
         cleanupParticles();
-        anim?.destroy();
         setVisible(false);
         onComplete?.();
       });
 
-    return () => { m.kill(); cleanupParticles(); anim?.destroy(); };
+    return () => { m.kill(); cleanupParticles(); };
   }, []);
 
   if (!visible) return null;
@@ -225,6 +365,9 @@ const Loader = ({ onComplete }) => {
   return (
     <div ref={rootRef} className="fixed inset-0 z-[9999] select-none"
       style={{ background: '#000', overflow: 'hidden', width: '100vw', height: '100dvh' }}>
+
+      {/* Inject keyframes */}
+      <style>{generateKeyframes()}</style>
 
       <canvas ref={r.canvas} className="absolute inset-0 z-0" style={{ width: '100%', height: '100%' }} />
 
@@ -236,7 +379,6 @@ const Loader = ({ onComplete }) => {
 
       <div ref={r.flash} className="absolute inset-0 z-[6] pointer-events-none bg-white opacity-0" />
 
-      {/* Corners — using safe 12px inset */}
       {[
         { ref: r.corners[0], cls: 'top-3 left-3 border-l-2 border-t-2' },
         { ref: r.corners[1], cls: 'top-3 right-3 border-r-2 border-t-2' },
@@ -248,10 +390,8 @@ const Loader = ({ onComplete }) => {
           style={{ borderColor: '#F46C38' }} />
       ))}
 
-      {/* All content absolutely positioned from center */}
       <div className="absolute inset-0 z-[3]">
 
-        {/* Code block — desktop only */}
         <pre ref={r.codeBlock}
           className="hidden sm:block absolute top-[14%] left-[8%] text-[11px] md:text-xs leading-relaxed opacity-0"
           style={{
@@ -260,7 +400,6 @@ const Loader = ({ onComplete }) => {
             textShadow: '0 0 20px rgba(244,108,56,0.3)',
           }} />
 
-        {/* Skill pills — desktop only */}
         <div ref={r.skillRing}
           className="hidden sm:flex absolute top-[14%] right-[8%] flex-wrap gap-2 max-w-[180px] justify-end">
           {SKILLS.map(s => (
@@ -275,7 +414,7 @@ const Loader = ({ onComplete }) => {
           ))}
         </div>
 
-        {/* Center — counter + lottie + progress */}
+        {/* Center — counter + 3D boxes loader + progress */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center">
           <div ref={r.counter}
             className="text-5xl sm:text-8xl md:text-[7rem] font-extralight leading-none mb-1 sm:mb-3 tabular-nums opacity-0"
@@ -285,8 +424,11 @@ const Loader = ({ onComplete }) => {
             }}>
             000
           </div>
-          <div ref={r.lottieBox}
-            className="w-[70px] h-[70px] sm:w-[130px] sm:h-[130px] md:w-[160px] md:h-[160px] mb-2 sm:mb-4" />
+          <div ref={r.loaderBox}
+            className="mb-2 sm:mb-4"
+            style={{ zoom: window.innerWidth < 480 ? 0.44 : window.innerWidth < 768 ? 0.6 : 0.75 }}>
+            <BoxesLoader />
+          </div>
           <div ref={r.progressTrack}
             className="w-20 sm:w-44 md:w-56 h-[1px] relative overflow-hidden opacity-0"
             style={{ backgroundColor: 'rgba(244,108,56,0.12)', transformOrigin: 'center' }}>
@@ -295,7 +437,7 @@ const Loader = ({ onComplete }) => {
           </div>
         </div>
 
-        {/* Name reveal — also dead center */}
+        {/* Name reveal */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center pointer-events-none w-full px-4">
           <div ref={r.brandLine} className="w-8 sm:w-16 h-[2px] mb-3 sm:mb-5"
             style={{ background: '#F46C38', transformOrigin: 'center', transform: 'scaleX(0)' }} />
