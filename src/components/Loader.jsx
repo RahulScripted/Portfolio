@@ -100,6 +100,8 @@ const Loader = ({ onComplete }) => {
     const cleanupMatrix = initMatrix(matrixCanvas.current);
 
     const isMobile = window.innerWidth < 640;
+    const root = rootRef.current;
+    if (isMobile) root.style.perspective = '600px';
 
     // Typing animation helper
     const typingEl = typingRef.current;
@@ -242,21 +244,21 @@ const Loader = ({ onComplete }) => {
       }, '-=0.2')
       // Window-style curtain swing open
       .to(curtainLeftRef.current, {
-        rotateY: -85,
-        skewY: 5,
-        scaleX: 0.6,
-        x: '-30%',
+        rotateY: isMobile ? 0 : -85,
+        skewY: isMobile ? 0 : 5,
+        scaleX: isMobile ? 0 : 0.6,
+        x: isMobile ? '-100%' : '-30%',
         opacity: 0,
-        duration: 1.2,
+        duration: isMobile ? 0.8 : 1.2,
         ease: 'power3.inOut',
       }, '-=0.1')
       .to(curtainRightRef.current, {
-        rotateY: 85,
-        skewY: -5,
-        scaleX: 0.6,
-        x: '30%',
+        rotateY: isMobile ? 0 : 85,
+        skewY: isMobile ? 0 : -5,
+        scaleX: isMobile ? 0 : 0.6,
+        x: isMobile ? '100%' : '30%',
         opacity: 0,
-        duration: 1.2,
+        duration: isMobile ? 0.8 : 1.2,
         ease: 'power3.inOut',
       }, '<')
       .to(curtainRodRef.current, { opacity: 0, duration: 0.3 }, '-=0.4')
@@ -274,7 +276,7 @@ const Loader = ({ onComplete }) => {
 
   return (
     <div ref={rootRef} className="fixed inset-0 z-[9999] select-none"
-      style={{ background: '#000', overflow: 'hidden', width: '100%', height: '100dvh', perspective: '1200px' }}>
+      style={{ background: '#000', overflow: 'hidden', width: '100vw', maxWidth: '100%', height: '100dvh', perspective: '1200px' }}>
 
       {/* Curtain rod — bottommost layer */}
       <div ref={curtainRodRef} className="absolute top-0 left-0 w-full h-[6px] z-[1] opacity-0"
@@ -328,13 +330,13 @@ const Loader = ({ onComplete }) => {
       {/* Corner brackets */}
       {[
         { ref: cornerRefs[0], cls: 'top-3 left-3 border-l-2 border-t-2' },
-        { ref: cornerRefs[1], cls: 'top-3 border-r-2 border-t-2', extra: { right: '12px' } },
-        { ref: cornerRefs[2], cls: 'left-3 border-l-2 border-b-2', extra: { bottom: '12px' } },
-        { ref: cornerRefs[3], cls: 'border-r-2 border-b-2', extra: { right: '12px', bottom: '12px' } },
-      ].map(({ ref, cls, extra }, i) => (
+        { ref: cornerRefs[1], cls: 'top-3 right-3 border-r-2 border-t-2' },
+        { ref: cornerRefs[2], cls: 'bottom-3 left-3 border-l-2 border-b-2' },
+        { ref: cornerRefs[3], cls: 'bottom-3 right-3 border-r-2 border-b-2' },
+      ].map(({ ref, cls }, i) => (
         <div key={i} ref={ref}
           className={`absolute w-4 h-4 sm:w-8 sm:h-8 z-[5] ${cls}`}
-          style={{ borderColor: '#F46C38', ...extra }} />
+          style={{ borderColor: '#F46C38' }} />
       ))}
 
       {/* Main content layer — above matrix */}
