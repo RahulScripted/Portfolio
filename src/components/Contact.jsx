@@ -55,7 +55,7 @@ function Contact() {
   };
 
   return (
-    <div className="w-full min-h-screen flex items-center justify-center text-black">
+    <div className="w-full flex items-center justify-center text-black">
       <div className="w-full px-2 bg-transparent">
         <motion.h1
           className="w-full text-5xl md:text-7xl font-bold text-white mb-4"

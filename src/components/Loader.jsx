@@ -1,229 +1,92 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 import gsap from 'gsap';
 
-const SKILLS = ['React', 'Next.js', 'TypeScript', 'Tailwind', 'GSAP', 'JS'];
-const CODE_LINES = [
+const JOURNEY_MESSAGES = [
+  '> Initializing portfolio...',
+  '> Loading frontend skills...',
+  '> Compiling React components...',
+  '> Connecting to the matrix...',
+  '> Building experiences that matter...',
+  '> System ready.',
+];
+
+const TYPING_LINES = [
   'const dev = {',
   '  name: "Rahul Goswami",',
   '  role: "Frontend Engineer",',
-  '  stack: ["React", "Next.js", "TS"],',
-  '  passion: "Building experiences",',
+  '  obsession: "Performance & UX",',
+  '  passion: "Crafting UIs",',
+  '  focus: "Building scalable fintech products",',
+  '  status: "Initializing..."',
   '};',
 ];
 
-const BOX_POSITIONS = [
-  { x: -220, y: -120, left: 58, top: 108 },
-  { x: -260, y: 120, left: 25, top: 120 },
-  { x: 120, y: -190, left: 58, top: 64 },
-  { x: 280, y: -40, left: 91, top: 120 },
-  { x: 60, y: 200, left: 58, top: 132 },
-  { x: -220, y: -120, left: 25, top: 76 },
-  { x: -260, y: 120, left: 91, top: 76 },
-  { x: -240, y: 200, left: 58, top: 87 },
-];
 
-// Generate all keyframes as a CSS string
-const generateKeyframes = () => {
-  let css = '';
-  for (let i = 0; i < 8; i++) {
-    const delay = i * 4;
-    css += `
-@keyframes box-move${i} {
-  ${12 + delay}% { transform: translate(var(--x), var(--y)); }
-  ${25 + delay}%, 52% { transform: translate(0, 0); }
-  80% { transform: translate(0, -32px); }
-  90%, 100% { transform: translate(0, 188px); }
-}
-@keyframes box-scale${i} {
-  ${6 + delay}% { transform: rotateY(-47deg) rotateX(-15deg) rotateZ(15deg) scale(0); }
-  ${14 + delay}%, 100% { transform: rotateY(-47deg) rotateX(-15deg) rotateZ(15deg) scale(1); }
-}`;
-  }
-  css += `
-@keyframes ground {
-  0%, 65% { transform: rotateX(90deg) rotateY(0deg) translate(-48px, -120px) translateZ(100px) scale(0); }
-  75%, 90% { transform: rotateX(90deg) rotateY(0deg) translate(-48px, -120px) translateZ(100px) scale(1); }
-  100% { transform: rotateX(90deg) rotateY(0deg) translate(-48px, -120px) translateZ(100px) scale(0); }
-}
-@keyframes ground-shine {
-  0%, 70% { opacity: 0; }
-  75%, 87% { opacity: .2; }
-  100% { opacity: 0; }
-}
-@keyframes mask {
-  0%, 65% { opacity: 0; }
-  66%, 100% { opacity: 1; }
-}`;
-  return css;
-};
-
-const BoxesLoader = () => {
-  const duration = '3s';
-  const primary = 'rgba(244, 108, 56, 1)';
-  const primaryLight = '#f47a3e';
-  const primaryRgba = 'rgba(244, 108, 56, 0)';
-  const bg = '#000';
-
-  return (
-    <div className="boxes-loader" style={{
-      '--duration': duration,
-      '--primary': primary,
-      '--primary-light': primaryLight,
-      '--primary-rgba': primaryRgba,
-      '--background': bg,
-      width: 200, height: 320,
-      position: 'relative',
-      transformStyle: 'preserve-3d',
-    }}>
-      {/* Mask pseudo-elements as divs */}
-      {['right', 'left'].map((side) => (
-        <div key={side} style={{
-          width: 320, height: 140,
-          position: 'absolute',
-          ...(side === 'right' ? { right: '32%' } : { left: '32%' }),
-          bottom: -11,
-          background: bg,
-          transform: `translateZ(200px) rotate(${side === 'right' ? '20.5deg' : '-20.5deg'})`,
-          animation: `mask ${duration} linear forwards infinite`,
-          zIndex: 2,
-        }} />
-      ))}
-
-      {/* Ground */}
-      <div style={{
-        position: 'absolute', left: -50, bottom: -120,
-        transformStyle: 'preserve-3d',
-        transform: 'rotateY(-47deg) rotateX(-15deg) rotateZ(15deg) scale(1)',
-      }}>
-        <div style={{
-          transform: 'rotateX(90deg) rotateY(0deg) translate(-48px, -120px) translateZ(100px) scale(0)',
-          width: 200, height: 200,
-          background: `linear-gradient(45deg, ${primary} 0%, ${primary} 50%, ${primaryLight} 50%, ${primaryLight} 100%)`,
-          transformStyle: 'preserve-3d',
-          animation: `ground ${duration} linear forwards infinite`,
-          position: 'relative',
-        }}>
-          <div style={{
-            width: 156, height: 300, opacity: 0,
-            background: `linear-gradient(${primary}, ${primaryRgba})`,
-            position: 'absolute',
-            transform: 'rotateX(90deg) rotateY(0deg) translate(44px, 162px) translateZ(-50px)',
-            animation: `ground-shine ${duration} linear forwards infinite`,
-          }} />
-          <div style={{
-            width: 156, height: 300, opacity: 0,
-            background: `linear-gradient(${primary}, ${primaryRgba})`,
-            position: 'absolute',
-            transform: 'rotateX(90deg) rotateY(90deg) translate(0px, 177px) translateZ(150px)',
-            animation: `ground-shine ${duration} linear forwards infinite`,
-          }} />
-        </div>
-      </div>
-
-      {/* Boxes */}
-      {BOX_POSITIONS.map((box, i) => (
-        <div key={i} style={{
-          '--x': `${box.x}px`,
-          '--y': `${box.y}px`,
-          position: 'absolute',
-          left: box.left, top: box.top,
-          animation: `box-move${i} ${duration} linear forwards infinite`,
-          transform: `translate(var(--x), var(--y))`,
-        }}>
-          <div style={{
-            backgroundColor: primary,
-            width: 48, height: 48,
-            position: 'relative',
-            transformStyle: 'preserve-3d',
-            animation: `box-scale${i} ${duration} ease forwards infinite`,
-            transform: 'rotateY(-47deg) rotateX(-15deg) rotateZ(15deg) scale(0)',
-          }}>
-            {/* Top face */}
-            <div style={{
-              position: 'absolute',
-              backgroundColor: 'inherit',
-              width: 48, height: 48,
-              transform: 'rotateX(90deg) rotateY(0deg) translate(0px, -24px) translateZ(24px)',
-              filter: 'brightness(1.2)',
-            }} />
-            {/* Right face */}
-            <div style={{
-              position: 'absolute',
-              backgroundColor: 'inherit',
-              width: 48, height: 48,
-              transform: 'rotateX(0deg) rotateY(90deg) translate(24px, 0px) translateZ(24px)',
-              filter: 'brightness(1.4)',
-            }} />
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-};
+const MATRIX_CHARS = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789ABCDEF<>/{}[];';
 
 const Loader = ({ onComplete }) => {
   const rootRef = useRef(null);
   const [visible, setVisible] = useState(true);
 
-  const r = {
-    canvas: useRef(null),
-    loaderBox: useRef(null),
-    counter: useRef(null),
-    progressTrack: useRef(null),
-    progressBar: useRef(null),
-    codeBlock: useRef(null),
-    skillRing: useRef(null),
-    nameFirst: useRef(null),
-    nameLast: useRef(null),
-    role: useRef(null),
-    tagline: useRef(null),
-    brandLine: useRef(null),
-    curtainTop: useRef(null),
-    curtainBottom: useRef(null),
-    flash: useRef(null),
-    corners: [useRef(null), useRef(null), useRef(null), useRef(null)],
-    scanline: useRef(null),
-  };
+  const matrixCanvas = useRef(null);
+  const counterRef = useRef(null);
+  const progressTrackRef = useRef(null);
+  const progressBarRef = useRef(null);
+  const typingRef = useRef(null);
+  const journeyRef = useRef(null);
 
-  const initParticles = useCallback((cvs) => {
+  const nameFirstRef = useRef(null);
+  const nameLastRef = useRef(null);
+  const roleRef = useRef(null);
+  const taglineRef = useRef(null);
+  const brandLineRef = useRef(null);
+
+
+  const scanlineRef = useRef(null);
+  const curtainLeftRef = useRef(null);
+  const curtainRightRef = useRef(null);
+  const curtainRodRef = useRef(null);
+  const cornerRefs = [useRef(null), useRef(null), useRef(null), useRef(null)];
+
+  // Matrix rain
+  const initMatrix = useCallback((cvs) => {
     const ctx = cvs.getContext('2d');
-    const pts = [];
     let raf;
-    const resize = () => { cvs.width = window.innerWidth; cvs.height = window.innerHeight; };
+    const fontSize = 14;
+    let columns, drops;
+
+    const resize = () => {
+      cvs.width = window.innerWidth;
+      cvs.height = window.innerHeight;
+      columns = Math.floor(cvs.width / fontSize);
+      drops = Array(columns).fill(1).map(() => Math.random() * -100);
+    };
     resize();
     window.addEventListener('resize', resize);
-    const count = window.innerWidth < 640 ? 25 : 60;
-    for (let i = 0; i < count; i++) {
-      pts.push({
-        x: Math.random() * cvs.width, y: Math.random() * cvs.height,
-        vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.3,
-        r: Math.random() * 1.2 + 0.3,
-      });
-    }
+
     const draw = () => {
-      ctx.clearRect(0, 0, cvs.width, cvs.height);
-      pts.forEach(p => {
-        p.x += p.vx; p.y += p.vy;
-        if (p.x < 0 || p.x > cvs.width) p.vx *= -1;
-        if (p.y < 0 || p.y > cvs.height) p.vy *= -1;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(244,108,56,0.3)';
-        ctx.fill();
-      });
-      const ld = window.innerWidth < 640 ? 70 : 120;
-      for (let i = 0; i < pts.length; i++) {
-        for (let j = i + 1; j < pts.length; j++) {
-          const dx = pts[i].x - pts[j].x, dy = pts[i].y - pts[j].y;
-          const d = Math.sqrt(dx * dx + dy * dy);
-          if (d < ld) {
-            ctx.beginPath();
-            ctx.strokeStyle = `rgba(244,108,56,${0.07 * (1 - d / ld)})`;
-            ctx.lineWidth = 0.5;
-            ctx.moveTo(pts[i].x, pts[i].y);
-            ctx.lineTo(pts[j].x, pts[j].y);
-            ctx.stroke();
-          }
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+      ctx.fillRect(0, 0, cvs.width, cvs.height);
+      ctx.font = `${fontSize}px monospace`;
+
+      for (let i = 0; i < columns; i++) {
+        const char = MATRIX_CHARS[Math.floor(Math.random() * MATRIX_CHARS.length)];
+        const x = i * fontSize;
+        const y = drops[i] * fontSize;
+
+        // Head character brighter
+        ctx.fillStyle = `rgba(244, 108, 56, ${0.9 + Math.random() * 0.1})`;
+        ctx.fillText(char, x, y);
+
+        // Trail
+        if (drops[i] > 1) {
+          ctx.fillStyle = `rgba(244, 108, 56, ${0.15 + Math.random() * 0.1})`;
+          ctx.fillText(MATRIX_CHARS[Math.floor(Math.random() * MATRIX_CHARS.length)], x, y - fontSize);
+        }
+
+        drops[i]++;
+        if (y > cvs.height && Math.random() > 0.975) {
+          drops[i] = 0;
         }
       }
       raf = requestAnimationFrame(draw);
@@ -234,24 +97,51 @@ const Loader = ({ onComplete }) => {
 
   useEffect(() => {
     if (!rootRef.current) return;
-    const cleanupParticles = initParticles(r.canvas.current);
+    const cleanupMatrix = initMatrix(matrixCanvas.current);
 
-    const codeEl = r.codeBlock.current;
-    const typeCode = (tl, startTime) => {
-      let acc = '';
-      CODE_LINES.forEach((line, li) => {
-        line.split('').forEach((char, ci) => {
+    const isMobile = window.innerWidth < 640;
+
+    // Typing animation helper
+    const typingEl = typingRef.current;
+    const escapeHtml = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/ /g, '&nbsp;');
+
+    const typeCode = (tl, start) => {
+      const done = [];
+      let cur = '';
+      let off = 0;
+      const d = 0.025;
+      TYPING_LINES.forEach((line) => {
+        line.split('').forEach((ch) => {
           tl.call(() => {
-            if (!codeEl) return;
-            acc += char;
-            codeEl.textContent = acc + '█';
-          }, null, startTime + li * 0.22 + ci * 0.022);
+            if (!typingEl) return;
+            cur += ch;
+            typingEl.innerHTML = [...done, escapeHtml(cur) + '<span class="animate-pulse">█</span>'].join('<br>');
+          }, null, start + off * d);
+          off++;
         });
-        tl.call(() => { if (codeEl) acc += '\n'; }, null, startTime + li * 0.22 + line.length * 0.022);
+        tl.call(() => { done.push(escapeHtml(cur)); cur = ''; }, null, start + off * d);
+        off++;
       });
-      tl.call(() => { if (codeEl) codeEl.textContent = acc; }, null, startTime + CODE_LINES.length * 0.22 + 0.2);
+      tl.call(() => { if (typingEl) typingEl.innerHTML = done.join('<br>'); }, null, start + off * d + 0.1);
     };
 
+    // Journey messages helper
+    const journeyEl = journeyRef.current;
+    const typeJourney = (tl, start) => {
+      JOURNEY_MESSAGES.forEach((msg, i) => {
+        tl.call(() => {
+          if (!journeyEl) return;
+          const p = document.createElement('div');
+          p.textContent = msg;
+          p.style.cssText = 'opacity:0;transform:translateX(-10px);color:#FF7A2F;font-size:11px;font-family:monospace;margin-bottom:4px;font-weight:bold;text-shadow:0 0 12px rgba(255,122,47,0.5);';
+          journeyEl.appendChild(p);
+          gsap.to(p, { opacity: 1, x: 0, duration: 0.3 });
+          journeyEl.scrollTop = journeyEl.scrollHeight;
+        }, null, start + i * 0.6);
+      });
+    };
+
+    // Split text helper
     const split = (el, text) => {
       el.innerHTML = text.split('').map(c =>
         c === ' ' ? '<span style="display:inline-block;width:0.2em">&nbsp;</span>'
@@ -260,202 +150,248 @@ const Loader = ({ onComplete }) => {
       return el.querySelectorAll('span');
     };
 
-    const firstLetters = split(r.nameFirst.current, 'RAHUL');
-    const lastLetters = split(r.nameLast.current, 'GOSWAMI');
-    const skillEls = r.skillRing.current.querySelectorAll('.skill-pill');
-    const cornerEls = r.corners.map(c => c.current);
+    const firstLetters = split(nameFirstRef.current, 'RAHUL');
+    const lastLetters = split(nameLastRef.current, 'GOSWAMI');
 
-    const isMobile = window.innerWidth < 640;
+    const cornerEls = cornerRefs.map(c => c.current);
+
     const counter = { val: 0 };
-    const m = gsap.timeline();
+    const tl = gsap.timeline();
 
-    // PHASE 1
-    m
-      .fromTo(cornerEls, { opacity: 0, scale: 0 }, {
-        opacity: 1, scale: 1, duration: 0.6, stagger: 0.08, ease: 'back.out(2)'
-      }, 0)
-      .fromTo(r.scanline.current,
-        { top: '0%', opacity: 0.6 },
-        { top: '100%', opacity: 0, duration: 1.5, ease: 'power2.inOut' }, 0.3)
+    // === PHASE 1: Corners + scanline ===
+    tl.fromTo(cornerEls, { opacity: 0, scale: 0 }, {
+      opacity: 1, scale: 1, duration: 0.6, stagger: 0.08, ease: 'back.out(2)'
+    }, 0)
+      .fromTo(scanlineRef.current, { top: '0%', opacity: 0.6 }, {
+        top: '100%', opacity: 0, duration: 1.5, ease: 'power2.inOut'
+      }, 0.3);
 
-    // PHASE 2
-      .fromTo(r.loaderBox.current,
-        { scale: 0, opacity: 0 },
-        { scale: 1, opacity: 1, duration: 1, ease: 'elastic.out(1, 0.6)' }, 0.8)
-      .fromTo(r.counter.current,
-        { opacity: 0, scale: 0.5 },
-        { opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(1.7)' }, 1)
-      .fromTo(r.progressTrack.current,
-        { opacity: 0, scaleX: 0 },
-        { opacity: 1, scaleX: 1, duration: 0.5, ease: 'power3.out' }, 1.1)
+    // === PHASE 2: Counter + progress + typing + journey + icons ===
+    tl.fromTo(counterRef.current, { opacity: 0, scale: 0.5 }, {
+      opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(1.7)'
+    }, 0.8)
+      .fromTo(progressTrackRef.current, { opacity: 0, scaleX: 0 }, {
+        opacity: 1, scaleX: 1, duration: 0.5, ease: 'power3.out'
+      }, 0.9)
       .to(counter, {
-        val: 100, duration: 4, ease: 'power1.inOut',
+        val: 100, duration: 6, ease: 'power1.inOut',
         onUpdate: () => {
-          if (!r.counter.current) return;
-          r.counter.current.textContent = String(Math.round(counter.val)).padStart(3, '0');
+          const v = Math.round(counter.val);
+          if (counterRef.current) counterRef.current.textContent = String(v).padStart(3, '0');
         }
       }, 1)
-      .to(r.progressBar.current, { width: '100%', duration: 4, ease: 'power1.inOut' }, 1);
+      .to(progressBarRef.current, { width: '100%', duration: 6, ease: 'power1.inOut' }, 1);
 
+    // Typing + journey (desktop only)
     if (!isMobile) {
-      m.fromTo(r.codeBlock.current,
-        { opacity: 0, x: -30 },
-        { opacity: 1, x: 0, duration: 0.6, ease: 'power3.out' }, 0.8)
-        .fromTo(skillEls,
-          { opacity: 0, scale: 0 },
-          { opacity: 1, scale: 1, duration: 0.4, stagger: 0.1, ease: 'back.out(1.7)' }, 1.5);
-      typeCode(m, 1.0);
+      tl.fromTo(typingRef.current, { opacity: 0, x: -20 }, {
+        opacity: 1, x: 0, duration: 0.5, ease: 'power3.out'
+      }, 0.8);
+      typeCode(tl, 1.0);
+
+      tl.fromTo(journeyRef.current, { opacity: 0, x: 20 }, {
+        opacity: 1, x: 0, duration: 0.5, ease: 'power3.out'
+      }, 0.8);
+      typeJourney(tl, 1.2);
     }
 
-    // PHASE 3
-    m
-      .to(r.loaderBox.current, { scale: 0.3, opacity: 0, y: -40, duration: 0.5, ease: 'power3.in' }, 5.2)
-      .to(r.counter.current, { opacity: 0, y: -20, scale: 0.8, duration: 0.4, ease: 'power3.in' }, 5.3)
-      .to(r.progressTrack.current, { opacity: 0, scaleX: 0, duration: 0.4 }, 5.3);
+
+
+    // === PHASE 3: Collapse loader elements ===
+    tl.to(counterRef.current, { opacity: 0, y: -20, scale: 0.8, duration: 0.4, ease: 'power3.in' }, 7.2)
+      .to(progressTrackRef.current, { opacity: 0, scaleX: 0, duration: 0.4 }, 7.2)
+
 
     if (!isMobile) {
-      m.to(r.codeBlock.current, { opacity: 0, x: -40, duration: 0.4, ease: 'power3.in' }, 5.2)
-        .to(skillEls, { opacity: 0, scale: 0, duration: 0.3, stagger: 0.04, ease: 'power3.in' }, 5.2);
+      tl.to(typingRef.current, { opacity: 0, x: -40, duration: 0.4, ease: 'power3.in' }, 7.2)
+        .to(journeyRef.current, { opacity: 0, x: 40, duration: 0.4, ease: 'power3.in' }, 7.2);
     }
 
-    m
-      .fromTo(r.brandLine.current, { scaleX: 0 }, { scaleX: 1, duration: 0.8, ease: 'power4.inOut' }, 5.6)
+    // === PHASE 4: Name reveal ===
+    tl.fromTo(brandLineRef.current, { scaleX: 0 }, { scaleX: 1, duration: 0.8, ease: 'power4.inOut' }, 7.6)
       .to(firstLetters, {
         opacity: 1, y: '0%', duration: 0.06,
         stagger: { each: 0.05, from: 'start' }, ease: 'power4.out',
         onStart: () => gsap.set(firstLetters, { y: '-120%' })
-      }, 5.9)
+      }, 7.9)
       .to(lastLetters, {
         opacity: 1, y: '0%', duration: 0.06,
         stagger: { each: 0.05, from: 'end' }, ease: 'power4.out',
         onStart: () => gsap.set(lastLetters, { y: '120%' })
-      }, 6.2)
-      .fromTo(r.role.current,
+      }, 8.2)
+      .fromTo(roleRef.current,
         { opacity: 0, letterSpacing: isMobile ? '0.4em' : '1.5em' },
-        { opacity: 1, letterSpacing: isMobile ? '0.12em' : '0.5em', duration: 0.8, ease: 'power3.out' }, 6.5)
-      .fromTo(r.tagline.current,
+        { opacity: 1, letterSpacing: isMobile ? '0.12em' : '0.5em', duration: 0.8, ease: 'power3.out' }, 8.5)
+      .fromTo(taglineRef.current,
         { opacity: 0, y: 15 },
-        { opacity: 0.5, y: 0, duration: 0.6, ease: 'power3.out' }, 6.8)
-      .fromTo(r.scanline.current,
+        { opacity: 0.5, y: 0, duration: 0.6, ease: 'power3.out' }, 8.8)
+      .fromTo(scanlineRef.current,
         { top: '100%', opacity: 0.4 },
-        { top: '0%', opacity: 0, duration: 1, ease: 'power2.inOut' }, 6.0)
-      .to({}, { duration: 1.5 })
+        { top: '0%', opacity: 0, duration: 1, ease: 'power2.inOut' }, 8.0)
+      .to({}, { duration: 1.5 });
 
-    // PHASE 4
-      .to(firstLetters, { y: '-150%', opacity: 0, rotation: -15, duration: 0.4, stagger: 0.03, ease: 'power4.in' })
+    // === PHASE 5: Collapse name + curtain reveal ===
+    tl.to(firstLetters, { y: '-150%', opacity: 0, rotation: -15, duration: 0.4, stagger: 0.03, ease: 'power4.in' })
       .to(lastLetters, { y: '150%', opacity: 0, rotation: 15, duration: 0.4, stagger: 0.03, ease: 'power4.in' }, '-=0.35')
-      .to([r.role.current, r.tagline.current], { opacity: 0, duration: 0.3 }, '-=0.3')
-      .to(r.brandLine.current, { scaleX: 0, duration: 0.4, ease: 'power4.in' }, '-=0.3')
+      .to([roleRef.current, taglineRef.current], { opacity: 0, duration: 0.3 }, '-=0.3')
+      .to(brandLineRef.current, { scaleX: 0, duration: 0.4, ease: 'power4.in' }, '-=0.3')
       .to(cornerEls, { opacity: 0, scale: 0, duration: 0.3, stagger: 0.05 }, '-=0.3')
-      .to(r.flash.current, { opacity: 0.8, duration: 0.1 })
-      .to(r.flash.current, { opacity: 0, duration: 0.4 })
-      .to(r.curtainTop.current, { yPercent: -100, duration: 0.8, ease: 'power4.inOut' }, '-=0.2')
-      .to(r.curtainBottom.current, { yPercent: 100, duration: 0.8, ease: 'power4.inOut' }, '-=0.8')
+      // Curtain rod appears
+      .fromTo(curtainRodRef.current, { opacity: 0, scaleX: 0 }, {
+        opacity: 1, scaleX: 1, duration: 0.4, ease: 'power3.out'
+      }, '-=0.2')
+      // Window-style curtain swing open
+      .to(curtainLeftRef.current, {
+        rotateY: -85,
+        skewY: 5,
+        scaleX: 0.6,
+        x: '-30%',
+        opacity: 0,
+        duration: 1.2,
+        ease: 'power3.inOut',
+      }, '-=0.1')
+      .to(curtainRightRef.current, {
+        rotateY: 85,
+        skewY: -5,
+        scaleX: 0.6,
+        x: '30%',
+        opacity: 0,
+        duration: 1.2,
+        ease: 'power3.inOut',
+      }, '<')
+      .to(curtainRodRef.current, { opacity: 0, duration: 0.3 }, '-=0.4')
+      .to(matrixCanvas.current, { opacity: 0, duration: 0.5 }, '-=0.8')
       .call(() => {
-        cleanupParticles();
+        cleanupMatrix();
         setVisible(false);
         onComplete?.();
       });
 
-    return () => { m.kill(); cleanupParticles(); };
+    return () => { tl.kill(); cleanupMatrix(); };
   }, []);
 
   if (!visible) return null;
 
   return (
     <div ref={rootRef} className="fixed inset-0 z-[9999] select-none"
-      style={{ background: '#000', overflow: 'hidden', width: '100vw', height: '100dvh' }}>
+      style={{ background: '#000', overflow: 'hidden', width: '100%', height: '100dvh', perspective: '1200px' }}>
 
-      {/* Inject keyframes */}
-      <style>{generateKeyframes()}</style>
+      {/* Curtain rod — bottommost layer */}
+      <div ref={curtainRodRef} className="absolute top-0 left-0 w-full h-[6px] z-[1] opacity-0"
+        style={{
+          background: 'linear-gradient(180deg, #8B5E3C 0%, #D4A574 40%, #8B5E3C 100%)',
+          boxShadow: '0 2px 8px rgba(0,0,0,0.5)',
+          transformOrigin: 'center',
+        }} />
 
-      <canvas ref={r.canvas} className="absolute inset-0 z-0" style={{ width: '100%', height: '100%' }} />
+      {/* Left curtain — behind matrix */}
+      <div ref={curtainLeftRef} className="absolute top-0 left-0 w-1/2 h-full z-0"
+        style={{
+          transformOrigin: 'left center',
+          background: `linear-gradient(135deg, #0a0a0a 0%, #111 30%, #0a0a0a 60%, #111 100%)`,
+          borderRight: '2px solid rgba(244,108,56,0.15)',
+          boxShadow: 'inset -20px 0 40px rgba(0,0,0,0.5)',
+        }}>
+        {/* Curtain folds */}
+        <div className="absolute inset-0" style={{
+          background: `repeating-linear-gradient(90deg, transparent 0px, transparent 40px, rgba(244,108,56,0.03) 40px, rgba(244,108,56,0.03) 42px, transparent 42px, transparent 80px)`,
+        }} />
+        {/* Curtain drape wave */}
+        <div className="absolute inset-0" style={{
+          background: `repeating-linear-gradient(90deg, rgba(255,255,255,0.01) 0px, rgba(255,255,255,0.03) 20px, rgba(255,255,255,0.01) 40px)`,
+        }} />
+      </div>
 
-      <div ref={r.curtainTop} className="absolute top-0 left-0 w-full h-1/2 z-[2]" style={{ background: '#000' }} />
-      <div ref={r.curtainBottom} className="absolute bottom-0 left-0 w-full h-1/2 z-[2]" style={{ background: '#000' }} />
+      {/* Right curtain — behind matrix */}
+      <div ref={curtainRightRef} className="absolute top-0 right-0 w-1/2 h-full z-0"
+        style={{
+          transformOrigin: 'right center',
+          background: `linear-gradient(225deg, #0a0a0a 0%, #111 30%, #0a0a0a 60%, #111 100%)`,
+          borderLeft: '2px solid rgba(244,108,56,0.15)',
+          boxShadow: 'inset 20px 0 40px rgba(0,0,0,0.5)',
+        }}>
+        <div className="absolute inset-0" style={{
+          background: `repeating-linear-gradient(90deg, transparent 0px, transparent 40px, rgba(244,108,56,0.03) 40px, rgba(244,108,56,0.03) 42px, transparent 42px, transparent 80px)`,
+        }} />
+        <div className="absolute inset-0" style={{
+          background: `repeating-linear-gradient(90deg, rgba(255,255,255,0.01) 0px, rgba(255,255,255,0.03) 20px, rgba(255,255,255,0.01) 40px)`,
+        }} />
+      </div>
 
-      <div ref={r.scanline} className="absolute left-0 w-full h-[2px] z-[5] pointer-events-none"
+      {/* Matrix rain canvas — behind content, in front of curtains */}
+      <canvas ref={matrixCanvas} className="absolute inset-0 z-[1]" style={{ width: '100%', height: '100%', opacity: 0.7 }} />
+
+      {/* Scanline */}
+      <div ref={scanlineRef} className="absolute left-0 w-full h-[2px] z-[10] pointer-events-none"
         style={{ background: 'linear-gradient(90deg, transparent, #F46C38, transparent)', top: '0%' }} />
 
-      <div ref={r.flash} className="absolute inset-0 z-[6] pointer-events-none bg-white opacity-0" />
-
+      {/* Corner brackets */}
       {[
-        { ref: r.corners[0], cls: 'top-3 left-3 border-l-2 border-t-2' },
-        { ref: r.corners[1], cls: 'top-3 right-3 border-r-2 border-t-2' },
-        { ref: r.corners[2], cls: 'bottom-3 left-3 border-l-2 border-b-2' },
-        { ref: r.corners[3], cls: 'bottom-3 right-3 border-r-2 border-b-2' },
-      ].map(({ ref, cls }, i) => (
+        { ref: cornerRefs[0], cls: 'top-3 left-3 border-l-2 border-t-2' },
+        { ref: cornerRefs[1], cls: 'top-3 border-r-2 border-t-2', extra: { right: '12px' } },
+        { ref: cornerRefs[2], cls: 'left-3 border-l-2 border-b-2', extra: { bottom: '12px' } },
+        { ref: cornerRefs[3], cls: 'border-r-2 border-b-2', extra: { right: '12px', bottom: '12px' } },
+      ].map(({ ref, cls, extra }, i) => (
         <div key={i} ref={ref}
-          className={`absolute w-4 h-4 sm:w-8 sm:h-8 z-[4] ${cls}`}
-          style={{ borderColor: '#F46C38' }} />
+          className={`absolute w-4 h-4 sm:w-8 sm:h-8 z-[5] ${cls}`}
+          style={{ borderColor: '#F46C38', ...extra }} />
       ))}
 
+      {/* Main content layer — above matrix */}
       <div className="absolute inset-0 z-[3]">
 
-        <pre ref={r.codeBlock}
-          className="hidden sm:block absolute top-[14%] left-[8%] text-[11px] md:text-xs leading-relaxed opacity-0"
+        {/* Typing code block (desktop) */}
+        <pre ref={typingRef}
+          className="hidden sm:block absolute top-[12%] left-[6%] text-[11px] md:text-xs leading-relaxed opacity-0 font-bold"
           style={{
-            color: '#F46C38',
-            fontFamily: "'Space Grotesk', 'Courier New', monospace",
-            textShadow: '0 0 20px rgba(244,108,56,0.3)',
+            color: '#FF7A2F',
+            fontFamily: "'Courier New', monospace",
+            textShadow: '0 0 12px rgba(255,122,47,0.5)',
+            maxWidth: '300px',
           }} />
 
-        <div ref={r.skillRing}
-          className="hidden sm:flex absolute top-[14%] right-[8%] flex-wrap gap-2 max-w-[180px] justify-end">
-          {SKILLS.map(s => (
-            <span key={s}
-              className="skill-pill text-[9px] px-2 py-1 rounded-full border font-medium tracking-wider whitespace-nowrap"
-              style={{
-                borderColor: 'rgba(244,108,56,0.3)', color: '#F46C38',
-                background: 'rgba(244,108,56,0.05)', fontFamily: "'Space Grotesk', sans-serif",
-              }}>
-              {s}
-            </span>
-          ))}
-        </div>
+        {/* Journey messages (desktop) */}
+        <div ref={journeyRef}
+          className="hidden sm:block absolute top-[12%] right-[6%] opacity-0 overflow-hidden"
+          style={{ maxHeight: '160px', maxWidth: '260px' }} />
 
-        {/* Center — counter + 3D boxes loader + progress */}
+        {/* Center — counter + progress */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center">
-          <div ref={r.counter}
-            className="text-5xl sm:text-8xl md:text-[7rem] font-extralight leading-none mb-1 sm:mb-3 tabular-nums opacity-0"
+          <div ref={counterRef}
+            className="text-5xl sm:text-8xl md:text-[7rem] font-extralight leading-none mb-3 sm:mb-5 tabular-nums opacity-0"
             style={{
               color: '#F46C38', fontFamily: "'Space Grotesk', sans-serif",
-              textShadow: '0 0 40px rgba(244,108,56,0.2)',
+              textShadow: '0 0 40px rgba(244,108,56,0.3)',
             }}>
             000
           </div>
-          <div ref={r.loaderBox}
-            className="mb-2 sm:mb-4"
-            style={{ zoom: window.innerWidth < 480 ? 0.44 : window.innerWidth < 768 ? 0.6 : 0.75 }}>
-            <BoxesLoader />
+          <div ref={progressTrackRef}
+            className="w-24 sm:w-44 md:w-56 h-[3px] relative overflow-hidden opacity-0"
+            style={{ backgroundColor: 'rgba(244,108,56,0.08)', transformOrigin: 'center', borderRadius: '2px' }}>
+            <div ref={progressBarRef} className="absolute left-0 top-0 h-full w-0"
+              style={{
+                background: 'linear-gradient(90deg, transparent 0%, rgba(244,108,56,0.05) 40%, rgba(244,108,56,0.3) 75%, #F46C38 100%)',
+                borderRadius: '2px',
+                clipPath: 'polygon(0 40%, 85% 0%, 100% 0%, 100% 100%, 85% 100%, 0 60%)',
+              }} />
           </div>
-          <div ref={r.progressTrack}
-            className="w-20 sm:w-44 md:w-56 h-[1px] relative overflow-hidden opacity-0"
-            style={{ backgroundColor: 'rgba(244,108,56,0.12)', transformOrigin: 'center' }}>
-            <div ref={r.progressBar} className="absolute left-0 top-0 h-full w-0"
-              style={{ background: 'linear-gradient(90deg, transparent, #F46C38)' }} />
-          </div>
+
         </div>
 
-        {/* Name reveal */}
+        {/* Name reveal overlay */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center pointer-events-none w-full px-4">
-          <div ref={r.brandLine} className="w-8 sm:w-16 h-[2px] mb-3 sm:mb-5"
+          <div ref={brandLineRef} className="w-8 sm:w-16 h-[2px] mb-3 sm:mb-5"
             style={{ background: '#F46C38', transformOrigin: 'center', transform: 'scaleX(0)' }} />
-          <h1 ref={r.nameFirst}
+          <h1 ref={nameFirstRef}
             className="text-[2rem] sm:text-6xl md:text-8xl lg:text-9xl font-black leading-[0.85] tracking-tight overflow-hidden whitespace-nowrap"
             style={{ color: '#fff', fontFamily: "'Syne', sans-serif" }} />
-          <h1 ref={r.nameLast}
+          <h1 ref={nameLastRef}
             className="text-[2rem] sm:text-6xl md:text-8xl lg:text-9xl font-black leading-[0.85] tracking-tight overflow-hidden whitespace-nowrap"
             style={{ color: '#F46C38', fontFamily: "'Syne', sans-serif" }} />
-          <p ref={r.role}
+          <p ref={roleRef}
             className="text-[7px] sm:text-[10px] md:text-xs font-medium mt-2 sm:mt-4 uppercase opacity-0 whitespace-nowrap"
             style={{ color: 'rgba(255,255,255,0.7)', fontFamily: "'Space Grotesk', sans-serif" }}>
             Frontend Developer
-          </p>
-          <p ref={r.tagline}
-            className="text-[6px] sm:text-[9px] mt-1 sm:mt-2 opacity-0 text-center whitespace-nowrap"
-            style={{ color: 'rgba(255,255,255,0.3)', fontFamily: "'Space Grotesk', sans-serif" }}>
-            BUILDING EXPERIENCES THAT MATTER
           </p>
         </div>
       </div>
