@@ -22,6 +22,9 @@ const skillIconMap = {
   'Figma': { icon: assets.figma, color: '#111' },
   'Jest': { icon: assets.jest, color: '#111' },
   'Unit Testing': { icon: assets.jest, color: '#111' },
+  'React Testing Library': { icon: assets.jest, color: '#111' },
+  'React Native': { icon: assets.react, color: '#111' },
+  'Redux Toolkit': { icon: assets.react, color: '#111' },
 };
 
 export default function SkillBadge({ skill, colorClass }) {

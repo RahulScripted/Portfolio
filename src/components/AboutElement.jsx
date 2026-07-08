@@ -20,28 +20,38 @@ function AboutElement() {
     },
     {
       label: 'Frameworks & Libraries',
-      skills: ['React.js', 'Next.js', 'Tailwind CSS', 'Ant Design', 'Material UI'],
+      skills: ['React.js', 'Next.js', 'React Native', 'Tailwind CSS', 'Ant Design', 'Material UI'],
     },
     {
-      label: 'Tools & Platforms',
-      skills: ['Git', 'GitHub', 'MySQL', 'Vercel', 'Postman'],
+      label: 'State Management & Data Fetching',
+      skills: ['TanStack Query', 'Redux Toolkit', 'REST APIs'],
     },
     {
-      label: 'Design & Animation',
-      skills: ['GSAP', 'Framer Motion', 'Figma'],
+      label: 'Authentication & Security',
+      skills: ['JWT', 'TOTP', 'RBAC', 'Session Management'],
     },
     {
       label: 'Testing',
-      skills: ['Unit Testing', 'Jest'],
+      skills: ['Jest', 'React Testing Library', 'Unit Testing'],
+    },
+    {
+      label: 'Design & Animation',
+      skills: ['Framer Motion', 'GSAP', 'TipTap', 'Figma'],
+    },
+    {
+      label: 'Tools & Platforms',
+      skills: ['Git', 'GitHub', 'Postman', 'MySQL', 'MongoDB', 'Vercel'],
     },
   ];
 
   const categoryColors = {
     Languages: 'bg-[rgba(59,130,246,0.15)] text-blue-400 border-[rgba(59,130,246,0.2)]',
     'Frameworks & Libraries': 'bg-[rgba(168,85,247,0.15)] text-purple-400 border-[rgba(168,85,247,0.2)]',
-    'Tools & Platforms': 'bg-[rgba(16,185,129,0.15)] text-emerald-400 border-[rgba(16,185,129,0.2)]',
-    'Design & Animation': 'bg-[rgba(244,108,56,0.15)] text-[#F46C38] border-[rgba(244,108,56,0.2)]',
+    'State Management & Data Fetching': 'bg-[rgba(251,191,36,0.15)] text-yellow-400 border-[rgba(251,191,36,0.2)]',
+    'Authentication & Security': 'bg-[rgba(239,68,68,0.15)] text-red-400 border-[rgba(239,68,68,0.2)]',
     'Testing': 'bg-[rgba(153,66,91,0.15)] text-[#C63D54] border-[rgba(153,66,91,0.2)]',
+    'Design & Animation': 'bg-[rgba(244,108,56,0.15)] text-[#F46C38] border-[rgba(244,108,56,0.2)]',
+    'Tools & Platforms': 'bg-[rgba(16,185,129,0.15)] text-emerald-400 border-[rgba(16,185,129,0.2)]',
   };
 
   return (

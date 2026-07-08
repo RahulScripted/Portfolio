@@ -8,32 +8,31 @@ const headingVariant = {
 
 const techStack = [
   'React.js', 'React 19', 'Next.js', 'TypeScript', 'JavaScript', 'Redux Toolkit',
-  'Tailwind CSS', 'Ant Design', 'Material UI', 'TipTap', 'Recharts', 'Chart.js',
-  'Jest', 'Unit Testing', 'REST APIs', 'Git', 'GitHub', 'Postman', 'Figma', 'Agile Methodologies', "Forgejo", "Jira",
+  'TanStack Query', 'Tailwind CSS', 'Ant Design', 'Material UI', 'TipTap', 'Recharts', 'Chart.js',
+  'Jest', 'React Testing Library', 'Unit Testing', 'REST APIs', 'JWT', 'TOTP', 'RBAC',
+  'Git', 'GitHub', 'Postman', 'Figma', 'Agile Methodologies', 'Scrum', 'Forgejo', 'Jira',
 ];
 
 const projects = [
   {
     name: 'Customer App',
     bullets: [
-      'Built and maintained 10+ reusable React.js components for core customer onboarding and loan management workflows, reducing UI inconsistencies and accelerating feature delivery.',
-      'Optimized React component rendering and lazy-loaded non-critical assets, reducing initial page load time by 30% in high-transaction dashboard views.',
-      'Implemented 3 new loan offer modules with finance-configurable eligibility logic, delivering personalized loan recommendations to 10,000+ active customers.',
+      'Shipped 10+ reusable React components powering customer onboarding and loan management workflows. Reduced dashboard load time by 30% through component memoization, code-splitting, lazy loading, and performance optimizations while maintaining test coverage using Jest and React Testing Library.',
+      'Engineered 4 finance-configurable loan-offer modules with dynamic eligibility logic, delivering personalized product recommendations to 1,00,000+ active customers and enabling the business to test new lending criteria without engineering involvement.',
     ],
   },
   {
     name: 'Template Manager App',
     bullets: [
-      'Built a production-grade template management system using React 19, TypeScript, Redux Toolkit, TipTap, and Tailwind — enabling contract creation, editing, versioning, and publishing across multiple business teams.',
-      'Developed a multi-page rich text editor with advanced formatting, tables, images, building blocks, variables, comments, and version restore, significantly reducing manual document preparation time.',
-      'Implemented PDF export pipeline, role-based template lifecycle (Create → Draft → Publish), and a dynamic dashboard with filters, inline actions, and API-driven state synchronization.',
+      'Delivered a greenfield contract-management platform from zero, now adopted by 7+ business teams processing 100+ financial documents per month — replacing a fully manual, error-prone preparation workflow.',
+      'Developed a feature-rich document editor with tables, embedded media, dynamic variables, threaded comments, and version restoration; enabling enterprise-scale document management workflows across 7+ business teams.',
     ],
   },
   {
     name: 'Transaction App',
     bullets: [
-      'Integrated QR-based invoice scanning using Invoice APIs, enabling automated data extraction for invoice workflows and reducing manual data entry errors in DDR and deferred payment processes.',
-      'Implemented role-based authentication with dual verification options — Security Question/Answer or Time-based One-Time Password (TOTP) — allowing users to select their preferred second-factor authentication method.',
+      'Integrated QR-based invoice scanning via Invoice APIs, automating data extraction for DDR and deferred-payment workflows — reducing manual data-entry errors by ~40% across the transaction ledger.',
+      'Shipped a dual-factor authentication module supporting both security Q&A and TOTP (time-based OTP), hardening access security for transaction-level operations while giving users choice in their preferred second-factor method.',
     ],
   },
 ];

@@ -81,6 +81,10 @@ function Contact() {
             <img width={16} style={{filter: 'brightness(0) invert(0.7)'}} src={assets.linkedin} alt="linkedin" />
             LinkedIn
           </a>
+          <a href="https://github.com/RahulScripted" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-gray-400 hover:text-[#F46C38] transition-colors">
+            <img width={16} style={{filter: 'brightness(0) invert(0.7)'}} src={assets.github} alt="github" />
+            GitHub
+          </a>
         </motion.div>
 
         <motion.form

@@ -27,7 +27,10 @@ const GOOD_SKILLS = [
   { src: assets.antdesign,    name: 'Ant Design' },
   { src: assets.materialui,   name: 'Material UI' },
   { src: assets.github,       name: 'GitHub' },
-  { src: assets.jest,          name: 'Jest' },
+  { src: assets.jest,         name: 'Jest' },
+  { src: assets.react,        name: 'React Native' },
+  { src: assets.react,        name: 'Redux Toolkit' },
+  { src: assets.react,        name: 'TanStack Query' },
 ];
 
 const TRAP_SKILLS = [
