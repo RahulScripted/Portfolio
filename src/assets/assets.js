@@ -33,6 +33,9 @@ import postman from './skills/postman.svg'
 import gsapIcon from './skills/gsap.svg'
 import framermotion from './skills/framermotion.svg'
 import figma from './skills/figma.svg'
+import forgejo from './skills/forgejo.svg'
+import jira from './skills/Jira.svg'
+import netlify from './skills/netlify.svg'
 import jest from './skills/jest.svg'
 
 // Projects
@@ -141,7 +144,10 @@ export const assets = {
     leetcode_icon,
     codechef_icon,
     gfg_icon,
-    holopin_icon
+    holopin_icon,
+    forgejo,
+    jira,
+    netlify
 }
 
 

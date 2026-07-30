@@ -29,10 +29,11 @@ const projects = [
     ],
   },
   {
-    name: 'Transaction App',
+    name: 'AHS App',
     bullets: [
-      'Integrated QR-based invoice scanning via Invoice APIs, automating data extraction for DDR and deferred-payment workflows — reducing manual data-entry errors by ~40% across the transaction ledger.',
-      'Shipped a dual-factor authentication module supporting both security Q&A and TOTP (time-based OTP), hardening access security for transaction-level operations while giving users choice in their preferred second-factor method.',
+      'Built a General & Life Insurance module for in-journey sales across all loan products, with premium capture and LMS charge integration.',
+      'Migrated legacy Customer 360 management to a structured, auditable system with activation/deactivation and RBAC.',
+      'Shipped QR-based invoice scanning and dual-factor (Security Q&A + TOTP) authentication, cutting manual data-entry errors by ~40%.'
     ],
   },
 ];

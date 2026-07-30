@@ -40,7 +40,7 @@ function AboutElement() {
     },
     {
       label: 'Tools & Platforms',
-      skills: ['Git', 'GitHub', 'Postman', 'MySQL', 'MongoDB', 'Vercel'],
+      skills: ['Git', 'GitHub', 'Postman', 'MySQL', 'MongoDB', 'Vercel', 'Netlify', 'Forgejo', 'Jira'],
     },
   ];
 
