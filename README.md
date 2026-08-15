@@ -1,59 +1,53 @@
-# Rahul Goswami's Portfolio
+# The Rahul Goswami Times — Personal Portfolio
 
-Welcome to my **personal portfolio**! This is where I showcase my web development projects and my journey as a **front-end developer**. In this portfolio, you'll find a variety of projects that reflect my skills in web design, and development, and my passion for creating seamless digital experiences.
+Editorial newspaper / detective dossier themed portfolio built with Vite + React + Tailwind CSS + Framer Motion.
 
-## 🖥️ **About This Project**
+## Stack
 
-This portfolio website serves as both a personal introduction and a platform to display my work. It’s designed to showcase the technologies I use, my approach to development, and how I create user-centered designs.
+- **Vite** — build tool
+- **React 18** — functional components + hooks
+- **Tailwind CSS** — all styling (no plain CSS except base resets in `index.css`)
+- **Framer Motion** — scroll animations, header transitions
+- **Web3Forms** — contact form backend (no server required)
+- **Google Fonts** — Playfair Display (headlines) + Space Mono (body/labels)
 
-### **Features:**
+## Design Theme
 
-- **Responsive Design:** Optimized for desktop, tablet, and mobile screens.
-- **Interactive Projects:** Explore dynamic web development projects built with modern technologies.
-- **UI/UX Showcase:** Highlighting user interface and experience designs.
-- **Technologies Used:** HTML, CSS, JavaScript, React, Tailwind CSS.
+"The Personal Record" — a vintage broadsheet newspaper crossed with a private investigator's case file. Cream paper background, near-black ink, hairline rules, serif display headlines, monospace metadata labels, and a red rubber-stamp accent.
 
-## 🛠️ **Technologies Used**
+## Run locally
 
-- **HTML5**
-- **CSS3** (with Tailwind CSS for styling)
-- **JavaScript**
-- **React.js**
-- **Vercel** (for deployment)
-
-## 🚀 **Features & Components**
-
-- **Mini Web Development Projects:** Explore some of my web projects and learn about the process behind each.
-- **UI/UX Designs:** Showcasing design ideas and how I turn them into functional interfaces.
-- **Technology Stack Overview:** An insight into the tech stack I use to bring these projects to life.
-
-## 🌐 **View the Portfolio**
-
-You can check out the live version of my portfolio by clicking the link: [**My Portfolio**](https://portfolio-git-main-rahul-goswamis-projects-c6755eb5.vercel.app/)
-
-## 📂 **Getting Started**
-
-To run this project locally, follow these steps:
-
-1. Clone the repository to your local machine:
 ```bash
-   git clone https://github.com/your-username/portfolio.git
+npm install
+npm run dev
 ```
 
-2.  Navigate to the project directory:
+Open [http://localhost:5173](http://localhost:5173).
+
+## Build for production
+
 ```bash
-  cd portfolio
+npm run build
+npm run preview   # preview the dist/ output locally
 ```
 
+## Deploy to Vercel
 
-3.  Install dependencies:
-``` bash
-  npm install
-```
+Push to GitHub, import the repo in Vercel. Framework preset: **Vite**. No `vercel.json` needed — Vite's default output (`dist/`) is auto-detected.
 
-4.  Start the development server:
-``` bash
-  npm start
-```
+## Sections
 
-5. Open your browser and go to http://localhost:3000 to view the site.
+| Anchor | Section |
+|--------|---------|
+| `#top` | Hero masthead |
+| `#about` | The Full Story (bio + skills) |
+| `#work` | The Evidence (projects) |
+| `#stack` | Lab Report (tech table) |
+| `#ledger` | Career Ledger (experience) |
+| `#contact` | Letters & Commissions (contact form) |
+
+## Customisation
+
+- Colors: `tailwind.config.js` → `theme.extend.colors`
+- Content: edit the data arrays at the top of each component file
+- Contact form key: `ContactSection.jsx` → `access_key` value (Web3Forms)

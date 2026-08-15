@@ -2,12 +2,89 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  @apply bg-black;
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: #FBFAF5;
+    color: #16140F;
+    font-family: "Space Mono", monospace;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* Paper grain */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.025;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 256px 256px;
+  }
+
+  /* SVG rough filter for stamp effects */
+  #rg-filter {
+    position: absolute;
+    width: 0;
+    height: 0;
+  }
 }
 
-@media (max-width: 768px) {
-  .ant-tooltip {
-    display: none !important;
+@layer components {
+  /* Section heading pattern */
+  .section-eyebrow {
+    @apply font-gothic text-2xs font-bold uppercase tracking-[0.18em] text-stamp;
+  }
+  .section-rule {
+    @apply h-[3px] bg-ink w-full;
+  }
+  .section-h2 {
+    @apply font-display font-normal text-ink leading-[1.02] tracking-[-0.015em];
+    font-size: clamp(28px, 4vw, 46px);
+  }
+
+  /* Tech tag */
+  .tech-tag {
+    @apply inline-flex items-center border border-ink px-2.5 py-[3px] font-mono text-[11px] font-medium text-ink;
+  }
+
+  /* Editorial link underline */
+  .link-editorial {
+    @apply border-b border-stamp text-stamp font-gothic text-xs font-bold uppercase tracking-[0.08em] hover:text-ink hover:border-ink transition-colors duration-150;
+  }
+
+  /* Dropcap for first paragraph */
+  .dropcap::first-letter {
+    float: left;
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 3.5em;
+    line-height: 0.8;
+    margin-right: 0.08em;
+    margin-top: 0.05em;
+    font-weight: 700;
+    color: #16140F;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .justify-editorial {
+    text-align: justify;
+    hyphens: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
