@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@animateicons/react": "^0.4.3",
     "antd": "^5.27.0",
     "framer-motion": "^12.0.0-alpha.1",
     "gsap": "^3.13.0",
