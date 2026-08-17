@@ -72,7 +72,7 @@ export default function Hero() {
                   className="inline-flex items-center gap-2 whitespace-nowrap border-2 border-ink font-gothic font-bold uppercase tracking-[0.1em] text-[14px] px-7 py-[14px] bg-ink text-paper hover:bg-transparent hover:text-ink transition-colors duration-150"
                 >
                   Read the work
-                  <ChevronUpIcon className="rotate-45" size={18} />
+                  <ChevronUpIcon rotate={45} size={18} />
                 </ScrollLink>
               </motion.div>
               <ScrollLink

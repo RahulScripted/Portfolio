@@ -20,12 +20,11 @@ const spring = { type: "spring", stiffness: 400, damping: 15 };
  * The icon picks up the "hover" variant from the parent automatically.
  */
 
-export function ChevronUpIcon({ size = 18, className = "" }) {
+export function ChevronUpIcon({ size = 18, rotate = 0 }) {
   return (
     <motion.svg
       {...iconProps(size)}
-      className={className}
-      variants={{ rest: { y: 0 }, hover: { y: -3 } }}
+      variants={{ rest: { y: 0, rotate }, hover: { y: -3, rotate } }}
       transition={spring}
     >
       <polyline points="18 15 12 9 6 15" />
