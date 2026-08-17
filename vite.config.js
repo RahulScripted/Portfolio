@@ -5,11 +5,16 @@ import path from 'path'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  server: {
+    hmr: true,
+    allowedHosts: true,
+  },
   resolve: {
     alias: {
       '@assets': path.resolve(__dirname, 'src/assets'),
       '@types': path.resolve(__dirname, 'src/types'),
       '@components': path.resolve(__dirname, 'src/components'),
+      '@animations': path.resolve(__dirname, 'src/animations'),
     },
   },
   optimizeDeps: {

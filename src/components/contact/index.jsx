@@ -27,7 +27,7 @@ export default function Contact() {
     <section id="contact" className="border-t-4 border-ink py-[76px] px-3 sm:px-5">
       <div className="max-w-[1380px] mx-auto">
         <div className="mb-[30px]">
-          <div className="flex flex-wrap items-baseline justify-between gap-5 pb-2.5">
+          <div className="flex flex-wrap items-center justify-between gap-5 pb-2.5">
             <div><span className="section-eyebrow">Submit a Dispatch</span><h2 className="mt-1.5 section-h2">Letters &amp; Commissions</h2></div>
             <span className="font-gothic text-xs font-semibold uppercase tracking-[0.12em] text-ink-soft whitespace-nowrap">The desk is open for select work</span>
           </div>

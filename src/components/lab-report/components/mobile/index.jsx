@@ -6,9 +6,16 @@ const nodeMap = Object.fromEntries(nodes.map((n) => [n.id, n]));
 const rotations = [-2, 1.5, -1.5, 2, -1, 1.8, -1.6, -2, 1.4, -1.6, 2, 3];
 const allCardIds = mobileZones.flatMap((z) => z.cards);
 
-function center(el, boardRect) {
-  const r = el.getBoundingClientRect();
-  return { x: r.left + r.width / 2 - boardRect.left, y: r.top + r.height / 2 - boardRect.top };
+function pinCenter(el, boardEl) {
+  // Walk up the offset tree relative to boardEl for scroll-safe coords
+  let top = 0, left = 0;
+  let node = el;
+  while (node && node !== boardEl) {
+    top += node.offsetTop;
+    left += node.offsetLeft;
+    node = node.offsetParent;
+  }
+  return { x: left + el.offsetWidth / 2, y: top };
 }
 
 function curve(p1, p2, sag) {
@@ -29,18 +36,19 @@ export default function MobileBoard() {
   const layout = useCallback(() => {
     const board = boardRef.current, svg = svgRef.current, suspect = suspectRef.current;
     if (!board || !svg || !suspect) return;
-    const boardRect = board.getBoundingClientRect();
-    svg.setAttribute("width", boardRect.width);
-    svg.setAttribute("height", boardRect.height);
-    svg.setAttribute("viewBox", `0 0 ${boardRect.width} ${boardRect.height}`);
+    const w = board.offsetWidth;
+    const h = board.scrollHeight;
+    svg.setAttribute("width", w);
+    svg.setAttribute("height", h);
+    svg.setAttribute("viewBox", `0 0 ${w} ${h}`);
     svg.innerHTML = "";
-    const sCenter = center(suspect, boardRect);
+    const sCenter = pinCenter(suspect, board);
 
     secondaryLinks.forEach(([a, b]) => {
       const elA = cardRefs.current[a], elB = cardRefs.current[b];
       if (!elA || !elB) return;
       const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-      path.setAttribute("d", curve(center(elA, boardRect), center(elB, boardRect), 18));
+      path.setAttribute("d", curve(pinCenter(elA, board), pinCenter(elB, board), 18));
       path.setAttribute("stroke", "#3a4a5c");
       path.setAttribute("stroke-width", "1.4");
       path.setAttribute("stroke-dasharray", "5 5");
@@ -56,7 +64,7 @@ export default function MobileBoard() {
       const el = cardRefs.current[id];
       if (!el) return;
       const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-      path.setAttribute("d", curve(center(el, boardRect), sCenter, 24 + (i % 3) * 8));
+      path.setAttribute("d", curve(pinCenter(el, board), sCenter, 24 + (i % 3) * 8));
       path.setAttribute("fill", "none");
       path.setAttribute("stroke", "#A6382C");
       path.setAttribute("stroke-width", "2.4");

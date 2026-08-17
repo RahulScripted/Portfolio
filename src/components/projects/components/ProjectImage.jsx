@@ -38,7 +38,7 @@ export default function ProjectImage({
       </div>
       <div className="flex items-center justify-between gap-3 px-1 py-1.5 font-mono text-[11px] tracking-[0.02em] text-ink-soft">
         <span className="relative shrink-0 font-bold uppercase text-ink">
-          {`Project ${index}`}
+          {`${index}`}
           <svg
             aria-hidden="true"
             viewBox="0 0 120 44"

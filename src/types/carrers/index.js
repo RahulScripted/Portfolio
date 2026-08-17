@@ -44,20 +44,4 @@ export const careerEntries = [
     contributions: ["All 4 contribution levels cleared", "4 PRs merged across open-source projects"],
     stack: ["JavaScript", "Open Source"],
   },
-  {
-    dateRange: "Aug 2022 — Jun 2025",
-    role: "B.Tech — Information Technology",
-    company: "Bankura Unnayani Institute of Engineering",
-    companyUrl: "https://www.buie.ac.in/",
-    location: "Bankura, West Bengal",
-    type: "Education",
-    description:
-      "Graduated with a CGPA of 8.29/10. Coursework: Data Structures & Algorithms, Database Management, Operating Systems, Computer Networks, Web Development. Gold Medalist in college sports (Long Jump, Volleyball).",
-    contributions: [
-      "CGPA 8.29 / 10",
-      "Gold Medalist — Long Jump & Volleyball",
-      "Active open-source contributor throughout degree",
-    ],
-    stack: ["DSA", "DBMS", "OS", "Networks", "Web Development"],
-  },
 ];

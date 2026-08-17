@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { GithubIcon, LinkedinIcon, LockIcon } from "@animateicons/react/lucide";
+import { motion } from "framer-motion";
+import { GithubIcon, LinkedinIcon, LockIcon } from "@animations";
 import { contact } from "@types/contact";
 import Loader from "@components/loader";
 
@@ -20,22 +21,43 @@ export default function Copyright() {
         <span>© {year} Rahul Goswami | All rights reserved | Mumbai, India</span>
 
         <div className="flex gap-2.5">
-          <a href={contact.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub" className={`${iconBtn} group`}>
+          <motion.a
+            href={contact.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub"
+            whileHover="hover"
+            initial="rest"
+            animate="rest"
+            className={iconBtn}
+          >
             <GithubIcon size={18} />
-          </a>
+          </motion.a>
 
-          <a href={contact.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className={`${iconBtn} group`}>
+          <motion.a
+            href={contact.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn"
+            whileHover="hover"
+            initial="rest"
+            animate="rest"
+            className={iconBtn}
+          >
             <LinkedinIcon size={18} />
-          </a>
+          </motion.a>
 
-          <button
+          <motion.button
             type="button"
             aria-label="Replay intro"
             onClick={() => { sessionStorage.removeItem("intro_seen"); setShowLoader(true); }}
-            className={`${iconBtn} group cursor-pointer bg-transparent`}
+            whileHover="hover"
+            initial="rest"
+            animate="rest"
+            className={`${iconBtn} cursor-pointer bg-transparent`}
           >
             <LockIcon size={18} />
-          </button>
+          </motion.button>
         </div>
       </div>
     </>

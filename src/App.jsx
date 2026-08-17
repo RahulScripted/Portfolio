@@ -7,6 +7,7 @@ import Hero from "@components/hero";
 import Projects from "@components/projects";
 import LabReport from "@components/lab-report";
 import Career from "@components/career";
+import Education from "@components/education";
 import Contact from "@components/contact";
 import Footer from "@components/footer";
 
@@ -32,6 +33,7 @@ export default function App() {
           <Projects />
           <LabReport />
           <Career />
+          <Education />
           <Contact />
         </main>
         <Footer />

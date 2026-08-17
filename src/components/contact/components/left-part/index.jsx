@@ -25,14 +25,14 @@ export default function ContactLeft({ form, onChange, onSubmit, status }) {
           <label className="mb-[7px] block font-gothic text-[11px] font-bold uppercase tracking-[0.12em] text-ink-soft" htmlFor="c-message">The story</label>
           <textarea id="c-message" name="message" required rows={5} placeholder="Tell me what you're building." value={form.message} onChange={onChange} className={`${inputCls} min-h-[120px] resize-y leading-[1.5]`} />
         </div>
-        <div className="mt-[22px] flex flex-wrap items-center justify-between gap-4">
+        <div className="relative mt-[22px] flex flex-wrap items-center justify-between gap-4">
           <span className="font-gothic text-[11px] uppercase tracking-[0.06em] text-ink-soft">Usually replies within 24 hours</span>
           <button type="submit" disabled={status === "sending"} className="inline-flex items-center gap-2 whitespace-nowrap border-2 border-ink font-gothic font-bold uppercase tracking-[0.1em] text-[14px] px-7 py-[14px] bg-ink text-paper hover:bg-transparent hover:text-ink transition-colors disabled:opacity-50">
             {status === "sending" ? "Sending…" : "Send the letter"}
           </button>
+          {status === "ok"  && <p className="absolute -top-7 left-0 font-gothic text-[11px] uppercase tracking-[0.1em] text-green-600">✓ Successfully sent. I'll be in touch.</p>}
+          {status === "err" && <p className="absolute -top-7 left-0 font-gothic text-[11px] uppercase tracking-[0.1em] text-stamp">Something went wrong. Email me directly.</p>}
         </div>
-        {status === "ok"  && <p className="mt-3 font-gothic text-[11px] uppercase tracking-[0.1em] text-stamp">✓ Received. I'll be in touch.</p>}
-        {status === "err" && <p className="mt-3 font-gothic text-[11px] uppercase tracking-[0.1em] text-stamp">Something went wrong. Email me directly.</p>}
       </form>
     </div>
   );

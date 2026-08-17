@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { careerEntries } from "@types/carrers";
+import { educationEntries } from "@types/education";
 
 const settle = (delay = 0) => ({
   initial: { opacity: 0, y: 20 },
@@ -8,30 +8,24 @@ const settle = (delay = 0) => ({
   transition: { duration: 0.5, delay, ease: "easeOut" },
 });
 
-const typeLabel = {
-  "Full-time": "bg-ink text-paper",
-  "Open Source": "border border-ink/40 text-ink-soft",
-  Education: "border border-ink/40 text-ink-soft",
-};
-
-export default function Career() {
+export default function Education() {
   return (
-    <section id="career" className="py-[76px] px-3 sm:px-5">
+    <section id="education" className="py-[76px] px-3 sm:px-5">
       <div className="max-w-[1380px] mx-auto">
         <div className="mb-[30px]">
           <div className="flex flex-wrap items-center justify-between gap-5 pb-2.5">
             <div>
-              <span className="section-eyebrow">Known Whereabouts</span>
-              <h2 className="mt-1.5 section-h2">The Career Ledger</h2>
+              <span className="section-eyebrow">Academic Record</span>
+              <h2 className="mt-1.5 section-h2">Education</h2>
             </div>
             <span className="font-gothic text-xs font-semibold uppercase tracking-[0.12em] text-ink-soft whitespace-nowrap">
-              Movements on record since 2022
+              Formal training on file
             </span>
           </div>
           <div className="section-rule" />
         </div>
         <div className="border-t-2 border-ink">
-          {careerEntries.map((entry, i) => (
+          {educationEntries.map((entry, i) => (
             <motion.div
               key={i}
               {...settle(i * 0.1)}
@@ -41,24 +35,19 @@ export default function Career() {
                 <span className="font-mono text-[13px] text-ink-soft block">
                   {entry.dateRange}
                 </span>
-                <span
-                  className={`mt-1.5 inline-block font-gothic text-[10px] font-bold uppercase tracking-[0.12em] px-1.5 py-0.5 ${typeLabel[entry.type]}`}
-                >
-                  {entry.type}
+                <span className="mt-1.5 inline-block font-gothic text-[10px] font-bold uppercase tracking-[0.12em] px-1.5 py-0.5 border border-ink/40 text-ink-soft">
+                  Education
                 </span>
               </div>
-              <div
-                className="font-display leading-[1.1]"
-                style={{ fontSize: "24px" }}
-              >
-                {entry.role}
+              <div className="font-display leading-[1.1]" style={{ fontSize: "24px" }}>
+                {entry.degree}
                 <a
-                  href={entry.companyUrl}
+                  href={entry.institutionUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="mt-1.5 block font-gothic text-xs font-bold uppercase tracking-[0.12em] text-ink-soft hover:text-stamp transition-colors"
                 >
-                  {entry.company} ↗
+                  {entry.institution} ↗
                 </a>
                 <span className="mt-0.5 block font-gothic text-[11px] font-medium text-ink-soft/70 uppercase tracking-[0.08em]">
                   {entry.location}
@@ -68,9 +57,9 @@ export default function Career() {
                 <p className="font-text text-[15px] leading-[1.55] text-ink-soft">
                   {entry.description}
                 </p>
-                {entry.contributions.length > 0 && (
+                {entry.highlights.length > 0 && (
                   <ul className="mt-3 space-y-1">
-                    {entry.contributions.map((c, ci) => (
+                    {entry.highlights.map((c, ci) => (
                       <li
                         key={ci}
                         className="font-mono text-[11px] text-ink-soft flex items-start gap-2"

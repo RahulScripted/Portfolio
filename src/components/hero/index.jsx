@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { profile, cv } from "@types/hero";
 import { contact } from "@types/contact";
-import { ChevronUpIcon, DownloadIcon } from "@animateicons/react/lucide";
+import { ChevronUpIcon, DownloadIcon } from "@animations";
 import ScrollLink from "@components/scroll-link";
 
 const settle = (delay = 0) => ({
@@ -61,29 +61,39 @@ export default function Hero() {
               {...settle(0.26)}
               className="mt-[22px] flex flex-wrap gap-3"
             >
-              <ScrollLink
-                to="work"
-                className="group inline-flex items-center gap-2 whitespace-nowrap border-2 border-ink font-gothic font-bold uppercase tracking-[0.1em] text-[14px] px-7 py-[14px] bg-ink text-paper hover:bg-transparent hover:text-ink transition-colors duration-150"
+              <motion.div
+                whileHover="hover"
+                initial="rest"
+                animate="rest"
+                className="inline-flex"
               >
-                Read the work
-                <ChevronUpIcon className="rotate-45" size={18} />
-              </ScrollLink>
+                <ScrollLink
+                  to="work"
+                  className="inline-flex items-center gap-2 whitespace-nowrap border-2 border-ink font-gothic font-bold uppercase tracking-[0.1em] text-[14px] px-7 py-[14px] bg-ink text-paper hover:bg-transparent hover:text-ink transition-colors duration-150"
+                >
+                  Read the work
+                  <ChevronUpIcon className="rotate-45" size={18} />
+                </ScrollLink>
+              </motion.div>
               <ScrollLink
                 to="contact"
                 className="inline-flex items-center gap-2 whitespace-nowrap border-2 border-ink font-gothic font-bold uppercase tracking-[0.1em] text-[14px] px-7 py-[14px] bg-transparent text-ink hover:bg-ink hover:text-paper transition-colors duration-150"
               >
                 Get in touch
               </ScrollLink>
-              <a
+              <motion.a
                 href={cv}
                 download="Rahul_Goswami_Resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center gap-2 whitespace-nowrap border-2 border-ink/40 font-gothic font-bold uppercase tracking-[0.1em] text-[14px] px-7 py-[14px] text-ink-soft hover:border-ink hover:text-ink transition-colors duration-150"
+                whileHover="hover"
+                initial="rest"
+                animate="rest"
+                className="inline-flex items-center gap-2 whitespace-nowrap border-2 border-ink/40 font-gothic font-bold uppercase tracking-[0.1em] text-[14px] px-7 py-[14px] text-ink-soft hover:border-ink hover:text-ink transition-colors duration-150"
               >
                 <DownloadIcon size={18} />
                 Download CV
-              </a>
+              </motion.a>
             </motion.div>
             <motion.div
               {...settle(0.32)}
