@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { profile, cv } from "@types/hero";
 import { contact } from "@types/contact";
 import { ChevronUpIcon, DownloadIcon } from "@animateicons/react/lucide";
-import ScrollLink from "@components/ScrollLink";
+import ScrollLink from "@components/scroll-link";
 
 const settle = (delay = 0) => ({
   initial: { opacity: 0, y: 20 },
@@ -118,7 +118,7 @@ export default function Hero() {
             >
               <img
                 src={profile}
-                alt="Rahul Goswami — Frontend Engineer, Mumbai"
+                alt="Rahul Goswami — Software Engineer, Mumbai"
                 className="absolute inset-0 w-full h-full object-cover mix-blend-multiply"
               />
             </motion.div>

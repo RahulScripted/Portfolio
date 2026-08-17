@@ -1,5 +1,5 @@
 import { footerSectionLinks } from "@types/shared";
-import ScrollLink from "@components/ScrollLink";
+import ScrollLink from "@components/scroll-link";
 
 export default function Sections() {
   return (

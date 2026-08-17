@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { navLinks } from "@types/shared";
-import ScrollLink from "@components/ScrollLink";
+import ScrollLink from "@components/scroll-link";
 
 export default function Nav() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -63,13 +63,13 @@ export default function Nav() {
             >
               <div className="pb-4 pt-1.5">
                 {navLinks.map((l) => (
-                  <ScrollLink key={l.href} to={l.href.replace("#", "")} onClick={close} className="flex items-center justify-between border-b border-ink/20 px-0.5 py-[14px] font-display text-[28px] font-normal tracking-[-0.01em] text-ink hover:text-ink-soft transition-colors">
+                  <ScrollLink key={l.href} to={l.href.replace("#", "")} onClose={close} className="flex items-center justify-between border-b border-ink/20 px-0.5 py-[14px] font-display text-[28px] font-normal tracking-[-0.01em] text-ink hover:text-ink-soft transition-colors">
                     <span>{l.label}</span>
                     <span className="text-ink-soft text-lg">↗</span>
                   </ScrollLink>
                 ))}
                 <div className="mt-4">
-                  <ScrollLink to="contact" onClick={close} className="inline-flex border-2 border-ink font-gothic text-[13px] font-bold uppercase tracking-[0.1em] px-[22px] py-3 bg-ink text-paper hover:bg-transparent hover:text-ink transition-colors">
+                  <ScrollLink to="contact" onClose={close} className="inline-flex border-2 border-ink font-gothic text-[13px] font-bold uppercase tracking-[0.1em] px-[22px] py-3 bg-ink text-paper hover:bg-transparent hover:text-ink transition-colors">
                     Hire Me →
                   </ScrollLink>
                 </div>
