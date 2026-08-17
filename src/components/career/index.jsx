@@ -30,7 +30,7 @@ export default function Career() {
           </div>
           <div className="section-rule" />
         </div>
-        <div className="border-t-2 border-ink">
+        <div className="border-ink">
           {careerEntries.map((entry, i) => (
             <motion.div
               key={i}

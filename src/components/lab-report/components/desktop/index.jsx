@@ -37,7 +37,7 @@ export default function DesktopBoard() {
         <span className="absolute -top-[9px] right-[14px] w-[44px] h-[16px] bg-[#eadf8c] opacity-90 rotate-[7deg]" />
         <div className="font-mono text-[9px] tracking-[0.15em] text-paper/60 uppercase">Subject Profile</div>
         <h2 className="font-display text-[32px] leading-none tracking-[-0.04em] my-3">RAHUL</h2>
-        <p className="font-mono text-[10px] text-paper/60 uppercase tracking-[0.06em]">Software Engineer | Full-Stack Builder</p>
+        <p className="font-mono text-[10px] text-paper/60 uppercase tracking-[0.06em]">Software Engineer Full-Stack Builder</p>
       </div>
 
       {/* Tech nodes */}

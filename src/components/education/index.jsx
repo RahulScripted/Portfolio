@@ -24,7 +24,7 @@ export default function Education() {
           </div>
           <div className="section-rule" />
         </div>
-        <div className="border-t-2 border-ink">
+        <div className="border-ink">
           {educationEntries.map((entry, i) => (
             <motion.div
               key={i}

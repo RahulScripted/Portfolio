@@ -12,7 +12,7 @@ export default function GridProject({ project, delay }) {
   return (
     <motion.article
       {...settle(delay)}
-      className="group relative flex flex-col border-t border-ink/20 py-[26px] pr-0 transition-colors hover:bg-paper-warm min-[600px]:border-r min-[600px]:border-ink/20 min-[600px]:pr-[26px] min-[600px]:[&:nth-child(2n)]:border-r-0 min-[600px]:[&:nth-child(2n)]:pr-0"
+      className="group relative flex flex-col border-t border-ink/20 py-[26px] pr-0 transition-colors hover:bg-paper-warm min-[600px]:border-r min-[600px]:border-ink/20 min-[600px]:pr-[26px] min-[600px]:[&:nth-child(2n)]:border-r-0 min-[600px]:[&:nth-child(2n)]:pr-0 pl-10"
     >
       <span className="font-gothic text-[11px] font-bold uppercase tracking-[0.14em] text-stamp">
         {project.index}
