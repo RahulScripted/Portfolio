@@ -10,13 +10,16 @@ export default function Footer() {
 
         {/* Case Closed stamp */}
         <div className="mt-12 flex justify-center">
-          <span
-            className="inline-block -rotate-3 border-4 border-stamp-bright px-6 py-2 font-gothic text-[14px] font-black uppercase tracking-[0.28em] text-stamp-bright"
-            style={{ filter: "url(#rough-stamp)" }}
-            aria-label="End of record"
-          >
-            Case Closed
-          </span>
+          <div className="relative inline-block -rotate-3" aria-label="End of record">
+            <span
+              aria-hidden="true"
+              className="absolute inset-0 border-4 border-stamp-bright"
+              style={{ filter: "url(#rough-stamp)" }}
+            />
+            <span className="relative z-[1] px-6 py-2 font-gothic text-[14px] font-black uppercase tracking-[0.28em] text-stamp-bright inline-block">
+              Case Closed
+            </span>
+          </div>
         </div>
 
         <FooterBottom />

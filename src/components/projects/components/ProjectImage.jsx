@@ -30,10 +30,14 @@ export default function ProjectImage({
         />
         <span
           aria-hidden="true"
-          className="pointer-events-none uppercase absolute right-2.5 top-2.5 rotate-[8deg] scale-150 border-[3px] border-stamp bg-paper-bright/90 px-2.5 py-1 font-gothic text-[11px] font-black uppercase tracking-[0.18em] text-stamp opacity-0 transition-all duration-200 ease-out group-hover:-rotate-[6deg] group-hover:scale-100 group-hover:opacity-100"
-          style={{ filter: "url(#rough-stamp)" }}
+          className="pointer-events-none uppercase absolute right-2.5 top-2.5 rotate-[8deg] scale-150 px-2.5 py-1 font-gothic text-[11px] font-black uppercase tracking-[0.18em] text-stamp opacity-0 transition-all duration-200 ease-out group-hover:-rotate-[6deg] group-hover:scale-100 group-hover:opacity-100"
         >
-          Confirmed
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 border-[3px] border-stamp bg-paper-bright/90"
+            style={{ filter: "url(#rough-stamp)" }}
+          />
+          <span className="relative z-[1]">Confirmed</span>
         </span>
       </div>
       <div className="flex items-center justify-between gap-3 px-1 py-1.5 font-mono text-[11px] tracking-[0.02em] text-ink-soft">

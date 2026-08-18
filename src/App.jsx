@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
+import { AnimatePresence, motion } from "framer-motion";
 import "./index.css";
 import Loader from "@components/loader";
 import Masthead from "@components/masthead";
@@ -10,8 +12,24 @@ import Career from "@components/career";
 import Education from "@components/education";
 import Contact from "@components/contact";
 import Footer from "@components/footer";
+import BookCall from "@components/book-call";
 
-export default function App() {
+// Ink curtain that wipes in then out on every route change
+const pageFade = {
+  initial: { opacity: 0, y: 18 },
+  animate: { opacity: 1, y: 0, transition: { duration: 0.42, ease: [0.25, 0.1, 0.25, 1] } },
+  exit:    { opacity: 0, y: -12, transition: { duration: 0.28, ease: [0.4, 0, 1, 1] } },
+};
+
+function PageTransition({ children }) {
+  return (
+    <motion.div key={useLocation().pathname} {...pageFade}>
+      {children}
+    </motion.div>
+  );
+}
+
+function MainSite() {
   const alreadySeen = !!sessionStorage.getItem("intro_seen");
   const [loaded, setLoaded] = useState(alreadySeen);
 
@@ -40,4 +58,20 @@ export default function App() {
       </div>
     </>
   );
+}
+
+function AnimatedRoutes() {
+  const location = useLocation();
+  return (
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        <Route path="/" element={<PageTransition><MainSite /></PageTransition>} />
+        <Route path="/book-call" element={<PageTransition><BookCall /></PageTransition>} />
+      </Routes>
+    </AnimatePresence>
+  );
+}
+
+export default function App() {
+  return <AnimatedRoutes />;
 }
