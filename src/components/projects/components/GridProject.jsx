@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { ChevronUpIcon } from "@animations";
 import ProjectImage from "./ProjectImage";
 
 const settle = (delay = 0) => ({
@@ -51,9 +52,7 @@ export default function GridProject({ project, delay }) {
           className="link-editorial group inline-flex items-center gap-1.5 after:absolute after:inset-0 after:content-['']"
         >
           Open case File{" "}
-          <span className="transition-transform duration-150 group-hover:translate-x-1">
-            →
-          </span>
+          <ChevronUpIcon size={14} rotate={45} />
         </a>
       </div>
     </motion.article>

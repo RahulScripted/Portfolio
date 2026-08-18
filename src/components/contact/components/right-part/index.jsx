@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { ChevronUpIcon } from "@animations";
 import { contact } from "@types/contact";
 import InkUnderline from "./components/InkUnderline";
 
@@ -46,7 +47,7 @@ export default function ContactRight() {
           to="/book-call"
           className="flex items-center justify-center gap-2 border-2 border-stamp bg-stamp text-paper font-gothic font-bold uppercase tracking-[0.1em] text-[13px] px-5 py-3 hover:bg-transparent hover:text-stamp transition-colors"
         >
-          Book an Intro Call →
+          Book an Intro Call
         </Link>
       </div>
     </div>

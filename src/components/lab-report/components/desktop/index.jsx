@@ -51,9 +51,9 @@ export default function DesktopBoard() {
           <span className="absolute -top-[9px] right-[10px] w-[38px] h-[15px] bg-[#e9d77d] opacity-90 rotate-[7deg]" />
           <img src={node.icon} alt={node.name} className="w-[38px] h-[38px] object-contain mx-auto mb-2 drop-shadow-[0_1px_0_#fff]" />
           <div className="font-display text-[19px] font-bold tracking-[-0.02em] leading-tight">{node.name}</div>
-          <div className="mt-1 font-mono text-[10px] text-ink-soft uppercase">{node.code} · {node.badge}</div>
+          <div className="mt-1 font-mono text-[10px] text-ink-soft uppercase">{node.code} | {node.badge}</div>
           <span className="absolute -right-3 -bottom-3 bg-stamp text-paper font-mono text-[9px] font-bold tracking-[0.08em] px-2 py-1 -rotate-[4deg] shadow-[2px_3px_0_#68201d]">{node.badge}</span>
-          <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[180px] bg-ink text-paper font-mono text-[10px] leading-[1.5] px-3 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-[100] text-left">
+          <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-[180px] bg-ink text-paper font-mono text-[10px] leading-[1.5] px-3 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-[100] text-left">
             {node.note}
           </div>
         </div>

@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { ExternalLinkIcon } from "@animations";
 import { careerEntries } from "@types/carrers";
 
 const settle = (delay = 0) => ({
@@ -58,7 +59,7 @@ export default function Career() {
                   rel="noopener noreferrer"
                   className="mt-1.5 block font-gothic text-xs font-bold uppercase tracking-[0.12em] text-ink-soft hover:text-stamp transition-colors"
                 >
-                  {entry.company} ↗
+                  {entry.company} <ExternalLinkIcon size={12} />
                 </a>
                 <span className="mt-0.5 block font-gothic text-[11px] font-medium text-ink-soft/70 uppercase tracking-[0.08em]">
                   {entry.location}

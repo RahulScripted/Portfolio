@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { ExternalLinkIcon } from "@animations";
 import { educationEntries } from "@types/education";
 
 const settle = (delay = 0) => ({
@@ -47,7 +48,7 @@ export default function Education() {
                   rel="noopener noreferrer"
                   className="mt-1.5 block font-gothic text-xs font-bold uppercase tracking-[0.12em] text-ink-soft hover:text-stamp transition-colors"
                 >
-                  {entry.institution} ↗
+                  {entry.institution} <ExternalLinkIcon size={12} />
                 </a>
                 <span className="mt-0.5 block font-gothic text-[11px] font-medium text-ink-soft/70 uppercase tracking-[0.08em]">
                   {entry.location}

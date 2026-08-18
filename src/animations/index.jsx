@@ -84,3 +84,31 @@ export function LockIcon({ size = 18 }) {
     </motion.svg>
   );
 }
+
+export function ArrowLeftIcon({ size = 18 }) {
+  return (
+    <svg {...iconProps(size)}>
+      <line x1="19" y1="12" x2="5" y2="12" />
+      <polyline points="12 19 5 12 12 5" />
+    </svg>
+  );
+}
+
+export function ArrowUpIcon({ size = 18, rotate = 0 }) {
+  return (
+    <svg {...iconProps(size)} style={{ transform: `rotate(${rotate}deg)` }}>
+      <line x1="12" y1="19" x2="12" y2="5" />
+      <polyline points="5 12 12 5 19 12" />
+    </svg>
+  );
+}
+
+export function ExternalLinkIcon({ size = 18 }) {
+  return (
+    <svg {...iconProps(size)} className="inline-block ml-0.5">
+      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+      <polyline points="15 3 21 3 21 9" />
+      <line x1="10" y1="14" x2="21" y2="3" />
+    </svg>
+  );
+}

@@ -110,6 +110,16 @@ export default function Loader({ onComplete }) {
     return () => cancelAnimationFrame(rafRef.current);
   }, [phase, exit]);
 
+  // Prevent body scroll during loader
+  useEffect(() => {
+    if (!done) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [done]);
+
   if (done) return null;
 
   const W = typeof window !== "undefined" ? window.innerWidth || 1200 : 1200;
@@ -161,14 +171,15 @@ export default function Loader({ onComplete }) {
         <div style={{ position: "absolute", inset: 0, zIndex: 8, background: "#FBFAF5", opacity: flashOpacity, pointerEvents: "none" }} />
         <div className="fm-stampwrap">
           <div className="fm-stamp" style={{ opacity: stampOpacity, transform: `translateY(${stampY}px) scale(${stampScale}) rotate(${stampRot}deg)`, transition: "opacity .1s ease-out" }}>
-            Identified
+            <span className="fm-stamp-border" />
+            <span className="fm-stamp-text">Identified</span>
           </div>
         </div>
       </div>
       <div className="fm-hint" style={{ opacity: phase === "hunt" ? 1 : 0 }}>
         {isTouch ? "Drag the glass — find the subject" : "Take the glass — find the subject"}
       </div>
-      <button className="fm-skip" type="button" onClick={exit}>Skip intro →</button>
+      <button className="fm-skip" type="button" onClick={exit}>Skip intro</button>
     </div>
   );
 }

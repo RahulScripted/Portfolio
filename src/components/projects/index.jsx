@@ -10,7 +10,7 @@ export default function Projects() {
         <div className="mb-[30px]">
           <div className="flex flex-wrap items-center justify-between gap-5 pb-2.5">
             <div><span className="section-eyebrow">The Evidence</span><h2 className="mt-1.5 section-h2">Selected Work</h2></div>
-            <span className="font-gothic text-xs font-semibold uppercase tracking-[0.12em] text-ink-soft whitespace-nowrap">Exhibits A – C · Entered 2022 - Now</span>
+            <span className="font-gothic text-xs font-semibold uppercase tracking-[0.12em] text-ink-soft whitespace-nowrap">Exhibits A – C | Entered 2022 - Now</span>
           </div>
           <div className="section-rule" />
         </div>

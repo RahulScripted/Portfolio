@@ -23,14 +23,24 @@ export default function Masthead() {
             Software Engineer | React | TypeScript | Tailwind CSS | React Native
           </p>
         </div>
-        <div className="mt-1 flex flex-wrap items-center justify-center gap-x-[22px] gap-y-1 border-y-[3px] border-ink py-[7px] font-gothic text-[11px] font-semibold uppercase tracking-[0.14em] text-ink-soft">
-          <span>{dateStr}</span>
-          <span className="text-ink-soft/50 hidden sm:block" aria-hidden="true">|</span>
-          <span>Vol. I</span>
-          <span className="text-ink-soft/50 hidden sm:block" aria-hidden="true">|</span>
-          <span>Selected Work &amp; Notes</span>
-          <span className="text-ink-soft/50 hidden sm:block" aria-hidden="true">|</span>
-          <span>Open to Roles</span>
+        <div className="mt-1 border-y-[3px] border-ink py-[7px] font-gothic text-[11px] font-semibold uppercase tracking-[0.14em] text-ink-soft">
+          {/* Desktop: single row with pipes */}
+          <div className="hidden sm:flex items-center justify-center gap-x-[22px]">
+            <span>{dateStr}</span>
+            <span className="text-ink-soft/50" aria-hidden="true">|</span>
+            <span>Vol. I</span>
+            <span className="text-ink-soft/50" aria-hidden="true">|</span>
+            <span>Selected Work &amp; Notes</span>
+            <span className="text-ink-soft/50" aria-hidden="true">|</span>
+            <span>Open to Roles</span>
+          </div>
+          {/* Mobile: 2x2 grid without pipes, no extra padding */}
+          <div className="grid grid-cols-2 gap-y-0.5 text-left sm:hidden">
+            <span>{dateStr}</span>
+            <span className="text-right">Vol. I</span>
+            <span>Selected Work &amp; Notes</span>
+            <span className="text-right">Open to Roles</span>
+          </div>
         </div>
       </div>
     </div>

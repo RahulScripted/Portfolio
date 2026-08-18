@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import { nodes } from "@types/stack/nodes";
 import { mobileZones, secondaryLinks } from "@types/stack/zones";
+import { doodle } from "@types/hero";
 
 const nodeMap = Object.fromEntries(nodes.map((n) => [n.id, n]));
 const rotations = [-2, 1.5, -1.5, 2, -1, 1.8, -1.6, -2, 1.4, -1.6, 2, 3];
@@ -114,29 +115,22 @@ export default function MobileBoard() {
         <svg ref={svgRef} className="absolute top-0 left-0 pointer-events-none z-[1] overflow-visible" />
 
         {/* Suspect card */}
-        <div className="flex justify-center mb-6 relative z-[3]">
+        <div className="flex justify-center mb-6 relative z-[2]">
           <div ref={suspectRef} className="w-[200px] bg-paper-bright border border-rule shadow-[3px_4px_10px_rgba(0,0,0,0.2)] px-[14px] pt-[14px] pb-[16px] -rotate-[1.2deg]">
-            <div className="w-full h-[140px] bg-gradient-to-br from-ink-soft to-ink flex items-end justify-center mb-[10px] border border-ink/20 overflow-hidden">
-              <svg viewBox="0 0 100 100" className="w-[82px] opacity-90">
-                <circle cx="50" cy="38" r="18" fill="#c9d3d8" />
-                <path d="M15,100 Q50,58 85,100 Z" fill="#c9d3d8" />
-              </svg>
+            <div className="w-full h-[140px] mb-[10px] border border-ink/20 overflow-hidden">
+              <img src={doodle} alt="Rahul Goswami" className="w-full h-full object-cover object-top" />
             </div>
-            <div className="font-mono text-[10px] tracking-[0.2em] text-stamp uppercase mb-1">Subject / Case #2026-RG</div>
+            <div className="font-mono text-[10px] tracking-[0.2em] text-stamp uppercase mb-1">Case</div>
             <div className="font-display text-[16px] font-bold leading-tight">RAHUL GOSWAMI</div>
-            <div className="font-mono text-[11px] mt-1 text-ink-soft">Frontend Developer — React & React Native</div>
+            <div className="font-mono text-[11px] mt-1 text-ink-soft">Software Engineer</div>
           </div>
         </div>
 
-        {/* Case note */}
-        <div className="relative z-[3] max-w-[340px] mx-auto mb-6 bg-paper-warm border-l-4 border-stamp px-[12px] py-[10px] font-mono text-[12px] leading-[1.5] shadow-[2px_3px_6px_rgba(0,0,0,0.15)] rotate-[0.8deg]">
-          <div className="font-mono text-[10px] tracking-[0.15em] text-stamp uppercase mb-1">Case Note</div>
-          <div>{activeId ? nodeMap[activeId]?.note : "Tap any card to pull its file."}</div>
-        </div>
+
 
         {/* Zones */}
-        {mobileZones.map((zone) => (
-          <div key={zone.id} className="relative z-[2] mb-6">
+        {mobileZones.map((zone, zoneIdx) => (
+          <div key={zone.id} className="relative mb-6" style={{ zIndex: 10 + zoneIdx }}>
             <div className="font-mono text-[11px] tracking-[0.2em] text-ink bg-[#f4e07a] px-[9px] py-[3px] shadow-[2px_2px_4px_rgba(0,0,0,0.2)] -rotate-[2deg] w-fit mb-3 uppercase">
               {zone.label}
             </div>
@@ -145,13 +139,14 @@ export default function MobileBoard() {
                 const node = nodeMap[id];
                 if (!node) return null;
                 const rot = rotations[allCardIds.indexOf(id)] ?? 0;
+                const isActive = activeId === id;
                 return (
                   <div
                     key={id}
                     ref={(el) => { cardRefs.current[id] = el; }}
                     onClick={() => handleClick(id)}
-                    className={`relative w-[112px] bg-paper-bright border border-rule shadow-[2px_3px_8px_rgba(0,0,0,0.25)] px-2 pt-2 pb-[22px] cursor-pointer transition-all duration-150 z-[2] ${activeId === id ? "scale-[1.07] !rotate-0 shadow-[4px_8px_16px_rgba(0,0,0,0.35)] z-10" : ""}`}
-                    style={{ rotate: `${rot}deg` }}
+                    className={`relative w-[112px] bg-paper-bright border border-rule shadow-[2px_3px_8px_rgba(0,0,0,0.25)] px-2 pt-2 pb-[22px] cursor-pointer transition-all duration-150 ${isActive ? "scale-[1.07] !rotate-0 shadow-[4px_8px_16px_rgba(0,0,0,0.35)]" : ""}`}
+                    style={{ rotate: isActive ? "0deg" : `${rot}deg`, zIndex: isActive ? 999 : 2 }}
                   >
                     <div className="absolute -top-[7px] left-1/2 -translate-x-1/2 w-[13px] h-[13px] rounded-full bg-[radial-gradient(circle_at_35%_30%,#ff6a5e,#c0272a_70%)] shadow-[0_2px_3px_rgba(0,0,0,0.5)] z-[5]" />
                     <div className="h-[40px] flex items-center justify-center bg-paper border border-ink/10 mb-[7px]">
@@ -162,6 +157,13 @@ export default function MobileBoard() {
                     <div className="absolute bottom-[6px] right-[6px] font-mono text-[8px] border border-stamp text-stamp px-1 py-[1px] -rotate-[8deg] opacity-75 rounded-[3px]">
                       {node.badge}
                     </div>
+                    {/* Case note tooltip - appears above card on click */}
+                    {isActive && (
+                      <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 w-[180px] bg-paper-warm border-l-4 border-stamp px-[10px] py-[8px] font-mono text-[11px] leading-[1.4] shadow-[2px_3px_6px_rgba(0,0,0,0.2)]">
+                        <div className="font-mono text-[9px] tracking-[0.12em] text-stamp uppercase mb-1">Case Note</div>
+                        <div className="text-ink">{node.note}</div>
+                      </div>
+                    )}
                   </div>
                 );
               })}

@@ -31,14 +31,14 @@ export default function ConfirmationPanel({ name, time, email }) {
         <strong className="text-ink">{email}</strong> shortly.
       </p>
       <div className="border-t border-ink/20 pt-5 mb-6 font-mono text-[11px] uppercase tracking-[0.14em] text-ink-soft">
-        Case reference ·{" "}
+        Case reference |{" "}
         {new Date().toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" })}
       </div>
       <Link
         to="/"
         className="inline-flex items-center gap-2 border-2 border-ink font-gothic font-bold uppercase tracking-[0.1em] text-[13px] px-6 py-3 bg-ink text-paper hover:bg-transparent hover:text-ink transition-colors"
       >
-        Return to the Record →
+        Return to the Record
       </Link>
     </motion.div>
   );

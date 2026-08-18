@@ -64,14 +64,14 @@ export default function BookingForm({ form, onChange, onTimeSelect, onSubmit, st
 
       <div className="sm:col-span-2 flex flex-wrap items-center justify-between gap-4 border-t border-ink/20 pt-7">
         <span className="font-gothic text-[11px] uppercase tracking-[0.06em] text-ink-soft">
-          IST (UTC +5:30) · 30 min · Google Meet
+          IST (UTC +5:30) | 30 min | Google Meet
         </span>
         <button
           type="submit"
           disabled={!form.time || status === "sending"}
           className="inline-flex items-center gap-2 border-2 border-ink font-gothic font-bold uppercase tracking-[0.1em] text-[14px] px-7 py-[14px] bg-ink text-paper hover:bg-transparent hover:text-ink transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
         >
-          {status === "sending" ? "Filing…" : "File the Request →"}
+          {status === "sending" ? "Filing…" : "File the Request"}
         </button>
       </div>
     </motion.form>

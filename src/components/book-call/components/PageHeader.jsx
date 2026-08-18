@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { ArrowLeftIcon } from "@animations";
 
 export default function PageHeader() {
   return (
@@ -6,18 +7,18 @@ export default function PageHeader() {
       <header className="border-b-4 border-ink px-5 py-3 flex items-center justify-between">
         <Link
           to="/"
-          className="font-gothic text-[11px] font-bold uppercase tracking-[0.14em] text-ink-soft hover:text-stamp transition-colors"
+          className="inline-flex items-center gap-1.5 font-gothic text-[11px] font-bold uppercase tracking-[0.14em] text-ink-soft hover:text-stamp transition-colors"
         >
-          ← Back to the Record
+          <ArrowLeftIcon size={14} /> Back to the Record
         </Link>
         <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-soft hidden sm:block">
-          The Rahul Goswami Times · Scheduling Desk
+          The Rahul Goswami Times | Scheduling Desk
         </span>
       </header>
 
       <div className="max-w-[1380px] mx-auto px-5 pt-12 pb-2">
         <span className="font-gothic text-[11px] font-bold uppercase tracking-[0.18em] text-stamp">
-          Scheduling Desk · Dispatch No. 01
+          Scheduling Desk | Dispatch No. 01
         </span>
         <h1
           className="mt-2 font-display font-normal leading-[1.04] tracking-[-0.02em]"

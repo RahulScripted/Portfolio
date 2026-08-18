@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { ChevronUpIcon } from "@animations";
 import ProjectImage from "./ProjectImage";
 
 const settle = (delay = 0) => ({
@@ -28,7 +29,7 @@ export default function FeaturedProject({ project }) {
           {project.index}
         </span>
         <span className="mt-3 font-gothic text-[11px] font-extrabold uppercase tracking-[0.14em] text-ink">
-          {project.category} · {project.year}
+          {project.category} | {project.year}
         </span>
         <h3
           className="mt-2 font-display font-normal text-ink leading-[1.06] tracking-[-0.01em]"
@@ -48,7 +49,7 @@ export default function FeaturedProject({ project }) {
         </div>
         <div className="flex items-center justify-between gap-3 border-t border-ink/20 pt-3.5">
           <span className="font-mono text-xs text-ink-soft">
-            {project.year} · {project.role}
+            {project.year} | {project.role}
           </span>
           <a
             href={project.liveUrl}
@@ -57,9 +58,7 @@ export default function FeaturedProject({ project }) {
             className="link-editorial group inline-flex items-center gap-1.5 after:absolute after:inset-0 after:content-['']"
           >
             Open case File{" "}
-            <span className="transition-transform duration-150 group-hover:translate-x-1">
-              →
-            </span>
+            <ChevronUpIcon size={14} rotate={45} />
           </a>
         </div>
       </div>

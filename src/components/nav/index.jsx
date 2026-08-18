@@ -1,17 +1,36 @@
 import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { navLinks } from "@types/shared";
 import ScrollLink from "@components/scroll-link";
+import { ChevronUpIcon, ArrowUpIcon } from "@animations";
 
 export default function Nav() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+
+  const location = useLocation();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  // Scroll to top on route change
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, [location.pathname]);
+
+  // Prevent body scroll when menu is open
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [menuOpen]);
 
   const close = () => setMenuOpen(false);
 
@@ -35,9 +54,6 @@ export default function Nav() {
           </div>
 
           <div className="flex items-center gap-3 min-[860px]:hidden">
-            <ScrollLink to="contact" className="hidden min-[460px]:inline-flex items-center whitespace-nowrap border-2 border-ink font-gothic text-[11px] font-bold uppercase tracking-[0.1em] px-[13px] py-1.5 bg-ink text-paper hover:bg-transparent hover:text-ink transition-colors">
-              Hire Me
-            </ScrollLink>
             <button
               type="button"
               aria-label={menuOpen ? "Close menu" : "Open menu"}
@@ -63,14 +79,15 @@ export default function Nav() {
             >
               <div className="pb-4 pt-1.5">
                 {navLinks.map((l) => (
-                  <ScrollLink key={l.href} to={l.href.replace("#", "")} onClose={close} className="flex items-center justify-between border-b border-ink/20 px-0.5 py-[14px] font-display text-[28px] font-normal tracking-[-0.01em] text-ink hover:text-ink-soft transition-colors">
+                  <ScrollLink key={l.href} to={l.href.replace("#", "")} onClose={close} className="flex items-center justify-between px-0.5 py-[14px] font-display text-[28px] font-normal tracking-[-0.01em] text-ink hover:text-ink-soft transition-colors">
                     <span>{l.label}</span>
-                    <span className="text-ink-soft text-lg">↗</span>
+                    <ArrowUpIcon size={20} rotate={45} />
                   </ScrollLink>
                 ))}
                 <div className="mt-4">
-                  <ScrollLink to="contact" onClose={close} className="inline-flex border-2 border-ink font-gothic text-[13px] font-bold uppercase tracking-[0.1em] px-[22px] py-3 bg-ink text-paper hover:bg-transparent hover:text-ink transition-colors">
-                    Hire Me →
+                  <ScrollLink to="contact" onClose={close} className="flex w-full items-center justify-center gap-2 border-2 border-ink font-gothic text-[13px] font-bold uppercase tracking-[0.1em] px-[22px] py-3 bg-ink text-paper hover:bg-transparent hover:text-ink transition-colors">
+                    Hire Me
+                    <ArrowUpIcon size={16} rotate={45} />
                   </ScrollLink>
                 </div>
               </div>
