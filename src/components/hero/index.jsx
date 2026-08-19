@@ -75,23 +75,22 @@ export default function Hero() {
                   <ChevronUpIcon rotate={45} size={18} />
                 </ScrollLink>
               </motion.div>
-              {/* Get in touch + Download CV in same row on mobile */}
-              <div className="flex gap-3 w-full sm:w-auto sm:contents">
+              <div className="flex flex-row gap-3 w-full sm:w-auto sm:contents">
                 <ScrollLink
                   to="contact"
-                  className="flex flex-1 items-center justify-center gap-2 whitespace-nowrap border-2 border-ink font-gothic font-bold uppercase tracking-[0.1em] text-[12px] sm:text-[14px] px-4 sm:px-7 py-[14px] bg-transparent text-ink hover:bg-ink hover:text-paper transition-colors duration-150 sm:inline-flex sm:flex-none sm:w-auto"
+                  className="flex w-full items-center justify-center gap-2 whitespace-nowrap border-2 border-ink font-gothic font-bold uppercase tracking-[0.1em] text-[12px] sm:text-[14px] px-4 sm:px-7 py-[14px] bg-transparent text-ink hover:bg-ink hover:text-paper transition-colors duration-150 sm:inline-flex sm:flex-none sm:w-auto"
                 >
                   Get in touch
                 </ScrollLink>
                 <motion.a
                   href={cv}
-                  download="Rahul_Goswami_Resume.pdf"
+                  download="Rahul_Goswami_cv"
                   target="_blank"
                   rel="noopener noreferrer"
                   whileHover="hover"
                   initial="rest"
                   animate="rest"
-                  className="flex flex-1 items-center justify-center gap-2 whitespace-nowrap border-2 border-ink/40 font-gothic font-bold uppercase tracking-[0.1em] text-[12px] sm:text-[14px] px-4 sm:px-7 py-[14px] text-ink-soft hover:border-ink hover:text-ink transition-colors duration-150 sm:inline-flex sm:flex-none sm:w-auto"
+                  className="flex w-full items-center justify-center gap-2 whitespace-nowrap border-2 border-ink/40 font-gothic font-bold uppercase tracking-[0.1em] text-[12px] sm:text-[14px] px-4 sm:px-7 py-[14px] text-ink-soft hover:border-ink hover:text-ink transition-colors duration-150 sm:inline-flex sm:flex-none sm:w-auto"
                 >
                   <DownloadIcon size={18} />
                   Download CV

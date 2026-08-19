@@ -19,7 +19,7 @@ export default function Nav() {
 
   // Scroll to top on route change
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "instant" });
+    requestAnimationFrame(() => window.scrollTo(0, 0));
   }, [location.pathname]);
 
   // Prevent body scroll when menu is open

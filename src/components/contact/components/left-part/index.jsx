@@ -27,7 +27,7 @@ export default function ContactLeft({ form, onChange, onSubmit, status }) {
         </div>
         <div className="relative mt-[22px] flex flex-wrap items-center justify-between gap-4">
           <span className="font-gothic text-[11px] uppercase tracking-[0.06em] text-ink-soft">Usually replies within 24 hours</span>
-          <button type="submit" disabled={status === "sending"} className="inline-flex items-center gap-2 whitespace-nowrap border-2 border-ink font-gothic font-bold uppercase tracking-[0.1em] text-[14px] px-7 py-[14px] bg-ink text-paper hover:bg-transparent hover:text-ink transition-colors disabled:opacity-50">
+          <button type="submit" disabled={status === "sending"} className="w-full min-[600px]:w-auto inline-flex items-center justify-center gap-2 whitespace-nowrap border-2 border-ink font-gothic font-bold uppercase tracking-[0.1em] text-[14px] px-7 py-[14px] bg-ink text-paper hover:bg-transparent hover:text-ink transition-colors disabled:opacity-50">
             {status === "sending" ? "Sending…" : "Send the letter"}
           </button>
           {status === "ok"  && <p className="absolute -top-7 left-0 font-gothic text-[11px] uppercase tracking-[0.1em] text-green-600">✓ Successfully sent. I'll be in touch.</p>}
