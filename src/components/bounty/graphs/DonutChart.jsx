@@ -61,11 +61,12 @@ export default function DonutChart({ easy = 0, medium = 0, hard = 0 }) {
             paddingAngle={3}
             dataKey="value"
             strokeWidth={0}
-            style={{ outline: "none" }}
+            style={{ outline: "none", cursor: "default" }}
             onMouseEnter={handleMouseEnter}
+            tabIndex={-1}
           >
             {data.map((entry) => (
-              <Cell key={entry.name} fill={COLORS[entry.name]} style={{ outline: "none" }} />
+              <Cell key={entry.name} fill={COLORS[entry.name]} style={{ outline: "none" }} tabIndex={-1} />
             ))}
           </Pie>
         </PieChart>

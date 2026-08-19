@@ -7,6 +7,14 @@
     scroll-behavior: smooth;
   }
 
+  /* Remove focus outline on recharts elements */
+  .recharts-wrapper,
+  .recharts-surface,
+  .recharts-sector,
+  .recharts-layer {
+    outline: none !important;
+  }
+
   body {
     background-color: #FBFAF5;
     color: #16140F;

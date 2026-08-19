@@ -69,7 +69,7 @@ export default function RadarChart({ data, overallLabel }) {
 
       {/* Chart fills all space */}
       <ResponsiveContainer width="100%" height={400}>
-        <ReRadarChart data={data} cx="50%" cy="50%" outerRadius={130}>
+        <ReRadarChart data={data} cx="50%" cy="50%" outerRadius={130} style={{ outline: "none" }}>
           <PolarGrid stroke="#D4C9BC" />
           <PolarAngleAxis
             dataKey="subject"
@@ -84,6 +84,8 @@ export default function RadarChart({ data, overallLabel }) {
             strokeWidth={1.5}
             dot={{ r: 3, fill: "#8B0000", strokeWidth: 0 }}
             activeDot={{ r: 5, fill: "#8B0000", strokeWidth: 0 }}
+            style={{ outline: "none" }}
+            tabIndex={-1}
           />
           <Tooltip
             content={<RadarTooltip />}
