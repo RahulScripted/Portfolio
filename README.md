@@ -39,6 +39,7 @@ Cream paper background · Serif headlines · Monospace metadata · Red rubber-st
 | **Styling** | Tailwind CSS 3.4 | ![Tailwind](https://img.shields.io/badge/-Tailwind_CSS-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white) |
 | **Animations** | Framer Motion 11.1 | ![Framer](https://img.shields.io/badge/-Framer_Motion-0055FF?style=flat-square&logo=framer&logoColor=white) |
 | **Forms** | Web3Forms (no-server) | ![Web3Forms](https://img.shields.io/badge/-Web3Forms-00C853?style=flat-square) |
+| **APIs** | Vercel Serverless Functions | ![Vercel](https://img.shields.io/badge/-Serverless-black?style=flat-square&logo=vercel&logoColor=white) |
 | **Fonts** | Playfair Display + Space Mono | ![Google Fonts](https://img.shields.io/badge/-Google_Fonts-4285F4?style=flat-square&logo=googlefonts&logoColor=white) |
 | **Deployment** | Vercel | ![Vercel](https://img.shields.io/badge/-Vercel-black?style=flat-square&logo=vercel&logoColor=white) |
 
@@ -118,6 +119,11 @@ Portfolio/
 │   ├── index.css                  ← base styles & Tailwind imports
 │   └── main.jsx
 │
+├── api/
+│   ├── codechef.js                ← Vercel serverless: CodeChef stats
+│   ├── github.js                  ← Vercel serverless: GitHub stats
+│   └── leetcode.js                ← Vercel serverless: LeetCode stats
+│
 ├── .env
 ├── .gitignore
 ├── eslint.config.js
@@ -125,6 +131,7 @@ Portfolio/
 ├── package.json
 ├── postcss.config.js
 ├── tailwind.config.js             ← theme colors & customisation
+├── vercel.json                    ← Vercel configuration
 └── vite.config.js
 ```
 
