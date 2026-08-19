@@ -3,5 +3,5 @@ export const labels = [
   { text: "production",  variant: "red",     pos: { left: "52%", top: "31%" } },
   { text: "backend",     variant: "yellow",  pos: { left: "76%", top: "44%" } },
   { text: "mobile",      variant: "default", pos: { left: "38%", top: "72%" } },
-  { text: "ship it",     variant: "red",     pos: { left: "57%", top: "66%" } },
+  { text: "ship it",     variant: "red",     pos: { left: "57%", top: "63%" } },
 ];

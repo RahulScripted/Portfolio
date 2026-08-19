@@ -35,13 +35,6 @@ export default function LabReport() {
           <MobileBoard />
         </div>
 
-        {/* Legend — desktop only */}
-        <div className="hidden sm:flex gap-[18px] items-center mt-4 font-mono text-[10px] uppercase text-ink-soft tracking-[0.06em]">
-          <span className="inline-flex items-center gap-[6px]"><span className="w-2 h-2 rounded-full bg-[#1968d5] inline-block" /> technology</span>
-          <span className="inline-flex items-center gap-[6px]"><span className="w-2 h-2 rounded-full bg-stamp inline-block" /> connection / workflow</span>
-          <span>hover a card for details</span>
-        </div>
-
         <p className="mt-3 font-gothic text-[11px] font-medium tracking-[0.04em] text-ink-soft sm:text-right">
           Findings are illustrative — what I reach for day to day, not a ranking.
         </p>

@@ -12,7 +12,6 @@ export default function DesktopBoard() {
   return (
     <div className="relative min-h-[700px]">
       <span className="absolute left-5 top-4 font-mono text-[10px] tracking-[0.14em] text-ink/40 uppercase select-none">Case File // Rahul Goswami</span>
-      <span className="absolute right-5 top-4 font-mono text-[10px] tracking-[0.14em] text-ink/40 uppercase select-none">Frontend / Full-Stack</span>
 
       {/* SVG threads */}
       <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 1200 700" preserveAspectRatio="none" aria-hidden="true">
@@ -37,7 +36,7 @@ export default function DesktopBoard() {
         <span className="absolute -top-[9px] right-[14px] w-[44px] h-[16px] bg-[#eadf8c] opacity-90 rotate-[7deg]" />
         <div className="font-mono text-[9px] tracking-[0.15em] text-paper/60 uppercase">Subject Profile</div>
         <h2 className="font-display text-[32px] leading-none tracking-[-0.04em] my-3">RAHUL</h2>
-        <p className="font-mono text-[10px] text-paper/60 uppercase tracking-[0.06em]">Software Engineer Full-Stack Builder</p>
+        <p className="font-mono text-[10px] text-paper/60 uppercase tracking-[0.06em]">Software Engineer</p>
       </div>
 
       {/* Tech nodes */}

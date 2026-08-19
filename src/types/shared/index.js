@@ -3,6 +3,7 @@ export const navLinks = [
   { label: "Stack",     href: "#stack" },
   { label: "Career",    href: "#career" },
   { label: "Education", href: "#education" },
+  { label: "Bounty",    href: "#bounty" },
   { label: "Contact",   href: "#contact" },
 ];
 
@@ -12,5 +13,6 @@ export const footerSectionLinks = [
   { href: "#stack",     label: "The Stack" },
   { href: "#career",    label: "Career Ledger" },
   { href: "#education", label: "Education" },
+  { href: "#bounty",    label: "Bounty Board" },
   { href: "#contact",   label: "Contact" },
 ];

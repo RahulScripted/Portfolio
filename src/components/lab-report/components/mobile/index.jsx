@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import { nodes } from "@types/stack/nodes";
-import { mobileZones, secondaryLinks } from "@types/stack/zones";
+import { mobileZones } from "@types/stack/zones";
 import { doodle } from "@types/hero";
 
 const nodeMap = Object.fromEntries(nodes.map((n) => [n.id, n]));
@@ -44,22 +44,6 @@ export default function MobileBoard() {
     svg.setAttribute("viewBox", `0 0 ${w} ${h}`);
     svg.innerHTML = "";
     const sCenter = pinCenter(suspect, board);
-
-    secondaryLinks.forEach(([a, b]) => {
-      const elA = cardRefs.current[a], elB = cardRefs.current[b];
-      if (!elA || !elB) return;
-      const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-      path.setAttribute("d", curve(pinCenter(elA, board), pinCenter(elB, board), 18));
-      path.setAttribute("stroke", "#3a4a5c");
-      path.setAttribute("stroke-width", "1.4");
-      path.setAttribute("stroke-dasharray", "5 5");
-      path.setAttribute("fill", "none");
-      path.setAttribute("opacity", "0.35");
-      path.setAttribute("stroke-linecap", "round");
-      path.dataset.pair = `${a}|${b}`;
-      path.dataset.type = "secondary";
-      svg.appendChild(path);
-    });
 
     allCardIds.forEach((id, i) => {
       const el = cardRefs.current[id];
@@ -120,9 +104,10 @@ export default function MobileBoard() {
             <div className="w-full h-[140px] mb-[10px] border border-ink/20 overflow-hidden">
               <img src={doodle} alt="Rahul Goswami" className="w-full h-full object-cover object-top" />
             </div>
-            <div className="font-mono text-[10px] tracking-[0.2em] text-stamp uppercase mb-1">Case</div>
-            <div className="font-display text-[16px] font-bold leading-tight">RAHUL GOSWAMI</div>
+            <div className="font-mono text-[10px] tracking-[0.2em] text-stamp uppercase mb-1">Subject Profile</div>
+            <div className="font-display text-[16px] font-bold leading-tight">RAHUL</div>
             <div className="font-mono text-[11px] mt-1 text-ink-soft">Software Engineer</div>
+            <div className="font-mono text-[10px] mt-0.5 text-ink-soft">Full-Stack Builder</div>
           </div>
         </div>
 
@@ -171,10 +156,6 @@ export default function MobileBoard() {
           </div>
         ))}
       </div>
-
-      <p className="text-center font-mono text-[13px] text-ink-soft pb-6 px-4 italic">
-        findings are illustrative — what I reach for, day to day, not a ranking.
-      </p>
     </div>
   );
 }

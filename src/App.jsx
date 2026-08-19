@@ -12,6 +12,7 @@ import Career from "@components/career";
 import Education from "@components/education";
 import Contact from "@components/contact";
 import Footer from "@components/footer";
+import Bounty from "@components/bounty";
 import BookCall from "@components/book-call";
 
 // Ink curtain that wipes in then out on every route change
@@ -52,6 +53,7 @@ function MainSite() {
           <LabReport />
           <Career />
           <Education />
+          <Bounty />
           <Contact />
         </main>
         <Footer />
