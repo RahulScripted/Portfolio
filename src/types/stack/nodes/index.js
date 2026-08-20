@@ -10,6 +10,9 @@ import mongoSvg   from "@assets/svgs/mongodb.svg";
 import expressSvg from "@assets/svgs/express-light.svg";
 import gsapSvg    from "@assets/svgs/gsap.svg";
 import githubSvg  from "@assets/svgs/github.svg";
+import cppSvg     from "@assets/svgs/cplusplus.svg";
+import jsSvg      from "@assets/svgs/javascript.svg";
+import mysqlSvg   from "@assets/svgs/mysql.svg";
 
 export const nodes = [
   { id: "react",   name: "React",         code: "RCT", badge: "PRIMARY TOOL", icon: reactSvg,    pos: { left: "13%", top: "23%" }, r: "-3deg", note: "Core UI library. Used across every dashboard and storefront I've shipped — the one constant." },
@@ -24,4 +27,7 @@ export const nodes = [
   { id: "express", name: "Express.js",     code: "EXP", badge: "API",          icon: expressSvg,  pos: { left: "47%", top: "82%" }, r: "4deg",  note: "Lightweight routing layer for REST endpoints — no more than the project needs." },
   { id: "gsap",    name: "GSAP",           code: "GSP", badge: "MOTION",       icon: gsapSvg,     pos: { left: "22%", top: "83%" }, r: "-4deg", note: "Animation engine for anything Framer Motion can't handle — timelines, scroll triggers." },
   { id: "github",  name: "GitHub",         code: "GIT", badge: "SHIP",         icon: githubSvg,   pos: { left: "73%", top: "86%" }, r: "3deg",  note: "Every project lives here. CI, code review, and the paper trail of every decision." },
+  { id: "cpp",     name: "C++",            code: "CPP", badge: "CORE",         icon: cppSvg,      pos: { left: "93%", top: "52%" }, r: "-2deg", note: "Systems programming and competitive coding. The language that taught me how memory works." },
+  { id: "js",      name: "JavaScript",     code: "JS",  badge: "CORE",         icon: jsSvg,       pos: { left: "4%",  top: "42%" }, r: "2deg",  note: "The language of the web. Powers everything from quick scripts to full-stack applications." },
+  { id: "mysql",   name: "MySQL",          code: "SQL", badge: "DATA",         icon: mysqlSvg,    pos: { left: "60%", top: "80%" }, r: "3deg",  note: "Relational database for structured data. SQL queries, joins, and transactions done right." },
 ];

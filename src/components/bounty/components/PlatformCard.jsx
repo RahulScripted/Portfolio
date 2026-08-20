@@ -1,13 +1,13 @@
 import DonutChart from "../graphs/DonutChart";
 
-const LEGEND = [
-  { label: "Easy",   color: "#6B8F5E" },
-  { label: "Med",    color: "#C4922A" },
-  { label: "Hard",   color: "#8B0000" },
-];
-
 export default function PlatformCard({ icon, name, code, stats = [], easy, medium, hard, link }) {
   const hasDonut = easy !== undefined && medium !== undefined && hard !== undefined;
+
+  const LEGEND = [
+    { label: "Easy",   color: "#6B8F5E", value: easy },
+    { label: "Med",    color: "#C4922A", value: medium },
+    { label: "Hard",   color: "#8B0000", value: hard },
+  ];
 
   return (
     <div className="border-2 border-ink bg-paper-warm p-4 flex flex-col h-full">
@@ -36,10 +36,10 @@ export default function PlatformCard({ icon, name, code, stats = [], easy, mediu
         <div className="flex-1 flex flex-col">
           <DonutChart easy={easy} medium={medium} hard={hard} />
           <div className="flex justify-center gap-4 mt-1 mb-3">
-            {LEGEND.map(({ label, color }) => (
+            {LEGEND.map(({ label, color, value }) => (
               <span key={label} className="flex items-center gap-1 font-gothic text-[9px] text-ink-soft">
                 <span className="w-2 h-2 rounded-full inline-block" style={{ background: color }} />
-                {label}
+                {label} | {value}
               </span>
             ))}
           </div>

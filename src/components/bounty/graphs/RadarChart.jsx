@@ -59,9 +59,9 @@ export default function RadarChart({ data, overallLabel }) {
     >
       {/* Overall badge — absolute top-left */}
       <div
-        className="absolute top-0 left-0 z-10 flex flex-col items-center justify-center px-3 py-1.5"
+        className="absolute top-0 left-0 z-10 flex flex-col items-center justify-center py-1.5"
       >
-        <span className="font-gothic text:xl md:text-4xl font-black leading-none" style={{ color: overall.color }}>
+        <span className="font-gothic text-4xl font-black leading-none" style={{ color: overall.color }}>
           {overall.label}
         </span>
         <span className="font-gothic text-[7px] uppercase tracking-[0.1em] text-ink-soft mt-0.5">Overall</span>

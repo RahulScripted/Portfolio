@@ -55,11 +55,11 @@ export default function Hero() {
               className="mt-5 font-gothic text-xs font-semibold uppercase tracking-[0.06em] text-ink-soft"
             >
               By <strong className="text-ink">The Engineering Desk</strong> |
-              Reporting from Mumbai | Mintifi
+              Reporting from Mumbai
             </motion.p>
             <motion.div
               {...settle(0.26)}
-              className="mt-[22px] flex flex-col gap-3 sm:flex-row sm:flex-wrap"
+              className="mt-[28px] flex flex-col gap-3 sm:flex-row sm:flex-wrap"
             >
               <motion.div
                 whileHover="hover"

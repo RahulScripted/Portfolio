@@ -107,7 +107,6 @@ export default function MobileBoard() {
             <div className="font-mono text-[10px] tracking-[0.2em] text-stamp uppercase mb-1">Subject Profile</div>
             <div className="font-display text-[16px] font-bold leading-tight">RAHUL</div>
             <div className="font-mono text-[11px] mt-1 text-ink-soft">Software Engineer</div>
-            <div className="font-mono text-[10px] mt-0.5 text-ink-soft">Full-Stack Builder</div>
           </div>
         </div>
 
@@ -139,7 +138,7 @@ export default function MobileBoard() {
                     </div>
                     <div className="font-display text-[12px] font-bold leading-tight">{node.name}</div>
                     <div className="font-mono text-[9px] text-ink-soft mt-[1px] tracking-[0.1em]">{node.code}</div>
-                    <div className="absolute bottom-[6px] right-[6px] font-mono text-[8px] border border-stamp text-stamp px-1 py-[1px] -rotate-[8deg] opacity-75 rounded-[3px]">
+                    <div className="absolute bottom-[6px] right-[6px] font-mono text-[8px] text-stamp px-1 py-[1px] -rotate-[8deg] opacity-75 rounded-[3px]">
                       {node.badge}
                     </div>
                     {/* Case note tooltip - appears above card on click */}
