@@ -3,7 +3,7 @@ const inputCls = "w-full border-2 border-ink bg-paper-bright px-3.5 py-3 font-te
 export default function ContactLeft({ form, onChange, onSubmit, status }) {
   return (
     <div className="border-b-2 border-ink p-6 min-[600px]:border-b-0 min-[600px]:border-r-2 min-[600px]:p-9">
-      <h3 className="mb-1.5 font-display text-[32px] font-normal">Put it in writing.</h3>
+      <h3 className="mb-1.5 font-display leading-tight font-normal" style={{ fontSize: "clamp(22px, 3.5vw, 32px)" }}>Put it in writing.</h3>
       <p className="mb-6 font-text text-[15px] leading-[1.55] text-ink-soft">Have a role, product or technical problem worth discussing? Send it through.</p>
       <form onSubmit={onSubmit} aria-label="Contact form">
         <input className="hidden" tabIndex={-1} autoComplete="off" name="company" />

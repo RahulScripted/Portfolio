@@ -137,7 +137,7 @@
 }
 .fm-masthead-t {
   font-family: 'Playfair Display', serif; font-weight: 600; line-height: 1;
-  letter-spacing: -.01em; font-size: clamp(28px,4.4vw,52px); color: #16140F;
+  letter-spacing: -.01em; font-size: clamp(22px, 4.5vw, 52px); color: #16140F;
   white-space: nowrap;
 }
 .fm-masthead-r { margin: 12px auto 0; height: 2px; width: 60px; background: #16140F; }
@@ -199,21 +199,35 @@
   letter-spacing: .18em; color: #A6382C; font-size: 26px;
 }
 .fm-hint {
-  position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
-  font-family: 'Space Mono', monospace; font-size: 11px; text-transform: uppercase;
-  letter-spacing: .22em; color: #5a5550; white-space: nowrap;
+  position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%);
+  font-family: 'Space Mono', monospace; font-size: 10px; text-transform: uppercase;
+  letter-spacing: .18em; color: #5a5550;
+  white-space: nowrap; max-width: 90vw; overflow: hidden; text-overflow: ellipsis;
   pointer-events: none; z-index: 10; opacity: 0; transition: opacity .3s;
 }
 .fm-skip {
-  position: absolute; top: 20px; right: 20px; z-index: 10;
-  font-family: 'Space Mono', monospace; font-size: 11px; font-weight: 500;
-  text-transform: uppercase; letter-spacing: .14em;
+  position: absolute; top: 14px; right: 14px; z-index: 10;
+  font-family: 'Space Mono', monospace; font-size: 10px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: .12em;
   color: #16140F; background: #FBFAF5;
-  border: none; border-radius: 999px; padding: 9px 18px; cursor: pointer;
+  border: none; border-radius: 999px; padding: 8px 16px; cursor: pointer;
   box-shadow: 0 4px 14px rgba(0,0,0,.18);
   transition: background .15s, transform .15s;
 }
 .fm-skip:hover { background: #E8E4DC; transform: translateY(-1px); }
+
+@media (max-width: 480px) {
+  .fm-scene { padding: 14px 8px; gap: 2px; }
+  .fm-col { gap: 3px; }
+  .fm-col:nth-child(n+4) { display: none; } /* show only 3 cols on small screens */
+  .fm-col-h { font-size: 5.5px; }
+  .fm-col-l { height: 4px; }
+  .fm-stamp-text { font-size: 18px; }
+  .fm-stamp { padding: 7px 16px; }
+  .fm-masthead-r { width: 40px; margin-top: 8px; }
+  .fm-hint { font-size: 9px; letter-spacing: .12em; bottom: 16px; }
+  .fm-skip { top: 10px; right: 10px; font-size: 9px; padding: 7px 13px; }
+}
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

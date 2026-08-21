@@ -17,7 +17,7 @@ const typeLabel = {
 
 export default function Career() {
   return (
-    <section id="career" className="py-[76px] px-3 sm:px-5">
+    <section id="career" className="py-14 sm:py-[76px] px-3 sm:px-5">
       <div className="max-w-[1380px] mx-auto">
         <div className="mb-[30px]">
           <div className="flex flex-wrap items-center justify-between gap-5 pb-2.5">
@@ -25,7 +25,7 @@ export default function Career() {
               <span className="section-eyebrow">Known Whereabouts</span>
               <h2 className="mt-1.5 section-h2">The Career Ledger</h2>
             </div>
-            <span className="font-gothic text-xs font-semibold uppercase tracking-[0.12em] text-ink-soft whitespace-nowrap">
+            <span className="font-gothic text-xs font-semibold uppercase tracking-[0.12em] text-ink-soft hidden sm:block">
               Engineering work on record since 2022
             </span>
           </div>
@@ -50,7 +50,7 @@ export default function Career() {
               </div>
               <div
                 className="font-display leading-[1.1]"
-                style={{ fontSize: "24px" }}
+                style={{ fontSize: "clamp(18px, 2.5vw, 24px)" }}
               >
                 {entry.role}
                 <a

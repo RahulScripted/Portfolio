@@ -11,7 +11,7 @@ const settle = (delay = 0) => ({
 
 export default function Education() {
   return (
-    <section id="education" className="py-[76px] px-3 sm:px-5">
+    <section id="education" className="py-14 sm:py-[76px] px-3 sm:px-5">
       <div className="max-w-[1380px] mx-auto">
         <div className="mb-[30px]">
           <div className="flex flex-wrap items-center justify-between gap-5 pb-2.5">
@@ -40,7 +40,7 @@ export default function Education() {
                   Education
                 </span>
               </div>
-              <div className="font-display leading-[1.1]" style={{ fontSize: "24px" }}>
+              <div className="font-display leading-[1.1]" style={{ fontSize: "clamp(18px, 2.5vw, 24px)" }}>
                 {entry.degree}
                 <a
                   href={entry.institutionUrl}

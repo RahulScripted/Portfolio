@@ -96,7 +96,7 @@ export default function Bounty() {
             <div className="flex items-center justify-between gap-2 mb-3">
               <div className="flex items-center gap-2">
                 <img src={githubSvg} alt="GitHub" className="w-5 h-5" />
-                <span className="font-gothic text-[9px] uppercase tracking-[0.14em] text-ink-soft">
+                <span className="font-gothic text-[9px] uppercase tracking-[0.14em] text-ink-soft truncate max-w-[160px] sm:max-w-none">
                   GitHub Contributions — {github?.contributions?.lastYear?.toLocaleString() ?? 0} in the last year
                 </span>
               </div>
@@ -112,7 +112,7 @@ export default function Bounty() {
                 </svg>
               </a>
             </div>
-            <div className="overflow-x-auto mt-10">
+            <div className="overflow-x-auto mt-4 sm:mt-10">
               <ContributionGrid days={days} />
             </div>
             <div className="mt-8 md:mt-3 pt-6">

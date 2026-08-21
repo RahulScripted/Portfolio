@@ -12,7 +12,10 @@ function l(e, a, t) {
 }
 
 function glassR(w, h) {
-  return Math.round(Math.min(104, Math.max(82, 0.12 * Math.min(w, h))));
+  // Smaller radius on mobile to fit within viewport
+  const base = Math.min(w, h);
+  if (base < 480) return Math.round(Math.min(72, Math.max(56, 0.13 * base)));
+  return Math.round(Math.min(104, Math.max(82, 0.12 * base)));
 }
 
 const COLS = ["The Morning Brief", "Notes from the Desk", "Field Report", "Late Edition", "On the Record"];
@@ -33,7 +36,7 @@ const Scene = memo(function Scene() {
       ))}
       <div className="fm-masthead">
         <div className="fm-masthead-k">Wanted</div>
-        <div className="fm-masthead-t" style={{ fontSize: "clamp(18px, 2.8vw, 34px)" }}>Rahul Goswami</div>
+        <div className="fm-masthead-t" style={{ fontSize: "clamp(22px, 4.5vw, 34px)" }}>Rahul Goswami</div>
         <div className="fm-masthead-r" />
       </div>
     </>
@@ -74,11 +77,25 @@ export default function Loader({ onComplete }) {
     smoothPos.current = { x: -(0.3 * W), y: -(0.2 * H) };
     targetPos.current = { ...smoothPos.current };
     lastMoveTime.current = performance.now();
-    const onPointer = (e) => { targetPos.current = { x: e.clientX - W / 2, y: e.clientY - H / 2 }; lastMoveTime.current = performance.now(); };
+
+    const onPointer = (e) => {
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      targetPos.current = { x: clientX - W / 2, y: clientY - H / 2 };
+      lastMoveTime.current = performance.now();
+    };
     window.addEventListener("pointermove", onPointer);
+    window.addEventListener("touchmove", onPointer, { passive: true });
+
+    // On touch devices, auto-drift toward center so it completes without user input
+    const touchAutoSpeed = isTouch ? 0.025 : 0.02;
+
     const tick = (now) => {
       const tgt = targetPos.current, smt = smoothPos.current;
-      if (now - lastMoveTime.current > 3000) { tgt.x += (0 - tgt.x) * 0.02; tgt.y += (0 - tgt.y) * 0.02; }
+      if (now - lastMoveTime.current > (isTouch ? 1200 : 3000)) {
+        tgt.x += (0 - tgt.x) * touchAutoSpeed;
+        tgt.y += (0 - tgt.y) * touchAutoSpeed;
+      }
       smt.x += (tgt.x - smt.x) * 0.12; smt.y += (tgt.y - smt.y) * 0.12;
       setLens({ x: smt.x, y: smt.y, r: -10 });
       if (Math.hypot(smt.x, smt.y) < N * 0.6 && now - revealStartTime.current > 800) {
@@ -89,8 +106,12 @@ export default function Loader({ onComplete }) {
     };
     revealStartTime.current = performance.now();
     rafRef.current = requestAnimationFrame(tick);
-    return () => { cancelAnimationFrame(rafRef.current); window.removeEventListener("pointermove", onPointer); };
-  }, [phase]);
+    return () => {
+      cancelAnimationFrame(rafRef.current);
+      window.removeEventListener("pointermove", onPointer);
+      window.removeEventListener("touchmove", onPointer);
+    };
+  }, [phase, isTouch]);
 
   useEffect(() => {
     if (phase !== "locked") return;

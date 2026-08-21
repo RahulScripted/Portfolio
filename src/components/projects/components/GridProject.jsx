@@ -21,7 +21,7 @@ export default function GridProject({ project, delay }) {
       <span className="mt-3 font-gothic text-[11px] font-extrabold uppercase tracking-[0.14em] text-ink">
         {project.category}
       </span>
-      <h3 className="mt-2 font-display text-[28px] font-normal leading-[1.06] tracking-[-0.01em] min-h-[calc(2*28px*1.06)]">
+      <h3 className="mt-2 font-display font-normal leading-[1.06] tracking-[-0.01em]" style={{ fontSize: "clamp(20px, 2.8vw, 28px)", minHeight: "calc(2 * 1.06 * 1em)" }}>
         {project.title}
       </h3>
       <div className="mt-4">

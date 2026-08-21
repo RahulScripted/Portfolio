@@ -7,7 +7,7 @@ const items = [
   {
     label: "Direct line",
     content: (href) => (
-      <a href={`mailto:${href}`} className="font-display text-[21px] leading-[1.2] hover:text-stamp transition-colors break-all">
+      <a href={`mailto:${href}`} className="font-display text-[18px] sm:text-[21px] leading-[1.2] hover:text-stamp transition-colors break-all">
         {href}
       </a>
     ),
@@ -16,13 +16,13 @@ const items = [
   },
   {
     label: "The Desk",
-    content: (val) => <span className="font-display text-[21px] leading-[1.2]">{val}</span>,
+    content: (val) => <span className="font-display text-[18px] sm:text-[21px] leading-[1.2]">{val}</span>,
     value: contact.location,
     sub: `${contact.timezone} — working with teams worldwide.`,
   },
   {
     label: "Availability",
-    content: (val) => <span className="font-display text-[21px] leading-[1.2]">{val}</span>,
+    content: (val) => <span className="font-display text-[18px] sm:text-[21px] leading-[1.2]">{val}</span>,
     value: contact.availability,
     sub: "Currently at Mintifi and open to select opportunities.",
   },

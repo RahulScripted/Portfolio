@@ -47,11 +47,11 @@ export default function PlatformCard({ icon, name, code, stats = [], easy, mediu
       )}
 
       {/* Stats grid */}
-      <div className="grid grid-cols-2 gap-2">
+      <div className="grid grid-cols-2 gap-1.5 sm:gap-2">
         {stats.map(({ label, value }) => (
-          <div key={label} className="border border-rule p-2">
+          <div key={label} className="border border-rule p-1.5 sm:p-2">
             <div className="font-gothic text-[8px] uppercase tracking-[0.1em] text-ink-soft">{label}</div>
-            <div className="font-display text-lg font-bold text-ink leading-tight">{value ?? "—"}</div>
+            <div className="font-display text-base sm:text-lg font-bold text-ink leading-tight break-all">{value ?? "—"}</div>
           </div>
         ))}
       </div>

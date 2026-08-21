@@ -24,12 +24,12 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="border-t-4 border-ink py-[76px] px-3 sm:px-5">
+      <section id="contact" className="border-t-4 border-ink py-14 sm:py-[76px] px-3 sm:px-5">
       <div className="max-w-[1380px] mx-auto">
         <div className="mb-[30px]">
           <div className="flex flex-wrap items-center justify-between gap-5 pb-2.5">
             <div><span className="section-eyebrow">Submit a Dispatch</span><h2 className="mt-1.5 section-h2">Let's Build Something Worth Shipping</h2></div>
-            <span className="font-gothic text-xs font-semibold uppercase tracking-[0.12em] text-ink-soft whitespace-nowrap">Open to opportunities where engineering, product thinking and ownership matter.</span>
+            <span className="font-gothic text-xs font-semibold uppercase tracking-[0.12em] text-ink-soft hidden sm:block">Open to opportunities where engineering, product thinking and ownership matter.</span>
           </div>
           <div className="section-rule" />
         </div>
