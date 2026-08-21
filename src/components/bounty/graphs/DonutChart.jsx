@@ -46,12 +46,12 @@ export default function DonutChart({ easy = 0, medium = 0, hard = 0 }) {
     <div
       ref={containerRef}
       className="relative w-full"
-      style={{ height: 200 }}
+      style={{ height: 200, outline: "none" }}
       onMouseMove={handleMouseMove}
       onMouseLeave={() => setTooltip(null)}
     >
-      <ResponsiveContainer width="100%" height="100%">
-        <PieChart>
+      <ResponsiveContainer width="100%" height="100%" style={{ outline: "none" }}>
+        <PieChart style={{ outline: "none" }}>
           <Pie
             data={data}
             cx="50%"

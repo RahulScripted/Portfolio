@@ -6,7 +6,7 @@ const CORNER = () => (
 
 const CORNER_BR = () => (
   <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
-    <path d="M0 0H10V10" stroke="#16140F" strokeWidth="1.5" />
+    <path d="M0 10H10V0" stroke="#16140F" strokeWidth="1.5" />
   </svg>
 );
 
@@ -20,7 +20,7 @@ const DOTGRID = () => (
   </svg>
 );
 
-export default function StatCard({ num, label, value, icon, iconAlt, sub, subIcon, stars, accent = false }) {
+export default function StatCard({ num, label, value, icon, iconAlt, sub, subIcon, subIcon2, icon2Alt, stars, accent = false }) {
   return (
     <div className="relative border border-rule bg-paper-warm flex flex-col p-3 sm:p-4 min-h-[130px] sm:min-h-[150px]">
       {/* Top corners + dot grid */}
@@ -52,14 +52,15 @@ export default function StatCard({ num, label, value, icon, iconAlt, sub, subIco
       </div>
 
       {/* Sub row */}
-      <div className="flex items-center gap-1.5 flex-wrap">
+      <div className="flex items-center gap-2 flex-wrap">
         {subIcon && (
-          <div className="flex items-center gap-1">
-            <img src={subIcon} alt={iconAlt ?? ""} className="w-3 h-3 object-contain opacity-70" />
-          </div>
+          <img src={subIcon} alt={iconAlt ?? ""} className="w-5 h-5 object-contain opacity-80" />
+        )}
+        {subIcon2 && (
+          <img src={subIcon2} alt={icon2Alt ?? ""} className="w-5 h-5 object-contain opacity-80" />
         )}
         {icon && !subIcon && (
-          <img src={icon} alt={iconAlt ?? ""} className="w-3 h-3 object-contain opacity-70" />
+          <img src={icon} alt={iconAlt ?? ""} className="w-5 h-5 object-contain opacity-80" />
         )}
         {stars !== undefined && stars > 0 && (
           <div className="flex items-center gap-0.5">

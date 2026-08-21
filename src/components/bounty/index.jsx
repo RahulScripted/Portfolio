@@ -54,7 +54,7 @@ export default function Bounty() {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8 items-stretch">
 
           {/* Skill Radar */}
-          <div className="border-2 border-ink bg-paper-warm p-4 flex flex-col">
+          <div className="bg-paper-warm p-4 flex flex-col">
             <div className="font-gothic text-[9px] uppercase tracking-[0.14em] text-ink-soft mb-2">Skill Radar</div>
             <RadarChart data={RADAR_DATA} overallLabel={RADAR_OVERALL} />
           </div>

@@ -14,6 +14,8 @@ export default function OverviewGrid({ leetcode, github, codechef }) {
         value={totalSolved ? totalSolved.toLocaleString() : "—"}
         subIcon={leetcodeSvg}
         iconAlt="LeetCode"
+        subIcon2={codechefSvg}
+        icon2Alt="CodeChef"
         sub="LeetCode · CodeChef"
         accent
       />

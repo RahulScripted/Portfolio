@@ -10,7 +10,7 @@ export default function PlatformCard({ icon, name, code, stats = [], easy, mediu
   ];
 
   return (
-    <div className="border-2 border-ink bg-paper-warm p-4 flex flex-col h-full">
+    <div className="bg-paper-warm p-4 flex flex-col h-full">
       {/* Header */}
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">

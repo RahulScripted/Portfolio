@@ -7,12 +7,16 @@
     scroll-behavior: smooth;
   }
 
-  /* Remove focus outline on recharts elements */
+  /* Remove focus outline on recharts elements and all SVG */
   .recharts-wrapper,
   .recharts-surface,
   .recharts-sector,
-  .recharts-layer {
+  .recharts-layer,
+  .recharts-wrapper *,
+  svg,
+  svg * {
     outline: none !important;
+    -webkit-tap-highlight-color: transparent;
   }
 
   body {

@@ -68,8 +68,8 @@ export default function RadarChart({ data, overallLabel }) {
       </div>
 
       {/* Chart fills all space */}
-      <ResponsiveContainer width="100%" height={400}>
-        <ReRadarChart data={data} cx="50%" cy="50%" outerRadius={130} style={{ outline: "none" }}>
+      <ResponsiveContainer width="100%" height={400} style={{ outline: "none" }}>
+        <ReRadarChart data={data} cx="50%" cy="50%" outerRadius={130} style={{ outline: "none" }} tabIndex={-1}>
           <PolarGrid stroke="#D4C9BC" />
           <PolarAngleAxis
             dataKey="subject"
