@@ -16,7 +16,7 @@ export default function OverviewGrid({ leetcode, github, codechef }) {
         iconAlt="LeetCode"
         subIcon2={codechefSvg}
         icon2Alt="CodeChef"
-        sub="LeetCode · CodeChef"
+        sub="LeetCode | CodeChef"
         accent
       />
       <StatCard
