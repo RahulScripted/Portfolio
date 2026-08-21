@@ -45,7 +45,7 @@ export default function Hero() {
             </motion.h2>
             <motion.p
               {...settle(0.14)}
-              className="mt-5 max-w-[30ch] border-l-4 border-ink pl-[18px] font-text text-[clamp(17px,2vw,22px)] italic leading-[1.45] text-ink-soft"
+              className="mt-5 max-w-[70ch] border-l-4 border-ink pl-[18px] font-text text-[clamp(17px,2vw,22px)] italic leading-[1.45] text-ink-soft"
             >
               Software Engineer at Mintifi building production fintech products used by 50K+ active customers — 
               with a focus on frontend architecture, performance, secure workflows and product-driven engineering.

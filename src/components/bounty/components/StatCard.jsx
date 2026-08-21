@@ -48,7 +48,6 @@ export default function StatCard({ num, label, value, icon, iconAlt, sub, subIco
       {/* Divider with dot */}
       <div className="relative my-2.5 sm:my-3 flex items-center">
         <div className="flex-1 border-t border-dashed border-rule" />
-        <div className="mx-1.5 w-1.5 h-1.5 rounded-full bg-ink-faint shrink-0" />
       </div>
 
       {/* Sub row */}
