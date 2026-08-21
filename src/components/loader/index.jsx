@@ -44,7 +44,15 @@ const Scene = memo(function Scene() {
 });
 
 export default function Loader({ onComplete }) {
-  const [done, setDone] = useState(() => !!sessionStorage.getItem("intro_seen"));
+  const [done, setDone] = useState(() => {
+    const seen = !!sessionStorage.getItem("intro_seen");
+    // Lock scroll synchronously before first render if loader will show
+    if (!seen && typeof document !== "undefined") {
+      document.documentElement.style.overflow = "hidden";
+      document.body.style.overflow = "hidden";
+    }
+    return seen;
+  });
   const [phase, setPhase] = useState("hunt");
   const [lens, setLens] = useState({ x: 0, y: 0, r: -10 });
   const [progress, setProgress] = useState(0.48);
@@ -131,14 +139,19 @@ export default function Loader({ onComplete }) {
     return () => cancelAnimationFrame(rafRef.current);
   }, [phase, exit]);
 
-  // Prevent body scroll during loader
+  // Prevent body scroll during loader — lock synchronously before paint
   useEffect(() => {
     if (!done) {
+      document.documentElement.style.overflow = "hidden";
       document.body.style.overflow = "hidden";
     } else {
+      document.documentElement.style.overflow = "";
       document.body.style.overflow = "";
     }
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.documentElement.style.overflow = "";
+      document.body.style.overflow = "";
+    };
   }, [done]);
 
   if (done) return null;
