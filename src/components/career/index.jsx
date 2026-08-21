@@ -26,7 +26,7 @@ export default function Career() {
               <h2 className="mt-1.5 section-h2">The Career Ledger</h2>
             </div>
             <span className="font-gothic text-xs font-semibold uppercase tracking-[0.12em] text-ink-soft whitespace-nowrap">
-              Movements on record since 2022
+              Engineering work on record since 2022
             </span>
           </div>
           <div className="section-rule" />

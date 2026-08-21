@@ -28,8 +28,8 @@ export default function Contact() {
       <div className="max-w-[1380px] mx-auto">
         <div className="mb-[30px]">
           <div className="flex flex-wrap items-center justify-between gap-5 pb-2.5">
-            <div><span className="section-eyebrow">Submit a Dispatch</span><h2 className="mt-1.5 section-h2">Letters &amp; Commissions</h2></div>
-            <span className="font-gothic text-xs font-semibold uppercase tracking-[0.12em] text-ink-soft whitespace-nowrap">The desk is open for select work</span>
+            <div><span className="section-eyebrow">Submit a Dispatch</span><h2 className="mt-1.5 section-h2">Let's Build Something Worth Shipping</h2></div>
+            <span className="font-gothic text-xs font-semibold uppercase tracking-[0.12em] text-ink-soft whitespace-nowrap">Open to opportunities where engineering, product thinking and ownership matter.</span>
           </div>
           <div className="section-rule" />
         </div>

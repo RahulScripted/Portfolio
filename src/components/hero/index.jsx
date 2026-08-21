@@ -11,10 +11,10 @@ const settle = (delay = 0) => ({
 });
 
 const statCards = [
-  { value: "No. 001", label: "Field Edition" },
-  { value: "Mumbai", label: "Reporting from" },
-  { value: "Global", label: "Circulation | remote" },
-  { value: "Open", label: "Status | available" },
+  { value: "50K+", label: "Customers Served" },
+  { value: "30%", label: "Faster Dashboard" },
+  { value: "10+", label: "Reusable Components" },
+  { value: "Open", label: "To Opportunities" },
 ];
 
 export default function Hero() {
@@ -33,22 +33,22 @@ export default function Hero() {
               {...settle(0)}
               className="block font-gothic text-xs font-bold uppercase tracking-[0.18em] text-ink"
             >
-              <span className="section-eyebrow">Case No. 001 — Findings Published</span>
+              <span className="section-eyebrow">Case No. 001 — Engineering Record</span>
             </motion.span>
             <motion.h2
               {...settle(0.06)}
               className="mt-1 font-display font-normal text-ink leading-none tracking-[-0.02em]"
               style={{ fontSize: "clamp(38px, 6.6vw, 84px)" }}
             >
-              An engineer who builds interfaces that{" "}
-              <em className="italic">actually ship.</em>
+              I build software that ships, scales, and solves{" "}
+              <em className="italic">real problems.</em>
             </motion.h2>
             <motion.p
               {...settle(0.14)}
               className="mt-5 max-w-[30ch] border-l-4 border-ink pl-[18px] font-text text-[clamp(17px,2vw,22px)] italic leading-[1.45] text-ink-soft"
             >
-              One year in: Rahul Goswami builds fintech products at Mintifi —
-              and ships personal projects that solve real problems.
+              Software Engineer at Mintifi building production fintech products used by 50K+ active customers — 
+              with a focus on frontend architecture, performance, secure workflows and product-driven engineering.
             </motion.p>
             <motion.p
               {...settle(0.2)}
@@ -71,7 +71,7 @@ export default function Hero() {
                   to="work"
                   className="flex w-full items-center justify-center gap-2 whitespace-nowrap border-2 border-ink font-gothic font-bold uppercase tracking-[0.1em] text-[14px] px-7 py-[14px] bg-ink text-paper hover:bg-transparent hover:text-ink transition-colors duration-150 sm:inline-flex sm:w-auto"
                 >
-                  Read the work
+                  Explore the Work
                   <ChevronUpIcon rotate={45} size={18} />
                 </ScrollLink>
               </motion.div>
@@ -141,22 +141,17 @@ export default function Hero() {
               <strong className="font-bold uppercase tracking-[0.1em] text-ink">
                 Pictured:
               </strong>{" "}
-              the subject, in his natural habitat.
+              an engineer somewhere between debugging a production issue and opening another browser tab.
             </motion.p>
             <motion.div
               {...settle(0.3)}
               className="mt-[18px] font-text text-[16px] leading-[1.6] justify-editorial"
             >
               <p className="mb-3 dropcap">
-                He enjoys the full process — from a rough product requirement to
-                a shipped, tested interface. His primary stack is React and
-                TypeScript on the front, with Tailwind for styling and Ant
-                Design for component systems.
+                I enjoy the complete engineering process — understanding a problem, designing the solution, building the interface, integrating the APIs, testing the edge cases and shipping it to production.
               </p>
               <p>
-                At Mintifi, he builds fintech products used by over a hundred
-                thousand customers. Outside work, he ships personal projects and
-                contributes to open source.
+                At Mintifi, I build fintech products across customer onboarding, loan management, authentication, insurance and contract workflows. Outside work, I build independent products that turn ideas into working software.
               </p>
             </motion.div>
           </div>

@@ -12,19 +12,19 @@ const items = [
       </a>
     ),
     value: contact.email,
-    sub: "For commissions, contracts, and the occasional good argument about CSS.",
+    sub: "Roles, collaborations and interesting engineering problems.",
   },
   {
     label: "The Desk",
     content: (val) => <span className="font-display text-[21px] leading-[1.2]">{val}</span>,
     value: contact.location,
-    sub: `${contact.timezone} — working with teams worldwide, remote-first.`,
+    sub: `${contact.timezone} — working with teams worldwide.`,
   },
   {
     label: "Availability",
     content: (val) => <span className="font-display text-[21px] leading-[1.2]">{val}</span>,
     value: contact.availability,
-    sub: "Currently at Mintifi full-time. Open to select opportunities.",
+    sub: "Currently at Mintifi and open to select opportunities.",
   },
 ];
 
@@ -47,7 +47,7 @@ export default function ContactRight() {
           to="/book-call"
           className="flex items-center justify-center gap-2 border-2 border-stamp bg-stamp text-paper font-gothic font-bold uppercase tracking-[0.1em] text-[13px] px-5 py-3 hover:bg-transparent hover:text-stamp transition-colors"
         >
-          Book an Intro Call
+          Start a Conversation
         </Link>
       </div>
     </div>

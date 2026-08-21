@@ -1,0 +1,14 @@
+# Robots.txt for Rahul Goswami Portfolio
+# https://rahulgoswami.dev
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://rahulgoswami.dev/sitemap.xml
+
+# Crawl-delay (optional, for politeness)
+Crawl-delay: 1
+
+# Disallow admin or private paths (if any)
+Disallow: /api/

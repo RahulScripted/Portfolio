@@ -17,7 +17,7 @@ export default function Footer() {
               style={{ filter: "url(#rough-stamp)" }}
             />
             <span className="relative z-[1] px-6 py-2 font-gothic text-[14px] font-black uppercase tracking-[0.28em] text-stamp-bright inline-block">
-              Case Closed
+              Still Building
             </span>
           </div>
         </div>

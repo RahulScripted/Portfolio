@@ -49,7 +49,7 @@ export default function Nav() {
               </ScrollLink>
             ))}
             <ScrollLink to="contact" className="inline-flex items-center gap-2 whitespace-nowrap border-2 border-ink font-gothic text-[11.5px] font-bold uppercase tracking-[0.1em] px-[15px] py-2 bg-ink text-paper hover:bg-transparent hover:text-ink transition-colors duration-150">
-              Hire Me
+              Let's Talk
             </ScrollLink>
           </div>
 
@@ -86,7 +86,7 @@ export default function Nav() {
                 ))}
                 <div className="mt-4">
                   <ScrollLink to="contact" onClose={close} className="flex w-full items-center justify-center gap-2 border-2 border-ink font-gothic text-[13px] font-bold uppercase tracking-[0.1em] px-[22px] py-3 bg-ink text-paper hover:bg-transparent hover:text-ink transition-colors">
-                    Hire Me
+                    Let's Talk
                     <ArrowUpIcon size={16} rotate={45} />
                   </ScrollLink>
                 </div>

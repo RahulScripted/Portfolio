@@ -1,0 +1,21 @@
+{
+  "name": "Rahul Goswami - Software Engineer",
+  "short_name": "Rahul Goswami",
+  "description": "Software Engineer at Mintifi building production fintech products. Specializing in React, TypeScript, and product engineering.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F5F5DC",
+  "theme_color": "#1a1a1a",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["portfolio", "technology", "business"],
+  "lang": "en",
+  "dir": "ltr"
+}

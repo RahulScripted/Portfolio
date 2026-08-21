@@ -18,7 +18,7 @@ export default function Copyright() {
       )}
 
       <div className="mt-8 flex flex-col items-center gap-4 border-t border-paper/25 pt-5 font-gothic text-[11px] font-medium uppercase tracking-[0.1em] text-paper/60 min-[600px]:flex-row min-[600px]:justify-between">
-        <span>© {year} Rahul Goswami | All rights reserved | Mumbai, India</span>
+        <span>© 2026 Rahul Goswami | All rights reserved | Mumbai, India</span>
 
         <div className="flex gap-2.5">
           <motion.a

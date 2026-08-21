@@ -1,0 +1,20 @@
+<svg
+  width="120"
+  height="120"
+  viewBox="0 0 120 120"
+  xmlns="http://www.w3.org/2000/svg"
+  aria-label="RG"
+>
+  <text
+    x="60"
+    y="70"
+    text-anchor="middle"
+    font-family="Arial, Helvetica, sans-serif"
+    font-size="48"
+    font-weight="900"
+    letter-spacing="-4"
+    fill="currentColor"
+  >
+    RG
+  </text>
+</svg>
