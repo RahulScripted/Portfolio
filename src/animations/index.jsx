@@ -71,7 +71,7 @@ export function LinkedinIcon({ size = 18 }) {
       height={size}
       variants={{ rest: { scale: 1 }, hover: { scale: 1.2 } }}
       transition={spring}
-      style={{ display: "inline-block", filter: "invert(1)" }}
+      style={{ display: "inline-block" }}
     />
   );
 }

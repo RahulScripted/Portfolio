@@ -6,7 +6,7 @@ import Loader from "@components/loader";
 
 const year = new Date().getFullYear();
 
-const iconBtn = "flex h-10 w-10 items-center justify-center border border-paper/40 text-paper transition-colors hover:bg-paper hover:text-ink";
+const iconBtn = "flex h-10 w-10 items-center justify-center border border-paper/40 bg-paper text-ink transition-colors hover:bg-paper/80";
 
 export default function Copyright() {
   const [showLoader, setShowLoader] = useState(false);
@@ -54,7 +54,7 @@ export default function Copyright() {
             whileHover="hover"
             initial="rest"
             animate="rest"
-            className={`${iconBtn} cursor-pointer bg-transparent`}
+            className={`${iconBtn} cursor-pointer`}
           >
             <LockIcon size={18} />
           </motion.button>
