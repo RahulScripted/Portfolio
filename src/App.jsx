@@ -14,6 +14,7 @@ import Contact from "@components/contact";
 import Footer from "@components/footer";
 import Bounty from "@components/bounty";
 import BookCall from "@components/book-call";
+import Philosophy from "./components/philosophy";
 
 // Ink curtain that wipes in then out on every route change
 const pageFade = {
@@ -52,6 +53,7 @@ function MainSite() {
           <Projects />
           <LabReport />
           <Career />
+          <Philosophy />
           <Education />
           <Bounty />
           <Contact />
