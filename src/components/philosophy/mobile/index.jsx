@@ -8,6 +8,13 @@ const settle = (delay = 0) => ({
   transition: { duration: 0.5, delay, ease: [0.25, 0.1, 0.25, 1] },
 });
 
+const dotSettle = () => ({
+  initial: { backgroundColor: "var(--paper)", scale: 1 },
+  whileInView: { backgroundColor: "var(--stamp)", scale: 1.15 },
+  viewport: { once: true, margin: "-40px" },
+  transition: { duration: 0.4, ease: "easeOut" },
+});
+
 const ICONS = {
   search: (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -36,54 +43,52 @@ const ICONS = {
   ),
 };
 
+const PhilosophyRow = ({ entry, delay, isLast }) => (
+  <div className="flex items-stretch">
+    {/* Stitched rail: dot fills in + thread connects to the next entry */}
+    <div className="flex flex-col items-center w-[34px] shrink-0 pt-[26px]">
+      <motion.span
+        {...dotSettle()}
+        className="w-[7px] h-[7px] rounded-full"
+      />
+      {!isLast && <span className="w-px flex-1 bg-ink/15 my-1" />}
+    </div>
+
+    <motion.div
+      {...settle(delay)}
+      className="flex-1 pt-5 pb-6 pl-1 pr-4"
+    >
+      {/* Head — id pinned left, icon centered */}
+      <div className="relative flex items-center justify-center mb-2.5">
+        <span className="absolute left-0 font-gothic text-[10px] font-bold uppercase tracking-[0.18em] text-stamp">
+          {entry.id}
+        </span>
+        <div className="absolute right-0 text-ink/30">{ICONS[entry.icon]}</div>
+      </div>
+
+      <h3
+        className="font-display text-ink leading-[1.1] tracking-[-0.01em] mb-2"
+        style={{ fontSize: "clamp(17px, 5vw, 22px)" }}
+      >
+        {entry.title}
+      </h3>
+      <p className="font-text text-[13px] leading-[1.6] text-ink-soft">
+        {entry.body}
+      </p>
+    </motion.div>
+  </div>
+);
+
 const MobilePhilosophy = () => {
   return (
     <div>
       {philosophyEntries.map((entry, i) => (
-        <motion.div
+        <PhilosophyRow
           key={entry.id}
-          {...settle(i * 0.07)}
-          className="group relative border-b border-ink/20 overflow-hidden"
-        >
-          {/* Animated fill line on left */}
-          <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-stamp scale-y-0 group-hover:scale-y-100 origin-top transition-transform duration-300" />
-
-          <div className="flex items-start gap-4 px-4 py-5 pl-5">
-            {/* Index + icon column */}
-            <div className="flex flex-col items-center gap-2.5 shrink-0 w-8 pt-0.5">
-              <span className="font-gothic text-[9px] font-bold uppercase tracking-[0.18em] text-stamp">
-                {entry.id}
-              </span>
-              <div className="text-ink/30 group-hover:text-ink transition-colors duration-300">
-                {ICONS[entry.icon]}
-              </div>
-            </div>
-
-            {/* Vertical rule */}
-            <div className="self-stretch w-px bg-ink/15 shrink-0" />
-
-            {/* Content */}
-            <div className="flex-1 min-w-0">
-              {/* Big watermark number */}
-              <div
-                aria-hidden="true"
-                className="font-display text-ink/[0.05] leading-none select-none -mb-1"
-                style={{ fontSize: "clamp(42px, 12vw, 64px)" }}
-              >
-                {entry.id}
-              </div>
-              <h3
-                className="font-display text-ink leading-[1.1] tracking-[-0.01em] mb-2"
-                style={{ fontSize: "clamp(17px, 5vw, 22px)" }}
-              >
-                {entry.title}
-              </h3>
-              <p className="font-text text-[13px] leading-[1.6] text-ink-soft">
-                {entry.body}
-              </p>
-            </div>
-          </div>
-        </motion.div>
+          entry={entry}
+          delay={i * 0.07}
+          isLast={i === philosophyEntries.length - 1}
+        />
       ))}
     </div>
   );

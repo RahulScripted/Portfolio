@@ -36,44 +36,66 @@ const ICONS = {
   ),
 };
 
+const InkTextureDefs = () => (
+  <svg width="0" height="0" style={{ position: "absolute" }} aria-hidden="true">
+    <filter id="phil-ink-texture">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" result="noise" />
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.2" />
+    </filter>
+  </svg>
+);
+
 const PhilosophyCard = ({ entry, delay, featured = false }) => (
   <motion.div
     {...settle(delay)}
     className={`group relative flex flex-col border border-ink/20 bg-paper overflow-hidden cursor-default
-      transition-colors duration-300 hover:bg-ink hover:border-ink
+      transition-colors duration-300
       ${featured ? "col-span-2 row-span-2" : ""}`}
   >
-    {/* Top bar with index */}
-    <div className="flex items-center justify-between border-b border-ink/15 group-hover:border-paper/15 px-5 py-3 transition-colors duration-300">
-      <span className="font-gothic text-[9px] font-bold uppercase tracking-[0.2em] text-stamp group-hover:text-paper/50 transition-colors duration-300">
+    <span
+      aria-hidden="true"
+      className="absolute left-0 bottom-0 h-[2px] w-0 bg-stamp transition-[width] duration-[400ms] ease-out group-hover:w-full"
+    />
+
+    {/* Top bar — id pinned left, icon centered */}
+    <div className="flex items-center justify-between border-b border-ink/15 px-5 py-3">
+      <span className="font-gothic text-[9px] font-bold uppercase tracking-[0.2em] text-stamp">
         {entry.id}
       </span>
-      <div className="text-ink/25 group-hover:text-paper/30 transition-colors duration-300">
+
+      <div className="text-ink/25 transition-colors duration-300 group-hover:text-ink/45">
         {ICONS[entry.icon]}
       </div>
     </div>
 
     {/* Content */}
-    <div className={`flex flex-col flex-1 ${featured ? "p-8 xl:p-10" : "p-5 xl:p-6"}`}>
-      {/* Big number watermark */}
+    <div className={`relative flex flex-col flex-1 ${featured ? "p-8 xl:p-10" : "p-5 xl:p-6"}`}>
       <div
         aria-hidden="true"
-        className="font-display font-normal text-ink/[0.04] group-hover:text-paper/[0.06] leading-none select-none mb-auto transition-colors duration-300"
-        style={{ fontSize: featured ? "clamp(80px, 10vw, 140px)" : "clamp(60px, 7vw, 96px)" }}
+        className={`absolute flex items-center justify-center rounded-full border-[1.5px] border-stamp
+          font-display font-semibold text-stamp opacity-0 rotate-[-14deg] scale-[0.85]
+          transition-[opacity,transform] duration-[400ms] ease-[cubic-bezier(0.2,0.9,0.3,1.3)]
+          group-hover:opacity-100 group-hover:rotate-[-6deg] group-hover:scale-100`}
+        style={
+          featured
+            ? { width: 130, height: 130, fontSize: 44, top: 26, right: 32, filter: "url(#phil-ink-texture)" }
+            : { width: 84, height: 84, fontSize: 30, top: 14, right: 16, filter: "url(#phil-ink-texture)" }
+        }
       >
+        <span className="absolute inset-2 rounded-full border border-stamp/55" />
         {entry.id}
       </div>
 
-      <div className={featured ? "mt-6" : "mt-4"}>
+      <div className="mt-auto">
         <h3
-          className="font-display text-ink group-hover:text-paper leading-[1.05] tracking-[-0.015em] transition-colors duration-300"
+          className="font-display text-ink leading-[1.05] tracking-[-0.015em] transition-colors duration-300"
           style={{ fontSize: featured ? "clamp(22px, 2.8vw, 34px)" : "clamp(15px, 1.5vw, 20px)" }}
         >
           {entry.title}
         </h3>
-        <div className={`border-t border-ink/20 group-hover:border-paper/20 transition-colors duration-300 ${featured ? "my-4" : "my-3"}`} />
+        <div className={`border-t border-ink/20 ${featured ? "my-4" : "my-3"}`} />
         <p
-          className={`font-text leading-[1.6] text-ink-soft group-hover:text-paper/70 transition-colors duration-300 ${featured ? "text-[15px] max-w-[48ch]" : "text-[13px]"}`}
+          className={`font-text leading-[1.6] text-ink-soft ${featured ? "text-[15px] max-w-[48ch]" : "text-[13px]"}`}
         >
           {entry.body}
         </p>
@@ -82,17 +104,20 @@ const PhilosophyCard = ({ entry, delay, featured = false }) => (
   </motion.div>
 );
 
-const DeskstopPhilosophy = () => {
+const DesktopPhilosophy = () => {
   const [first, ...rest] = philosophyEntries;
 
   return (
-    <div className="grid grid-cols-4 grid-rows-2 gap-px bg-ink/10 border border-ink/10">
-      <PhilosophyCard entry={first} delay={0} featured />
-      {rest.map((entry, i) => (
-        <PhilosophyCard key={entry.id} entry={entry} delay={(i + 1) * 0.08} />
-      ))}
-    </div>
+    <>
+      <InkTextureDefs />
+      <div className="grid grid-cols-4 grid-rows-2 gap-px bg-ink/10 border border-ink/10">
+        <PhilosophyCard entry={first} delay={0} featured />
+        {rest.map((entry, i) => (
+          <PhilosophyCard key={entry.id} entry={entry} delay={(i + 1) * 0.08} />
+        ))}
+      </div>
+    </>
   );
 };
 
-export default DeskstopPhilosophy;
+export default DesktopPhilosophy;
