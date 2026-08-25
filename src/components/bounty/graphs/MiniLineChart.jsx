@@ -2,12 +2,15 @@ import { useState, useEffect } from "react";
 import { LineChart, Line, ResponsiveContainer, Tooltip, XAxis, YAxis, CartesianGrid } from "recharts";
 
 function toWeeklyData(days) {
+  if (!days.length) return [];
   const result = [];
+  // Slice from end so we always show the most recent weeks (including partial current week)
   for (let i = 0; i < days.length; i += 7) {
     const chunk = days.slice(i, i + 7);
     const date = chunk[0]?.date ?? "";
-    const label = date ? new Date(date).toLocaleDateString("en", { month: "short", day: "numeric" }) : `W${Math.floor(i / 7) + 1}`;
-    result.push({ label, commits: chunk.reduce((s, d) => s + (d.count ?? 0), 0) });
+    const label = date ? new Date(date + "T00:00:00").toLocaleDateString("en", { month: "short", day: "numeric" }) : `W${Math.floor(i / 7) + 1}`;
+    const commits = chunk.reduce((s, d) => s + (d.count ?? 0), 0);
+    result.push({ label, commits });
   }
   return result;
 }

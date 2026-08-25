@@ -1,95 +1,132 @@
+import { useMemo } from "react";
 import { motion } from "framer-motion";
 import { philosophyEntries } from "@types/philosophy";
+import ICONS from "@assets/icons";
 
-const settle = (delay = 0) => ({
-  initial: { opacity: 0, y: 20 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-40px" },
-  transition: { duration: 0.5, delay, ease: [0.25, 0.1, 0.25, 1] },
-});
+const CARD_MIN_H = 170;
+const ROW_GAP = 50;
+const SPINE_X = 20;
+const CARD_OFFSET = 48; // left offset for cards (spine width + spacing)
 
-const dotSettle = () => ({
-  initial: { backgroundColor: "var(--paper)", scale: 1 },
-  whileInView: { backgroundColor: "var(--stamp)", scale: 1.15 },
-  viewport: { once: true, margin: "-40px" },
-  transition: { duration: 0.4, ease: "easeOut" },
-});
-
-const ICONS = {
-  search: (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
-    </svg>
-  ),
-  blueprint: (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <rect x="3" y="3" width="18" height="18" rx="2" /><path d="M3 9h18M9 21V9" />
-    </svg>
-  ),
-  user: (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" />
-    </svg>
-  ),
-  layers: (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <polygon points="12 2 2 7 12 12 22 7 12 2" /><polyline points="2 17 12 22 22 17" /><polyline points="2 12 12 17 22 12" />
-    </svg>
-  ),
-  flag: (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" /><line x1="4" y1="22" x2="4" y2="15" />
-    </svg>
-  ),
-};
-
-const PhilosophyRow = ({ entry, delay, isLast }) => (
-  <div className="flex items-stretch">
-    {/* Stitched rail: dot fills in + thread connects to the next entry */}
-    <div className="flex flex-col items-center w-[34px] shrink-0 pt-[26px]">
-      <motion.span
-        {...dotSettle()}
-        className="w-[7px] h-[7px] rounded-full"
-      />
-      {!isLast && <span className="w-px flex-1 bg-ink/15 my-1" />}
-    </div>
-
+const PhilosophyCard = ({ entry, pos, delay }) => {
+  const IconComponent = ICONS[entry.icon];
+  return (
     <motion.div
-      {...settle(delay)}
-      className="flex-1 pt-5 pb-6 pl-1 pr-4"
+      initial={{ opacity: 0, x: -12 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.5, delay, ease: [0.25, 0.1, 0.25, 1] }}
+      className="absolute left-0 right-0 group rounded-2xl border border-ink/10 bg-paper shadow-[0_6px_16px_-8px_rgba(32,27,21,0.18)] px-5 pt-5 pb-4"
+      style={{ top: pos.y, minHeight: CARD_MIN_H }}
     >
-      {/* Head — id pinned left, icon centered */}
-      <div className="relative flex items-center justify-center mb-2.5">
-        <span className="absolute left-0 font-gothic text-[10px] font-bold uppercase tracking-[0.18em] text-stamp">
-          {entry.id}
-        </span>
-        <div className="absolute right-0 text-ink/30">{ICONS[entry.icon]}</div>
+      {/* Icon badge */}
+      <div className="absolute -top-3 -left-3 w-9 h-9 rounded-[10px] bg-paper border-2 border-ink/10 shadow-[0_3px_8px_-4px_rgba(32,27,21,0.25)] flex items-center justify-center text-stamp">
+        <IconComponent size={16} />
       </div>
 
+      <span className="font-gothic block text-[9px] font-bold uppercase tracking-[0.18em] text-stamp mb-1.5">
+        {entry.id}
+      </span>
       <h3
-        className="font-display text-ink leading-[1.1] tracking-[-0.01em] mb-2"
-        style={{ fontSize: "clamp(17px, 5vw, 22px)" }}
+        className="font-display text-ink leading-[1.15] tracking-[-0.01em] mb-2"
+        style={{ fontSize: "clamp(16px, 4.5vw, 19px)" }}
       >
         {entry.title}
       </h3>
-      <p className="font-text text-[13px] leading-[1.6] text-ink-soft">
+      <p className="font-text text-[12.5px] leading-[1.6] text-ink-soft">
         {entry.body}
       </p>
     </motion.div>
-  </div>
-);
+  );
+};
+
+function getPositions(count) {
+  return Array.from({ length: count }, (_, i) => ({
+    y: i * (CARD_MIN_H + ROW_GAP),
+  }));
+}
 
 const MobilePhilosophy = () => {
+  const positions = useMemo(
+    () => getPositions(philosophyEntries.length),
+    [philosophyEntries.length]
+  );
+  const diagramHeight =
+    (philosophyEntries.length - 1) * (CARD_MIN_H + ROW_GAP) + CARD_MIN_H;
+
   return (
-    <div>
-      {philosophyEntries.map((entry, i) => (
-        <PhilosophyRow
-          key={entry.id}
-          entry={entry}
-          delay={i * 0.07}
-          isLast={i === philosophyEntries.length - 1}
-        />
-      ))}
+    <div className="relative" style={{ paddingLeft: CARD_OFFSET, minHeight: diagramHeight }}>
+      <style>{`
+        @keyframes philosophy-flow-m {
+          from { stroke-dashoffset: 900; }
+          to { stroke-dashoffset: 0; }
+        }
+      `}</style>
+
+      {/* Vertical spine */}
+      <svg
+        className="absolute top-0 left-0 h-full overflow-visible pointer-events-none"
+        width={CARD_OFFSET}
+        style={{ height: diagramHeight }}
+        aria-hidden="true"
+      >
+        {positions.slice(0, -1).map((pos, i) => {
+          const startY = pos.y + CARD_MIN_H / 2;
+          const endY = positions[i + 1].y + CARD_MIN_H / 2;
+          const d = `M ${SPINE_X} ${startY} L ${SPINE_X} ${endY}`;
+          return (
+            <g key={i}>
+              {/* Pipe */}
+              <path
+                d={d}
+                fill="none"
+                stroke="var(--pipe, #D8CDB2)"
+                strokeWidth={8}
+                strokeLinecap="round"
+              />
+              {/* Animated pulse */}
+              <path
+                d={d}
+                fill="none"
+                stroke="var(--stamp, #8C3A2C)"
+                strokeWidth={3}
+                strokeLinecap="round"
+                style={{
+                  filter: "drop-shadow(0 0 3px rgba(140,58,44,0.45))",
+                  strokeDasharray: "30 900",
+                  animation: "philosophy-flow-m 3s linear infinite",
+                  animationDelay: `${i * 0.5}s`,
+                }}
+              />
+            </g>
+          );
+        })}
+
+        {/* Dots at each card's midpoint on the spine */}
+        {positions.map((pos, i) => (
+          <circle
+            key={i}
+            cx={SPINE_X}
+            cy={pos.y + CARD_MIN_H / 2}
+            r={6}
+            fill="var(--paper, #FBFAF5)"
+            stroke="var(--stamp, #8C3A2C)"
+            strokeWidth={2.5}
+          />
+        ))}
+      </svg>
+
+      {/* Cards */}
+      <div className="relative" style={{ height: diagramHeight }}>
+        {philosophyEntries.map((entry, i) => (
+          <PhilosophyCard
+            key={entry.id}
+            entry={entry}
+            pos={positions[i]}
+            delay={i * 0.08}
+          />
+        ))}
+      </div>
     </div>
   );
 };

@@ -1,5 +1,5 @@
 export default async function handler(req, res) {
-  res.setHeader("Cache-Control", "s-maxage=3600, stale-while-revalidate=86400");
+  res.setHeader("Cache-Control", "s-maxage=1800, stale-while-revalidate=3600");
   res.setHeader("Access-Control-Allow-Origin", "*");
 
   const username = "RahulScripted";
@@ -12,7 +12,7 @@ export default async function handler(req, res) {
     const [userRes, reposRes, contribRes] = await Promise.all([
       fetch(`https://api.github.com/users/${username}`, { headers }),
       fetch(`https://api.github.com/users/${username}/repos?per_page=100&type=owner`, { headers }),
-      fetch(`https://github-contributions-api.jogruber.de/v4/${username}?y=last`),
+      fetch(`https://github-contributions-api.jogruber.de/v4/${username}?y=last&_t=${Date.now()}`),
     ]);
 
     const user = await userRes.json();

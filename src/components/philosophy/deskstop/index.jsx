@@ -1,122 +1,153 @@
+import { useMemo } from "react";
 import { motion } from "framer-motion";
 import { philosophyEntries } from "@types/philosophy";
+import ICONS from "@assets/icons";
 
-const settle = (delay = 0) => ({
-  initial: { opacity: 0, y: 24 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-40px" },
-  transition: { duration: 0.55, delay, ease: [0.25, 0.1, 0.25, 1] },
-});
+const CARD_W = 320;
+const CARD_H = 170;
+const GAP_Y = 80; // vertical gap between rows
+const GAP_X = 120; // horizontal gap between columns
 
-const ICONS = {
-  search: (
-    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
-    </svg>
-  ),
-  blueprint: (
-    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <rect x="3" y="3" width="18" height="18" rx="2" /><path d="M3 9h18M9 21V9" />
-    </svg>
-  ),
-  user: (
-    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" />
-    </svg>
-  ),
-  layers: (
-    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <polygon points="12 2 2 7 12 12 22 7 12 2" /><polyline points="2 17 12 22 22 17" /><polyline points="2 12 12 17 22 12" />
-    </svg>
-  ),
-  flag: (
-    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" /><line x1="4" y1="22" x2="4" y2="15" />
-    </svg>
-  ),
-};
+/**
+ * Layout: cards alternate left/right in a zigzag.
+ * Even index = left column, odd index = right column.
+ * The diagram is centered by computing total width and offsetting.
+ */
+function getPositions(count) {
+  const totalW = CARD_W * 2 + GAP_X;
+  const offsetX = 0; // we'll center via CSS
+  return Array.from({ length: count }, (_, i) => ({
+    x: i % 2 === 0 ? offsetX : offsetX + CARD_W + GAP_X,
+    y: i * (CARD_H + GAP_Y),
+  }));
+}
 
-const InkTextureDefs = () => (
-  <svg width="0" height="0" style={{ position: "absolute" }} aria-hidden="true">
-    <filter id="phil-ink-texture">
-      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" result="noise" />
-      <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.2" />
-    </filter>
-  </svg>
-);
+/** Build a connected elbow path from bottom-center of card A to left/right-center of card B */
+function buildPath(a, b, isGoingRight) {
+  // Start from bottom center of card A
+  const startX = a.x + CARD_W / 2;
+  const startY = a.y + CARD_H;
 
-const PhilosophyCard = ({ entry, delay, featured = false }) => (
-  <motion.div
-    {...settle(delay)}
-    className={`group relative flex flex-col border border-ink/20 bg-paper overflow-hidden cursor-default
-      transition-colors duration-300
-      ${featured ? "col-span-2 row-span-2" : ""}`}
-  >
-    <span
-      aria-hidden="true"
-      className="absolute left-0 bottom-0 h-[2px] w-0 bg-stamp transition-[width] duration-[400ms] ease-out group-hover:w-full"
-    />
+  // End at left or right center of card B
+  const endX = isGoingRight ? b.x : b.x + CARD_W;
+  const endY = b.y + CARD_H / 2;
 
-    {/* Top bar — id pinned left, icon centered */}
-    <div className="flex items-center justify-between border-b border-ink/15 px-5 py-3">
-      <span className="font-gothic text-[9px] font-bold uppercase tracking-[0.2em] text-stamp">
+  // Midpoint Y — go down halfway then turn
+  const midY = endY;
+
+  return `M ${startX} ${startY} L ${startX} ${midY} L ${endX} ${midY}`;
+}
+
+const PhilosophyCard = ({ entry, pos, delay }) => {
+  const IconComponent = ICONS[entry.icon];
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.55, delay, ease: [0.25, 0.1, 0.25, 1] }}
+      className="absolute group rounded-sm border border-ink/12 bg-paper shadow-[0_8px_24px_-12px_rgba(32,27,21,0.2)] px-6 pt-6 pb-5 transition-all duration-300 hover:shadow-[0_14px_36px_-10px_rgba(32,27,21,0.28)] hover:border-ink/20"
+      style={{ left: pos.x, top: pos.y, width: CARD_W, minHeight: CARD_H }}
+    >
+      {/* Icon badge */}
+      <div className="absolute -top-[18px] -left-[18px] w-[42px] h-[42px] rounded-xl bg-paper border-2 border-ink/10 shadow-[0_4px_12px_-6px_rgba(32,27,21,0.3)] flex items-center justify-center text-stamp transition-transform duration-300 group-hover:scale-110 group-hover:rotate-[-4deg]">
+        <IconComponent size={20} />
+      </div>
+
+      <span className="font-gothic block text-[10px] font-bold uppercase tracking-[0.18em] text-stamp mb-2">
         {entry.id}
       </span>
+      <h3 className="font-display font-medium text-[18px] leading-[1.2] tracking-[-0.01em] text-ink mb-2">
+        {entry.title}
+      </h3>
+      <p className="font-text text-[12.5px] leading-[1.6] text-ink-soft">
+        {entry.body}
+      </p>
 
-      <div className="text-ink/25 transition-colors duration-300 group-hover:text-ink/45">
-        {ICONS[entry.icon]}
-      </div>
-    </div>
-
-    {/* Content */}
-    <div className={`relative flex flex-col flex-1 ${featured ? "p-8 xl:p-10" : "p-5 xl:p-6"}`}>
-      <div
+      {/* Hover accent */}
+      <span
         aria-hidden="true"
-        className={`absolute flex items-center justify-center rounded-full border-[1.5px] border-stamp
-          font-display font-semibold text-stamp opacity-0 rotate-[-14deg] scale-[0.85]
-          transition-[opacity,transform] duration-[400ms] ease-[cubic-bezier(0.2,0.9,0.3,1.3)]
-          group-hover:opacity-100 group-hover:rotate-[-6deg] group-hover:scale-100`}
-        style={
-          featured
-            ? { width: 130, height: 130, fontSize: 44, top: 26, right: 32, filter: "url(#phil-ink-texture)" }
-            : { width: 84, height: 84, fontSize: 30, top: 14, right: 16, filter: "url(#phil-ink-texture)" }
-        }
-      >
-        <span className="absolute inset-2 rounded-full border border-stamp/55" />
-        {entry.id}
-      </div>
-
-      <div className="mt-auto">
-        <h3
-          className="font-display text-ink leading-[1.05] tracking-[-0.015em] transition-colors duration-300"
-          style={{ fontSize: featured ? "clamp(22px, 2.8vw, 34px)" : "clamp(15px, 1.5vw, 20px)" }}
-        >
-          {entry.title}
-        </h3>
-        <div className={`border-t border-ink/20 ${featured ? "my-4" : "my-3"}`} />
-        <p
-          className={`font-text leading-[1.6] text-ink-soft ${featured ? "text-[15px] max-w-[48ch]" : "text-[13px]"}`}
-        >
-          {entry.body}
-        </p>
-      </div>
-    </div>
-  </motion.div>
-);
+        className="absolute left-0 bottom-0 h-[2px] w-0 bg-stamp/80 rounded-b-2xl transition-[width] duration-[400ms] ease-out group-hover:w-full"
+      />
+    </motion.div>
+  );
+};
 
 const DesktopPhilosophy = () => {
-  const [first, ...rest] = philosophyEntries;
+  const positions = useMemo(
+    () => getPositions(philosophyEntries.length),
+    [philosophyEntries.length]
+  );
+
+  const totalW = CARD_W * 2 + GAP_X;
+  const diagramHeight = (philosophyEntries.length - 1) * (CARD_H + GAP_Y) + CARD_H + 60;
+
+  const paths = useMemo(
+    () =>
+      positions.slice(0, -1).map((pos, i) => {
+        const next = positions[i + 1];
+        const isGoingRight = next.x > pos.x;
+        return buildPath(pos, next, isGoingRight);
+      }),
+    [positions]
+  );
 
   return (
-    <>
-      <InkTextureDefs />
-      <div className="grid grid-cols-4 grid-rows-2 gap-px bg-ink/10 border border-ink/10">
-        <PhilosophyCard entry={first} delay={0} featured />
-        {rest.map((entry, i) => (
-          <PhilosophyCard key={entry.id} entry={entry} delay={(i + 1) * 0.08} />
+    <div className="flex justify-center">
+      <div className="relative" style={{ width: totalW, height: diagramHeight }}>
+        <style>{`
+          @keyframes philosophy-flow {
+            from { stroke-dashoffset: 900; }
+            to { stroke-dashoffset: 0; }
+          }
+        `}</style>
+
+        <svg
+          className="absolute inset-0 w-full h-full overflow-visible pointer-events-none"
+          viewBox={`0 0 ${totalW} ${diagramHeight}`}
+          preserveAspectRatio="xMidYMin meet"
+          aria-hidden="true"
+        >
+          {paths.map((d, i) => (
+            <g key={i}>
+              {/* Pipe background */}
+              <path
+                d={d}
+                fill="none"
+                stroke="var(--pipe, #D8CDB2)"
+                strokeWidth={12}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              {/* Animated energy pulse */}
+              <path
+                d={d}
+                fill="none"
+                stroke="var(--stamp, #8C3A2C)"
+                strokeWidth={4}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                style={{
+                  filter: "drop-shadow(0 0 5px rgba(140,58,44,0.45))",
+                  strokeDasharray: "40 900",
+                  animation: "philosophy-flow 3s linear infinite",
+                  animationDelay: `${i * 0.6}s`,
+                }}
+              />
+            </g>
+          ))}
+        </svg>
+
+        {philosophyEntries.map((entry, i) => (
+          <PhilosophyCard
+            key={entry.id}
+            entry={entry}
+            pos={positions[i]}
+            delay={i * 0.1}
+          />
         ))}
       </div>
-    </>
+    </div>
   );
 };
 
