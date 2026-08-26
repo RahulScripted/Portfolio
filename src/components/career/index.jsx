@@ -1,13 +1,7 @@
 import { motion } from "framer-motion";
-import { ExternalLinkIcon } from "@animations";
+import { ExternalLinkIcon, settle } from "@animations";
 import { careerEntries } from "@types/carrers";
-
-const settle = (delay = 0) => ({
-  initial: { opacity: 0, y: 20 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-40px" },
-  transition: { duration: 0.5, delay, ease: "easeOut" },
-});
+import SectionHeader from "@components/shared/SectionHeader";
 
 const typeLabel = {
   "Full-time": "bg-ink text-paper",
@@ -19,18 +13,11 @@ export default function Career() {
   return (
     <section id="career" className="py-14 sm:py-[76px] px-3 sm:px-5">
       <div className="max-w-[1380px] mx-auto">
-        <div className="mb-[30px]">
-          <div className="flex flex-wrap items-center justify-between gap-5 pb-2.5">
-            <div>
-              <span className="section-eyebrow">Known Whereabouts</span>
-              <h2 className="mt-1.5 section-h2">The Career Ledger</h2>
-            </div>
-            <span className="font-gothic text-xs font-semibold uppercase tracking-[0.12em] text-ink-soft hidden sm:block">
-              Engineering work on record since 2022
-            </span>
-          </div>
-          <div className="section-rule" />
-        </div>
+        <SectionHeader
+          eyebrow="Known Whereabouts"
+          title="The Career Ledger"
+          aside="Engineering work on record since 2022"
+        />
         <div className="border-ink">
           {careerEntries.map((entry, i) => (
             <motion.div

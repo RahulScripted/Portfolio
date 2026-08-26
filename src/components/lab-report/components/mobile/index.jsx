@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import { nodes } from "@types/stack/nodes";
 import { mobileZones } from "@types/stack/zones";
-import { doodle, doodleFallback } from "@types/hero";
+import { doodle } from "@types/hero";
 
 const nodeMap = Object.fromEntries(nodes.map((n) => [n.id, n]));
 const rotations = [-2, 1.5, -1.5, 2, -1, 1.8, -1.6, -2, 1.4, -1.6, 2, 3];
@@ -102,10 +102,7 @@ export default function MobileBoard() {
         <div className="flex justify-center mb-6 relative z-[2]">
           <div ref={suspectRef} className="w-[200px] bg-paper-bright border border-rule shadow-[3px_4px_10px_rgba(0,0,0,0.2)] px-[14px] pt-[14px] pb-[16px] -rotate-[1.2deg]">
             <div className="w-full h-[140px] mb-[10px] border border-ink/20 overflow-hidden">
-              <picture>
-                <source srcSet={doodle} type="image/webp" />
-                <img src={doodleFallback} alt="Rahul Goswami — profile illustration" className="w-full h-full object-cover object-top" loading="lazy" />
-              </picture>
+              <img src={doodle} alt="Rahul Goswami — profile illustration" className="w-full h-full object-cover object-top" loading="lazy" />
             </div>
             <div className="font-mono text-[10px] tracking-[0.2em] text-stamp uppercase mb-1">Subject Profile</div>
             <div className="font-display text-[16px] font-bold leading-tight">RAHUL</div>

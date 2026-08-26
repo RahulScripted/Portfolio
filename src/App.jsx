@@ -1,20 +1,29 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import "./index.css";
+
+// Critical above-the-fold — loaded eagerly
 import Loader from "@components/loader";
 import Masthead from "@components/masthead";
 import Nav from "@components/nav";
 import Hero from "@components/hero";
-import Projects from "@components/projects";
-import LabReport from "@components/lab-report";
-import Career from "@components/career";
-import Education from "@components/education";
-import Contact from "@components/contact";
-import Footer from "@components/footer";
-import Bounty from "@components/bounty";
-import BookCall from "@components/book-call";
-import Philosophy from "./components/philosophy";
+
+// Below-the-fold sections — lazy loaded
+const Projects = lazy(() => import("@components/projects"));
+const LabReport = lazy(() => import("@components/lab-report"));
+const Career = lazy(() => import("@components/career"));
+const Philosophy = lazy(() => import("./components/philosophy"));
+const Education = lazy(() => import("@components/education"));
+const Bounty = lazy(() => import("@components/bounty"));
+const Contact = lazy(() => import("@components/contact"));
+const Footer = lazy(() => import("@components/footer"));
+
+// Separate route — lazy loaded
+const BookCall = lazy(() => import("@components/book-call"));
+
+// Minimal fallback for lazy sections (invisible, no layout shift)
+const SectionFallback = () => <div className="min-h-[200px]" />;
 
 // Ink curtain that wipes in then out on every route change
 const pageFade = {
@@ -50,15 +59,31 @@ function MainSite() {
         <main>
           <Hero />
           <hr className="border-0 border-t-4 border-ink" />
-          <Projects />
-          <LabReport />
-          <Career />
-          <Philosophy />
-          <Education />
-          <Bounty />
-          <Contact />
+          <Suspense fallback={<SectionFallback />}>
+            <Projects />
+          </Suspense>
+          <Suspense fallback={<SectionFallback />}>
+            <LabReport />
+          </Suspense>
+          <Suspense fallback={<SectionFallback />}>
+            <Career />
+          </Suspense>
+          <Suspense fallback={<SectionFallback />}>
+            <Philosophy />
+          </Suspense>
+          <Suspense fallback={<SectionFallback />}>
+            <Education />
+          </Suspense>
+          <Suspense fallback={<SectionFallback />}>
+            <Bounty />
+          </Suspense>
+          <Suspense fallback={<SectionFallback />}>
+            <Contact />
+          </Suspense>
+          <Suspense fallback={<SectionFallback />}>
+            <Footer />
+          </Suspense>
         </main>
-        <Footer />
       </div>
     </>
   );
@@ -76,11 +101,18 @@ function AnimatedRoutes() {
     <>
       <ScrollToTop />
       <AnimatePresence mode="wait">
-      <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<PageTransition><MainSite /></PageTransition>} />
-        <Route path="/book-call" element={<PageTransition><BookCall /></PageTransition>} />
-      </Routes>
-    </AnimatePresence>
+        <Routes location={location} key={location.pathname}>
+          <Route path="/" element={<PageTransition><MainSite /></PageTransition>} />
+          <Route
+            path="/book-call"
+            element={
+              <Suspense fallback={<SectionFallback />}>
+                <PageTransition><BookCall /></PageTransition>
+              </Suspense>
+            }
+          />
+        </Routes>
+      </AnimatePresence>
     </>
   );
 }

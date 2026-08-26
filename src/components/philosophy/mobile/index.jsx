@@ -54,7 +54,7 @@ function getPositions(count) {
 const MobilePhilosophy = () => {
   const positions = useMemo(
     () => getPositions(philosophyEntries.length),
-    [philosophyEntries.length]
+    []
   );
   const diagramHeight =
     (philosophyEntries.length - 1) * (CARD_MIN_H + ROW_GAP) + CARD_MIN_H;

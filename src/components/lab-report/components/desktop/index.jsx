@@ -1,12 +1,6 @@
 import { nodes } from "@types/stack/nodes";
 import { threads } from "@types/stack/threads";
-import { doodle, doodleFallback } from "@types/hero";
-
-const labelCls = {
-  default: "bg-paper-deep border border-ink/20",
-  red:     "bg-[#e5b1a8] border border-ink/20",
-  yellow:  "bg-[#eee2a7] border border-ink/20",
-};
+import { doodle } from "@types/hero";
 
 export default function DesktopBoard() {
   return (
@@ -34,10 +28,7 @@ export default function DesktopBoard() {
       <div className="absolute left-[calc(50%+30px)] top-1/2 z-[2] w-[205px] -translate-x-1/2 -translate-y-1/2 -rotate-[2deg] bg-ink text-paper px-[22px] py-[22px] text-center shadow-[8px_10px_0_rgba(0,0,0,0.18)]">
         <span className="absolute -top-[9px] left-[14px] w-[44px] h-[16px] bg-[#eadf8c] opacity-90 -rotate-[8deg]" />
         <span className="absolute -top-[9px] right-[14px] w-[44px] h-[16px] bg-[#eadf8c] opacity-90 rotate-[7deg]" />
-        <picture>
-          <source srcSet={doodle} type="image/webp" />
-          <img src={doodleFallback} alt="Rahul Goswami — profile illustration" className="w-full h-[90px] object-cover object-top mb-2" loading="lazy" />
-        </picture>
+        <img src={doodle} alt="Rahul Goswami — profile illustration" className="w-full h-[90px] object-cover object-top mb-2" loading="lazy" />
         <div className="font-mono text-[9px] tracking-[0.15em] text-paper/60 uppercase">Subject Profile</div>
         <h2 className="font-display text-[22px] leading-none tracking-[-0.04em] mb-1.5">RAHUL</h2>
         <p className="font-mono text-[10px] text-paper/60 uppercase tracking-[0.06em]">Software Engineer</p>

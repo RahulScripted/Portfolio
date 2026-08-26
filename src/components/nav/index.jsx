@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { navLinks } from "@types/shared";
 import ScrollLink from "@components/scroll-link";
-import { ChevronUpIcon, ArrowUpIcon } from "@animations";
+import { ArrowUpIcon } from "@animations";
 
 export default function Nav() {
   const [menuOpen, setMenuOpen] = useState(false);

@@ -2,6 +2,36 @@ import { motion } from "framer-motion";
 import githubSvg   from "@assets/svgs/github.svg";
 import linkedinSvg from "@assets/svgs/linkedin.svg";
 
+// ─── Shared Animation Presets ────────────────────────────────────────────────
+
+/** Standard reveal animation for sections scrolling into view */
+export const settle = (delay = 0) => ({
+  initial: { opacity: 0, y: 20 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: "-40px" },
+  transition: { duration: 0.5, delay, ease: [0.25, 0.1, 0.25, 1] },
+});
+
+/** Larger reveal for featured/hero elements */
+export const settleLarge = (delay = 0) => ({
+  initial: { opacity: 0, y: 24 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: "-60px" },
+  transition: { duration: 0.55, delay, ease: [0.25, 0.1, 0.25, 1] },
+});
+
+/** Instant animation (no scroll trigger, for above-the-fold) */
+export const fadeIn = (delay = 0) => ({
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.55, delay, ease: [0.25, 0.1, 0.25, 1] },
+});
+
+/** Shared spring config for interactive elements */
+export const spring = { type: "spring", stiffness: 400, damping: 15 };
+
+// ─── Icon Components ─────────────────────────────────────────────────────────
+
 const iconProps = (size) => ({
   xmlns: "http://www.w3.org/2000/svg",
   width: size,
@@ -13,8 +43,6 @@ const iconProps = (size) => ({
   strokeLinecap: "round",
   strokeLinejoin: "round",
 });
-
-const spring = { type: "spring", stiffness: 400, damping: 15 };
 
 /**
  * Wrap the button/link with:

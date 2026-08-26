@@ -14,10 +14,8 @@ const GAP_X = 100; // horizontal gap between columns
  * The diagram is centered by computing total width and offsetting.
  */
 function getPositions(count) {
-  const totalW = CARD_W * 2 + GAP_X;
-  const offsetX = 0; // we'll center via CSS
   return Array.from({ length: count }, (_, i) => ({
-    x: i % 2 === 0 ? offsetX : offsetX + CARD_W + GAP_X,
+    x: i % 2 === 0 ? 0 : CARD_W + GAP_X,
     y: i * (CARD_H + GAP_Y),
   }));
 }
@@ -81,7 +79,7 @@ const PhilosophyCard = ({ entry, pos, delay }) => {
 const DesktopPhilosophy = () => {
   const positions = useMemo(
     () => getPositions(philosophyEntries.length),
-    [philosophyEntries.length]
+    []
   );
 
   const totalW = CARD_W * 2 + GAP_X;

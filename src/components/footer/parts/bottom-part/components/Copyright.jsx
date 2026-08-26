@@ -4,8 +4,6 @@ import { GithubIcon, LinkedinIcon, LockIcon } from "@animations";
 import { contact } from "@types/contact";
 import Loader from "@components/loader";
 
-const year = new Date().getFullYear();
-
 const iconBtn = "flex h-10 w-10 items-center justify-center border border-paper/40 bg-paper text-ink transition-colors hover:bg-paper/80";
 
 export default function Copyright() {

@@ -1,14 +1,7 @@
 import { motion } from "framer-motion";
-import { profile, profileFallback, cv } from "@types/hero";
-import { contact } from "@types/contact";
-import { ChevronUpIcon, DownloadIcon } from "@animations";
+import { profile, cv } from "@types/hero";
+import { ChevronUpIcon, DownloadIcon, fadeIn as settle } from "@animations";
 import ScrollLink from "@components/scroll-link";
-
-const settle = (delay = 0) => ({
-  initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.55, delay, ease: [0.25, 0.1, 0.25, 1] },
-});
 
 const statCards = [
   { value: "50K+", label: "Customers Served" },
@@ -128,15 +121,12 @@ export default function Hero() {
               transition={{ duration: 0.7, delay: 0.18 }}
               className="relative aspect-square w-full overflow-hidden border-2 border-ink bg-paper"
             >
-              <picture>
-                <source srcSet={profile} type="image/webp" />
-                <img
-                  src={profileFallback}
-                  alt="Rahul Goswami — Software Engineer, Mumbai"
-                  className="absolute inset-0 w-full h-full object-cover mix-blend-multiply"
-                  loading="eager"
-                />
-              </picture>
+              <img
+                src={profile}
+                alt="Rahul Goswami — Software Engineer, Mumbai"
+                className="absolute inset-0 w-full h-full object-cover mix-blend-multiply"
+                loading="eager"
+              />
             </motion.div>
             <motion.p
               {...settle(0.24)}

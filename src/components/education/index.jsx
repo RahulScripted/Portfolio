@@ -1,30 +1,17 @@
 import { motion } from "framer-motion";
-import { ExternalLinkIcon } from "@animations";
+import { ExternalLinkIcon, settle } from "@animations";
 import { educationEntries } from "@types/education";
-
-const settle = (delay = 0) => ({
-  initial: { opacity: 0, y: 20 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-40px" },
-  transition: { duration: 0.5, delay, ease: "easeOut" },
-});
+import SectionHeader from "@components/shared/SectionHeader";
 
 export default function Education() {
   return (
     <section id="education" className="py-14 sm:py-[76px] px-3 sm:px-5">
       <div className="max-w-[1380px] mx-auto">
-        <div className="mb-[30px]">
-          <div className="flex flex-wrap items-center justify-between gap-5 pb-2.5">
-            <div>
-              <span className="section-eyebrow">Academic Record</span>
-              <h2 className="mt-1.5 section-h2">Education</h2>
-            </div>
-            <span className="font-gothic text-xs font-semibold uppercase tracking-[0.12em] text-ink-soft whitespace-nowrap">
-              Formal training on file
-            </span>
-          </div>
-          <div className="section-rule" />
-        </div>
+        <SectionHeader
+          eyebrow="Academic Record"
+          title="Education"
+          aside="Formal training on file"
+        />
         <div className="border-ink">
           {educationEntries.map((entry, i) => (
             <motion.div

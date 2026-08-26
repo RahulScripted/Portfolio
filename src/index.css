@@ -3,6 +3,20 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    /* ─── Design Tokens ─────────────────────────────────────── */
+    --color-paper: #FBFAF5;
+    --color-ink: #16140F;
+    --color-stamp: #A6382C;
+    --color-pipe: #D8CDB2;
+
+    /* Fluid type scale */
+    --text-hero: clamp(38px, 6.6vw, 84px);
+    --text-section: clamp(28px, 4vw, 46px);
+    --text-featured: clamp(22px, 3.2vw, 34px);
+    --text-card: clamp(15px, 1.5vw, 20px);
+  }
+
   html {
     scroll-behavior: smooth;
   }

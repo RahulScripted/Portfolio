@@ -1,24 +1,17 @@
 import DesktopBoard from "./components/desktop";
 import MobileBoard from "./components/mobile";
+import SectionHeader from "@components/shared/SectionHeader";
 
 export default function LabReport() {
   return (
     <section id="stack" className="scroll-mt-[50px] py-14 sm:py-[76px] px-3 sm:px-5">
       <div className="max-w-[1380px] mx-auto">
 
-        {/* Section header */}
-        <div className="mb-[30px]">
-          <div className="flex flex-wrap items-center justify-between gap-5 pb-2.5">
-            <div>
-              <span className="section-eyebrow">Evidence Board / 001</span>
-              <h2 className="mt-1.5 section-h2">The Engineering Stack</h2>
-            </div>
-            <span className="font-gothic text-xs font-semibold uppercase tracking-[0.12em] text-ink-soft whitespace-nowrap hidden sm:block">
-              Tools used to design, build, debug and ship production software.
-            </span>
-          </div>
-          <div className="section-rule" />
-        </div>
+        <SectionHeader
+          eyebrow="Evidence Board / 001"
+          title="The Engineering Stack"
+          aside="Tools used to design, build, debug and ship production software."
+        />
 
         {/* Intro line */}
         <p className="mb-6 font-mono text-[13px] text-ink-soft max-w-[480px]">

@@ -17,6 +17,8 @@ export default function ProjectImage({
         <img
           src={img}
           alt={alt}
+          loading="lazy"
+          decoding="async"
           className="absolute inset-0 w-full h-full object-cover object-top grayscale contrast-[1.04] mix-blend-multiply transition-transform duration-500 ease-out group-hover:scale-[1.03]"
         />
         <span

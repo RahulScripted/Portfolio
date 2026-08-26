@@ -1,4 +1,5 @@
 import useStatsData from "./hooks/useStatsData";
+import SectionHeader from "@components/shared/SectionHeader";
 import OverviewGrid from "./components/OverviewGrid";
 import PlatformCard from "./components/PlatformCard";
 import TechMastery from "./components/TechMastery";
@@ -28,18 +29,11 @@ export default function Bounty() {
       <div className="max-w-[1380px] mx-auto" aria-live="polite" aria-atomic="false">
 
         {/* Header */}
-        <div className="mb-[30px]">
-          <div className="flex flex-wrap items-center justify-between gap-5 pb-2.5">
-            <div>
-              <span className="section-eyebrow">Bounty Board / 005</span>
-              <h2 className="mt-1.5 section-h2">The Bounty Board</h2>
-            </div>
-            <span className="font-gothic text-xs font-semibold uppercase tracking-[0.12em] text-ink-soft whitespace-nowrap hidden sm:block">
-              Live stats — refreshed every hour
-            </span>
-          </div>
-          <div className="section-rule" />
-        </div>
+        <SectionHeader
+          eyebrow="Bounty Board / 005"
+          title="The Bounty Board"
+          aside="Live stats — refreshed every hour"
+        />
 
         <p className="mb-8 font-mono text-[13px] text-ink-soft max-w-[480px]">
           A live dashboard of coding activity across LeetCode, GitHub and CodeChef.

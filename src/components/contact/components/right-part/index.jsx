@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { ChevronUpIcon } from "@animations";
 import { contact } from "@types/contact";
 import InkUnderline from "./components/InkUnderline";
 
