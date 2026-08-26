@@ -3,14 +3,35 @@ import { motion } from "framer-motion";
 import ContactLeft from "./components/left-part";
 import ContactRight from "./components/right-part";
 
+function validateForm(form) {
+  const errors = {};
+  if (!form.name.trim()) errors.name = "Name is required";
+  if (!form.email.trim()) errors.email = "Email is required";
+  else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) errors.email = "Enter a valid email";
+  if (!form.message.trim()) errors.message = "Message is required";
+  else if (form.message.trim().length < 10) errors.message = "Message must be at least 10 characters";
+  return errors;
+}
+
 export default function Contact() {
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
   const [status, setStatus] = useState(null);
+  const [errors, setErrors] = useState({});
 
-  const onChange = (e) => setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
+  const onChange = (e) => {
+    setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
+    // Clear error for field being edited
+    if (errors[e.target.name]) setErrors((prev) => ({ ...prev, [e.target.name]: undefined }));
+  };
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    const validationErrors = validateForm(form);
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+    setErrors({});
     setStatus("sending");
     const fd = new FormData();
     Object.entries(form).forEach(([k, v]) => fd.append(k, v));
@@ -40,7 +61,7 @@ export default function Contact() {
           transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
           className="grid grid-cols-1 border-2 border-ink min-[600px]:grid-cols-[1.15fr_0.85fr]"
         >
-          <ContactLeft form={form} onChange={onChange} onSubmit={onSubmit} status={status} />
+          <ContactLeft form={form} onChange={onChange} onSubmit={onSubmit} status={status} errors={errors} />
           <ContactRight />
         </motion.div>
       </div>

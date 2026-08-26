@@ -3,10 +3,10 @@ import { motion } from "framer-motion";
 import { philosophyEntries } from "@types/philosophy";
 import ICONS from "@assets/icons";
 
-const CARD_W = 320;
+const CARD_W = 360;
 const CARD_H = 200;
 const GAP_Y = 70; // vertical gap between rows
-const GAP_X = 120; // horizontal gap between columns
+const GAP_X = 100; // horizontal gap between columns
 
 /**
  * Layout: cards alternate left/right in a zigzag.

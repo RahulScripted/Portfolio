@@ -1,5 +1,5 @@
 import React from "react";
-import DeskstopPhilosophy from "./deskstop";
+import DesktopPhilosophy from "./desktop";
 import MobilePhilosophy from "./mobile";
 
 const Philosophy = () => {
@@ -19,7 +19,7 @@ const Philosophy = () => {
           <div className="section-rule" />
         </div>
         <div className="hidden md:block">
-          <DeskstopPhilosophy />
+          <DesktopPhilosophy />
         </div>
         <div className="block md:hidden">
             <MobilePhilosophy />

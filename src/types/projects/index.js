@@ -1,6 +1,6 @@
-import projects1 from "@assets/projects/projects1.png";
-import projects2 from "@assets/projects/projects2.png";
-import projects3 from "@assets/projects/projects3.png";
+import projects1 from "@assets/projects/projects1.webp";
+import projects2 from "@assets/projects/projects2.webp";
+import projects3 from "@assets/projects/projects3.webp";
 
 
 export const projects = [

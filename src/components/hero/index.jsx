@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { profile, cv } from "@types/hero";
+import { profile, profileFallback, cv } from "@types/hero";
 import { contact } from "@types/contact";
 import { ChevronUpIcon, DownloadIcon } from "@animations";
 import ScrollLink from "@components/scroll-link";
@@ -128,11 +128,15 @@ export default function Hero() {
               transition={{ duration: 0.7, delay: 0.18 }}
               className="relative aspect-square w-full overflow-hidden border-2 border-ink bg-paper"
             >
-              <img
-                src={profile}
-                alt="Rahul Goswami — Software Engineer, Mumbai"
-                className="absolute inset-0 w-full h-full object-cover mix-blend-multiply"
-              />
+              <picture>
+                <source srcSet={profile} type="image/webp" />
+                <img
+                  src={profileFallback}
+                  alt="Rahul Goswami — Software Engineer, Mumbai"
+                  className="absolute inset-0 w-full h-full object-cover mix-blend-multiply"
+                  loading="eager"
+                />
+              </picture>
             </motion.div>
             <motion.p
               {...settle(0.24)}

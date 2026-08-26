@@ -13,7 +13,7 @@ import codechefSvg  from "@assets/svgs/codechef-light.svg";
 
 function Skeleton() {
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8 animate-pulse">
+    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8 animate-pulse" aria-label="Loading stats">
       {[...Array(4)].map((_, i) => <div key={i} className="h-20 bg-rule" />)}
     </div>
   );
@@ -24,8 +24,8 @@ export default function Bounty() {
   const days = github?.weeks ?? [];
 
   return (
-    <section id="bounty" className="scroll-mt-[50px] py-14 sm:py-[76px] px-3 sm:px-5">
-      <div className="max-w-[1380px] mx-auto">
+    <section id="bounty" className="scroll-mt-[50px] py-14 sm:py-[76px] px-3 sm:px-5" aria-label="Coding stats dashboard">
+      <div className="max-w-[1380px] mx-auto" aria-live="polite" aria-atomic="false">
 
         {/* Header */}
         <div className="mb-[30px]">

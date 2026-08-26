@@ -53,7 +53,7 @@ const Scene = memo(function Scene() {
       })}
       <div className="fm-masthead">
         <div className="fm-masthead-k">Wanted</div>
-        <div className="fm-masthead-t" style={{ fontSize: "clamp(22px, 4.5vw, 34px)" }}>Rahul Goswami</div>
+        <div className="fm-masthead-t">Rahul Goswami</div>
         <div className="fm-masthead-r" />
       </div>
     </>
