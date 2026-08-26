@@ -68,6 +68,7 @@ Portfolio/
 │   │   └── index.jsx              ← shared animated icon components
 │   │
 │   ├── assets/
+│   │   ├── icons/                 ← shared reusable SVG icon components
 │   │   ├── jpeg/                  ← profile & doodle images
 │   │   ├── projects/              ← project screenshots
 │   │   ├── svgs/                  ← brand & tech icons
@@ -77,8 +78,11 @@ Portfolio/
 │   │   ├── book-call/             ← booking form page
 │   │   ├── bounty/                ← live stats dashboard (LeetCode · GitHub · CodeChef)
 │   │   │   ├── components/        ← StatCard, PlatformCard, OverviewGrid, TechMastery
-│   │   │   ├── graphs/            ← DonutChart, RadarChart, ContributionGrid, MiniLineChart
+│   │   │   ├── graphs/            ← DonutChart, RadarChart, ContributionGrid (with month/day labels), MiniLineChart
 │   │   │   └── hooks/             ← useStatsData (API fetching)
+│   │   ├── philosophy/             ← engineering principles (pipe-flow connected cards)
+│   │   │   ├── deskstop/         ← desktop: zigzag layout with elbow pipe connectors
+│   │   │   └── mobile/           ← mobile: vertical spine with dot markers
 │   │   ├── career/                ← career ledger section
 │   │   ├── contact/               ← contact form section
 │   │   ├── education/             ← education section
@@ -99,6 +103,7 @@ Portfolio/
 │   │   ├── contact/
 │   │   ├── education/
 │   │   ├── hero/
+│   │   ├── philosophy/
 │   │   ├── projects/
 │   │   ├── shared/
 │   │   └── stack/
@@ -134,6 +139,7 @@ Portfolio/
 | `#work` | The Evidence | Project showcase with case-file styling |
 | `#stack` | Lab Report | Technology stack display |
 | `#ledger` | Career Ledger | Work experience timeline |
+| `#philosophy` | Philosophy | Engineering principles with connected pipe-flow diagram |
 | `#bounty` | Bounty Board | Live coding stats dashboard |
 | `#contact` | Letters & Commissions | Contact form via Web3Forms |
 
@@ -148,10 +154,11 @@ flowchart TD
     C -->|About| D["📋 The Full Story"]
     C -->|Work| E["🔍 The Evidence"]
     C -->|Stack| F["🧪 Lab Report"]
+    C -->|Philosophy| F2["⚙️ Engineering Principles"]
     C -->|Experience| G["📒 Career Ledger"]
     C -->|Stats| H["🏆 Bounty Board"]
     C -->|Contact| I["✉️ Letters & Commissions"]
-    D & E & F & G & H & I --> J[Footer]
+    D & E & F & F2 & G & H & I --> J[Footer]
 ```
 
 ---
@@ -199,7 +206,7 @@ The `/api` folder contains Vercel serverless functions that fetch and cache live
 | Endpoint | Source | Data |
 |----------|--------|------|
 | `/api/leetcode` | LeetCode GraphQL | Rating, solved counts, rank |
-| `/api/github` | GitHub REST API | Repos, stars, followers, contributions |
+| `/api/github` | GitHub REST API + Contributions API | Repos, stars, followers, contribution grid, weekly commits |
 | `/api/codechef` | CodeChef scrape | Rating, stars, contests |
 
 Set the following in `.env`:
@@ -214,7 +221,9 @@ GITHUB_TOKEN=your_github_pat
 
 - **Colors** — `tailwind.config.js` → `theme.extend.colors`
 - **Content** — data arrays in `src/types/` folders
+- **Icons** — shared icon components in `src/assets/icons/index.jsx`
 - **Contact form** — `access_key` in `src/components/contact/index.jsx` (Web3Forms)
+- **Philosophy entries** — `src/types/philosophy/index.js`
 
 ---
 

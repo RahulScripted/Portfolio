@@ -4,8 +4,8 @@ import { philosophyEntries } from "@types/philosophy";
 import ICONS from "@assets/icons";
 
 const CARD_W = 320;
-const CARD_H = 170;
-const GAP_Y = 80; // vertical gap between rows
+const CARD_H = 200;
+const GAP_Y = 70; // vertical gap between rows
 const GAP_X = 120; // horizontal gap between columns
 
 /**
@@ -60,9 +60,14 @@ const PhilosophyCard = ({ entry, pos, delay }) => {
       <h3 className="font-display font-medium text-[18px] leading-[1.2] tracking-[-0.01em] text-ink mb-2">
         {entry.title}
       </h3>
-      <p className="font-text text-[12.5px] leading-[1.6] text-ink-soft">
+      <p className="font-text text-[12.5px] leading-[1.6] text-ink-soft mb-2.5">
         {entry.body}
       </p>
+      {entry.principle && (
+        <p className="font-gothic text-[10px] italic leading-[1.5] text-stamp/70 border-t border-ink/8 pt-2">
+          {entry.principle}
+        </p>
+      )}
 
       {/* Hover accent */}
       <span

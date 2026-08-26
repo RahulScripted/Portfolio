@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { philosophyEntries } from "@types/philosophy";
 import ICONS from "@assets/icons";
 
-const CARD_MIN_H = 170;
+const CARD_MIN_H = 200;
 const ROW_GAP = 50;
 const SPINE_X = 20;
 const CARD_OFFSET = 48; // left offset for cards (spine width + spacing)
@@ -33,9 +33,14 @@ const PhilosophyCard = ({ entry, pos, delay }) => {
       >
         {entry.title}
       </h3>
-      <p className="font-text text-[12.5px] leading-[1.6] text-ink-soft">
+      <p className="font-text text-[12.5px] leading-[1.6] text-ink-soft mb-2">
         {entry.body}
       </p>
+      {entry.principle && (
+        <p className="font-gothic text-[9.5px] italic leading-[1.5] text-stamp/70 border-t border-ink/8 pt-2">
+          {entry.principle}
+        </p>
+      )}
     </motion.div>
   );
 };
