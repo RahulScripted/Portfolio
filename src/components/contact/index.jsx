@@ -45,7 +45,7 @@ export default function Contact() {
   };
 
   return (
-      <section id="contact" className="border-t-4 border-ink py-14 sm:py-[76px] px-3 sm:px-5">
+      <section id="contact" className="py-14 sm:py-[76px] px-3 sm:px-5">
       <div className="max-w-[1380px] mx-auto">
         <div className="mb-[30px]">
           <div className="flex flex-wrap items-center justify-between gap-5 pb-2.5">

@@ -23,7 +23,12 @@ function getMonthLabels(weeks, cellSize, gap) {
     const month = new Date(firstDay.date + "T00:00:00").getMonth();
     if (month !== lastMonth) {
       lastMonth = month;
-      labels.push({ month: MONTHS[month], x: ci * (cellSize + gap) });
+      const x = ci * (cellSize + gap);
+      // Avoid overlapping labels – require minimum pixel gap
+      const prev = labels[labels.length - 1];
+      if (!prev || x - prev.x >= 30) {
+        labels.push({ month: MONTHS[month], x });
+      }
     }
   }
   return labels;
@@ -94,12 +99,24 @@ function Grid({ weeks, cellSize = 11, gap = 2 }) {
   );
 }
 
+// Pad days so the first entry falls on Sunday (index 0 of its week column)
+function alignToSunday(days) {
+  if (!days.length) return days;
+  const firstDate = new Date(days[0].date + "T00:00:00");
+  const dayOfWeek = firstDate.getDay(); // 0=Sun, 1=Mon, ..., 6=Sat
+  if (dayOfWeek === 0) return days;
+  // Prepend empty placeholder days so first real day lands in correct row
+  const padding = Array.from({ length: dayOfWeek }, () => ({ date: "", count: 0, level: 0 }));
+  return [...padding, ...days];
+}
+
 export default function ContributionGrid({ days = [] }) {
   if (!days.length) {
     return <div className="font-gothic text-[10px] text-ink-soft">No contribution data</div>;
   }
 
-  const allWeeks = chunkIntoWeeks(days.slice(-364));
+  const aligned = alignToSunday(days.slice(-364));
+  const allWeeks = chunkIntoWeeks(aligned);
   // Mobile: last ~26 weeks (6 months from current date)
   const mobileWeeks = allWeeks.slice(-26);
 

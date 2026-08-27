@@ -11,7 +11,7 @@ const SKILLS = [
 
 export default function TechMastery() {
   return (
-    <div className="border-2 border-ink bg-paper-warm p-4">
+    <div className="bg-paper-warm p-4">
       <div className="font-gothic text-[9px] uppercase tracking-[0.14em] text-ink-soft mb-3">Tech Mastery Index</div>
       <div className="flex flex-col gap-3">
         {SKILLS.map(({ label, pct }) => (

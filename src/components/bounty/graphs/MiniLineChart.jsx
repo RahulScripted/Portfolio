@@ -4,11 +4,24 @@ import { LineChart, Line, ResponsiveContainer, Tooltip, XAxis, YAxis, CartesianG
 function toWeeklyData(days) {
   if (!days.length) return [];
   const result = [];
-  // Slice from end so we always show the most recent weeks (including partial current week)
-  for (let i = 0; i < days.length; i += 7) {
-    const chunk = days.slice(i, i + 7);
+  // Chunk from the END so the last data point represents the current (possibly partial) week
+  const remainder = days.length % 7;
+  let start = 0;
+
+  // If there's a partial week at the start, handle it first
+  if (remainder > 0) {
+    const chunk = days.slice(0, remainder);
     const date = chunk[0]?.date ?? "";
-    const label = date ? new Date(date + "T00:00:00").toLocaleDateString("en", { month: "short", day: "numeric" }) : `W${Math.floor(i / 7) + 1}`;
+    const label = date ? new Date(date + "T00:00:00").toLocaleDateString("en", { month: "short", day: "numeric" }) : "W1";
+    const commits = chunk.reduce((s, d) => s + (d.count ?? 0), 0);
+    result.push({ label, commits });
+    start = remainder;
+  }
+
+  for (let i = start; i < days.length; i += 7) {
+    const chunk = days.slice(i, i + 7);
+    const date = chunk[chunk.length - 1]?.date ?? chunk[0]?.date ?? "";
+    const label = date ? new Date(date + "T00:00:00").toLocaleDateString("en", { month: "short", day: "numeric" }) : `W${result.length + 1}`;
     const commits = chunk.reduce((s, d) => s + (d.count ?? 0), 0);
     result.push({ label, commits });
   }

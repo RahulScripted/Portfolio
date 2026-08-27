@@ -86,7 +86,7 @@ export default function Bounty() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-8">
 
           {/* Contribution grid */}
-          <div className="lg:col-span-2 border-2 border-ink bg-paper-warm p-4">
+          <div className="lg:col-span-2 bg-paper-warm p-4">
             <div className="flex items-center justify-between gap-2 mb-3">
               <div className="flex items-center gap-2">
                 <img src={githubSvg} alt="GitHub" className="w-5 h-5" />
@@ -117,7 +117,7 @@ export default function Bounty() {
 
           {/* GitHub stats + TechMastery */}
           <div className="flex flex-col gap-4">
-            <div className="border-2 border-ink bg-paper-warm p-4">
+            <div className="bg-paper-warm p-4">
               <div className="font-gothic text-[9px] uppercase tracking-[0.14em] text-ink-soft mb-3">GitHub Stats</div>
               <div className="grid grid-cols-2 gap-2">
                 {[
@@ -125,12 +125,12 @@ export default function Bounty() {
                   { label: "Stars",     value: github?.totalStars },
                   { label: "Followers", value: github?.followers },
                 ].map(({ label, value }) => (
-                  <div key={label} className="border border-rule p-2">
+                  <div key={label} className="p-2">
                     <div className="font-gothic text-[8px] uppercase tracking-[0.1em] text-ink-soft">{label}</div>
                     <div className="font-display text-xl font-bold text-ink">{value ?? "—"}</div>
                   </div>
                 ))}
-                <div className="border border-rule p-2">
+                <div className="p-2">
                   <div className="font-gothic text-[8px] uppercase tracking-[0.1em] text-ink-soft mb-1.5">Top Languages</div>
                   <div className="flex gap-1.5 flex-wrap">
                     {LANG_ICONS.map(({ src, alt }) => (
