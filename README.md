@@ -37,9 +37,10 @@ Cream paper background · Serif headlines · Monospace metadata · Red rubber-st
 | **Build Tool** | Vite 7.x |
 | **Framework** | React 19.x |
 | **Styling** | Tailwind CSS 3.4 |
-| **Animations** | Framer Motion 13.x · GSAP 3.x |
+| **Animations** | Framer Motion 13.x · GSAP 3.x · Lottie |
 | **Charts** | Recharts 3.x |
 | **Routing** | React Router DOM 7.x |
+| **Icons** | React Icons |
 | **Forms** | Web3Forms (no-server contact form) |
 | **APIs** | Vercel Serverless Functions (LeetCode · GitHub · CodeChef) |
 | **Fonts** | Playfair Display · Space Mono · Oswald |
@@ -80,6 +81,9 @@ Portfolio/
 │   │   │   ├── components/        ← StatCard, PlatformCard, OverviewGrid, TechMastery
 │   │   │   ├── graphs/            ← DonutChart, RadarChart, ContributionGrid (with month/day labels), MiniLineChart
 │   │   │   └── hooks/             ← useStatsData (API fetching)
+│   │   ├── case-studies/          ← case study section
+│   │   │   ├── cards/             ← interactive cards with group hover effects & react-icons
+│   │   │   └── maintenance/       ← under-maintenance page with Lottie animation
 │   │   ├── philosophy/             ← engineering principles (pipe-flow connected cards)
 │   │   │   ├── deskstop/         ← desktop: zigzag layout with elbow pipe connectors
 │   │   │   └── mobile/           ← mobile: vertical spine with dot markers
@@ -137,6 +141,7 @@ Portfolio/
 | `#top` | Hero Masthead | Newspaper-style landing with animated intro |
 | `#about` | The Full Story | Bio and skills overview |
 | `#work` | The Evidence | Project showcase with case-file styling |
+| `#work` | Case Studies | Interactive case study cards with hover effects & maintenance page |
 | `#stack` | Lab Report | Technology stack display |
 | `#ledger` | Career Ledger | Work experience timeline |
 | `#philosophy` | Philosophy | Engineering principles with connected pipe-flow diagram |
@@ -153,12 +158,13 @@ flowchart TD
     B --> C{Explore}
     C -->|About| D["📋 The Full Story"]
     C -->|Work| E["🔍 The Evidence"]
+    C -->|Case Studies| E2["📂 Case Study Cards → Maintenance Page"]
     C -->|Stack| F["🧪 Lab Report"]
     C -->|Philosophy| F2["⚙️ Engineering Principles"]
     C -->|Experience| G["📒 Career Ledger"]
     C -->|Stats| H["🏆 Bounty Board"]
     C -->|Contact| I["✉️ Letters & Commissions"]
-    D & E & F & F2 & G & H & I --> J[Footer]
+    D & E & E2 & F & F2 & G & H & I --> J[Footer]
 ```
 
 ---
