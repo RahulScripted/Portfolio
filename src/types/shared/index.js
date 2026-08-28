@@ -1,10 +1,11 @@
 export const navLinks = [
-  { label: "Work",      href: "#work" },
-  { label: "Stack",     href: "#stack" },
-  { label: "Career",    href: "#career" },
-  { label: "Education", href: "#education" },
-  { label: "Bounty",    href: "#bounty" },
-  { label: "Contact",   href: "#contact" },
+  { label: "Work",         href: "#work" },
+  { label: "Stack",        href: "#stack" },
+  { label: "Career",       href: "#career" },
+  { label: "Education",    href: "#education" },
+  { label: "Bounty",       href: "#bounty" },
+  { label: "Case Studies", href: "#case-studies" },
+  { label: "Contact",      href: "#contact" },
 ];
 
 export const footerSectionLinks = [

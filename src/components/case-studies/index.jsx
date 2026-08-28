@@ -3,7 +3,7 @@ import TemplateCards from "./cards";
 
 export default function CaseStudies() {
   return (
-    <section id="work" className="py-14 sm:py-[76px] px-3 sm:px-5">
+    <section id="case-studies" className="py-14 sm:py-[76px] px-3 sm:px-5">
       <div className="max-w-[1380px] mx-auto">
         <SectionHeader
           eyebrow="Case Studies"
