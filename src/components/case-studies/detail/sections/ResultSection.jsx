@@ -66,7 +66,9 @@ export default function ResultSection({ data }) {
                   {...settle(0.3 + idx * 0.05)}
                   className="flex items-center gap-2"
                 >
-                  <div className="w-1.5 h-1.5 rounded-full bg-stamp shrink-0" />
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
                   <p className="font-text text-xs text-ink-soft">{outcome}</p>
                 </motion.div>
               ))}

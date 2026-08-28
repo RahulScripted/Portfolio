@@ -41,22 +41,22 @@ export const caseStudies = [
           {
             title: "Too many decisions",
             description:
-              "Users were exposed to multiple configuration choices at once.",
+              "Users were exposed to multiple configuration choices at once, with no clear sense of which ones actually mattered for their template.",
           },
           {
             title: "Repeated information",
             description:
-              "Related information could appear across different parts of the workflow.",
+              "Related information could appear across different parts of the workflow, forcing users to keep re-entering or re-confirming the same values.",
           },
           {
             title: "Unclear dependencies",
             description:
-              "Some configuration options depended on previous selections.",
+              "Some configuration options depended on previous selections, but nothing in the UI signaled that relationship until an error surfaced later.",
           },
           {
             title: "Error-prone workflows",
             description:
-              "Complex configurations increased the possibility of incorrect setups.",
+              "Complex configurations increased the possibility of incorrect setups, and mistakes were often only caught after the template was already in use.",
           },
         ],
       },
@@ -71,19 +71,19 @@ export const caseStudies = [
             title: "More Screens",
             status: "rejected",
             reason:
-              "Would reduce information density but introduce additional navigation and context switching.",
+              "Splitting the workflow across more screens would reduce information density on any single view, but it multiplies navigation and context switching. Users configuring interdependent fields would need to hold state in their head across screens, and going back to fix an earlier choice means re-walking the whole sequence. For a workflow used repeatedly by the same internal team, that overhead adds up fast.",
           },
           {
             title: "One Giant Form",
             status: "rejected",
             reason:
-              "Would keep everything together but make the workflow difficult to understand and maintain.",
+              "Keeping everything on one form preserves context, but it doesn't scale with the number of configuration options this system needed. A single monolithic form becomes hard to reason about for new engineers, harder to test in isolation, and harder to validate section by section — a bug in one part of the form risks breaking validation everywhere else. It also makes it difficult to reuse individual pieces of the configuration flow elsewhere.",
           },
           {
             title: "Progressive Configuration",
             status: "selected",
             reason:
-              "Provides information progressively while keeping the architecture flexible and reusable.",
+              "Revealing configuration options progressively, based on what the user has already chosen, keeps the immediate decision space small without hiding the underlying complexity — it's still there, just sequenced. This also mapped cleanly onto a component architecture: each stage of configuration could be its own reusable, independently testable unit, and dependencies between fields became explicit in the flow instead of implicit in validation logic.",
           },
         ],
       },
@@ -205,7 +205,6 @@ export const caseStudies = [
         title: "The Question",
         description:
           "How do we introduce AI into a real product without making the experience feel like a thin wrapper around an AI API?",
-
       },
 
       investigate: {
@@ -217,22 +216,22 @@ export const caseStudies = [
           {
             title: "AI needs context",
             description:
-              "Useful AI output depends heavily on the information and workflow surrounding it.",
+              "Useful AI output depends heavily on the information and workflow surrounding it, not just the model call itself.",
           },
           {
             title: "Users need control",
             description:
-              "Users should understand what the system is doing and retain control over important actions.",
+              "Users should understand what the system is doing and retain control over important actions, especially anything the AI initiates.",
           },
           {
             title: "Authentication is foundational",
             description:
-              "AI features, payments, and application data all require reliable user identity and permissions.",
+              "AI features, payments, and application data all require reliable user identity and permissions before anything else can be trusted.",
           },
           {
             title: "Business logic belongs outside the UI",
             description:
-              "Sensitive operations should be handled by the backend rather than trusted to the client.",
+              "Sensitive operations should be handled by the backend rather than trusted to the client, especially once money and AI usage limits are involved.",
           },
         ],
       },
@@ -247,19 +246,19 @@ export const caseStudies = [
             title: "AI-only Prototype",
             status: "rejected",
             reason:
-              "Would demonstrate the AI capability but not the product engineering required around it.",
+              "A prototype that only wires up an AI API would demonstrate the model's output but nothing about whether the feature survives real usage: no auth means no per-user context or usage limits, no persistence means no history or continuity, and no payment layer means the product's actual business model is never tested. It answers 'can this call an AI API' rather than 'is this a usable product.'",
           },
           {
             title: "AI + Client-side Logic",
             status: "rejected",
             reason:
-              "Would expose sensitive business logic and make authorization harder to enforce.",
+              "Keeping AI prompts, role checks, or payment logic in the client is faster to build but fundamentally unsafe: anything running in the browser can be inspected and tampered with, from API keys to the values sent to Razorpay. It also means there's no single source of truth for who is allowed to do what, which becomes a real liability once real user accounts and real payments are involved.",
           },
           {
             title: "Full-stack SaaS",
             status: "selected",
             reason:
-              "Provides authentication, authorization, AI functionality, payments, persistence, and a complete user workflow.",
+              "Building out authentication, authorization, AI integration, payments, and persistence together meant every layer had to work with the others from day one, instead of being bolted on later. The backend became the single source of truth for identity, permissions, and payment state, which let the AI feature be evaluated in the same conditions it would actually ship in — not a simplified demo environment.",
           },
         ],
       },
@@ -384,7 +383,6 @@ export const caseStudies = [
         title: "The Question",
         description:
           "How can we build financial workflows that remain easy to understand for customers while handling complex business rules and changing backend-driven configurations?",
-
       },
 
       investigate: {
@@ -396,22 +394,22 @@ export const caseStudies = [
           {
             title: "Multiple workflow states",
             description:
-              "Users can move through different onboarding, verification, offer, and loan states.",
+              "Users can move through different onboarding, verification, offer, and loan states, often non-linearly.",
           },
           {
             title: "Backend-driven behaviour",
             description:
-              "Several experiences depend on configurable financial and business rules.",
+              "Several experiences depend on configurable financial and business rules that can change without a client release.",
           },
           {
             title: "State consistency matters",
             description:
-              "Incorrect client state can create confusing experiences in financial workflows.",
+              "Incorrect client state can create confusing experiences in financial workflows, where trust is harder to earn back than in most apps.",
           },
           {
             title: "Failure states are critical",
             description:
-              "Network failures and API errors need clear recovery paths because users cannot simply guess what happened.",
+              "Network failures and API errors need clear recovery paths because users cannot simply guess what happened to their application or funds.",
           },
         ],
       },
@@ -426,19 +424,19 @@ export const caseStudies = [
             title: "Screen-level state everywhere",
             status: "rejected",
             reason:
-              "Makes complex workflows harder to coordinate and increases duplicated state.",
+              "Keeping state local to each screen is simple at first, but it duplicates the same business data (loan status, verification progress, offer details) across multiple places. In a workflow where users move back and forth between onboarding steps, that duplication easily drifts out of sync, and a screen can end up showing stale or contradictory information about the user's actual state.",
           },
           {
             title: "Everything globally managed",
             status: "rejected",
             reason:
-              "Creates unnecessary coupling and makes local UI behaviour harder to reason about.",
+              "Pushing all state into a global store, including transient UI concerns like input focus, animation flags, or a single screen's scroll position, creates unnecessary coupling. Unrelated screens end up re-rendering off state changes that don't concern them, and it becomes harder to reason about what's actually shared business state versus what's just local presentation detail.",
           },
           {
             title: "Layered State Architecture",
             status: "selected",
             reason:
-              "Keeps local UI state, shared application state, and server data conceptually separated.",
+              "Separating local UI state, shared application state, and server-derived data into distinct layers matched the real shape of the problem: presentation concerns stay local and fast to change, business-critical workflow state (like onboarding or loan status) lives in Redux where it can be trusted across screens, and server data is handled separately so caching, retries, and staleness are dealt with deliberately rather than accidentally.",
           },
         ],
       },
@@ -517,7 +515,7 @@ export const caseStudies = [
       learn: {
         title: "Looking Back",
         description:
-          "Working on financial workflows reinforced the importance of modelling states and failure scenarios early. In these products, a polished happy path is not enough—the system needs to remain understandable when something goes wrong.",
+          "Working on financial workflows reinforced the importance of modelling states and failure scenarios early. In these products, a polished happy path is not enough — the system needs to remain understandable when something goes wrong.",
       },
     },
 

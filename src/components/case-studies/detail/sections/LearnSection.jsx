@@ -32,15 +32,17 @@ export default function LearnSection({ data }) {
             <motion.div
               key={idx}
               {...settle(0.2 + idx * 0.1)}
-              className="bg-paper border border-rule rounded-lg p-4"
+              className="relative bg-paper border border-rule rounded-lg p-4 overflow-hidden"
             >
-              <span className="font-mono text-stamp text-xs font-bold">
+              {/* Large background number */}
+              <span className="absolute top-0 right-2 text-[5rem] leading-none font-display font-bold text-stamp/5 select-none pointer-events-none">
                 {learning.number}
               </span>
-              <h4 className="font-display text-sm font-semibold text-ink mt-1.5">
+
+              <h4 className="font-display text-sm font-semibold text-ink relative z-10">
                 {learning.title}
               </h4>
-              <p className="font-text text-2xs text-ink-soft leading-relaxed mt-2">
+              <p className="font-text text-2xs text-ink-soft leading-relaxed mt-2 relative z-10">
                 {learning.text}.
               </p>
             </motion.div>

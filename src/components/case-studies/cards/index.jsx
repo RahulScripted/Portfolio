@@ -40,12 +40,12 @@ const TemplateCards = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="group/container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
       {caseStudies.map((study) => (
         <div
           key={study.id}
           onClick={() => navigate(`/case-study/${study.id}`)}
-          className="group relative bg-paper border border-rule rounded-lg cursor-pointer flex flex-col transition-all duration-300 group-hover/container:scale-[0.97] group-hover/container:blur-[1px] hover:!scale-105 hover:!blur-none -rotate-1"
+          className="group relative bg-paper border border-rule rounded-lg cursor-pointer flex flex-col transition-all duration-300 hover:scale-[1.02] hover:shadow-lg -rotate-1"
         >
           <div className="flex items-center p-[9px]">
             <div className="px-1">
@@ -82,7 +82,7 @@ const TemplateCards = () => {
 
             <div className="flex-1" />
 
-            <div className="flex flex-wrap gap-x-8 gap-y-3 mt-6 pt-4 border-t border-rule relative z-10">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-6 pt-4 border-t border-rule relative z-10">
               {study.sections.result.metrics.map((metric, idx) => (
                 <div key={metric.label} className="flex items-center gap-2">
                   {getMetricIcon(metric.label, idx)}

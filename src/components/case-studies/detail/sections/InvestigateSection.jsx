@@ -43,7 +43,7 @@ export default function InvestigateSection({ data }) {
                   <p className="font-display text-sm font-semibold text-ink leading-tight">
                     {finding.title}
                   </p>
-                  <p className="font-text text-2xs text-ink-soft leading-relaxed mt-2">
+                  <p className="font-text !text-left text-2xs text-ink-soft leading-relaxed mt-2">
                     {finding.description}
                   </p>
                 </motion.div>
