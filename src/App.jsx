@@ -16,11 +16,13 @@ const Career = lazy(() => import("@components/career"));
 const Philosophy = lazy(() => import("./components/philosophy"));
 const Education = lazy(() => import("@components/education"));
 const Bounty = lazy(() => import("@components/bounty"));
+const CaseStudies = lazy(() => import("@components/case-studies"));
 const Contact = lazy(() => import("@components/contact"));
 const Footer = lazy(() => import("@components/footer"));
 
 // Separate route — lazy loaded
 const BookCall = lazy(() => import("@components/book-call"));
+const Maintenance = lazy(() => import("@components/case-studies/maintenance"));
 
 // Minimal fallback for lazy sections (invisible, no layout shift)
 const SectionFallback = () => <div className="min-h-[200px]" />;
@@ -78,6 +80,9 @@ function MainSite() {
             <Bounty />
           </Suspense>
           <Suspense fallback={<SectionFallback />}>
+            <CaseStudies />
+          </Suspense>
+          <Suspense fallback={<SectionFallback />}>
             <Contact />
           </Suspense>
           <Suspense fallback={<SectionFallback />}>
@@ -108,6 +113,14 @@ function AnimatedRoutes() {
             element={
               <Suspense fallback={<SectionFallback />}>
                 <PageTransition><BookCall /></PageTransition>
+              </Suspense>
+            }
+          />
+          <Route
+            path="/case-study/:id"
+            element={
+              <Suspense fallback={<SectionFallback />}>
+                <PageTransition><Maintenance /></PageTransition>
               </Suspense>
             }
           />
