@@ -23,7 +23,7 @@ export const careerEntries = [
     dateRange: "Oct 2024 — Nov 2024",
     role: "Open Source Contributor",
     company: "GirlScript Summer of Code (GSSOC-Extd)",
-    companyUrl: "https://drive.google.com/file/d/1O1aFAY6CQt1awOZcAInvY_dErQgmFhlW/view",
+    companyUrl: "https://drive.google.com/drive/folders/1THLmnwBdxNaGQqfEHKp0di2e4MBybPVZ?usp=sharing",
     location: "Remote",
     type: "Open Source",
     description:

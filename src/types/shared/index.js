@@ -15,5 +15,6 @@ export const footerSectionLinks = [
   { href: "#career",    label: "Career Ledger" },
   { href: "#education", label: "Education" },
   { href: "#bounty",    label: "Bounty Board" },
+  { href: "#case-studies",    label: "Case Studies" },
   { href: "#contact",   label: "Contact" },
 ];
