@@ -33,7 +33,7 @@ export default function ResultSection({ data }) {
         {...settle(0.1)}
         className="bg-paper-warm border border-rule rounded-lg p-5 sm:p-6"
       >
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
           {data.metrics.map((metric, idx) => (
             <motion.div
               key={metric.label}

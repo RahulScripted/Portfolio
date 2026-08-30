@@ -45,7 +45,7 @@ const TemplateCards = () => {
         <div
           key={study.id}
           onClick={() => navigate(`/case-study/${study.id}`)}
-          className="group relative bg-paper border border-rule rounded-lg cursor-pointer flex flex-col transition-all duration-300 hover:scale-[1.02] hover:shadow-lg -rotate-1"
+          className="group relative bg-paper border border-rule rounded-lg cursor-pointer flex flex-col transition-all duration-300 hover:scale-[1.02] hover:shadow-lg"
         >
           <div className="flex items-center p-[9px]">
             <div className="px-1">
