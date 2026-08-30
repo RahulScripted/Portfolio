@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import { profile, cv } from "@types/hero";
 import { ChevronUpIcon, DownloadIcon, fadeIn as settle } from "@animations";
-import WorkInProgress from "@animations/WorkInProgress";
 import ScrollLink from "@components/scroll-link";
 
 const statCards = [
