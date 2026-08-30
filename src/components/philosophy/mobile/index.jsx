@@ -19,6 +19,9 @@ const PhilosophyCard = ({ entry, pos, delay }) => {
       className="absolute left-0 right-0 group rounded-2xl border border-ink/10 bg-paper shadow-[0_6px_16px_-8px_rgba(32,27,21,0.18)] px-5 pt-5 pb-4"
       style={{ top: pos.y, minHeight: CARD_MIN_H }}
     >
+      {/* Center tape */}
+      <span aria-hidden="true" className="absolute -top-2 left-1/2 z-10 h-4 w-16 -translate-x-1/2 -rotate-2 border border-ink/10 bg-paper-deep/80" />
+
       {/* Icon badge */}
       <div className="absolute -top-3 -left-3 w-9 h-9 rounded-[10px] bg-paper border-2 border-ink/10 shadow-[0_3px_8px_-4px_rgba(32,27,21,0.25)] flex items-center justify-center text-stamp">
         <IconComponent size={16} />

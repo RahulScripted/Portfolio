@@ -2,7 +2,7 @@ import { caseStudies } from "@types/case-studies";
 import { useNavigate } from "react-router-dom";
 import { HiOutlineUserGroup } from "react-icons/hi2";
 import { TbActivityHeartbeat } from "react-icons/tb";
-import { LuBox, LuLayers, LuShield, LuCreditCard, LuRocket, LuSettings, LuGlobe, LuPin } from "react-icons/lu";
+import { LuBox, LuLayers, LuShield, LuCreditCard, LuRocket, LuSettings, LuGlobe } from "react-icons/lu";
 
 const ArrowIcon = () => (
   <svg
@@ -59,10 +59,8 @@ const TemplateCards = () => {
             </div>
           </div>
 
-          {/* Pin - absolute top-right, overlapping the card edge like a real pushpin */}
-          <div className="absolute -top-3 -right-3 z-20">
-            <LuPin className="w-8 h-8 text-red-600 drop-shadow-md rotate-45" />
-          </div>
+          {/* Center tape */}
+          <span aria-hidden="true" className="absolute -top-2 left-1/2 z-20 h-4 w-16 -translate-x-1/2 -rotate-2 border border-ink/10 bg-paper-deep/80" />
 
           <div className="p-5 relative overflow-hidden flex flex-col flex-1">
             <span className="absolute top-0 right-5 text-2xs font-mono text-ink-soft capitalize">

@@ -23,6 +23,9 @@ const DOTGRID = () => (
 export default function StatCard({ num, label, value, icon, iconAlt, sub, subIcon, subIcon2, icon2Alt, stars, accent = false }) {
   return (
     <div className="relative border border-rule bg-paper-warm flex flex-col p-3 sm:p-4 min-h-[130px] sm:min-h-[150px]">
+      {/* Center tape */}
+      <span aria-hidden="true" className="absolute -top-2 left-1/2 z-10 h-4 w-14 -translate-x-1/2 -rotate-2 border border-ink/10 bg-paper-deep/80" />
+
       {/* Top corners + dot grid */}
       <div className="absolute top-0 left-0"><CORNER /></div>
       <div className="absolute top-0 right-0 flex items-start pt-1 pr-1"><DOTGRID /></div>
