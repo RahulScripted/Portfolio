@@ -8,7 +8,7 @@ export default function LabReport() {
       <div className="max-w-[1380px] mx-auto">
 
         <SectionHeader
-          eyebrow="Evidence Board / 001"
+          eyebrow="Evidence Board"
           title="The Engineering Stack"
           aside="Tools used to design, build, debug and ship production software."
         />

@@ -30,7 +30,7 @@ export default function Bounty() {
 
         {/* Header */}
         <SectionHeader
-          eyebrow="Bounty Board / 005"
+          eyebrow="Bounty Board"
           title="The Bounty Board"
           aside="Live stats — refreshed every hour"
         />

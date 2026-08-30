@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { profile, cv } from "@types/hero";
 import { ChevronUpIcon, DownloadIcon, fadeIn as settle } from "@animations";
+import WorkInProgress from "@animations/WorkInProgress";
 import ScrollLink from "@components/scroll-link";
 
 const statCards = [
@@ -31,7 +32,7 @@ export default function Hero() {
             <motion.h2
               {...settle(0.06)}
               className="mt-1 font-display font-normal text-ink leading-none tracking-[-0.02em]"
-              style={{ fontSize: "clamp(38px, 6.6vw, 84px)" }}
+              style={{ fontSize: "clamp(38px, 6.6vw, 76px)" }}
             >
               I build software that ships, scales, and solves{" "}
               <em className="italic">real problems.</em>
@@ -110,6 +111,36 @@ export default function Hero() {
                   </div>
                 </div>
               ))}
+            </motion.div>
+
+            {/* Focus & Current Case */}
+            <motion.div
+              {...settle(0.38)}
+              className="mt-6 border-2 border-ink bg-paper"
+            >
+              {/* Top label bar */}
+              <div className="flex items-center justify-between px-4 py-2 bg-ink text-paper">
+                <div className="flex items-center gap-3">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
+                    <circle cx="11" cy="11" r="8" />
+                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                  </svg>
+                  <span className="font-gothic text-[10px] font-bold uppercase tracking-[0.18em]">
+                    Current Case
+                  </span>
+                </div>
+              </div>
+
+              <div className="flex">
+                <div className="flex-1 px-5 py-4">
+                  <p className="font-display text-[17px] sm:text-[19px] leading-[1.25] tracking-[-0.01em] text-ink">
+                    Building production-grade fintech software
+                  </p>
+                  <p className="mt-1.5 font-gothic text-[9px] uppercase tracking-[0.1em] text-ink-soft">
+                    Mintifi — Customer Products & Engineering
+                  </p>
+                </div>
+              </div>
             </motion.div>
           </div>
 

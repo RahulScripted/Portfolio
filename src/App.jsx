@@ -60,7 +60,6 @@ function MainSite() {
         <Nav />
         <main>
           <Hero />
-          <hr className="border-0 border-t-4 border-ink" />
           <Suspense fallback={<SectionFallback />}>
             <Projects />
           </Suspense>
