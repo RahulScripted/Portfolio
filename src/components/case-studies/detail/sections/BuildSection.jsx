@@ -4,6 +4,7 @@ import { LuCheck } from "react-icons/lu";
 import { DesktopDiagram as TMDesktop, MobileDiagram as TMMobile } from "../diagrams/TemplateManagementDiagram";
 import { DesktopDiagram as AIDesktop, MobileDiagram as AIMobile } from "../diagrams/AISaasDiagram";
 import { DesktopDiagram as FTDesktop, MobileDiagram as FTMobile } from "../diagrams/FintechDiagram";
+import { DesktopDiagram as FTMDesktop, MobileDiagram as FTMMobile } from "../diagrams/FintechModernizationDiagram";
 
 // ─── Diagram selector by project ID ─────────────────────────────────────────
 
@@ -11,6 +12,7 @@ const diagramMap = {
   "template-management": { desktop: TMDesktop, mobile: TMMobile },
   "ai-powered-saas": { desktop: AIDesktop, mobile: AIMobile },
   "fintech-customer-platform": { desktop: FTDesktop, mobile: FTMobile },
+  "fintech-modernization": { desktop: FTMDesktop, mobile: FTMMobile },
 };
 
 const ArchitectureDiagram = ({ studyId }) => {

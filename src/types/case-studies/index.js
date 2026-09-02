@@ -528,4 +528,186 @@ export const caseStudies = [
       "Production",
     ],
   },
+  {
+    id: "fintech-modernization",
+    number: "04",
+    category: "Fintech",
+    title: "Fintech Modernization",
+    shortTitle: "Modernization",
+ 
+    question:
+      "How do we modernize a legacy transaction platform without breaking the business-critical features that already power it?",
+ 
+    description:
+      "A legacy transaction platform rebuilt on a modern Next.js architecture — preserving business capabilities while improving performance, reliability, and observability.",
+ 
+    role: "Frontend Engineer",
+ 
+    stack: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "Redux Toolkit",
+      "TanStack Query",
+      "REST APIs",
+      "Suspense",
+    ],
+ 
+    timeline: "Production",
+ 
+    sections: {
+      question: {
+        title: "The Question",
+        description:
+          "Beyond a framework upgrade, we needed to fix poor architecture, inconsistent error handling, weak notifications, and limited transaction visibility — while making daily activity easier to monitor.",
+      },
+ 
+      investigate: {
+        title: "Investigate",
+        description:
+          "I looked at the existing app from three angles: architecture, user experience, and operational reliability.",
+ 
+        findings: [
+          {
+            title: "Legacy architecture",
+            description:
+              "Tightly coupled components made new features hard to build, and the interface had grown feature-by-feature without a consistent design system.",
+          },
+          {
+            title: "Poor error handling",
+            description:
+              "Failures weren't consistently surfaced — different workflows handled errors differently.",
+          },
+          {
+            title: "Limited transaction visibility",
+            description:
+              "No strong operational view made it hard to spot trends or failures, and some screens over-fetched data as transaction volume grew.",
+          },
+          {
+            title: "Operational complexity",
+            description:
+              "Payment workflows needed explicit states — pending, successful, failed, and excess or unexpected.",
+          },
+        ],
+      },
+ 
+      decide: {
+        title: "Decide",
+        description:
+          "This wasn't treated as a simple framework upgrade — I weighed how much to preserve, redesign, or restructure.",
+ 
+        options: [
+          {
+            title: "Incremental React Upgrade",
+            status: "rejected",
+            reason:
+              "Lower migration risk, but the underlying architectural problems would remain.",
+          },
+          {
+            title: "Complete Rewrite",
+            status: "rejected",
+            reason:
+              "Cleanest architecture, but discarding existing business rules and edge cases risks business-critical behaviour.",
+          },
+          {
+            title: "Controlled Modernization",
+            status: "selected",
+            reason:
+              "Moved to Next.js while preserving transaction workflows, standardizing state and API handling, and building a real transaction dashboard — making the platform more reliable and observable, not just newer.",
+          },
+        ],
+      },
+ 
+      build: {
+        title: "Build",
+        description:
+          "The application was restructured around clear boundaries: presentation, application state, server state, and API communication.",
+ 
+        architecture: [
+          "Modern Next.js architecture",
+          "Reusable UI and feature modules",
+          "Separated UI and server-state layers",
+          "TanStack Query for server state",
+          "Redux Toolkit for application state",
+          "REST API and transaction services",
+          "Suspense-based progressive loading",
+          "Data-driven transaction dashboard",
+          "Consistent error and notification patterns",
+        ],
+ 
+        engineeringDecisions: [
+          {
+            question: "How should the legacy application be modernized?",
+            answer:
+              "Functionality migrated incrementally, keeping business workflows intact while replacing problematic patterns.",
+          },
+          {
+            question: "How should transaction data be handled?",
+            answer:
+              "Server state and UI state were separated so data could be fetched, cached, and invalidated independently.",
+          },
+          {
+            question: "How should users understand daily activity?",
+            answer:
+              "A dashboard with charts, filters, and trends replaced a long transaction list.",
+          },
+          {
+            question: "How should payment states be represented?",
+            answer:
+              "Explicit states — Pending, Processing, Successful, Failed, Excess/Unexpected — instead of treating success as the only outcome.",
+          },
+          {
+            question: "How should failures be communicated?",
+            answer:
+              "Loading, empty, validation, error, and recovery states became intentional parts of the interface.",
+          },
+          {
+            question: "How should the app feel during navigation and loading?",
+            answer:
+              "Suspense-based loading improved perceived performance and avoided fully blocked screens.",
+          },
+        ],
+      },
+ 
+      result: {
+        title: "Result",
+        description:
+          "The migration preserved existing financial capabilities while building a more observable, maintainable transaction platform.",
+ 
+        outcomes: [
+          "Modernized frontend architecture on Next.js",
+          "Improved rendering and data-fetching performance",
+          "Centralized daily transaction visibility",
+          "Data-driven dashboard with charts and filtering",
+          "Explicit pending, successful, failed, and excess payment states",
+          "Consistent error handling and recovery patterns",
+          "Improved, consistent notification experience",
+          "More maintainable, extensible feature boundaries",
+        ],
+ 
+        metrics: [
+          { value: "React 15 → Next.js", label: "Architecture" },
+          { value: "Observable", label: "Workflows" },
+          { value: "Production", label: "Application" },
+        ],
+      },
+ 
+      learn: {
+        title: "Looking Back",
+        description:
+          "Modernizing a financial app means knowing what's business-critical, not just moving code between framework versions. Next time I'd lock in the target architecture, state model, and observability strategy even earlier.",
+      },
+    },
+ 
+    tags: [
+      "Fintech",
+      "Next.js",
+      "Migration",
+      "Performance",
+      "Observability",
+      "State Management",
+      "Production",
+    ],
+  },
 ];
