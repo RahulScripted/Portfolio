@@ -4,7 +4,7 @@ import { philosophyEntries } from "@types/philosophy";
 import ICONS from "@assets/icons";
 
 const CARD_MIN_H = 200;
-const ROW_GAP = 50;
+const ROW_GAP = 80;
 const SPINE_X = 20;
 const CARD_OFFSET = 48; // left offset for cards (spine width + spacing)
 

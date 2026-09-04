@@ -1,12 +1,14 @@
+import { useState } from "react";
 import DonutChart from "../graphs/DonutChart";
 
 export default function PlatformCard({ icon, name, code, stats = [], easy, medium, hard, link }) {
   const hasDonut = easy !== undefined && medium !== undefined && hard !== undefined;
+  const [activeSegment, setActiveSegment] = useState(null);
 
   const LEGEND = [
-    { label: "Easy",   color: "#6B8F5E", value: easy },
-    { label: "Med",    color: "#C4922A", value: medium },
-    { label: "Hard",   color: "#8B0000", value: hard },
+    { label: "Easy",   name: "Easy",   color: "#6B8F5E", value: easy },
+    { label: "Med",    name: "Medium", color: "#C4922A", value: medium },
+    { label: "Hard",   name: "Hard",   color: "#8B0000", value: hard },
   ];
 
   return (
@@ -37,14 +39,32 @@ export default function PlatformCard({ icon, name, code, stats = [], easy, mediu
       {/* Donut — grows to fill */}
       {hasDonut && (
         <div className="flex-1 flex flex-col">
-          <DonutChart easy={easy} medium={medium} hard={hard} />
+          <DonutChart
+            easy={easy}
+            medium={medium}
+            hard={hard}
+            activeSegment={activeSegment}
+            onActiveChange={setActiveSegment}
+          />
           <div className="flex justify-center gap-4 mt-1 mb-3">
-            {LEGEND.map(({ label, color, value }) => (
-              <span key={label} className="flex items-center gap-1 font-gothic text-[9px] text-ink-soft">
-                <span className="w-2 h-2 rounded-full inline-block" style={{ background: color }} />
-                {label} | {value}
-              </span>
-            ))}
+            {LEGEND.map(({ label, name: segName, color, value }) => {
+              const isActive = activeSegment?.name === segName;
+              return (
+                <button
+                  key={label}
+                  type="button"
+                  onClick={() =>
+                    setActiveSegment(isActive ? null : { name: segName, value })
+                  }
+                  className={`flex items-center gap-1 font-gothic text-[9px] transition-opacity ${
+                    activeSegment && !isActive ? "opacity-40" : "opacity-100"
+                  } text-ink-soft`}
+                >
+                  <span className="w-2 h-2 rounded-full inline-block" style={{ background: color }} />
+                  {label} | {value}
+                </button>
+              );
+            })}
           </div>
         </div>
       )}

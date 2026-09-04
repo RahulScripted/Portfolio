@@ -5,10 +5,18 @@ const COLORS = { Easy: "#6B8F5E", Medium: "#C4922A", Hard: "#8B0000" };
 const INNER = 56;
 const OUTER = 78;
 
-export default function DonutChart({ easy = 0, medium = 0, hard = 0 }) {
-  const [activeSegment, setActiveSegment] = useState(null);
+export default function DonutChart({ easy = 0, medium = 0, hard = 0, activeSegment: controlledActive, onActiveChange }) {
+  const [internalActive, setInternalActive] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
   const containerRef = useRef(null);
+
+  const isControlled = controlledActive !== undefined;
+  const activeSegment = isControlled ? controlledActive : internalActive;
+
+  const setActive = (seg) => {
+    if (isControlled) onActiveChange?.(seg);
+    else setInternalActive(seg);
+  };
 
   useEffect(() => {
     const mq = window.matchMedia("(hover: none)");
@@ -26,8 +34,12 @@ export default function DonutChart({ easy = 0, medium = 0, hard = 0 }) {
 
   const total = easy + medium + hard;
 
-  const handleMouseEnter = (entry) => {
-    setActiveSegment({ name: entry.name, value: entry.value });
+  const toggleSegment = (entry) => {
+    if (activeSegment && activeSegment.name === entry.name) {
+      setActive(null);
+    } else {
+      setActive({ name: entry.name, value: entry.value });
+    }
   };
 
   return (
@@ -43,9 +55,10 @@ export default function DonutChart({ easy = 0, medium = 0, hard = 0 }) {
             paddingAngle={3}
             dataKey="value"
             strokeWidth={0}
-            style={{ outline: "none", cursor: "default" }}
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={() => setActiveSegment(null)}
+            style={{ outline: "none", cursor: "pointer" }}
+            onMouseEnter={(entry) => !isMobile && setActive({ name: entry.name, value: entry.value })}
+            onMouseLeave={() => !isMobile && setActive(null)}
+            onClick={(entry) => toggleSegment(entry)}
             tabIndex={-1}
           >
             {data.map((entry) => (
@@ -61,9 +74,9 @@ export default function DonutChart({ easy = 0, medium = 0, hard = 0 }) {
         </PieChart>
       </ResponsiveContainer>
 
-      {/* Centre label — shows hovered segment on desktop, total on mobile */}
+      {/* Centre label — shows active segment, otherwise total */}
       <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-        {activeSegment && !isMobile ? (
+        {activeSegment ? (
           <>
             <span className="font-display text-2xl font-bold leading-none" style={{ color: COLORS[activeSegment.name] }}>
               {activeSegment.value}
@@ -79,18 +92,6 @@ export default function DonutChart({ easy = 0, medium = 0, hard = 0 }) {
           </>
         )}
       </div>
-
-      {/* Mobile: always show breakdown below */}
-      {isMobile && (
-        <div className="absolute bottom-0 left-0 right-0 flex justify-center gap-3">
-          {data.map(({ name, value }) => (
-            <span key={name} className="flex items-center gap-1 font-gothic text-[9px] text-ink-soft">
-              <span className="w-2 h-2 rounded-full inline-block" style={{ background: COLORS[name] }} />
-              {name} | {value}
-            </span>
-          ))}
-        </div>
-      )}
     </div>
   );
 }
