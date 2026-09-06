@@ -1,31 +1,138 @@
-// Case Study 2: AI-Powered SaaS Platform (enhanced)
-// Flow: React Frontend → JWT Auth + RBAC → Express Backend → MongoDB / AI APIs / Razorpay
+// Case Study 2: AI-Powered SaaS Platform — Webex-style diagram
+// Flow: React Frontend → JWT Auth + RBAC → Express Backend
+//       → fans out to MongoDB / AI APIs / Razorpay
+// Restyled to match the icon-card + colored curved arrow language of the
+// Webex xAPI reference graphic. Background is fully transparent (no base
+// fill rect) so it drops onto any page background cleanly.
 
 const COLORS = {
-  border: "#D4C9BC",
-  borderStrong: "#B8AA98",
-  arrow: "#6B6459",
-  text: "#16140F",
+  arrow: "#8A8577",
   textMuted: "#6B6459",
-  base: "#FBFAF5",
-  auth: "#F3EAE6",     // muted mauve tint
-  authText: "#7A4F45",
-  backend: "#EAEEE3",  // muted sage tint
-  backendText: "#4F5C3F",
-  service: "#F3E6DE",  // muted terracotta tint
-  serviceText: "#8A5233",
+  text: "#16140F",
+  cardBorder: "#E7E2D8",
+  cardFill: "#FFFFFF",
+  dashed: "#B9B2A2",
+
+  frontend: "#2F9E85", // teal — React frontend
+  auth: "#B0553F",     // deep clay — JWT auth
+  rbac: "#6C5CD1",     // violet — RBAC
+  backend: "#3F8F6E",  // sage — Express backend
+  service: "#C97B4A",  // terracotta — downstream services
 };
 
-const label = { fontFamily: "Space Mono, monospace" };
+const mono = { fontFamily: "Space Mono, monospace" };
+
+/* ---------- reusable pieces ---------- */
+
+const IconCard = ({ x, y, w, h, color, icon, label, sublabel, iconSize = 40 }) => {
+  const cx = x + w / 2;
+  const iconX = cx - iconSize / 2;
+  const iconY = y + (h > 70 ? 14 : 8);
+  return (
+    <g>
+      <rect
+        x={x} y={y} width={w} height={h} rx="14"
+        fill={COLORS.cardFill} stroke={COLORS.cardBorder} strokeWidth="1.4"
+        style={{ filter: "drop-shadow(0 3px 8px rgba(22,20,15,0.10))" }}
+      />
+      <rect x={iconX} y={iconY} width={iconSize} height={iconSize} rx="10" fill={color} />
+      {icon(iconX, iconY, iconSize)}
+      <text x={cx} y={iconY + iconSize + 17} textAnchor="middle" fill={COLORS.text}
+        style={{ ...mono, fontSize: "10.5px", fontWeight: 700 }}>
+        {label}
+      </text>
+      {sublabel && (
+        <text x={cx} y={iconY + iconSize + 30} textAnchor="middle" fill={COLORS.textMuted}
+          style={{ ...mono, fontSize: "8px", opacity: 0.85 }}>
+          {sublabel}
+        </text>
+      )}
+    </g>
+  );
+};
+
+const CurvedArrow = ({ d, color, label, markerId, labelPos }) => (
+  <g>
+    <path d={d} stroke={color} strokeWidth="2" fill="none" markerEnd={`url(#${markerId})`} />
+    {label && (
+      <g transform={`translate(${labelPos[0]}, ${labelPos[1]})`}>
+        <rect x={-label.length * 3.4 - 7} y="-10" width={label.length * 6.8 + 14} height="20" rx="10" fill={color} />
+        <text x="0" y="4" textAnchor="middle" fill="#fff" style={{ ...mono, fontSize: "8.5px", fontWeight: 700 }}>
+          {label}
+        </text>
+      </g>
+    )}
+  </g>
+);
+
+/* ---------- icon glyphs ---------- */
+
+const iconWindow = (x, y, s) => (
+  <g transform={`translate(${x + s / 2}, ${y + s / 2})`} stroke="#fff" strokeWidth="1.6" fill="none" strokeLinejoin="round">
+    <rect x="-11" y="-8" width="22" height="16" rx="2" />
+    <path d="M-11,-3 L11,-3" />
+    <circle cx="-8" cy="-5.5" r="0.7" fill="#fff" stroke="none" />
+  </g>
+);
+
+const iconLock = (x, y, s) => (
+  <g transform={`translate(${x + s / 2}, ${y + s / 2})`} stroke="#fff" strokeWidth="1.6" fill="none" strokeLinejoin="round">
+    <rect x="-7" y="-1" width="14" height="11" rx="2.5" />
+    <path d="M-4,-1 L-4,-5 C-4,-8.3 4,-8.3 4,-5 L4,-1" />
+    <circle cx="0" cy="4" r="1.3" fill="#fff" stroke="none" />
+  </g>
+);
+
+const iconShield = (x, y, s) => (
+  <g transform={`translate(${x + s / 2}, ${y + s / 2})`} stroke="#fff" strokeWidth="1.6" fill="none" strokeLinejoin="round" strokeLinecap="round">
+    <path d="M0,-10 L9,-6 L9,2 C9,7 5,10 0,11.5 C-5,10 -9,7 -9,2 L-9,-6 Z" />
+    <path d="M-3.5,0.5 L-1,3 L4,-3" />
+  </g>
+);
+
+const iconServer = (x, y, s) => (
+  <g transform={`translate(${x + s / 2}, ${y + s / 2})`} stroke="#fff" strokeWidth="1.6" fill="none">
+    <rect x="-10" y="-9" width="20" height="8" rx="2" />
+    <rect x="-10" y="1" width="20" height="8" rx="2" />
+    <circle cx="-6" cy="-5" r="1" fill="#fff" stroke="none" />
+    <circle cx="-6" cy="5" r="1" fill="#fff" stroke="none" />
+  </g>
+);
+
+const iconDatabase = (x, y, s) => (
+  <g transform={`translate(${x + s / 2}, ${y + s / 2})`} stroke="#fff" strokeWidth="1.6" fill="none">
+    <ellipse cx="0" cy="-6" rx="9" ry="3.3" />
+    <path d="M-9,-6 L-9,6 C-9,7.8 -5,9.3 0,9.3 C5,9.3 9,7.8 9,6 L9,-6" />
+    <path d="M-9,0 C-9,1.8 -5,3.3 0,3.3 C5,3.3 9,1.8 9,0" />
+  </g>
+);
+
+const iconChip = (x, y, s) => (
+  <g transform={`translate(${x + s / 2}, ${y + s / 2})`} stroke="#fff" strokeWidth="1.5" fill="none" strokeLinecap="round">
+    <rect x="-7" y="-7" width="14" height="14" rx="2" />
+    <circle cx="0" cy="0" r="2.6" fill="#fff" stroke="none" />
+    <path d="M-7,-3 L-10,-3 M-7,3 L-10,3 M7,-3 L10,-3 M7,3 L10,3 M-3,-7 L-3,-10 M3,-7 L3,-10 M-3,7 L-3,10 M3,7 L3,10" />
+  </g>
+);
+
+const iconCard = (x, y, s) => (
+  <g transform={`translate(${x + s / 2}, ${y + s / 2})`} stroke="#fff" strokeWidth="1.6" fill="none" strokeLinejoin="round">
+    <rect x="-11" y="-7.5" width="22" height="15" rx="2.5" />
+    <path d="M-11,-2.5 L11,-2.5" />
+    <path d="M-7,3 L-3,3" />
+  </g>
+);
+
+/* ---------- Desktop diagram ---------- */
 
 export const DesktopDiagram = () => (
   <svg
-    viewBox="0 0 560 460"
+    viewBox="0 0 620 640"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    className="w-full h-auto"
+    className="w-full h-auto mx-auto max-w-[560px] block"
     role="img"
-    aria-label="AI SaaS architecture diagram"
+    aria-label="AI SaaS architecture diagram, Webex-inspired style"
   >
     <title>AI SaaS architecture diagram</title>
     <desc>
@@ -35,153 +142,141 @@ export const DesktopDiagram = () => (
     </desc>
 
     <defs>
-      <marker id="arr-d" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
-        <path d="M0,0 L8,3 L0,6" fill={COLORS.arrow} />
-      </marker>
+      {[
+        ["arr-frontend", COLORS.frontend],
+        ["arr-auth", COLORS.auth],
+        ["arr-rbac", COLORS.rbac],
+        ["arr-backend", COLORS.backend],
+      ].map(([id, color]) => (
+        <marker key={id} id={id} markerWidth="9" markerHeight="7" refX="7" refY="3.5" orient="auto">
+          <path d="M0,0 L9,3.5 L0,7 Z" fill={color} />
+        </marker>
+      ))}
     </defs>
 
     {/* Protected routes boundary */}
-    <rect
-      x="60" y="120" width="440" height="256" rx="14"
-      stroke={COLORS.border} strokeWidth="1" strokeDasharray="5 4" fill="none"
-    />
-    <text x="78" y="140" fill={COLORS.textMuted} style={{ ...label, fontSize: "9px", letterSpacing: "0.08em" }}>
+    <rect x={30} y={140} width={560} height={470} rx="20" fill="none"
+      stroke={COLORS.dashed} strokeWidth="1.3" strokeDasharray="5 4" />
+    <text x={48} y={164} fill={COLORS.textMuted}
+      style={{ ...mono, fontSize: "8.5px", letterSpacing: "0.06em", fontWeight: 700 }}>
       PROTECTED API ROUTES
     </text>
 
     {/* React Frontend */}
-    <rect x="195" y="16" width="170" height="46" rx="6" stroke={COLORS.border} strokeWidth="1.5" fill={COLORS.base} />
-    <text x="280" y="44" textAnchor="middle" fill={COLORS.text} style={{ ...label, fontSize: "12px" }}>
-      React Frontend
-    </text>
-    <line x1="280" y1="62" x2="280" y2="150" stroke={COLORS.arrow} strokeWidth="1.5" markerEnd="url(#arr-d)" />
+    <IconCard x={195} y={16} w={180} h={88} color={COLORS.frontend}
+      icon={iconWindow} label="React Frontend" />
+
+    {/* fan-out: frontend -> JWT Auth / RBAC */}
+    <CurvedArrow d="M255,104 C230,122 200,138 175,166" color={COLORS.auth}
+      markerId="arr-auth" label="token" labelPos={[210, 138]} />
+    <CurvedArrow d="M315,104 C340,122 375,138 400,166" color={COLORS.rbac}
+      markerId="arr-rbac" label="role" labelPos={[368, 138]} />
 
     {/* Auth layer */}
-    <rect x="105" y="152" width="160" height="56" rx="6" stroke={COLORS.borderStrong} strokeWidth="1.5" fill={COLORS.auth} />
-    <text x="185" y="174" textAnchor="middle" fill={COLORS.authText} style={{ ...label, fontSize: "11px", fontWeight: 700 }}>
-      JWT Auth
-    </text>
-    <text x="185" y="192" textAnchor="middle" fill={COLORS.authText} style={{ ...label, fontSize: "9px" }}>
-      Verifies token identity
-    </text>
+    <IconCard x={90} y={168} w={170} h={92} color={COLORS.auth}
+      icon={iconLock} label="JWT Auth" sublabel="Verifies token identity" />
+    <IconCard x={315} y={168} w={170} h={92} color={COLORS.rbac}
+      icon={iconShield} label="RBAC" sublabel="Role-based permissions" />
 
-    <rect x="295" y="152" width="160" height="56" rx="6" stroke={COLORS.borderStrong} strokeWidth="1.5" fill={COLORS.auth} />
-    <text x="375" y="174" textAnchor="middle" fill={COLORS.authText} style={{ ...label, fontSize: "11px", fontWeight: 700 }}>
-      RBAC
-    </text>
-    <text x="375" y="192" textAnchor="middle" fill={COLORS.authText} style={{ ...label, fontSize: "9px" }}>
-      Role-based permissions
-    </text>
-
-    <line x1="280" y1="208" x2="280" y2="234" stroke={COLORS.arrow} strokeWidth="1.5" markerEnd="url(#arr-d)" />
+    {/* converge: auth -> Express Backend */}
+    <CurvedArrow d="M175,260 C200,278 230,290 255,306" color={COLORS.auth}
+      markerId="arr-auth" labelPos={[0, 0]} />
+    <CurvedArrow d="M400,260 C375,278 345,290 320,306" color={COLORS.rbac}
+      markerId="arr-rbac" labelPos={[0, 0]} />
 
     {/* Express Backend */}
-    <rect x="180" y="236" width="200" height="48" rx="6" stroke={COLORS.borderStrong} strokeWidth="1.5" fill={COLORS.backend} />
-    <text x="280" y="256" textAnchor="middle" fill={COLORS.backendText} style={{ ...label, fontSize: "12px", fontWeight: 700 }}>
-      Express Backend
-    </text>
-    <text x="280" y="274" textAnchor="middle" fill={COLORS.backendText} style={{ ...label, fontSize: "9px" }}>
-      Routing, validation, business logic
-    </text>
+    <IconCard x={195} y={308} w={180} h={90} color={COLORS.backend}
+      icon={iconServer} label="Express Backend" sublabel="Routing, validation, logic" />
 
-    {/* Branches to services */}
-    <path d="M280 284 L280 300 L145 300 L145 320" stroke={COLORS.arrow} strokeWidth="1.2" fill="none" markerEnd="url(#arr-d)" />
-    <path d="M280 284 L280 320" stroke={COLORS.arrow} strokeWidth="1.2" fill="none" markerEnd="url(#arr-d)" />
-    <path d="M280 284 L280 300 L415 300 L415 320" stroke={COLORS.arrow} strokeWidth="1.2" fill="none" markerEnd="url(#arr-d)" />
+    {/* fan-out: backend -> MongoDB / AI APIs / Razorpay */}
+    <CurvedArrow d="M245,398 C210,416 170,428 130,446" color={COLORS.service}
+      markerId="arr-backend" label="store" labelPos={[168, 420]} />
+    <CurvedArrow d="M285,398 C285,414 285,428 285,446" color={COLORS.service}
+      markerId="arr-backend" label="infer" labelPos={[332, 424]} />
+    <CurvedArrow d="M325,398 C365,416 415,428 460,446" color={COLORS.service}
+      markerId="arr-backend" label="charge" labelPos={[398, 420]} />
 
     {/* Bottom services */}
-    <rect x="80" y="322" width="130" height="50" rx="6" stroke={COLORS.borderStrong} strokeWidth="1.5" fill={COLORS.service} />
-    <text x="145" y="343" textAnchor="middle" fill={COLORS.serviceText} style={{ ...label, fontSize: "11px", fontWeight: 700 }}>
-      MongoDB
-    </text>
-    <text x="145" y="360" textAnchor="middle" fill={COLORS.serviceText} style={{ ...label, fontSize: "9px" }}>
-      Data storage
-    </text>
-
-    <rect x="215" y="322" width="130" height="50" rx="6" stroke={COLORS.borderStrong} strokeWidth="1.5" fill={COLORS.service} />
-    <text x="280" y="343" textAnchor="middle" fill={COLORS.serviceText} style={{ ...label, fontSize: "11px", fontWeight: 700 }}>
-      AI APIs
-    </text>
-    <text x="280" y="360" textAnchor="middle" fill={COLORS.serviceText} style={{ ...label, fontSize: "9px" }}>
-      Model inference
-    </text>
-
-    <rect x="350" y="322" width="130" height="50" rx="6" stroke={COLORS.borderStrong} strokeWidth="1.5" fill={COLORS.service} />
-    <text x="415" y="343" textAnchor="middle" fill={COLORS.serviceText} style={{ ...label, fontSize: "11px", fontWeight: 700 }}>
-      Razorpay
-    </text>
-    <text x="415" y="360" textAnchor="middle" fill={COLORS.serviceText} style={{ ...label, fontSize: "9px" }}>
-      Payment gateway
-    </text>
+    <IconCard x={40} y={448} w={180} h={92} color={COLORS.service}
+      icon={iconDatabase} label="MongoDB" sublabel="Data storage" />
+    <IconCard x={195} y={448} w={180} h={92} color={COLORS.service}
+      icon={iconChip} label="AI APIs" sublabel="Model inference" />
+    <IconCard x={370} y={448} w={180} h={92} color={COLORS.service}
+      icon={iconCard} label="Razorpay" sublabel="Payment gateway" />
   </svg>
 );
 
+/* ---------- Mobile diagram (single column) ---------- */
+
 export const MobileDiagram = () => (
   <svg
-    viewBox="0 0 260 420"
+    viewBox="0 0 300 940"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    className="w-full h-auto"
+    className="w-full h-auto mx-auto max-w-[340px] block"
     role="img"
-    aria-label="AI SaaS architecture diagram"
+    aria-label="AI SaaS architecture diagram, mobile layout"
   >
     <title>AI SaaS architecture diagram, mobile layout</title>
     <desc>
-      A single-column stack: React frontend, then a combined JWT plus RBAC
-      security step, then Express backend, then three service boxes for
+      A single-column stack: React frontend, a combined JWT plus RBAC
+      security step, Express backend, then three service cards for
       MongoDB, AI APIs, and Razorpay.
     </desc>
 
     <defs>
-      <marker id="arr-m" markerWidth="7" markerHeight="5" refX="6" refY="2.5" orient="auto">
-        <path d="M0,0 L7,2.5 L0,5" fill={COLORS.arrow} />
-      </marker>
+      {[
+        ["m-arr-frontend", COLORS.frontend],
+        ["m-arr-auth", COLORS.auth],
+        ["m-arr-backend", COLORS.backend],
+        ["m-arr-service", COLORS.service],
+      ].map(([id, color]) => (
+        <marker key={id} id={id} markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto">
+          <path d="M0,0 L8,3 L0,6 Z" fill={color} />
+        </marker>
+      ))}
     </defs>
 
-    <rect x="15" y="8" width="230" height="360" rx="10" stroke={COLORS.border} strokeWidth="1" strokeDasharray="4 3" fill="none" />
-    <text x="26" y="24" fill={COLORS.textMuted} style={{ ...label, fontSize: "7px", letterSpacing: "0.06em" }}>
+    <rect x={20} y={8} width={260} height={904} rx="18" fill="none"
+      stroke={COLORS.dashed} strokeWidth="1.3" strokeDasharray="5 4" />
+    <text x={34} y={30} fill={COLORS.textMuted}
+      style={{ ...mono, fontSize: "8px", letterSpacing: "0.06em", fontWeight: 700 }}>
       PROTECTED ROUTES
     </text>
 
-    <rect x="55" y="30" width="150" height="30" rx="4" stroke={COLORS.border} strokeWidth="1.5" fill={COLORS.base} />
-    <text x="130" y="49" textAnchor="middle" fill={COLORS.text} style={{ ...label, fontSize: "10px" }}>
-      React Frontend
-    </text>
-    <line x1="130" y1="60" x2="130" y2="76" stroke={COLORS.arrow} strokeWidth="1.5" markerEnd="url(#arr-m)" />
+    <IconCard x={60} y={40} w={180} h={82} color={COLORS.frontend} icon={iconWindow} label="React Frontend" />
+    <CurvedArrow d="M150,122 C150,134 150,138 150,152" color={COLORS.frontend} markerId="m-arr-frontend" labelPos={[0, 0]} />
 
-    <rect x="45" y="78" width="170" height="42" rx="4" stroke={COLORS.borderStrong} strokeWidth="1.5" fill={COLORS.auth} />
-    <text x="130" y="96" textAnchor="middle" fill={COLORS.authText} style={{ ...label, fontSize: "10px", fontWeight: 700 }}>
-      JWT Auth + RBAC
-    </text>
-    <text x="130" y="112" textAnchor="middle" fill={COLORS.authText} style={{ ...label, fontSize: "8px" }}>
-      Verify token, check role
-    </text>
-    <line x1="130" y1="120" x2="130" y2="136" stroke={COLORS.arrow} strokeWidth="1.5" markerEnd="url(#arr-m)" />
+    <IconCard x={45} y={154} w={210} h={94} color={COLORS.auth}
+      icon={iconLock} label="JWT Auth + RBAC" sublabel="Verify token, check role" />
+    <CurvedArrow d="M150,248 C150,260 150,264 150,278" color={COLORS.auth} markerId="m-arr-auth" labelPos={[0, 0]} />
 
-    <rect x="55" y="138" width="150" height="36" rx="4" stroke={COLORS.borderStrong} strokeWidth="1.5" fill={COLORS.backend} />
-    <text x="130" y="156" textAnchor="middle" fill={COLORS.backendText} style={{ ...label, fontSize: "10px", fontWeight: 700 }}>
-      Express Backend
-    </text>
-    <text x="130" y="170" textAnchor="middle" fill={COLORS.backendText} style={{ ...label, fontSize: "7px" }}>
-      Routing and business logic
-    </text>
-    <line x1="130" y1="174" x2="130" y2="190" stroke={COLORS.arrow} strokeWidth="1.5" markerEnd="url(#arr-m)" />
+    <IconCard x={55} y={280} w={190} h={86} color={COLORS.backend}
+      icon={iconServer} label="Express Backend" sublabel="Routing and business logic" iconSize={34} />
+    <CurvedArrow d="M150,366 C150,378 150,382 150,396" color={COLORS.backend} markerId="m-arr-backend" labelPos={[0, 0]} />
 
-    <rect x="55" y="192" width="150" height="34" rx="4" stroke={COLORS.borderStrong} strokeWidth="1" fill={COLORS.service} />
-    <text x="130" y="212" textAnchor="middle" fill={COLORS.serviceText} style={{ ...label, fontSize: "10px", fontWeight: 700 }}>
-      MongoDB
-    </text>
-    <line x1="130" y1="226" x2="130" y2="240" stroke={COLORS.arrow} strokeWidth="1.2" markerEnd="url(#arr-m)" />
+    <IconCard x={55} y={398} w={190} h={78} color={COLORS.service}
+      icon={iconDatabase} label="MongoDB" sublabel="Data storage" iconSize={30} />
+    <CurvedArrow d="M150,476 C150,486 150,490 150,500" color={COLORS.service} markerId="m-arr-service" labelPos={[0, 0]} />
 
-    <rect x="55" y="242" width="150" height="34" rx="4" stroke={COLORS.borderStrong} strokeWidth="1" fill={COLORS.service} />
-    <text x="130" y="262" textAnchor="middle" fill={COLORS.serviceText} style={{ ...label, fontSize: "10px", fontWeight: 700 }}>
-      AI APIs
-    </text>
-    <line x1="130" y1="276" x2="130" y2="290" stroke={COLORS.arrow} strokeWidth="1.2" markerEnd="url(#arr-m)" />
+    <IconCard x={55} y={502} w={190} h={78} color={COLORS.service}
+      icon={iconChip} label="AI APIs" sublabel="Model inference" iconSize={30} />
+    <CurvedArrow d="M150,580 C150,590 150,594 150,604" color={COLORS.service} markerId="m-arr-service" labelPos={[0, 0]} />
 
-    <rect x="55" y="292" width="150" height="34" rx="4" stroke={COLORS.borderStrong} strokeWidth="1" fill={COLORS.service} />
-    <text x="130" y="312" textAnchor="middle" fill={COLORS.serviceText} style={{ ...label, fontSize: "10px", fontWeight: 700 }}>
-      Razorpay
-    </text>
+    <IconCard x={55} y={606} w={190} h={78} color={COLORS.service}
+      icon={iconCard} label="Razorpay" sublabel="Payment gateway" iconSize={30} />
   </svg>
 );
+
+export default function AiSaasPlatformDiagram() {
+  return (
+    <div className="w-full bg-transparent p-6">
+      <div className="hidden md:block">
+        <DesktopDiagram />
+      </div>
+      <div className="md:hidden">
+        <MobileDiagram />
+      </div>
+    </div>
+  );
+}

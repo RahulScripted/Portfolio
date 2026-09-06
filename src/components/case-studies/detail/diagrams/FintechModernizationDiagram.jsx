@@ -1,323 +1,344 @@
-// Case Study 4: Fintech Modernization
-// Flow: Legacy React 15 → Next.js Architecture → fans into UI Modules / App State / Server State
-//       → API & Transaction Services → Financial Data
-// Side cluster: UX States (Suspense / Loading, Error / Recovery)
+// Case Study 4: Fintech Modernization — Webex-style diagram
+// Restyled to match the icon-card + colored curved arrow language of the
+// Webex xAPI reference graphic. Background is fully transparent (no base
+// fill rect) so it drops onto any page background cleanly.
 
 const COLORS = {
-  border: "#D4C9BC",
-  borderStrong: "#B8AA98",
-  arrow: "#6B6459",
-  text: "#16140F",
+  arrow: "#8A8577",
   textMuted: "#6B6459",
-  base: "#FBFAF5",
-  legacy: "#F3E6DE", // muted terracotta tint — legacy origin
-  legacyText: "#8A5233",
-  legacyBorder: "#D9A87E",
-  modern: "#E5EEE8", // muted sage tint — modern app layer
-  modernText: "#3F5C4F",
-  modernBorder: "#9DBCA8",
-  state: "#E8E6F3", // muted lavender tint — state management
-  stateText: "#4A4180",
-  stateBorder: "#ADA4D6",
-  data: "#F3EAE6", // muted mauve tint — data / services
-  dataText: "#7A4F45",
-  dataBorder: "#CBA79B",
+  text: "#16140F",
+  cardBorder: "#E7E2D8",
+  cardFill: "#FFFFFF",
+
+  legacy: "#C97B4A",     // terracotta — legacy origin
+  legacyBg: "#F3E6DE",
+  modern: "#2F9E85",     // teal — modernized core
+  ui: "#C23E7A",         // magenta — UI modules
+  state: "#6C5CD1",      // violet — app state
+  server: "#D98A2B",     // amber — server state
+  data: "#3572B0",       // blue — API / transaction
+  finance: "#4A7A5E",    // deep sage — financial data
+  dashed: "#B9B2A2",
 };
 
-const label = { fontFamily: "Space Mono, monospace" };
+const mono = { fontFamily: "Space Mono, monospace" };
+
+// A rounded "icon card": colored icon square on top, label + sublabel below,
+// small status dot bottom-right — matching the Webex node treatment.
+const IconCard = ({ x, y, w, h, color, icon, label, sublabel }) => {
+  const cx = x + w / 2;
+  const iconSize = 40;
+  const iconX = cx - iconSize / 2;
+  const iconY = y + 14;
+  return (
+    <g>
+      <rect
+        x={x} y={y} width={w} height={h} rx="16"
+        fill={COLORS.cardFill} stroke={COLORS.cardBorder} strokeWidth="1.4"
+        style={{ filter: "drop-shadow(0 3px 8px rgba(22,20,15,0.10))" }}
+      />
+      <rect x={iconX} y={iconY} width={iconSize} height={iconSize} rx="11" fill={color} />
+      {icon(iconX, iconY, iconSize)}
+      <text x={cx} y={iconY + iconSize + 20} textAnchor="middle" fill={COLORS.text}
+        style={{ ...mono, fontSize: "11.5px", fontWeight: 700 }}>
+        {label}
+      </text>
+      {sublabel && (
+        <text x={cx} y={iconY + iconSize + 34} textAnchor="middle" fill={COLORS.textMuted}
+          style={{ ...mono, fontSize: "8.5px", opacity: 0.85 }}>
+          {sublabel}
+        </text>
+      )}
+    </g>
+  );
+};
+
+// Curved connector with a pill-shaped label riding on the path, matching
+// the Webex xCommand / xStatus / xEvent / xConfig arrows.
+const CurvedArrow = ({ d, color, label, markerId, labelPos }) => (
+  <g>
+    <path d={d} stroke={color} strokeWidth="2.2" fill="none" markerEnd={`url(#${markerId})`} />
+    {label && (
+      <g transform={`translate(${labelPos[0]}, ${labelPos[1]})`}>
+        <rect x={-label.length * 3.6 - 8} y="-11" width={label.length * 7.2 + 16} height="22" rx="11" fill={color} />
+        <text x="0" y="4" textAnchor="middle" fill="#fff" style={{ ...mono, fontSize: "9.5px", fontWeight: 700 }}>
+          {label}
+        </text>
+      </g>
+    )}
+  </g>
+);
+
+const DashedLine = ({ d }) => (
+  <path d={d} stroke={COLORS.dashed} strokeWidth="1.4" strokeDasharray="4 4" fill="none" markerEnd="url(#arr-dashed)" />
+);
+
+/* ---------- simple icon glyphs (white strokes on the colored square) ---------- */
+
+const iconLegacy = (x, y, s) => (
+  <g transform={`translate(${x + s / 2}, ${y + s / 2})`} stroke="#fff" strokeWidth="1.8" fill="none" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M-6,-6 L-11,0 L-6,6" />
+    <path d="M6,-6 L11,0 L6,6" />
+    <path d="M2,-8 L-2,8" />
+  </g>
+);
+
+const iconLayers = (x, y, s) => (
+  <g transform={`translate(${x + s / 2}, ${y + s / 2})`} stroke="#fff" strokeWidth="1.7" fill="none" strokeLinejoin="round">
+    <path d="M0,-9 L11,-2.5 L0,4 L-11,-2.5 Z" />
+    <path d="M-11,3 L0,9.5 L11,3" />
+  </g>
+);
+
+const iconGrid = (x, y, s) => (
+  <g transform={`translate(${x + s / 2}, ${y + s / 2})`} stroke="#fff" strokeWidth="1.7" fill="none">
+    <rect x="-9" y="-9" width="7" height="7" rx="1.5" />
+    <rect x="2" y="-9" width="7" height="7" rx="1.5" />
+    <rect x="-9" y="2" width="7" height="7" rx="1.5" />
+    <rect x="2" y="2" width="7" height="7" rx="1.5" />
+  </g>
+);
+
+const iconDatabase = (x, y, s) => (
+  <g transform={`translate(${x + s / 2}, ${y + s / 2})`} stroke="#fff" strokeWidth="1.7" fill="none">
+    <ellipse cx="0" cy="-6" rx="9" ry="3.4" />
+    <path d="M-9,-6 L-9,6 C-9,7.9 -5,9.4 0,9.4 C5,9.4 9,7.9 9,6 L9,-6" />
+    <path d="M-9,0 C-9,1.9 -5,3.4 0,3.4 C5,3.4 9,1.9 9,0" />
+  </g>
+);
+
+const iconRefresh = (x, y, s) => (
+  <g transform={`translate(${x + s / 2}, ${y + s / 2})`} stroke="#fff" strokeWidth="1.8" fill="none" strokeLinecap="round">
+    <path d="M-8,-2 A8,8 0 1 1 -6.5,4" />
+    <path d="M-9,-7 L-8,-2 L-3,-3" />
+  </g>
+);
+
+const iconServer = (x, y, s) => (
+  <g transform={`translate(${x + s / 2}, ${y + s / 2})`} stroke="#fff" strokeWidth="1.7" fill="none">
+    <rect x="-10" y="-9" width="20" height="8" rx="2" />
+    <rect x="-10" y="1" width="20" height="8" rx="2" />
+    <circle cx="-6" cy="-5" r="1.1" fill="#fff" stroke="none" />
+    <circle cx="-6" cy="5" r="1.1" fill="#fff" stroke="none" />
+  </g>
+);
+
+const iconFinance = (x, y, s) => (
+  <g transform={`translate(${x + s / 2}, ${y + s / 2})`} stroke="#fff" strokeWidth="1.7" fill="none" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M-10,7 L10,7" />
+    <path d="M-8,7 L-8,-1 M-3,7 L-3,-1 M3,7 L3,-1 M8,7 L8,-1" />
+    <path d="M-11,-3 L0,-9 L11,-3 Z" />
+  </g>
+);
+
+const iconLoader = (x, y, s) => (
+  <g transform={`translate(${x + s / 2}, ${y + s / 2})`} stroke="#fff" strokeWidth="1.8" fill="none" strokeLinecap="round" strokeDasharray="2.6 4.2">
+    <circle cx="0" cy="0" r="9" />
+  </g>
+);
+
+const iconAlert = (x, y, s) => (
+  <g transform={`translate(${x + s / 2}, ${y + s / 2})`} stroke="#fff" strokeWidth="1.8" fill="none" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M0,-9 L10,8 L-10,8 Z" />
+    <path d="M0,-3 L0,2" />
+    <circle cx="0" cy="5.2" r="0.9" fill="#fff" stroke="none" />
+  </g>
+);
+
+/* ---------- Desktop diagram ---------- */
 
 export const DesktopDiagram = () => (
   <svg
-    viewBox="0 0 640 416"
+    viewBox="0 0 700 720"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    className="w-full h-auto mx-auto max-w-[560px] block"
+    className="w-full h-auto mx-auto max-w-[620px] block"
     role="img"
-    aria-label="Fintech modernization architecture diagram"
+    aria-label="Fintech modernization architecture diagram, Webex-inspired style"
   >
     <title>Fintech modernization architecture diagram</title>
     <desc>
-      A legacy React 15 application is modernized into a Next.js architecture,
-      which fans out into reusable UI and feature modules, an application state
-      layer, and a server-state layer, converging into API and transaction
-      services and finally financial data, with a side cluster for loading and
-      error UX states.
+      A legacy React 15 application migrates into a Next.js core, which fans
+      out into UI modules, app state, and server state, converging into API
+      and transaction services that produce financial data, alongside a
+      loading and error UX-states cluster.
     </desc>
 
     <defs>
-      <marker id="arr-ftm" markerWidth="9" markerHeight="7" refX="7" refY="3.5" orient="auto">
-        <path d="M0,0 L9,3.5 L0,7 Z" fill={COLORS.arrow} />
+      {[
+        ["arr-legacy", COLORS.legacy],
+        ["arr-ui", COLORS.ui],
+        ["arr-state", COLORS.state],
+        ["arr-server", COLORS.server],
+        ["arr-data", COLORS.data],
+        ["arr-finance", COLORS.finance],
+      ].map(([id, color]) => (
+        <marker key={id} id={id} markerWidth="9" markerHeight="7" refX="7" refY="3.5" orient="auto">
+          <path d="M0,0 L9,3.5 L0,7 Z" fill={color} />
+        </marker>
+      ))}
+      <marker id="arr-dashed" markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto">
+        <path d="M0,0 L8,3 L0,6 Z" fill={COLORS.dashed} />
       </marker>
-
-      {/* Soft drop shadow for cards */}
-      <filter id="ftm-shadow" x="-20%" y="-20%" width="140%" height="150%">
-        <feDropShadow dx="0" dy="2" stdDeviation="3" floodColor="#16140F" floodOpacity="0.08" />
-      </filter>
-
-      {/* Node gradients */}
-      <linearGradient id="ftm-legacy" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stopColor="#F8EFE8" />
-        <stop offset="100%" stopColor={COLORS.legacy} />
-      </linearGradient>
-      <linearGradient id="ftm-modern" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stopColor="#EEF5F0" />
-        <stop offset="100%" stopColor={COLORS.modern} />
-      </linearGradient>
-      <linearGradient id="ftm-state" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stopColor="#F0EEF8" />
-        <stop offset="100%" stopColor={COLORS.state} />
-      </linearGradient>
-      <linearGradient id="ftm-data" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stopColor="#F8F1ED" />
-        <stop offset="100%" stopColor={COLORS.data} />
-      </linearGradient>
     </defs>
 
-    {/* ── Legacy React 15 ───────────────────────────────── */}
-    <g filter="url(#ftm-shadow)">
-      <rect x="230" y="18" width="180" height="50" rx="10" stroke={COLORS.legacyBorder} strokeWidth="1.5" fill="url(#ftm-legacy)" />
-    </g>
-    <text x="320" y="41" textAnchor="middle" fill={COLORS.legacyText} style={{ ...label, fontSize: "12.5px", fontWeight: 700 }}>
-      Legacy React 15
-    </text>
-    <text x="320" y="57" textAnchor="middle" fill={COLORS.legacyText} style={{ ...label, fontSize: "9px", opacity: 0.85 }}>
-      Existing application
-    </text>
+    {/* Legacy React 15 */}
+    <IconCard x={260} y={10} w={180} h={85} color={COLORS.legacy}
+      icon={iconLegacy} label="Legacy React 15" />
 
-    <line x1="320" y1="68" x2="320" y2="90" stroke={COLORS.arrow} strokeWidth="1.6" markerEnd="url(#arr-ftm)" />
-    <text x="332" y="83" fill={COLORS.textMuted} style={{ ...label, fontSize: "8px" }}>
-      migrate
-    </text>
+    {/* trunk arrow: legacy -> Next.js core */}
+    <CurvedArrow d="M350,94 C350,112 350,120 350,140" color={COLORS.legacy}
+      markerId="arr-legacy" label="migrate" labelPos={[478, 117]} />
 
-    {/* ── Next.js Architecture ──────────────────────────── */}
-    <g filter="url(#ftm-shadow)">
-      <rect x="222" y="92" width="196" height="52" rx="10" stroke={COLORS.modernBorder} strokeWidth="1.8" fill="url(#ftm-modern)" />
-    </g>
-    <text x="320" y="115" textAnchor="middle" fill={COLORS.modernText} style={{ ...label, fontSize: "12.5px", fontWeight: 700 }}>
-      Next.js Architecture
-    </text>
-    <text x="320" y="131" textAnchor="middle" fill={COLORS.modernText} style={{ ...label, fontSize: "9px", opacity: 0.85 }}>
-      Modernized foundation
-    </text>
+    {/* Next.js Architecture (hub) */}
+    <IconCard x={245} y={142} w={210} h={116} color={COLORS.modern}
+      icon={iconLayers} label="Next.js Architecture" sublabel="Modernized foundation" />
 
-    {/* Branch to three layers */}
-    <path d="M320 144 L320 162 L150 162 L150 178" stroke={COLORS.arrow} strokeWidth="1.3" fill="none" markerEnd="url(#arr-ftm)" />
-    <path d="M320 144 L320 178" stroke={COLORS.arrow} strokeWidth="1.6" fill="none" markerEnd="url(#arr-ftm)" />
-    <path d="M320 144 L320 162 L490 162 L490 178" stroke={COLORS.arrow} strokeWidth="1.3" fill="none" markerEnd="url(#arr-ftm)" />
+    {/* fan-out arrows: hub -> UI Modules / App State / Server State */}
+    <CurvedArrow d="M290,258 C260,278 190,290 128,314" color={COLORS.ui}
+      markerId="arr-ui" label="components" labelPos={[188, 282]} />
+    <CurvedArrow d="M350,258 C350,278 350,292 350,314" color={COLORS.state}
+      markerId="arr-state" label="state" labelPos={[398, 288]} />
+    <CurvedArrow d="M410,258 C440,278 510,290 572,314" color={COLORS.server}
+      markerId="arr-server" label="queries" labelPos={[512, 282]} />
 
-    {/* ── Layer row ─────────────────────────────────────── */}
-    <g filter="url(#ftm-shadow)">
-      <rect x="66" y="180" width="168" height="56" rx="10" stroke={COLORS.modernBorder} strokeWidth="1.5" fill="url(#ftm-modern)" />
-    </g>
-    <text x="150" y="202" textAnchor="middle" fill={COLORS.modernText} style={{ ...label, fontSize: "11px", fontWeight: 700 }}>
-      UI Modules
-    </text>
-    <text x="150" y="220" textAnchor="middle" fill={COLORS.modernText} style={{ ...label, fontSize: "9px", opacity: 0.85 }}>
-      Reusable + feature
-    </text>
+    {/* mid row */}
+    <IconCard x={40} y={316} w={176} h={92} color={COLORS.ui}
+      icon={iconGrid} label="UI Modules" sublabel="Reusable + feature" />
+    <IconCard x={262} y={316} w={176} h={92} color={COLORS.state}
+      icon={iconDatabase} label="App State" sublabel="Redux Toolkit" />
+    <IconCard x={484} y={316} w={176} h={92} color={COLORS.server}
+      icon={iconRefresh} label="Server State" sublabel="TanStack Query" />
 
-    <g filter="url(#ftm-shadow)">
-      <rect x="252" y="180" width="136" height="56" rx="10" stroke={COLORS.stateBorder} strokeWidth="1.5" fill="url(#ftm-state)" />
-    </g>
-    <text x="320" y="202" textAnchor="middle" fill={COLORS.stateText} style={{ ...label, fontSize: "11px", fontWeight: 700 }}>
-      App State
-    </text>
-    <text x="320" y="220" textAnchor="middle" fill={COLORS.stateText} style={{ ...label, fontSize: "9px", opacity: 0.85 }}>
-      Redux Toolkit
-    </text>
+    {/* converge arrows: mid row -> API & Transaction */}
+    <CurvedArrow d="M128,408 C160,432 220,448 300,474" color={COLORS.ui}
+      markerId="arr-ui" labelPos={[0, 0]} />
+    <CurvedArrow d="M350,408 C350,432 350,448 350,474" color={COLORS.state}
+      markerId="arr-state" labelPos={[0, 0]} />
+    <CurvedArrow d="M572,408 C540,432 480,448 400,474" color={COLORS.server}
+      markerId="arr-server" labelPos={[0, 0]} />
 
-    <g filter="url(#ftm-shadow)">
-      <rect x="406" y="180" width="168" height="56" rx="10" stroke={COLORS.stateBorder} strokeWidth="1.5" fill="url(#ftm-state)" />
-    </g>
-    <text x="490" y="202" textAnchor="middle" fill={COLORS.stateText} style={{ ...label, fontSize: "11px", fontWeight: 700 }}>
-      Server State
-    </text>
-    <text x="490" y="220" textAnchor="middle" fill={COLORS.stateText} style={{ ...label, fontSize: "9px", opacity: 0.85 }}>
-      TanStack Query
-    </text>
+    {/* API & Transaction Services */}
+    <IconCard x={250} y={476} w={200} h={92} color={COLORS.data}
+      icon={iconServer} label="API & Transaction" sublabel="REST services" />
 
-    {/* Converge to API services */}
-    <path d="M150 236 L150 256 L320 256 L320 272" stroke={COLORS.arrow} strokeWidth="1.3" fill="none" markerEnd="url(#arr-ftm)" />
-    <path d="M320 236 L320 272" stroke={COLORS.arrow} strokeWidth="1.6" fill="none" markerEnd="url(#arr-ftm)" />
-    <path d="M490 236 L490 256 L320 256 L320 272" stroke={COLORS.arrow} strokeWidth="1.3" fill="none" markerEnd="url(#arr-ftm)" />
+    {/* API -> Financial Data */}
+    <CurvedArrow d="M350,568 C350,584 350,588 350,606" color={COLORS.data}
+      markerId="arr-data" label="settles" labelPos={[398, 588]} />
 
-    {/* ── API & Transaction Services ────────────────────── */}
-    <g filter="url(#ftm-shadow)">
-      <rect x="222" y="274" width="196" height="54" rx="10" stroke={COLORS.dataBorder} strokeWidth="1.6" fill="url(#ftm-data)" />
-    </g>
-    <text x="320" y="296" textAnchor="middle" fill={COLORS.dataText} style={{ ...label, fontSize: "11.5px", fontWeight: 700 }}>
-      API &amp; Transaction
-    </text>
-    <text x="320" y="314" textAnchor="middle" fill={COLORS.dataText} style={{ ...label, fontSize: "9px", opacity: 0.85 }}>
-      REST services
-    </text>
+    {/* Financial Data */}
+    <IconCard x={270} y={608} w={160} h={92} color={COLORS.finance}
+      icon={iconFinance} label="Financial Data" />
 
-    <line x1="320" y1="328" x2="320" y2="352" stroke={COLORS.arrow} strokeWidth="1.6" markerEnd="url(#arr-ftm)" />
+    {/* dashed connector: API -> UX States cluster */}
+    <DashedLine d="M450,510 C470,510 468,510 486,510" />
 
-    {/* ── Financial Data ────────────────────────────────── */}
-    <g filter="url(#ftm-shadow)">
-      <rect x="238" y="354" width="164" height="48" rx="10" stroke={COLORS.borderStrong} strokeWidth="1.6" fill={COLORS.base} />
-    </g>
-    <text x="320" y="382" textAnchor="middle" fill={COLORS.text} style={{ ...label, fontSize: "12.5px", fontWeight: 700 }}>
-      Financial Data
-    </text>
-
-    {/* ── Side cluster: UX States ───────────────────────── */}
-    <rect x="452" y="274" width="150" height="116" rx="12" stroke={COLORS.border} strokeWidth="1.2" strokeDasharray="5 4" fill="#FDFCF8" />
-    <text x="466" y="294" fill={COLORS.textMuted} style={{ ...label, fontSize: "8px", letterSpacing: "0.08em", fontWeight: 700 }}>
+    {/* UX States dashed cluster */}
+    <rect x={488} y={430} width={184} height={148} rx="16" fill="#FDFCF9"
+      stroke={COLORS.dashed} strokeWidth="1.3" strokeDasharray="5 4" />
+    <text x={502} y={452} fill={COLORS.textMuted}
+      style={{ ...mono, fontSize: "8.5px", letterSpacing: "0.06em", fontWeight: 700 }}>
       UX STATES
     </text>
 
-    <rect x="464" y="302" width="126" height="30" rx="6" stroke={COLORS.border} strokeWidth="1" fill={COLORS.base} />
-    <text x="527" y="321" textAnchor="middle" fill={COLORS.text} style={{ ...label, fontSize: "9px" }}>
+    <rect x={500} y={462} width={160} height={46} rx="12" fill={COLORS.cardFill} stroke={COLORS.cardBorder} strokeWidth="1.2" />
+    <g transform="translate(514, 476)">{iconLoader(0, -8, 16)}</g>
+    <text x={588} y={489} textAnchor="middle" fill={COLORS.text} style={{ ...mono, fontSize: "9.5px" }}>
       Suspense / Loading
     </text>
 
-    <rect x="464" y="338" width="126" height="30" rx="6" stroke={COLORS.border} strokeWidth="1" fill={COLORS.base} />
-    <text x="527" y="357" textAnchor="middle" fill={COLORS.text} style={{ ...label, fontSize: "9px" }}>
+    <rect x={500} y={516} width={160} height={46} rx="12" fill={COLORS.cardFill} stroke={COLORS.cardBorder} strokeWidth="1.2" />
+    <g transform="translate(514, 530)">{iconAlert(0, -8, 16)}</g>
+    <text x={588} y={543} textAnchor="middle" fill={COLORS.text} style={{ ...mono, fontSize: "9.5px" }}>
       Error / Recovery
     </text>
-
-    {/* Dashed connector from API services to UX states */}
-    <line x1="418" y1="300" x2="450" y2="300" stroke={COLORS.arrow} strokeWidth="1.3" markerEnd="url(#arr-ftm)" strokeDasharray="4 3" />
   </svg>
 );
+
+/* ---------- Mobile diagram (single column) ---------- */
 
 export const MobileDiagram = () => (
   <svg
-    viewBox="0 0 260 500"
+    viewBox="0 0 300 900"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    className="w-full h-auto mx-auto max-w-[300px] block"
+    className="w-full h-auto mx-auto max-w-[340px] block"
     role="img"
-    aria-label="Fintech modernization architecture diagram"
+    aria-label="Fintech modernization architecture diagram, mobile layout"
   >
     <title>Fintech modernization architecture diagram, mobile layout</title>
     <desc>
-      A single-column stack: legacy React 15 application, Next.js architecture,
-      a combined UI and state layer, API and transaction services, financial
-      data, and finally the loading and error UX states.
+      Single-column stack: legacy React 15, Next.js core, a combined UI and
+      state layer, API and transaction services, financial data, and the
+      loading and error UX states.
     </desc>
 
     <defs>
-      <marker id="am-ftm" markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto">
-        <path d="M0,0 L8,3 L0,6 Z" fill={COLORS.arrow} />
+      {[
+        ["m-arr-legacy", COLORS.legacy],
+        ["m-arr-modern", COLORS.modern],
+        ["m-arr-data", COLORS.data],
+        ["m-arr-finance", COLORS.finance],
+      ].map(([id, color]) => (
+        <marker key={id} id={id} markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto">
+          <path d="M0,0 L8,3 L0,6 Z" fill={color} />
+        </marker>
+      ))}
+      <marker id="m-arr-dashed" markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto">
+        <path d="M0,0 L8,3 L0,6 Z" fill={COLORS.dashed} />
       </marker>
-      <filter id="ftm-shadow-m" x="-20%" y="-20%" width="140%" height="150%">
-        <feDropShadow dx="0" dy="1.5" stdDeviation="2" floodColor="#16140F" floodOpacity="0.08" />
-      </filter>
-      <linearGradient id="ftm-legacy-m" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stopColor="#F8EFE8" />
-        <stop offset="100%" stopColor={COLORS.legacy} />
-      </linearGradient>
-      <linearGradient id="ftm-modern-m" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stopColor="#EEF5F0" />
-        <stop offset="100%" stopColor={COLORS.modern} />
-      </linearGradient>
-      <linearGradient id="ftm-state-m" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stopColor="#F0EEF8" />
-        <stop offset="100%" stopColor={COLORS.state} />
-      </linearGradient>
-      <linearGradient id="ftm-data-m" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stopColor="#F8F1ED" />
-        <stop offset="100%" stopColor={COLORS.data} />
-      </linearGradient>
     </defs>
 
-    <g filter="url(#ftm-shadow-m)">
-      <rect x="45" y="8" width="170" height="40" rx="9" stroke={COLORS.legacyBorder} strokeWidth="1.5" fill="url(#ftm-legacy-m)" />
-    </g>
-    <text x="130" y="27" textAnchor="middle" fill={COLORS.legacyText} style={{ ...label, fontSize: "10.5px", fontWeight: 700 }}>
-      Legacy React 15
-    </text>
-    <text x="130" y="42" textAnchor="middle" fill={COLORS.legacyText} style={{ ...label, fontSize: "7.5px", opacity: 0.85 }}>
-      Existing application
-    </text>
-    <line x1="130" y1="48" x2="130" y2="64" stroke={COLORS.arrow} strokeWidth="1.6" markerEnd="url(#am-ftm)" />
+    <IconCard x={60} y={16} w={180} h={78} color={COLORS.legacy}
+      icon={iconLegacy} label="Legacy React 15" sublabel="Existing application" />
+    <CurvedArrow d="M150,94 C150,108 150,112 150,132" color={COLORS.legacy} markerId="m-arr-legacy" labelPos={[0,0]} />
 
-    <g filter="url(#ftm-shadow-m)">
-      <rect x="45" y="66" width="170" height="40" rx="9" stroke={COLORS.modernBorder} strokeWidth="1.6" fill="url(#ftm-modern-m)" />
-    </g>
-    <text x="130" y="85" textAnchor="middle" fill={COLORS.modernText} style={{ ...label, fontSize: "10.5px", fontWeight: 700 }}>
-      Next.js Architecture
-    </text>
-    <text x="130" y="100" textAnchor="middle" fill={COLORS.modernText} style={{ ...label, fontSize: "7.5px", opacity: 0.85 }}>
-      Modernized foundation
-    </text>
-    <line x1="130" y1="106" x2="130" y2="122" stroke={COLORS.arrow} strokeWidth="1.6" markerEnd="url(#am-ftm)" />
+    <IconCard x={45} y={134} w={210} h={100} color={COLORS.modern}
+      icon={iconLayers} label="Next.js Architecture" sublabel="Modernized foundation" />
+    <CurvedArrow d="M150,234 C150,248 150,252 150,272" color={COLORS.modern} markerId="m-arr-modern" labelPos={[0,0]} />
 
-    <g filter="url(#ftm-shadow-m)">
-      <rect x="45" y="124" width="170" height="46" rx="9" stroke={COLORS.stateBorder} strokeWidth="1.5" fill="url(#ftm-state-m)" />
-    </g>
-    <text x="130" y="143" textAnchor="middle" fill={COLORS.stateText} style={{ ...label, fontSize: "10.5px", fontWeight: 700 }}>
-      UI + State Layer
-    </text>
-    <text x="130" y="159" textAnchor="middle" fill={COLORS.stateText} style={{ ...label, fontSize: "8px", opacity: 0.85 }}>
-      Redux + TanStack Query
-    </text>
-    <line x1="130" y1="170" x2="130" y2="186" stroke={COLORS.arrow} strokeWidth="1.6" markerEnd="url(#am-ftm)" />
+    <IconCard x={45} y={274} w={210} h={100} color={COLORS.state}
+      icon={iconDatabase} label="UI + State Layer" sublabel="Redux + TanStack Query" />
+    <CurvedArrow d="M150,374 C150,388 150,392 150,412" color={COLORS.state} markerId="m-arr-modern" labelPos={[0,0]} />
 
-    <g filter="url(#ftm-shadow-m)">
-      <rect x="45" y="188" width="170" height="46" rx="9" stroke={COLORS.dataBorder} strokeWidth="1.6" fill="url(#ftm-data-m)" />
-    </g>
-    <text x="130" y="207" textAnchor="middle" fill={COLORS.dataText} style={{ ...label, fontSize: "10.5px", fontWeight: 700 }}>
-      API &amp; Transaction
-    </text>
-    <text x="130" y="223" textAnchor="middle" fill={COLORS.dataText} style={{ ...label, fontSize: "7.5px", opacity: 0.85 }}>
-      REST services
-    </text>
-    <line x1="130" y1="234" x2="130" y2="250" stroke={COLORS.arrow} strokeWidth="1.6" markerEnd="url(#am-ftm)" />
+    <IconCard x={45} y={414} w={210} h={92} color={COLORS.data}
+      icon={iconServer} label="API & Transaction" sublabel="REST services" />
+    <CurvedArrow d="M150,506 C150,520 150,524 150,544" color={COLORS.data} markerId="m-arr-data" labelPos={[0,0]} />
 
-    <g filter="url(#ftm-shadow-m)">
-      <rect x="55" y="252" width="150" height="38" rx="9" stroke={COLORS.borderStrong} strokeWidth="1.6" fill={COLORS.base} />
-    </g>
-    <text x="130" y="275" textAnchor="middle" fill={COLORS.text} style={{ ...label, fontSize: "10.5px", fontWeight: 700 }}>
-      Financial Data
-    </text>
-    <line x1="130" y1="290" x2="130" y2="306" stroke={COLORS.arrow} strokeWidth="1.6" markerEnd="url(#am-ftm)" />
+    <IconCard x={65} y={546} w={170} h={90} color={COLORS.finance}
+      icon={iconFinance} label="Financial Data" />
+    <DashedLine d="M150,636 C150,650 150,654 150,672" />
 
-    <rect x="40" y="308" width="180" height="102" rx="12" stroke={COLORS.border} strokeWidth="1.2" strokeDasharray="4 3" fill="#FDFCF8" />
-    <text x="52" y="325" fill={COLORS.textMuted} style={{ ...label, fontSize: "7.5px", letterSpacing: "0.06em", fontWeight: 700 }}>
+    <rect x={40} y={674} width={220} height={158} rx="16" fill="#FDFCF9"
+      stroke={COLORS.dashed} strokeWidth="1.3" strokeDasharray="5 4" />
+    <text x={54} y={696} fill={COLORS.textMuted}
+      style={{ ...mono, fontSize: "8.5px", letterSpacing: "0.06em", fontWeight: 700 }}>
       UX STATES
     </text>
 
-    <rect x="52" y="332" width="156" height="30" rx="6" stroke={COLORS.border} strokeWidth="1" fill={COLORS.base} />
-    <text x="130" y="351" textAnchor="middle" fill={COLORS.text} style={{ ...label, fontSize: "9px" }}>
+    <rect x={52} y={706} width={196} height={48} rx="12" fill={COLORS.cardFill} stroke={COLORS.cardBorder} strokeWidth="1.2" />
+    <g transform="translate(68, 720)">{iconLoader(0, -8, 16)}</g>
+    <text x={160} y={734} textAnchor="middle" fill={COLORS.text} style={{ ...mono, fontSize: "9.5px" }}>
       Suspense / Loading
     </text>
 
-    <rect x="52" y="368" width="156" height="30" rx="6" stroke={COLORS.border} strokeWidth="1" fill={COLORS.base} />
-    <text x="M130 392 L130 400" stroke={COLORS.arrow} strokeWidth="1" fill="none" markerEnd="url(#am-ftm-muted)" />
-    <path d="M180 392 L196 402" stroke={COLORS.arrow} strokeWidth="1" fill="none" markerEnd="url(#am-ftm-muted)" />
-
-    <rect x="42" y="404" width="56" height="24" rx="4" stroke={COLORS.borderStrong} strokeWidth="1" fill={COLORS.modern} />
-    <text x="70" y="420" textAnchor="middle" fill={COLORS.modernText} style={{ ...label, fontSize: "7px", fontWeight: 700 }}>
-      Successful
-    </text>
-
-    <rect x="102" y="404" width="56" height="24" rx="4" stroke={COLORS.borderStrong} strokeWidth="1" fill={COLORS.warn} />
-    <text x="130" y="420" textAnchor="middle" fill={COLORS.warnText} style={{ ...label, fontSize: "7px", fontWeight: 700 }}>
-      Failed
-    </text>
-
-    <rect x="162" y="404" width="56" height="24" rx="4" stroke={COLORS.borderStrong} strokeWidth="1" fill={COLORS.state} />
-    <text x="190" y="420" textAnchor="middle" fill={COLORS.stateText} style={{ ...label, fontSize: "7px", fontWeight: 700 }}>
-      Excess
-    </text>
-
-    <line x1="42" y1="440" x2="218" y2="440" stroke={COLORS.border} strokeWidth="1" />
-
-    <text x="42" y="456" fill={COLORS.textMuted} style={{ ...label, fontSize: "7px" }}>
-      Interaction
-    </text>
-    <rect x="42" y="460" width="176" height="28" rx="4" stroke={COLORS.border} strokeWidth="1" fill={COLORS.base} />
-    <text x="130" y="478" textAnchor="middle" fill={COLORS.text} style={{ ...label, fontSize: "9px" }}>
-      Suspense / Loading
-    </text>
-
-    <rect x="42" y="494" width="176" height="28" rx="4" stroke={COLORS.border} strokeWidth="1" fill={COLORS.base} />
-    <text x="130" y="512" textAnchor="middle" fill={COLORS.text} style={{ ...label, fontSize: "9px" }}>
+    <rect x={52} y={762} width={196} height={48} rx="12" fill={COLORS.cardFill} stroke={COLORS.cardBorder} strokeWidth="1.2" />
+    <g transform="translate(68, 776)">{iconAlert(0, -8, 16)}</g>
+    <text x={160} y={790} textAnchor="middle" fill={COLORS.text} style={{ ...mono, fontSize: "9.5px" }}>
       Error / Recovery
     </text>
   </svg>
 );
+
+export default function FintechDiagram() {
+  return (
+    <div className="w-full bg-transparent p-6">
+      <div className="hidden md:block">
+        <DesktopDiagram />
+      </div>
+      <div className="md:hidden">
+        <MobileDiagram />
+      </div>
+    </div>
+  );
+}
