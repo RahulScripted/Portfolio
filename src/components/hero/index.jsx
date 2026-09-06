@@ -26,7 +26,9 @@ export default function Hero() {
               {...settle(0)}
               className="block font-gothic text-xs font-bold uppercase tracking-[0.18em] text-ink"
             >
-              <span className="section-eyebrow">Case No. 001 — Engineering Record</span>
+              <span className="section-eyebrow">
+                Case No. 001 — Engineering Record
+              </span>
             </motion.span>
             <motion.h2
               {...settle(0.06)}
@@ -40,8 +42,10 @@ export default function Hero() {
               {...settle(0.14)}
               className="mt-5 max-w-[70ch] border-l-4 border-ink pl-[18px] font-text text-[clamp(17px,2vw,22px)] italic leading-[1.45] text-ink-soft"
             >
-              Software Engineer at Mintifi building production fintech products used by 50K+ active customers — 
-              with a focus on frontend architecture, performance, secure workflows and product-driven engineering.
+              Software Engineer at Mintifi building production fintech products
+              used by 50K+ active customers — with a focus on frontend
+              architecture, performance, secure workflows and product-driven
+              engineering.
             </motion.p>
             <motion.p
               {...settle(0.2)}
@@ -120,7 +124,17 @@ export default function Hero() {
               {/* Top label bar */}
               <div className="flex items-center justify-between px-4 py-2 bg-ink text-paper">
                 <div className="flex items-center gap-3">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="shrink-0"
+                  >
                     <circle cx="11" cy="11" r="8" />
                     <line x1="21" y1="21" x2="16.65" y2="16.65" />
                   </svg>
@@ -165,17 +179,25 @@ export default function Hero() {
               <strong className="font-bold uppercase tracking-[0.1em] text-ink">
                 Pictured:
               </strong>{" "}
-              an engineer somewhere between debugging a production issue and opening another browser tab.
+              An engineer somewhere between debugging a production issue and
+              opening another browser tab.
             </motion.p>
             <motion.div
               {...settle(0.3)}
               className="mt-[18px] font-text text-[16px] leading-[1.6] justify-editorial"
             >
               <p className="mb-3 dropcap">
-                I enjoy the complete engineering process — understanding a problem, designing the solution, building the interface, integrating the APIs, testing the edge cases and shipping it to production.
+                I enjoy the complete engineering process — understanding the
+                problem, shaping the solution, building thoughtful interfaces,
+                integrating the systems behind them, handling edge cases,
+                testing thoroughly, and shipping reliable software to
+                production.
               </p>
               <p>
-                At Mintifi, I build fintech products across customer onboarding, loan management, authentication, insurance and contract workflows. Outside work, I build independent products that turn ideas into working software.
+                At Mintifi, I build fintech products across customer onboarding,
+                loan management, authentication, insurance, and contract
+                workflows. Outside work, I build independent products that take
+                ideas from concept to working software.
               </p>
             </motion.div>
           </div>

@@ -5,7 +5,6 @@ import { doodle } from "@types/hero";
 export default function DesktopBoard() {
   return (
     <div className="relative min-h-[700px]">
-      <span className="absolute left-5 top-4 font-mono text-[10px] tracking-[0.14em] text-ink/40 uppercase select-none">Case File // Rahul Goswami</span>
 
       {/* SVG threads */}
       <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 1200 700" preserveAspectRatio="none" aria-hidden="true">

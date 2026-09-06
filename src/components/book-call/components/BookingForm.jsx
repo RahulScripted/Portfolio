@@ -57,15 +57,12 @@ export default function BookingForm({ form, onChange, onTimeSelect, onSubmit, st
         </div>
         {!form.time && (
           <p className="mt-1.5 font-mono text-[10px] text-ink-soft uppercase tracking-[0.1em]">
-            Select a slot to proceed
+            <span className="text-red-900 font-semibold -mr-1">*</span> Select a slot to proceed
           </p>
         )}
       </div>
 
-      <div className="sm:col-span-2 flex flex-wrap items-center justify-between gap-4 border-t border-ink/20 pt-7">
-        <span className="font-gothic text-[11px] uppercase tracking-[0.06em] text-ink-soft">
-          IST (UTC +5:30) | 30 min | Google Meet
-        </span>
+      <div className="sm:col-span-2 flex flex-wrap items-center justify-end gap-4 pt-7">
         <button
           type="submit"
           disabled={!form.time || status === "sending"}
