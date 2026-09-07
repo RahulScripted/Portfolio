@@ -5,12 +5,12 @@ import cssSvg from "@assets/svgs/css3.svg";
 
 /** Skill radar data — values map to rank thresholds */
 export const RADAR_DATA = [
-  { subject: "Frontend", value: 92 }, // SS+
+  { subject: "Frontend", value: 96 }, // SS+
   { subject: "Backend",  value: 72 }, // S
   { subject: "DSA",      value: 84 }, // SS
-  { subject: "Mobile",   value: 60 }, // A
-  { subject: "DevOps",   value: 58 }, // A
-  { subject: "UI/UX",    value: 74 }, // S
+  { subject: "Mobile Development",   value: 73 }, // A
+  { subject: "System Design",   value: 68 }, // A
+  { subject: "UI/UX",    value: 84 }, // S
 ];
 
 /** Overall rank is SS (weighted: Frontend SS+ + DSA SS anchor the average up) */
