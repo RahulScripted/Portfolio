@@ -37,7 +37,17 @@ export default function GridProject({ project, delay }) {
         ))}
       </div>
       <div className="flex items-center justify-between gap-3 border-t border-ink/20 pt-3.5">
-        <span className="font-mono text-xs text-ink-soft">{project.year}</span>
+        <span className="flex flex-wrap items-center gap-2 font-mono text-xs text-ink-soft">
+          {project.year}
+          {(Array.isArray(project.role) ? project.role : [project.role]).map((r) => (
+            <span
+              key={r}
+              className="inline-flex items-center rounded-full border border-stamp/40 bg-stamp/10 px-2 py-0.5 font-gothic text-[10px] font-bold uppercase tracking-[0.1em] text-stamp"
+            >
+              {r}
+            </span>
+          ))}
+        </span>
         <a
           href={project.liveUrl}
           target="_blank"

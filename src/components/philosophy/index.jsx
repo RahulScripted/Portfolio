@@ -4,7 +4,7 @@ import SectionHeader from "@components/shared/SectionHeader";
 
 const Philosophy = () => {
   return (
-    <section id="education" className="py-14 sm:py-[76px] px-3 sm:px-5">
+    <section id="philosophy" className="py-14 sm:py-[76px] px-3 sm:px-5">
       <div className="max-w-[1380px] mx-auto">
         <SectionHeader
           eyebrow="Engineering Principles"
