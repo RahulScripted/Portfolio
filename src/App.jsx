@@ -24,6 +24,10 @@ const Footer = lazy(() => import("@components/footer"));
 const BookCall = lazy(() => import("@components/book-call"));
 const CaseStudyDetail = lazy(() => import("@components/case-studies/detail"));
 const NotFound = lazy(() => import("@components/not-found"));
+const Privacy = lazy(() => import("@components/legal/Privacy"));
+const Terms = lazy(() => import("@components/legal/Terms"));
+
+import CookieConsent from "@components/cookie-consent";
 
 // Minimal fallback for lazy sections (invisible, no layout shift)
 const SectionFallback = () => <div className="min-h-[200px]" />;
@@ -125,6 +129,22 @@ function AnimatedRoutes() {
             }
           />
           <Route
+            path="/privacy"
+            element={
+              <Suspense fallback={<SectionFallback />}>
+                <PageTransition><Privacy /></PageTransition>
+              </Suspense>
+            }
+          />
+          <Route
+            path="/terms"
+            element={
+              <Suspense fallback={<SectionFallback />}>
+                <PageTransition><Terms /></PageTransition>
+              </Suspense>
+            }
+          />
+          <Route
             path="*"
             element={
               <Suspense fallback={<SectionFallback />}>
@@ -139,5 +159,10 @@ function AnimatedRoutes() {
 }
 
 export default function App() {
-  return <AnimatedRoutes />;
+  return (
+    <>
+      <AnimatedRoutes />
+      <CookieConsent />
+    </>
+  );
 }

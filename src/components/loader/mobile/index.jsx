@@ -48,18 +48,15 @@ function AnimatedLoadingSkeleton() {
     controls.start(generateSearchPath(config));
   }, [controls]);
 
+  // No layout-affecting entrance animation — avoids cumulative layout shift.
   const frameVariants = {
-    hidden: { opacity: 0, scale: 0.95 },
-    visible: { opacity: 1, scale: 1, transition: { duration: 0.5 } },
+    hidden: { opacity: 1 },
+    visible: { opacity: 1 },
   };
 
   const cardVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: (i) => ({
-      y: 0,
-      opacity: 1,
-      transition: { delay: i * 0.1, duration: 0.4 },
-    }),
+    hidden: { opacity: 1 },
+    visible: { opacity: 1 },
   };
 
   const glowVariants = {
@@ -87,11 +84,8 @@ function AnimatedLoadingSkeleton() {
       initial="hidden"
       animate="visible"
     >
-      {/* Masthead eyebrow to match editorial theme */}
+      {/* Masthead rule to match editorial theme */}
       <div className="flex items-center gap-3 mb-4">
-        <span className="font-gothic text-[10px] font-bold uppercase tracking-[0.18em] text-stamp whitespace-nowrap">
-          Setting the Press
-        </span>
         <div className="flex-1 h-px bg-ink/20" />
       </div>
 

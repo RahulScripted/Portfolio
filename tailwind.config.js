@@ -17,12 +17,12 @@ export default {
         rule:           "#D4C9BC",
       },
       fontFamily: {
-        display: ['"Playfair Display"', "Georgia", "serif"],
-        text:    ['"Playfair Display"', "Georgia", "serif"],
-        gothic:  ['"Space Mono"', "monospace"],
-        mono:    ['"Space Mono"', "monospace"],
+        display: ['"Playfair Display"', '"Playfair Fallback"', "Georgia", "serif"],
+        text:    ['"Playfair Display"', '"Playfair Fallback"', "Georgia", "serif"],
+        gothic:  ['"Space Mono"', '"Mono Fallback"', "monospace"],
+        mono:    ['"Space Mono"', '"Mono Fallback"', "monospace"],
         // legacy alias
-        serif:   ['"Playfair Display"', "Georgia", "serif"],
+        serif:   ['"Playfair Display"', '"Playfair Fallback"', "Georgia", "serif"],
       },
       fontSize: {
         "2xs": ["0.65rem", { lineHeight: "1rem" }],

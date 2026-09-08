@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { GithubIcon, LinkedinIcon, LockIcon } from "@animations";
 import { contact } from "@types/contact";
 import Loader from "@components/loader";
@@ -16,7 +17,13 @@ export default function Copyright() {
       )}
 
       <div className="mt-8 flex flex-col items-center gap-4 border-t border-paper/25 pt-5 font-gothic text-[11px] font-medium uppercase tracking-[0.1em] text-paper/60 min-[600px]:flex-row min-[600px]:justify-between">
-        <span>© 2026 Rahul Goswami | All rights reserved | Mumbai, India</span>
+        <div className="flex flex-col items-center gap-2 min-[600px]:flex-row min-[600px]:gap-4">
+          <span>© 2026 Rahul Goswami | All rights reserved | Mumbai, India</span>
+          <span className="flex gap-4">
+            <Link to="/privacy" className="hover:text-paper transition-colors">Privacy</Link>
+            <Link to="/terms" className="hover:text-paper transition-colors">Terms</Link>
+          </span>
+        </div>
 
         <div className="flex gap-2.5">
           <motion.a

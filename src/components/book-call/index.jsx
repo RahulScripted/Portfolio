@@ -5,7 +5,9 @@ import PageHeader from "./components/PageHeader";
 import BookingForm from "./components/BookingForm";
 import ConfirmationPanel from "./components/ConfirmationPanel";
 
-const ACCESS_KEY = "2bfd616f-a72b-43ee-aa32-ff8f1b5f2f2f";
+// Web3Forms access key — public by design (submit-only). Configurable via env.
+const ACCESS_KEY =
+  import.meta.env.VITE_WEB3FORMS_KEY || "2bfd616f-a72b-43ee-aa32-ff8f1b5f2f2f";
 
 export default function BookCall() {
   const [form, setForm] = useState({ name: "", email: "", topic: "", time: "" });
@@ -17,7 +19,13 @@ export default function BookCall() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    if (!form.name || !form.email || !form.time) return;
+    // Honeypot: if the hidden field is filled, silently drop (likely a bot)
+    if (e.target.company?.value) return;
+    if (!form.name.trim() || !form.time) return;
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
+      setStatus("invalid");
+      return;
+    }
     setStatus("sending");
 
     const fd = new FormData();

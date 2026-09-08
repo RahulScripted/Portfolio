@@ -16,6 +16,9 @@ export default function BookingForm({ form, onChange, onTimeSelect, onSubmit, st
       onSubmit={onSubmit}
       className="grid grid-cols-1 gap-7 sm:grid-cols-2"
     >
+      {/* Honeypot — hidden from users, catches bots */}
+      <input className="hidden" tabIndex={-1} autoComplete="off" name="company" aria-hidden="true" />
+
       <div>
         <label className="mb-[7px] block font-gothic text-[11px] font-bold uppercase tracking-[0.12em] text-ink-soft" htmlFor="bc-name">
           Your name
@@ -61,6 +64,12 @@ export default function BookingForm({ form, onChange, onTimeSelect, onSubmit, st
           </p>
         )}
       </div>
+
+      {status === "invalid" && (
+        <p className="sm:col-span-2 -mt-3 font-gothic text-[10px] uppercase tracking-[0.08em] text-stamp" role="alert">
+          Please enter a valid email address
+        </p>
+      )}
 
       <div className="sm:col-span-2 flex flex-wrap items-center justify-end gap-4 pt-7">
         <button

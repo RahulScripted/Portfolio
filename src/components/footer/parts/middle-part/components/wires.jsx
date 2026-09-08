@@ -8,6 +8,10 @@ export default function WireServices() {
       <a href={contact.github} target="_blank" rel="noopener noreferrer" className="mb-2.5 block w-fit font-text text-[15px] text-paper hover:text-paper/60 transition-colors">GitHub</a>
       <a href={contact.linkedin} target="_blank" rel="noopener noreferrer" className="mb-2.5 block w-fit font-text text-[15px] text-paper hover:text-paper/60 transition-colors">LinkedIn</a>
       <Link to="/book-call" className="mb-2.5 block w-fit font-text text-[15px] text-paper hover:text-paper/60 transition-colors">Book a Call</Link>
+
+      <h4 className="mb-3.5 mt-6 font-gothic text-[11px] font-bold uppercase tracking-[0.14em] text-paper/55">Legal</h4>
+      <Link to="/privacy" className="mb-2.5 block w-fit font-text text-[15px] text-paper hover:text-paper/60 transition-colors">Privacy Policy</Link>
+      <Link to="/terms" className="mb-2.5 block w-fit font-text text-[15px] text-paper hover:text-paper/60 transition-colors">Terms &amp; Conditions</Link>
     </div>
   );
 }

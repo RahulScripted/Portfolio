@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowLeftIcon } from "@animations";
-import postcard from "@assets/webps/404.png";
+import postcard from "@assets/webps/404.webp";
 
 /**
  * Editorial 404 — matched to "The Rahul Goswami Times" theme.
@@ -58,6 +58,11 @@ export default function NotFound({
           <div className="relative z-10">
             {/* Postcard */}
             <div className="relative p-3 bg-paper-bright shadow-2xl rotate-[4deg] hover:rotate-0 transition-transform duration-300 border border-ink/10">
+              {/* Tape strip — matches the bounty cards */}
+              <span
+                aria-hidden="true"
+                className="absolute -top-3 left-1/2 z-20 h-6 w-24 -translate-x-1/2 -rotate-2 border border-ink/10 bg-paper-deep/80"
+              />
               <div className="relative overflow-hidden bg-paper-bright">
                 <img
                   src={postcardImage}

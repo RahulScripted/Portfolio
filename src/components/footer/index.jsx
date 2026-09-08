@@ -13,10 +13,13 @@ export default function Footer() {
           <div className="relative inline-block -rotate-3" aria-label="End of record">
             <span
               aria-hidden="true"
-              className="absolute inset-0 border-4 border-stamp-bright"
-              style={{ filter: "url(#rough-stamp)" }}
+              className="absolute inset-0 border-4"
+              style={{ filter: "url(#rough-stamp)", borderColor: "#EF6E5F" }}
             />
-            <span className="relative z-[1] px-6 py-2 font-gothic text-[14px] font-black uppercase tracking-[0.28em] text-stamp-bright inline-block">
+            <span
+              className="relative z-[1] px-6 py-2 font-gothic text-[14px] font-black uppercase tracking-[0.28em] inline-block"
+              style={{ color: "#EF6E5F" }}
+            >
               Still Building
             </span>
           </div>

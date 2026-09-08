@@ -3,6 +3,10 @@ import { motion } from "framer-motion";
 import ContactLeft from "./components/left-part";
 import ContactRight from "./components/right-part";
 
+// Web3Forms access key — public by design (submit-only). Configurable via env.
+const ACCESS_KEY =
+  import.meta.env.VITE_WEB3FORMS_KEY || "2bfd616f-a72b-43ee-aa32-ff8f1b5f2f2f";
+
 function validateForm(form) {
   const errors = {};
   if (!form.name.trim()) errors.name = "Name is required";
@@ -35,7 +39,7 @@ export default function Contact() {
     setStatus("sending");
     const fd = new FormData();
     Object.entries(form).forEach(([k, v]) => fd.append(k, v));
-    fd.append("access_key", "2bfd616f-a72b-43ee-aa32-ff8f1b5f2f2f");
+    fd.append("access_key", ACCESS_KEY);
     try {
       const res = await fetch("https://api.web3forms.com/submit", { method: "POST", body: fd });
       const data = await res.json();

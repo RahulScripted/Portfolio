@@ -169,7 +169,11 @@ export default function Hero() {
                 src={profile}
                 alt="Rahul Goswami — Software Engineer, Mumbai"
                 className="absolute inset-0 w-full h-full object-cover mix-blend-multiply"
+                width="600"
+                height="600"
                 loading="eager"
+                fetchpriority="high"
+                decoding="async"
               />
             </motion.div>
             <motion.p
