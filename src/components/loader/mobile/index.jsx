@@ -1,4 +1,163 @@
 import { useEffect, useState, useRef, useCallback } from "react";
+import { motion, useAnimation } from "framer-motion";
+
+// Dynamically calculates grid configuration based on window width
+const getGridConfig = () => {
+  // Mobile: only 2 cards, stacked in a single column
+  return {
+    numCards: 2,
+    cols: 1,
+    xBase: 40,
+    yBase: 60,
+    xStep: 210,
+    yStep: 230,
+  };
+};
+
+// Generates the animation path so the search icon moves between the 2 cards
+const generateSearchPath = (config) => {
+  const { numCards, xBase, yBase, yStep } = config;
+
+  // One position per card (single column, stacked)
+  const positions = [];
+  for (let i = 0; i < numCards; i++) {
+    positions.push({ x: xBase, y: yBase + i * yStep });
+  }
+
+  // Go from card 1 -> card 2 -> back to card 1 for a smooth loop
+  const path = [...positions, positions[0]];
+
+  return {
+    x: path.map((pos) => pos.x),
+    y: path.map((pos) => pos.y),
+    scale: Array(path.length).fill(1.2),
+    transition: {
+      duration: path.length * 1.2,
+      repeat: Infinity,
+      ease: [0.4, 0, 0.2, 1],
+      times: path.map((_, i) => i / (path.length - 1)),
+    },
+  };
+};
+
+function AnimatedLoadingSkeleton() {
+  const controls = useAnimation();
+
+  useEffect(() => {
+    const config = getGridConfig();
+    controls.start(generateSearchPath(config));
+  }, [controls]);
+
+  const frameVariants = {
+    hidden: { opacity: 0, scale: 0.95 },
+    visible: { opacity: 1, scale: 1, transition: { duration: 0.5 } },
+  };
+
+  const cardVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: (i) => ({
+      y: 0,
+      opacity: 1,
+      transition: { delay: i * 0.1, duration: 0.4 },
+    }),
+  };
+
+  const glowVariants = {
+    animate: {
+      boxShadow: [
+        "0 0 18px rgba(166, 56, 44, 0.18)",
+        "0 0 32px rgba(166, 56, 44, 0.38)",
+        "0 0 18px rgba(166, 56, 44, 0.18)",
+      ],
+      scale: [1, 1.1, 1],
+      transition: {
+        duration: 1,
+        repeat: Infinity,
+        ease: "easeInOut",
+      },
+    },
+  };
+
+  const config = getGridConfig();
+
+  return (
+    <motion.div
+      className="w-full max-w-sm mx-auto p-6 bg-paper"
+      variants={frameVariants}
+      initial="hidden"
+      animate="visible"
+    >
+      {/* Masthead eyebrow to match editorial theme */}
+      <div className="flex items-center gap-3 mb-4">
+        <span className="font-gothic text-[10px] font-bold uppercase tracking-[0.18em] text-stamp whitespace-nowrap">
+          Setting the Press
+        </span>
+        <div className="flex-1 h-px bg-ink/20" />
+      </div>
+
+      <div className="relative overflow-hidden bg-paper p-8">
+        {/* Search icon with animation */}
+        <motion.div
+          className="absolute z-10 pointer-events-none"
+          animate={controls}
+          style={{ left: 24, top: 24 }}
+        >
+          <motion.div
+            className="p-3 rounded-full"
+            style={{ backgroundColor: "rgba(166, 56, 44, 0.14)" }}
+            variants={glowVariants}
+            animate="animate"
+          >
+            <svg
+              className="w-6 h-6 text-stamp"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+              />
+            </svg>
+          </motion.div>
+        </motion.div>
+
+        {/* Grid of animated cards */}
+        <div className="grid grid-cols-1 gap-4">
+          {[...Array(config.numCards)].map((_, i) => (
+            <motion.div
+              key={i}
+              variants={cardVariants}
+              initial="hidden"
+              animate="visible"
+              custom={i}
+              whileHover={{ scale: 1.02 }}
+              className="bg-paper border border-ink/10 p-4"
+            >
+              <motion.div
+                className="h-32 mb-3"
+                animate={{ background: ["#F5F0E8", "#E8E0D0", "#F5F0E8"] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+              />
+              <motion.div
+                className="h-3 w-3/4 mb-2"
+                animate={{ background: ["#F5F0E8", "#E8E0D0", "#F5F0E8"] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+              />
+              <motion.div
+                className="h-3 w-1/2"
+                animate={{ background: ["#F5F0E8", "#E8E0D0", "#F5F0E8"] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+              />
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </motion.div>
+  );
+}
 
 export default function MobileLoader({ onComplete }) {
   const [done, setDone] = useState(() => {
@@ -9,12 +168,10 @@ export default function MobileLoader({ onComplete }) {
     }
     return seen;
   });
-  const [count, setCount] = useState(0);
   const [fadeOut, setFadeOut] = useState(false);
-  const intervalRef = useRef(null);
+  const timeoutRef = useRef(null);
 
   const exit = useCallback(() => {
-    if (intervalRef.current) clearInterval(intervalRef.current);
     setFadeOut(true);
     sessionStorage.setItem("intro_seen", "1");
     setTimeout(() => {
@@ -26,23 +183,9 @@ export default function MobileLoader({ onComplete }) {
 
   useEffect(() => {
     if (done) return;
-    const duration = 3000; // 3 seconds total
-    const steps = 100;
-    const stepTime = duration / steps;
-
-    intervalRef.current = setInterval(() => {
-      setCount((prev) => {
-        if (prev >= 100) {
-          clearInterval(intervalRef.current);
-          setTimeout(exit, 400);
-          return 100;
-        }
-        return prev + 1;
-      });
-    }, stepTime);
-
+    timeoutRef.current = setTimeout(exit, 3000); // show skeleton for 3s
     return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current);
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
     };
   }, [done, exit]);
 
@@ -63,50 +206,17 @@ export default function MobileLoader({ onComplete }) {
   if (done) return null;
 
   return (
-    <div className={`mobile-loader ${fadeOut ? "mobile-loader--fade" : ""}`}>
-      <div id="ghost">
-        <div id="red">
-          <div id="pupil"></div>
-          <div id="pupil1"></div>
-          <div id="eye"></div>
-          <div id="eye1"></div>
-          <div id="top0"></div>
-          <div id="top1"></div>
-          <div id="top2"></div>
-          <div id="top3"></div>
-          <div id="top4"></div>
-          <div id="st0"></div>
-          <div id="st1"></div>
-          <div id="st2"></div>
-          <div id="st3"></div>
-          <div id="st4"></div>
-          <div id="st5"></div>
-          <div id="an1"></div>
-          <div id="an2"></div>
-          <div id="an3"></div>
-          <div id="an4"></div>
-          <div id="an5"></div>
-          <div id="an6"></div>
-          <div id="an7"></div>
-          <div id="an8"></div>
-          <div id="an9"></div>
-          <div id="an10"></div>
-          <div id="an11"></div>
-          <div id="an12"></div>
-          <div id="an13"></div>
-          <div id="an14"></div>
-          <div id="an15"></div>
-          <div id="an16"></div>
-          <div id="an17"></div>
-          <div id="an18"></div>
-        </div>
-        <div id="shadow"></div>
-      </div>
-
-      <div className="mobile-loader__countdown">
-        <div className="mobile-loader__line" />
-        <span className="mobile-loader__number">{count}</span>
-      </div>
+    <div
+      className={`mobile-loader ${fadeOut ? "mobile-loader--fade" : ""}`}
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "16px",
+        background: "#FBFAF5",
+      }}
+    >
+      <AnimatedLoadingSkeleton />
     </div>
   );
 }
