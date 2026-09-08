@@ -172,7 +172,7 @@ export default function Hero() {
                 width="600"
                 height="600"
                 loading="eager"
-                fetchpriority="high"
+                // fetchpriority="high"
                 decoding="async"
               />
             </motion.div>

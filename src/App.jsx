@@ -8,6 +8,7 @@ import Loader from "@components/loader";
 import Masthead from "@components/masthead";
 import Nav from "@components/nav";
 import Hero from "@components/hero";
+import InfiniteRibbon from "@components/infinite-ribbon";
 
 // Below-the-fold sections — lazy loaded
 const Projects = lazy(() => import("@components/projects"));
@@ -47,9 +48,23 @@ function PageTransition({ children }) {
   );
 }
 
+const RIBBON_PHRASES = [
+  "Trace the problem | follow the decisions | uncover the solution",
+  "Find the problem | inspect the system | uncover what shipped",
+  "Every problem leaves clues | every decision tells a story | every product leaves evidence",
+  "Investigate the problem | decode the system | uncover the build",
+  "The case | the clues | the solution",
+];
+
 function MainSite() {
   const alreadySeen = !!sessionStorage.getItem("intro_seen");
   const [loaded, setLoaded] = useState(alreadySeen);
+  const [ribbonPhrase] = useState(
+    () => RIBBON_PHRASES[Math.floor(Math.random() * RIBBON_PHRASES.length)]
+  );
+  const [ribbonPhraseEnd] = useState(
+    () => RIBBON_PHRASES[Math.floor(Math.random() * RIBBON_PHRASES.length)]
+  );
 
   return (
     <>
@@ -68,9 +83,15 @@ function MainSite() {
           <Suspense fallback={<SectionFallback />}>
             <Projects />
           </Suspense>
+          <div className="my-8">
+            <InfiniteRibbon duration={32}>{ribbonPhrase}</InfiniteRibbon>
+          </div>
           <Suspense fallback={<SectionFallback />}>
             <LabReport />
           </Suspense>
+          <div className="my-8">
+            <InfiniteRibbon duration={32} reverse>{ribbonPhraseEnd}</InfiniteRibbon>
+          </div>
           <Suspense fallback={<SectionFallback />}>
             <Career />
           </Suspense>
