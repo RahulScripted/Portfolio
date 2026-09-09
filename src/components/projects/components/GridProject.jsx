@@ -54,7 +54,8 @@ export default function GridProject({ project, delay }) {
           rel="noopener noreferrer"
           className="link-editorial group inline-flex items-center gap-1.5 after:absolute after:inset-0 after:content-['']"
         >
-          Open case File{" "}
+          <span className="hidden md:block">Open case File{" "}</span>
+          <span className="md:hidden">Case File</span>
           <ChevronUpIcon size={14} rotate={45} />
         </a>
       </div>

@@ -4,8 +4,10 @@ import { Link } from "react-router-dom";
 import { GithubIcon, LinkedinIcon, LockIcon } from "@animations";
 import { contact } from "@types/contact";
 import Loader from "@components/loader";
+import VisitorCounter from "@components/visitor-counter";
 
-const iconBtn = "flex h-10 w-10 items-center justify-center border border-paper/40 bg-paper text-ink transition-colors hover:bg-paper/80";
+const iconBtn =
+  "flex h-10 w-10 items-center justify-center border border-paper/40 bg-paper text-ink transition-colors hover:bg-paper/80";
 
 export default function Copyright() {
   const [showLoader, setShowLoader] = useState(false);
@@ -13,16 +15,33 @@ export default function Copyright() {
   return (
     <>
       {showLoader && (
-        <Loader onComplete={() => { setShowLoader(false); window.scrollTo({ top: 0 }); }} />
+        <Loader
+          onComplete={() => {
+            setShowLoader(false);
+            window.scrollTo({ top: 0 });
+          }}
+        />
       )}
 
       <div className="mt-8 flex flex-col items-center gap-4 border-t border-paper/25 pt-5 font-gothic text-[11px] font-medium uppercase tracking-[0.1em] text-paper/60 min-[600px]:flex-row min-[600px]:justify-between">
-        <div className="flex flex-col items-center gap-2 min-[600px]:flex-row min-[600px]:gap-4">
-          <span>© 2026 Rahul Goswami | All rights reserved | Mumbai, India</span>
-          <span className="flex gap-4">
-            <Link to="/privacy" className="hover:text-paper transition-colors">Privacy</Link>
-            <Link to="/terms" className="hover:text-paper transition-colors">Terms</Link>
-          </span>
+        <div className="flex flex-col">
+          <VisitorCounter />
+          <div className="flex flex-col items-center gap-2 min-[600px]:flex-row min-[600px]:gap-4">
+            <span>
+              &copy; 2026 Rahul Goswami | All rights reserved | Mumbai, India
+            </span>
+            <span className="flex gap-4">
+              <Link
+                to="/privacy"
+                className="hover:text-paper transition-colors"
+              >
+                Privacy
+              </Link>
+              <Link to="/terms" className="hover:text-paper transition-colors">
+                Terms
+              </Link>
+            </span>
+          </div>
         </div>
 
         <div className="flex gap-2.5">
@@ -55,7 +74,10 @@ export default function Copyright() {
           <motion.button
             type="button"
             aria-label="Replay intro"
-            onClick={() => { sessionStorage.removeItem("intro_seen"); setShowLoader(true); }}
+            onClick={() => {
+              sessionStorage.removeItem("intro_seen");
+              setShowLoader(true);
+            }}
             whileHover="hover"
             initial="rest"
             animate="rest"

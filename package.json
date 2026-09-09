@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@lottiefiles/react-lottie-player": "^3.6.0",
+    "@upstash/redis": "^1.38.4",
     "cheerio": "^1.2.0",
     "framer-motion": "^13.1.0",
     "react": "^19.2.8",

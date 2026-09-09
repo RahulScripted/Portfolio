@@ -19,13 +19,13 @@ export default function Masthead() {
           >
             Rahul Goswami
           </h1>
-          <p className="mt-3 font-gothic text-[11px] sm:text-[13px] font-semibold uppercase tracking-[0.28em] sm:tracking-[0.42em] text-ink-soft">
+          <p className="mt-3 mx-auto max-w-[720px] font-gothic text-[9px] sm:text-[13px] font-semibold uppercase tracking-[0.14em] sm:tracking-[0.42em] leading-[1.6] text-ink-soft">
             Software Engineer | React | TypeScript | React Native | Product Engineering
           </p>
         </div>
-        <div className="mt-1 border-y-[3px] border-ink py-[7px] font-gothic text-[11px] font-semibold uppercase tracking-[0.14em] text-ink-soft">
+        <div className="mt-1 border-y-[3px] border-ink py-[7px] font-gothic text-[9px] sm:text-[11px] font-semibold uppercase tracking-[0.1em] sm:tracking-[0.14em] text-ink-soft">
           {/* Desktop: single row with pipes */}
-          <div className="hidden sm:flex items-center justify-center gap-x-[22px]">
+          <div className="hidden md:flex items-center justify-center gap-x-[22px]">
             <span>{dateStr}</span>
             <span className="text-ink-soft/50" aria-hidden="true">|</span>
             <span>Vol. I</span>
@@ -34,12 +34,16 @@ export default function Masthead() {
             <span className="text-ink-soft/50" aria-hidden="true">|</span>
             <span>Open to Opportunities</span>
           </div>
-          {/* Mobile: 2x2 grid without pipes, no extra padding */}
-          <div className="grid grid-cols-2 gap-y-0.5 text-left sm:hidden">
-            <span>{dateStr}</span>
-            <span className="text-right">Vol. I</span>
-            <span>Production Systems &amp; Selected Work</span>
-            <span className="text-right">Open to Opportunities</span>
+          {/* Mobile & tablet: stacked rows, each label left with its value right */}
+          <div className="flex flex-col gap-y-1 md:hidden">
+            <div className="flex items-center justify-between gap-3">
+              <span>{dateStr}</span>
+              <span className="whitespace-nowrap text-right">Vol. I</span>
+            </div>
+            <div className="flex items-center justify-between gap-3">
+              <span>Production Systems &amp; Selected Work</span>
+              <span className="whitespace-nowrap text-right">Open to Opportunities</span>
+            </div>
           </div>
         </div>
       </div>

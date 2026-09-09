@@ -9,7 +9,7 @@ export const projects = [
     title: "Imagify",
     category: "AI | Full-Stack",
     year: "2024 August - 2025 May",
-    role: ["Team Leader", "Full-Stack Developer"],
+    role: ["Team Leader"],
     domain: "imagify-frontend-hcjw.onrender.com",
     liveUrl: "https://imagify-frontend-hcjw.onrender.com/",
     img: projects1,

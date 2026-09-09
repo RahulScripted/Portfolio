@@ -146,10 +146,6 @@ export default function Bounty() {
             <TechMastery />
           </div>
         </div>
-
-        <p className="font-gothic text-[11px] font-medium tracking-[0.04em] text-ink-soft sm:text-right">
-          Data sourced live — cached 1 hr via Vercel edge.
-        </p>
       </div>
     </section>
   );
