@@ -42,7 +42,8 @@ Cream paper background · Serif headlines · Monospace metadata · Red rubber-st
 | **Routing** | React Router DOM 7.x |
 | **Icons** | React Icons |
 | **Forms** | Web3Forms (no-server contact form) |
-| **APIs** | Vercel Serverless Functions (LeetCode · GitHub · CodeChef) |
+| **APIs** | Vercel Serverless Functions (LeetCode · GitHub · CodeChef · Visitor Counter) |
+| **Storage** | Upstash Redis (visitor counter) |
 | **Fonts** | Playfair Display · Space Mono · Oswald |
 | **Deployment** | Vercel |
 
@@ -90,14 +91,15 @@ Portfolio/
 │   │   ├── career/                ← career ledger section
 │   │   ├── contact/               ← contact form section
 │   │   ├── education/             ← education section
-│   │   ├── footer/                ← footer with social links & copyright
+│   │   ├── footer/                ← footer with social links, copyright & visitor counter
 │   │   ├── hero/                  ← hero masthead
 │   │   ├── lab-report/            ← tech stack section
 │   │   ├── loader/                ← intro loader animation
 │   │   ├── masthead/              ← newspaper masthead bar
 │   │   ├── nav/                   ← navigation
 │   │   ├── projects/              ← project showcase
-│   │   └── scroll-link/           ← smooth scroll utility
+│   │   ├── scroll-link/           ← smooth scroll utility
+│   │   └── visitor-counter/       ← live page-view & unique-visitor tally
 │   │
 │   ├── hooks/                     ← global custom hooks
 │   │
@@ -119,7 +121,8 @@ Portfolio/
 ├── api/
 │   ├── codechef.js                ← Vercel serverless: CodeChef stats
 │   ├── github.js                  ← Vercel serverless: GitHub stats
-│   └── leetcode.js                ← Vercel serverless: LeetCode stats
+│   ├── leetcode.js                ← Vercel serverless: LeetCode stats
+│   └── views.js                   ← Vercel serverless: visitor counter (Upstash Redis)
 │
 ├── .env                           ← API keys (never committed)
 ├── eslint.config.js
@@ -127,6 +130,7 @@ Portfolio/
 ├── package.json
 ├── postcss.config.js
 ├── tailwind.config.js
+├── vercel.json                    ← SPA rewrite (serves index.html for client routing)
 └── vite.config.js
 ```
 
@@ -214,12 +218,20 @@ The `/api` folder contains Vercel serverless functions that fetch and cache live
 | `/api/leetcode` | LeetCode GraphQL | Rating, solved counts, rank |
 | `/api/github` | GitHub REST API + Contributions API | Repos, stars, followers, contribution grid, weekly commits |
 | `/api/codechef` | CodeChef scrape | Rating, stars, contests |
+| `/api/views` | Upstash Redis | Total page views & unique visitors (`GET` reads, `POST` increments) |
 
-Set the following in `.env`:
+Set the following environment variables (in `.env` locally, and in the Vercel project settings for production):
 
 ```env
 GITHUB_TOKEN=your_github_pat
+
+# Visitor counter — from your Upstash Redis database
+UPSTASH_REDIS_REST_URL=your_upstash_rest_url
+UPSTASH_REDIS_REST_TOKEN=your_upstash_rest_token
+VIEWS_SALT=any_random_string   # optional — hardens IP hashing for unique counts
 ```
+
+> **Note:** The visitor counter only works on Vercel (or via `vercel dev`), since `npm run dev` does not run the `api/` functions. Visitor IPs are SHA-256 hashed with `VIEWS_SALT` and never stored in raw form.
 
 ---
 
@@ -230,6 +242,7 @@ GITHUB_TOKEN=your_github_pat
 - **Icons** — shared icon components in `src/assets/icons/index.jsx`
 - **Contact form** — `access_key` in `src/components/contact/index.jsx` (Web3Forms)
 - **Philosophy entries** — `src/types/philosophy/index.js`
+- **Visitor counter** — logic in `api/views.js`, display in `src/components/visitor-counter/index.jsx`
 
 ---
 
