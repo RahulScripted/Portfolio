@@ -20,7 +20,7 @@ export default function Masthead() {
             Rahul Goswami
           </h1>
           <p className="mt-3 mx-auto max-w-[720px] font-gothic text-[9px] sm:text-[13px] font-semibold uppercase tracking-[0.14em] sm:tracking-[0.42em] leading-[1.6] text-ink-soft">
-            Software Engineer | React | TypeScript | React Native | Product Engineering
+            Designer Soul | Developer Brain | Engineer Heart
           </p>
         </div>
         <div className="mt-1 border-y-[3px] border-ink py-[7px] font-gothic text-[9px] sm:text-[11px] font-semibold uppercase tracking-[0.1em] sm:tracking-[0.14em] text-ink-soft">
