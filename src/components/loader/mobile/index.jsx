@@ -1,5 +1,7 @@
 import { useEffect, useState, useRef, useCallback } from "react";
 import { motion, useAnimation } from "framer-motion";
+import { luffy } from "@types/hero";
+import { randomLuffyLine } from "../messages";
 
 // Dynamically calculates grid configuration based on window width
 const getGridConfig = () => {
@@ -163,7 +165,10 @@ export default function MobileLoader({ onComplete }) {
     return seen;
   });
   const [fadeOut, setFadeOut] = useState(false);
+  const [revealing, setRevealing] = useState(false);
+  const [luffyLine] = useState(() => randomLuffyLine());
   const timeoutRef = useRef(null);
+  const revealRef = useRef(null);
 
   const exit = useCallback(() => {
     setFadeOut(true);
@@ -177,9 +182,11 @@ export default function MobileLoader({ onComplete }) {
 
   useEffect(() => {
     if (done) return;
-    timeoutRef.current = setTimeout(exit, 3000); // show skeleton for 3s
+    revealRef.current = setTimeout(() => setRevealing(true), 2100); // Luffy reveal
+    timeoutRef.current = setTimeout(exit, 3400); // then fade out
     return () => {
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      if (revealRef.current) clearTimeout(revealRef.current);
     };
   }, [done, exit]);
 
@@ -210,7 +217,30 @@ export default function MobileLoader({ onComplete }) {
         background: "#FBFAF5",
       }}
     >
-      <AnimatedLoadingSkeleton />
+      {revealing ? (
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ type: "spring", stiffness: 220, damping: 18 }}
+          style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 18 }}
+        >
+          <img
+            src={luffy}
+            alt="Luffy reacting to the reveal"
+            style={{ width: 160, height: 160, objectFit: "contain", filter: "drop-shadow(3px 3px 0 rgba(0,0,0,0.6))" }}
+            loading="eager"
+            decoding="async"
+          />
+          <div className="fm-stamp" style={{ position: "relative", transform: "rotate(-8deg)", opacity: 1, maxWidth: "82vw", textAlign: "center", border: "4px solid #a6382c" }}>
+            <span className="fm-stamp-text" style={{ display: "block", color: "#a6382c" }}>
+              <span style={{ display: "block" }}>{luffyLine.jp}</span>
+              <span style={{ display: "block", fontSize: "16px", letterSpacing: "0.12em", marginTop: 4 }}>{luffyLine.en}</span>
+            </span>
+          </div>
+        </motion.div>
+      ) : (
+        <AnimatedLoadingSkeleton />
+      )}
     </div>
   );
 }

@@ -1,15 +1,15 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowLeftIcon } from "@animations";
-import postcard from "@assets/webps/404.webp";
+import { luffy } from "@types/hero";
 
 /**
  * Editorial 404 — matched to "The Rahul Goswami Times" theme.
  * Rendered as a catch-all route when a URL doesn't exist.
  */
 export default function NotFound({
-  postcardImage = postcard,
-  postcardAlt = "Statue of Unity, Gujarat — India Postcard",
+  postcardImage = luffy,
+  postcardAlt = "Luffy — even lost pages set sail eventually",
   curvedTextTop = "The Rahul Goswami Times",
   curvedTextBottom = "Dispatch from India",
   heading = "(404) Looks like the page you're looking for got lost somewhere.",
@@ -67,7 +67,9 @@ export default function NotFound({
                 <img
                   src={postcardImage}
                   alt={postcardAlt}
-                  className="w-[320px] h-[220px] sm:w-[360px] object-cover"
+                  className="w-[340px] h-[200px] sm:w-[440px] sm:h-[240px] object-contain"
+                  loading="lazy"
+                  decoding="async"
                 />
               </div>
               {/* Stamp corner */}
