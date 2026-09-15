@@ -86,8 +86,15 @@ function AnimatedLoadingSkeleton() {
       initial="hidden"
       animate="visible"
     >
-      {/* Masthead rule to match editorial theme */}
+      {/* Masthead rule with "Searching" label to match editorial theme */}
       <div className="flex items-center gap-3 mb-4">
+        <motion.span
+          className="font-gothic text-[11px] font-bold uppercase tracking-[0.18em] text-stamp whitespace-nowrap"
+          animate={{ opacity: [0.4, 1, 0.4] }}
+          transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }}
+        >
+          Searching
+        </motion.span>
         <div className="flex-1 h-px bg-ink/20" />
       </div>
 

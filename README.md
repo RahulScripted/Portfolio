@@ -70,10 +70,11 @@ Portfolio/
 │   │   └── index.jsx              ← shared animated icon components
 │   │
 │   ├── assets/
+│   │   ├── gif/                   ← Luffy gif (404 page & loader reveal)
 │   │   ├── icons/                 ← shared reusable SVG icon components
-│   │   ├── jpeg/                  ← profile & doodle images
 │   │   ├── projects/              ← project screenshots
 │   │   ├── svgs/                  ← brand & tech icons
+│   │   ├── webps/                 ← profile, doodle & 404 images
 │   │   └── cv.pdf
 │   │
 │   ├── components/
@@ -94,9 +95,15 @@ Portfolio/
 │   │   ├── footer/                ← footer with social links, copyright & visitor counter
 │   │   ├── hero/                  ← hero masthead
 │   │   ├── lab-report/            ← tech stack section
-│   │   ├── loader/                ← intro loader animation
+│   │   ├── loader/                ← intro loader (desktop + mobile) with Luffy reveal
+│   │   │   ├── desktop/           ← magnifying-glass "hunt" intro
+│   │   │   ├── mobile/            ← searching skeleton + Luffy reveal
+│   │   │   └── messages.js        ← random Luffy quotes (JP + EN)
 │   │   ├── masthead/              ← newspaper masthead bar
 │   │   ├── nav/                   ← navigation
+│   │   │   ├── CurvedMenu.jsx     ← mobile curved slide-in menu
+│   │   │   └── MenuToggle.jsx     ← animated morphing hamburger/close icon
+│   │   ├── not-found/             ← editorial 404 page (Luffy postcard)
 │   │   ├── projects/              ← project showcase
 │   │   ├── scroll-link/           ← smooth scroll utility
 │   │   └── visitor-counter/       ← live page-view & unique-visitor tally
@@ -151,6 +158,14 @@ Portfolio/
 | `#philosophy` | Philosophy | Engineering principles with connected pipe-flow diagram |
 | `#bounty` | Bounty Board | Live coding stats dashboard |
 | `#contact` | Letters & Commissions | Contact form via Web3Forms |
+
+---
+
+## ✨ Interactions & Easter Eggs
+
+- **Intro loader** — a magnifying-glass "hunt" on desktop and a searching skeleton on mobile. Right before it clears, Luffy pops in with a random quote shown in Japanese + English (`src/components/loader/messages.js`).
+- **Mobile menu** — a curved slide-in panel with a bezier-morphing edge, numbered items, and a per-letter hover shift. The hamburger morphs into a close icon that pins to the top-right while open (`src/components/nav/CurvedMenu.jsx`, `MenuToggle.jsx`).
+- **404 page** — Luffy takes over the postcard frame with the tape strip, rotated stamp, and postal cancellation marks.
 
 ---
 

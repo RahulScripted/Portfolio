@@ -3,7 +3,8 @@ import { useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { navLinks } from "@types/shared";
 import ScrollLink from "@components/scroll-link";
-import { ArrowUpIcon } from "@animations";
+import CurvedMenu from "./CurvedMenu";
+import MenuToggle from "./MenuToggle";
 
 export default function Nav() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -54,47 +55,38 @@ export default function Nav() {
           </div>
 
           <div className="flex items-center gap-3 min-[860px]:hidden">
-            <button
-              type="button"
-              aria-label={menuOpen ? "Close menu" : "Open menu"}
+            <div
               aria-expanded={menuOpen}
-              onClick={() => setMenuOpen((o) => !o)}
-              className="flex h-[42px] w-[42px] flex-none flex-col items-center justify-center gap-[5px] border-2 border-ink"
+              className={`z-50 flex h-[42px] w-[42px] flex-none items-center justify-center border-2 border-ink bg-paper text-ink ${
+                menuOpen ? "fixed right-3 top-[9px] sm:right-5" : "relative"
+              }`}
             >
-              <span className={`h-0.5 w-5 bg-ink transition-transform duration-200 ${menuOpen ? "translate-y-[7px] rotate-45" : ""}`} />
-              <span className={`h-0.5 w-5 bg-ink transition-opacity duration-150 ${menuOpen ? "opacity-0" : ""}`} />
-              <span className={`h-0.5 w-5 bg-ink transition-transform duration-200 ${menuOpen ? "-translate-y-[7px] -rotate-45" : ""}`} />
-            </button>
+              <MenuToggle
+                open={menuOpen}
+                onOpenChange={setMenuOpen}
+                strokeWidth={2.5}
+                className="size-6"
+              />
+            </div>
           </div>
         </nav>
 
-        <AnimatePresence>
-          {menuOpen && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="overflow-hidden border-t-2 border-ink min-[860px]:hidden"
-            >
-              <div className="pb-4 pt-1.5">
-                {navLinks.map((l) => (
-                  <ScrollLink key={l.href} to={l.href.replace("#", "")} onClose={close} className="flex items-center justify-between px-0.5 py-[14px] font-display text-[28px] font-normal tracking-[-0.01em] text-ink hover:text-ink-soft transition-colors">
-                    <span>{l.label}</span>
-                    <ArrowUpIcon size={20} rotate={45} />
-                  </ScrollLink>
-                ))}
-                <div className="mt-4">
-                  <ScrollLink to="contact" onClose={close} className="flex w-full items-center justify-center gap-2 border-2 border-ink font-gothic text-[13px] font-bold uppercase tracking-[0.1em] px-[22px] py-3 bg-ink text-paper hover:bg-transparent hover:text-ink transition-colors">
-                    Let's Talk
-                    <ArrowUpIcon size={16} rotate={45} />
-                  </ScrollLink>
-                </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
       </div>
+
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            key="backdrop"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.4 }}
+            onClick={close}
+            className="fixed inset-0 z-30 bg-ink/40 min-[860px]:hidden"
+          />
+        )}
+        {menuOpen && <CurvedMenu key="curved-menu" onClose={close} />}
+      </AnimatePresence>
     </div>
   );
 }
