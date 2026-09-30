@@ -1,18 +1,17 @@
 import { motion } from "framer-motion";
 
 const SKILLS = [
-  { label: "React / Next.js",  pct: 92 },
-  { label: "TypeScript",       pct: 85 },
-  { label: "Node / Express",   pct: 78 },
-  { label: "Tailwind CSS",     pct: 90 },
-  { label: "MongoDB",          pct: 72 },
-  { label: "React Native",     pct: 68 },
+  { label: "React / Next.js",  pct: 97 },
+  { label: "TypeScript",       pct: 91 },
+  { label: "Node / Express",   pct: 72 },
+  { label: "Tailwind CSS",     pct: 95 },
+  { label: "MongoDB",          pct: 70 },
+  { label: "React Native",     pct: 92 },
 ];
 
 export default function TechMastery() {
   return (
     <div className="relative bg-paper-warm p-4">
-      {/* Center tape */}
       <span aria-hidden="true" className="absolute -top-2 left-1/2 z-10 h-4 w-16 -translate-x-1/2 -rotate-2 border border-ink/10 bg-paper-deep/80" />
       <div className="font-gothic text-[9px] uppercase tracking-[0.14em] text-ink-soft mb-3">Tech Mastery Index</div>
       <div className="flex flex-col gap-3">

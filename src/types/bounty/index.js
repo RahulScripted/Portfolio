@@ -7,10 +7,10 @@ import cssSvg from "@assets/svgs/css3.svg";
 export const RADAR_DATA = [
   { subject: "Frontend", value: 96 }, // SS+
   { subject: "Backend",  value: 72 }, // S
-  { subject: "DSA",      value: 84 }, // SS
-  { subject: "Mobile Development",   value: 73 }, // A
-  { subject: "System Design",   value: 68 }, // A
-  { subject: "UI/UX",    value: 84 }, // S
+  { subject: "DSA",      value: 89 }, // SS
+  { subject: "Mobile Development",   value: 90 }, // A
+  { subject: "System Design",   value: 65 }, // A
+  { subject: "UI/UX",    value: 95 }, // S
 ];
 
 /** Overall rank is SS (weighted: Frontend SS+ + DSA SS anchor the average up) */
