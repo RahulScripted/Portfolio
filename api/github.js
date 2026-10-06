@@ -8,47 +8,19 @@ export default async function handler(req, res) {
     ...(process.env.GITHUB_TOKEN && { Authorization: `Bearer ${process.env.GITHUB_TOKEN}` }),
   };
 
-  const contribQuery = `
-    query($login: String!) {
-      user(login: $login) {
-        contributionsCollection {
-          contributionCalendar {
-            weeks {
-              contributionDays {
-                date
-                contributionCount
-                contributionLevel
-              }
-            }
-          }
-        }
-      }
-    }
-  `;
-
-  // Map GitHub's enum levels to the 0-4 scale the grid expects
-  const LEVEL_MAP = {
-    NONE: 0,
-    FIRST_QUARTILE: 1,
-    SECOND_QUARTILE: 2,
-    THIRD_QUARTILE: 3,
-    FOURTH_QUARTILE: 4,
-  };
-
   try {
-    const [userRes, reposRes, graphRes] = await Promise.all([
+    const [userRes, reposRes, contribRes, eventsRes] = await Promise.all([
       fetch(`https://api.github.com/users/${username}`, { headers }),
       fetch(`https://api.github.com/users/${username}/repos?per_page=100&type=owner`, { headers }),
-      fetch("https://api.github.com/graphql", {
-        method: "POST",
-        headers: { ...headers, "Content-Type": "application/json" },
-        body: JSON.stringify({ query: contribQuery, variables: { login: username } }),
-      }),
+      fetch(`https://github-contributions-api.jogruber.de/v4/${username}?y=last`),
+      // Events API gives us recent push events to fill the gap
+      fetch(`https://api.github.com/users/${username}/events?per_page=100`, { headers }),
     ]);
 
     const user = await userRes.json();
     const repos = await reposRes.json();
-    const graph = await graphRes.json();
+    const contrib = await contribRes.json();
+    const events = await eventsRes.json();
 
     const totalStars = Array.isArray(repos)
       ? repos.reduce((s, r) => s + r.stargazers_count, 0)
@@ -58,24 +30,44 @@ export default async function handler(req, res) {
       ? [...new Set(repos.map((r) => r.language).filter(Boolean))]
       : [];
 
-    const calendar =
-      graph?.data?.user?.contributionsCollection?.contributionCalendar?.weeks ?? [];
-    const days = calendar.flatMap((w) =>
-      w.contributionDays.map((d) => ({
-        date: d.date,
-        count: d.contributionCount ?? 0,
-        level: LEVEL_MAP[d.contributionLevel] ?? 0,
-      }))
-    );
+    // Get contribution days from the external API
+    let days = contrib.contributions ?? [];
 
-    const totalContributions = days.reduce((s, d) => s + d.count, 0);
+    if (Array.isArray(events) && days.length > 0) {
+      const lastDate = days[days.length - 1]?.date;
+      if (lastDate) {
+        const today = new Date().toISOString().split("T")[0];
+        if (lastDate < today) {
+          const recentCounts = {};
+          for (const event of events) {
+            if (event.type === "PushEvent" && event.created_at) {
+              const eventDate = event.created_at.split("T")[0];
+              if (eventDate > lastDate && eventDate <= today) {
+                recentCounts[eventDate] = (recentCounts[eventDate] || 0) + (event.payload?.commits?.length || 1);
+              }
+            }
+          }
+
+          // Append missing days
+          const cursor = new Date(lastDate + "T00:00:00Z");
+          while (true) {
+            cursor.setUTCDate(cursor.getUTCDate() + 1);
+            const dateStr = cursor.toISOString().split("T")[0];
+            if (dateStr > today) break;
+            const count = recentCounts[dateStr] || 0;
+            const level = count === 0 ? 0 : count <= 3 ? 1 : count <= 6 ? 2 : count <= 10 ? 3 : 4;
+            days.push({ date: dateStr, count, level });
+          }
+        }
+      }
+    }
 
     res.json({
       followers: user.followers ?? 0,
       publicRepos: user.public_repos ?? 0,
       totalStars,
       languages,
-      contributions: { lastYear: totalContributions },
+      contributions: contrib.total ?? {},
       weeks: days,
     });
   } catch (e) {
