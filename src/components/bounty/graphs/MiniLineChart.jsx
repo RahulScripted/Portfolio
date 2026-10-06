@@ -70,8 +70,8 @@ export default function MiniLineChart({ days = [] }) {
           axisLine={false}
           allowDecimals={false}
           width={28}
-          domain={[0, 100]}
-          ticks={[10, 25, 50, 100]}
+          domain={[0, 50]}
+          ticks={[5, 10, 25, 50]}
         />
         <Tooltip content={<CustomTooltip />} />
         <Line
