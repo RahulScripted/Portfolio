@@ -270,17 +270,17 @@ function Stat({ label, value, unit, sub, accent, size, align }) {
   if (align === "stack") {
     return (
       <div className="min-w-0">
-        <div className="text-[13px] leading-tight" style={{ color: MUTED }}>{label}</div>
-        <div className="mt-1 flex items-baseline gap-1.5">
+        <div className="truncate text-[12px] leading-tight sm:text-[13px]" style={{ color: MUTED }}>{label}</div>
+        <div className="mt-1 flex flex-wrap items-baseline gap-x-1.5">
           <span
             className="font-semibold tabular-nums transition-colors duration-500 motion-reduce:transition-none"
             style={{ color: accent, fontSize: size, lineHeight: 1, letterSpacing: "-0.02em" }}
           >
             {value}
           </span>
-          <span className="text-[14px]">{unit}</span>
+          <span className="text-[13px] sm:text-[14px]">{unit}</span>
         </div>
-        <div className="mt-0.5 truncate text-[12px]" style={{ color: MUTED }}>{sub}</div>
+        <div className="mt-0.5 truncate text-[11px] sm:text-[12px]" style={{ color: MUTED }}>{sub}</div>
       </div>
     );
   }
@@ -1009,11 +1009,11 @@ export default function ContributionSkyline({
   return (
     <section
       ref={rootRef}
-      className={"relative w-full rounded-xl border p-4 font-mono sm:p-5 " + className}
+      className={"relative w-full rounded-xl border p-2.5 font-mono sm:p-5 " + className}
       style={{ background: THEME_BG, color: THEME_FG, borderColor: THEME_BORDER }}
     >
-      <header className="mb-3 flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
-        <h3 className="m-0 text-[15px] font-normal leading-snug">
+      <header className="mb-3 flex items-center justify-between gap-x-3 gap-y-2">
+        <h3 className="m-0 min-w-0 flex-1 text-[13px] font-normal leading-snug sm:text-[15px]">
           {title ?? (
             <>
               <span className="font-semibold tabular-nums">{nf.format(stats.total)}</span> {noun(stats.total)} in the last year
@@ -1021,7 +1021,7 @@ export default function ContributionSkyline({
           )}
         </h3>
         {showToggle && (
-          <div role="group" aria-label="Chart view" className="relative inline-flex rounded-md border p-0.5" style={{ borderColor: THEME_BORDER }}>
+          <div role="group" aria-label="Chart view" className="relative inline-flex shrink-0 rounded-md border p-0.5" style={{ borderColor: THEME_BORDER }}>
             <span
               aria-hidden="true"
               className="absolute top-0.5 bottom-0.5 left-0.5 w-8 rounded transition-transform duration-500 motion-reduce:transition-none"
@@ -1046,7 +1046,7 @@ export default function ContributionSkyline({
       </header>
 
       <div className="relative rounded-lg border" style={{ borderColor: THEME_BORDER }}>
-        <div className="relative px-3 pt-3 sm:px-4 sm:pt-4">
+        <div className="relative px-2 pt-2 sm:px-4 sm:pt-4">
           <div
             ref={stageRef}
             className="relative w-full overflow-hidden rounded-md outline-offset-4 has-[:focus-visible]:outline-2"
@@ -1134,9 +1134,9 @@ export default function ContributionSkyline({
             style={{ gridTemplateRows: showRow ? "1fr" : "0fr", opacity: showRow ? 1 : 0, transitionDuration: duration + "ms", transitionTimingFunction: ease }}
           >
             <div className="min-h-0 overflow-hidden">
-              <div className="grid grid-cols-2 gap-x-4 gap-y-4 px-3 pt-4 pb-1 sm:px-4 md:grid-cols-4">
+              <div className="grid grid-cols-2 gap-x-3 gap-y-4 px-3 pt-4 pb-1 sm:gap-x-4 sm:px-4 md:grid-cols-4">
                 {statBlocks.map((b) => (
-                  <Stat key={b.label} {...b} accent={theme.accent} size={28} align="stack" />
+                  <Stat key={b.label} {...b} accent={theme.accent} size={width < 400 ? 22 : 28} align="stack" />
                 ))}
               </div>
             </div>
@@ -1145,7 +1145,7 @@ export default function ContributionSkyline({
 
         <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 px-3 pt-3 pb-3 text-[12px] sm:px-4" style={{ color: MUTED }}>
           {footer === undefined ? (
-            <span className="relative grid flex-1">
+            <span className="relative hidden flex-1 sm:grid">
               {hints.map((h) => (
                 <span
                   key={h}
@@ -1158,7 +1158,7 @@ export default function ContributionSkyline({
               ))}
             </span>
           ) : (
-            <span className="flex-1">{footer}</span>
+            <span className="hidden flex-1 sm:inline">{footer}</span>
           )}
           {showLegend && (
             <div className="flex items-center gap-1.5" onMouseLeave={() => setLegendLevel(-1)}>

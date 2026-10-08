@@ -86,7 +86,7 @@ export default function Bounty() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-8">
 
           {/* Contribution grid */}
-          <div className="relative lg:col-span-2 bg-paper-warm p-4">
+          <div className="relative lg:col-span-2 bg-paper-warm p-2.5 sm:p-4">
             <span aria-hidden="true" className="absolute -top-2 left-1/2 z-10 h-4 w-16 -translate-x-1/2 -rotate-2 border border-ink/10 bg-paper-deep/80" />
             <div className="flex items-center justify-between gap-2 mb-3">
               <div className="flex items-center gap-2">

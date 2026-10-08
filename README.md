@@ -81,7 +81,7 @@ Portfolio/
 │   │   ├── book-call/             ← booking form page
 │   │   ├── bounty/                ← live stats dashboard (LeetCode · GitHub · CodeChef)
 │   │   │   ├── components/        ← StatCard, PlatformCard, OverviewGrid, TechMastery
-│   │   │   ├── graphs/            ← DonutChart, RadarChart, ContributionGrid (with month/day labels), MiniLineChart
+│   │   │   ├── graphs/            ← DonutChart, RadarChart, ContributionSkyline (2D heat map ⇄ 3D skyline)
 │   │   │   └── hooks/             ← useStatsData (API fetching)
 │   │   ├── case-studies/          ← case study section
 │   │   │   ├── cards/             ← interactive cards with group hover effects & react-icons
@@ -163,6 +163,7 @@ Portfolio/
 
 ## ✨ Interactions & Easter Eggs
 
+- **Contribution skyline** — the Bounty Board renders a year of GitHub activity as a GitHub-style heat map that folds up into an interactive 3D isometric skyline. Toggle 2D/3D, hover or arrow-key through days, drag to orbit in 3D (double-click to reset), and hover the legend to isolate activity levels. Driven by live `/api/github` data and themed to the paper/ink/stamp palette (`src/components/bounty/graphs/ContributionSkyline.jsx`).
 - **Intro loader** — a magnifying-glass "hunt" on desktop and a searching skeleton on mobile. Right before it clears, Luffy pops in with a random quote shown in Japanese + English (`src/components/loader/messages.js`).
 - **Mobile menu** — a curved slide-in panel with a bezier-morphing edge, numbered items, and a per-letter hover shift. The hamburger morphs into a close icon that pins to the top-right while open (`src/components/nav/CurvedMenu.jsx`, `MenuToggle.jsx`).
 - **404 page** — Luffy takes over the postcard frame with the tape strip, rotated stamp, and postal cancellation marks.
@@ -231,7 +232,7 @@ The `/api` folder contains Vercel serverless functions that fetch and cache live
 | Endpoint | Source | Data |
 |----------|--------|------|
 | `/api/leetcode` | LeetCode GraphQL | Rating, solved counts, rank |
-| `/api/github` | GitHub REST API + Contributions API | Repos, stars, followers, contribution grid, weekly commits |
+| `/api/github` | GitHub REST API + Contributions API | Repos, stars, followers, daily contributions (powers the skyline) |
 | `/api/codechef` | CodeChef scrape | Rating, stars, contests |
 | `/api/views` | Upstash Redis | Total page views & unique visitors (`GET` reads, `POST` increments) |
 
