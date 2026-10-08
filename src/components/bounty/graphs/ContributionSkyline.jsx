@@ -1134,7 +1134,7 @@ export default function ContributionSkyline({
             style={{ gridTemplateRows: showRow ? "1fr" : "0fr", opacity: showRow ? 1 : 0, transitionDuration: duration + "ms", transitionTimingFunction: ease }}
           >
             <div className="min-h-0 overflow-hidden">
-              <div className="grid grid-cols-2 gap-x-3 gap-y-4 px-3 pt-4 pb-1 sm:gap-x-4 sm:px-4 md:grid-cols-4">
+              <div className="grid grid-cols-2 gap-x-3 gap-y-4 px-3 pt-4 pb-1 sm:gap-x-4 sm:px-4">
                 {statBlocks.map((b) => (
                   <Stat key={b.label} {...b} accent={theme.accent} size={width < 400 ? 22 : 28} align="stack" />
                 ))}
