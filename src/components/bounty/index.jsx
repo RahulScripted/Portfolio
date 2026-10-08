@@ -3,8 +3,7 @@ import SectionHeader from "@components/shared/SectionHeader";
 import OverviewGrid from "./components/OverviewGrid";
 import PlatformCard from "./components/PlatformCard";
 import TechMastery from "./components/TechMastery";
-import ContributionGrid from "./graphs/ContributionGrid";
-import MiniLineChart from "./graphs/MiniLineChart";
+import ContributionSkyline from "./graphs/ContributionSkyline";
 import RadarChart from "./graphs/RadarChart";
 import { RADAR_DATA, RADAR_OVERALL, LANG_ICONS } from "@types/bounty";
 
@@ -92,8 +91,8 @@ export default function Bounty() {
             <div className="flex items-center justify-between gap-2 mb-3">
               <div className="flex items-center gap-2">
                 <img src={githubSvg} alt="GitHub" className="w-5 h-5" />
-                <span className="font-gothic text-[9px] uppercase tracking-[0.14em] text-ink-soft truncate max-w-[160px] sm:max-w-none">
-                  GitHub Contributions — {github?.contributions?.lastYear?.toLocaleString() ?? 0} in the last year
+                <span className="font-gothic text-[9px] uppercase tracking-[0.14em] text-ink-soft">
+                  GitHub Contributions
                 </span>
               </div>
               <a
@@ -108,12 +107,26 @@ export default function Bounty() {
                 </svg>
               </a>
             </div>
-            <div className="overflow-x-auto mt-4 sm:mt-10">
-              <ContributionGrid days={days} />
-            </div>
-            <div className="mt-8 md:mt-3 pt-6">
-              <div className="font-gothic text-[9px] uppercase tracking-[0.1em] text-ink-soft mb-2">Weekly commit activity</div>
-              <MiniLineChart days={days} />
+            <div className="mt-4">
+              {days.length > 0 ? (
+                <ContributionSkyline
+                  data={days}
+                  defaultView="3d"
+                  showToggle
+                  showStats
+                  showLegend
+                  title={
+                    <>
+                      <span className="font-semibold tabular-nums">
+                        {github?.contributions?.lastYear?.toLocaleString() ?? 0}
+                      </span>{" "}
+                      contributions in the last year
+                    </>
+                  }
+                />
+              ) : (
+                <div className="font-gothic text-[10px] text-ink-soft">No contribution data</div>
+              )}
             </div>
           </div>
 
