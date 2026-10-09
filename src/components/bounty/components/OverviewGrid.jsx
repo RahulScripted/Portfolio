@@ -7,7 +7,7 @@ export default function OverviewGrid({ leetcode, github, codechef }) {
   const totalSolved = (leetcode?.total ?? 0) + (codechef?.solved ?? 0);
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 mb-8">
+    <div className="grid grid-cols-2 sm:grid-cols-4 gap-x-4 gap-y-5 sm:gap-3 mb-8">
       <StatCard
         num="01"
         label="Problems Solved"
