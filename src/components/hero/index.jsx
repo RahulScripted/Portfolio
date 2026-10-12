@@ -183,8 +183,7 @@ export default function Hero() {
               <strong className="font-bold uppercase tracking-[0.1em] text-ink">
                 Pictured:
               </strong>{" "}
-              An engineer somewhere between debugging a production issue and
-              opening another browser tab.
+              Building cool things, chasing new perspectives, and occasionally touching grass.
             </motion.p>
             <motion.div
               {...settle(0.3)}

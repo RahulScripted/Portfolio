@@ -1,3 +1,5 @@
+import EmptyState from "@components/shared/EmptyState";
+
 const LEVELS = ["#EDE8DC", "#C4A882", "#A6382C", "#8B0000", "#5C0000"];
 
 const DAY_LABELS = ["", "Mon", "", "Wed", "", "Fri", ""];
@@ -112,7 +114,7 @@ function alignToSunday(days) {
 
 export default function ContributionGrid({ days = [] }) {
   if (!days.length) {
-    return <div className="font-gothic text-[10px] text-ink-soft">No contribution data</div>;
+    return <EmptyState message="No contribution data" />;
   }
 
   const aligned = alignToSunday(days.slice(-364));

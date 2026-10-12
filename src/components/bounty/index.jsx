@@ -5,6 +5,7 @@ import PlatformCard from "./components/PlatformCard";
 import TechMastery from "./components/TechMastery";
 import ContributionSkyline from "./graphs/ContributionSkyline";
 import RadarChart from "./graphs/RadarChart";
+import EmptyState from "@components/shared/EmptyState";
 import { RADAR_DATA, RADAR_OVERALL, LANG_ICONS } from "@types/bounty";
 
 import leetcodeSvg  from "@assets/svgs/leetcode.svg";
@@ -125,7 +126,23 @@ export default function Bounty() {
                   }
                 />
               ) : (
-                <div className="font-gothic text-[10px] text-ink-soft">No contribution data</div>
+                <EmptyState
+                  message="Couldn't load contributions"
+                  hint="GitHub activity isn't available right now. It'll show up here once the data loads."
+                  action={
+                    <a
+                      href="https://github.com/RahulScripted"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 font-gothic text-[9px] uppercase tracking-[0.1em] text-stamp border border-stamp px-3 py-1.5 hover:bg-stamp hover:text-paper transition-colors"
+                    >
+                      View on GitHub
+                      <svg width="9" height="9" viewBox="0 0 9 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1.5 7.5L7.5 1.5M7.5 1.5H3M7.5 1.5V6" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    </a>
+                  }
+                />
               )}
             </div>
           </div>
