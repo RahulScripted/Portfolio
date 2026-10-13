@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { navLinks } from "@types/shared";
 import ScrollLink from "@components/scroll-link";
@@ -49,9 +49,12 @@ export default function Nav() {
                 {l.label}
               </ScrollLink>
             ))}
-            <ScrollLink to="contact" className="inline-flex items-center gap-2 whitespace-nowrap border-2 border-ink font-gothic text-[11.5px] font-bold uppercase tracking-[0.1em] px-[15px] py-2 bg-ink text-paper hover:bg-transparent hover:text-ink transition-colors duration-150">
+            <Link
+              to="/book-call"
+              className="inline-flex items-center gap-2 whitespace-nowrap border-2 border-ink font-gothic text-[11.5px] font-bold uppercase tracking-[0.1em] px-[15px] py-2 bg-ink text-paper hover:bg-transparent hover:text-ink transition-colors duration-150"
+            >
               Let's Talk
-            </ScrollLink>
+            </Link>
           </div>
 
           <div className="flex items-center gap-3 min-[860px]:hidden">

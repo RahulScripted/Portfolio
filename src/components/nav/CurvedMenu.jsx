@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { motion, useMotionValue } from "framer-motion";
 import { navLinks } from "@types/shared";
 import ScrollLink from "@components/scroll-link";
@@ -119,13 +120,13 @@ export default function CurvedMenu({ onClose }) {
         </div>
 
         <div className="px-9 pb-8">
-          <ScrollLink
-            to="contact"
-            onClose={onClose}
+          <Link
+            to="/book-call"
+            onClick={onClose}
             className="flex w-full items-center justify-center gap-2 border-2 border-ink bg-ink px-6 py-3 font-gothic text-[13px] font-bold uppercase tracking-[0.1em] text-paper hover:bg-transparent hover:text-ink transition-colors"
           >
             Let's Talk
-          </ScrollLink>
+          </Link>
         </div>
       </div>
       <Curve />
