@@ -97,7 +97,7 @@ const styles = `
 
 export default function BouncingBallLoader({ label = "Loading", className = "" }) {
   return (
-    <div className={"flex flex-col items-center justify-center " + className} role="status" aria-live="polite">
+    <div className={"flex w-full flex-col items-center justify-center text-center " + className} role="status" aria-live="polite">
       <style>{styles}</style>
       <div className="bbl-wrap">
         <div className="bbl-ball">

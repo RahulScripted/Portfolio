@@ -47,5 +47,5 @@ export default function useStatsData() {
     [githubYear]
   );
 
-  return { ...data, githubYear, githubLoading, selectGithubYear };
+  return { ...data, githubYear, githubLoading, selectGithubYear, currentYear };
 }

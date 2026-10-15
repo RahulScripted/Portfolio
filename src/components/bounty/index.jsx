@@ -23,7 +23,7 @@ function Skeleton() {
 }
 
 export default function Bounty() {
-  const { leetcode, github, codechef, loading, githubYear, githubLoading, selectGithubYear } = useStatsData();
+  const { leetcode, github, codechef, loading, githubYear, githubLoading, selectGithubYear, currentYear } = useStatsData();
   const days = github?.weeks ?? [];
 
   const yearOptions = github?.years ?? [];
@@ -103,40 +103,41 @@ export default function Bounty() {
                   GitHub Contributions
                 </span>
               </div>
-              <a
-                href="https://github.com/RahulScripted"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-gothic text-[9px] uppercase tracking-[0.1em] text-stamp border border-stamp px-2 py-0.5 hover:bg-stamp hover:text-paper transition-colors shrink-0 flex items-center gap-1"
-              >
-                Profile
-                <svg width="9" height="9" viewBox="0 0 9 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M1.5 7.5L7.5 1.5M7.5 1.5H3M7.5 1.5V6" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </a>
+              <div className="flex items-center gap-2 shrink-0">
+                {yearOptions.length > 0 && (
+                  <FluidDropdown
+                    ariaLabel="Select contribution year"
+                    className="w-[88px]"
+                    value={selectedYear}
+                    disabled={githubLoading}
+                    onChange={selectGithubYear}
+                    options={yearOptions.map((y) => ({ value: y, label: y }))}
+                  />
+                )}
+                <a
+                  href="https://github.com/RahulScripted"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-gothic text-[9px] uppercase tracking-[0.1em] text-stamp border border-stamp px-2 py-0.5 hover:bg-stamp hover:text-paper transition-colors flex items-center gap-1"
+                >
+                  Profile
+                  <svg width="9" height="9" viewBox="0 0 9 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1.5 7.5L7.5 1.5M7.5 1.5H3M7.5 1.5V6" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </a>
+              </div>
             </div>
             <div className="mt-4">
-              {loading ? (
+              {loading || githubLoading ? (
                 <BouncingBallLoader label="Loading contributions" className="py-6" />
               ) : days.length > 0 ? (
                 <ContributionSkyline
                   data={days}
+                  endDate={selectedYear === currentYear ? new Date().toISOString().slice(0, 10) : `${selectedYear}-12-31`}
                   defaultView="3d"
                   showToggle
                   showStats
                   showLegend
-                  toolbar={
-                    yearOptions.length > 0 ? (
-                      <FluidDropdown
-                        ariaLabel="Select contribution year"
-                        className="w-[88px]"
-                        value={selectedYear}
-                        disabled={githubLoading}
-                        onChange={selectGithubYear}
-                        options={yearOptions.map((y) => ({ value: y, label: y }))}
-                      />
-                    ) : null
-                  }
                   title={
                     <>
                       <span className="font-semibold tabular-nums">
