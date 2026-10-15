@@ -2,9 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Metric-adjusted fallback fonts to minimize layout shift (CLS) while
-   the web fonts load. These approximate Playfair Display / Space Mono
-   so text doesn't reflow when the real fonts swap in. */
 @font-face {
   font-family: "Playfair Fallback";
   src: local("Georgia");

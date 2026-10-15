@@ -21,8 +21,11 @@ function Skeleton() {
 }
 
 export default function Bounty() {
-  const { leetcode, github, codechef, loading } = useStatsData();
+  const { leetcode, github, codechef, loading, githubYear, githubLoading, selectGithubYear } = useStatsData();
   const days = github?.weeks ?? [];
+
+  const yearOptions = github?.years ?? [];
+  const selectedYear = githubYear;
 
   return (
     <section id="bounty" className="scroll-mt-[50px] py-14 sm:py-[76px] px-3 sm:px-5" aria-label="Coding stats dashboard">
@@ -57,6 +60,7 @@ export default function Bounty() {
           {/* CodeChef */}
           <PlatformCard
             icon={codechefSvg} name="CodeChef" code="CC-001"
+            empty={!loading && !codechef}
             link="https://www.codechef.com/users/explosion_king"
             easy={codechef?.solved ? Math.round(codechef.solved * 0.45) : undefined}
             medium={codechef?.solved ? Math.round(codechef.solved * 0.38) : undefined}
@@ -72,6 +76,7 @@ export default function Bounty() {
           {/* LeetCode */}
           <PlatformCard
             icon={leetcodeSvg} name="LeetCode" code="LC-002"
+            empty={!loading && !leetcode}
             link="https://leetcode.com/RahulScripted"
             easy={leetcode?.easy} medium={leetcode?.medium} hard={leetcode?.hard}
             stats={[
@@ -116,12 +121,42 @@ export default function Bounty() {
                   showToggle
                   showStats
                   showLegend
+                  toolbar={
+                    yearOptions.length > 0 ? (
+                      <div className="relative">
+                        <select
+                          aria-label="Select contribution year"
+                          value={selectedYear}
+                          disabled={githubLoading}
+                          onChange={(e) => selectGithubYear(e.target.value)}
+                          className="appearance-none font-gothic text-[9px] uppercase tracking-[0.1em] text-ink-soft bg-paper border border-rule rounded-md h-8 pl-2.5 pr-6 cursor-pointer hover:text-ink hover:border-ink/40 focus:outline-none focus:border-stamp transition-colors disabled:opacity-50 disabled:cursor-wait"
+                        >
+                          {yearOptions.map((y) => (
+                            <option key={y} value={y}>
+                              {y}
+                            </option>
+                          ))}
+                        </select>
+                        <svg
+                          aria-hidden="true"
+                          className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-ink-soft"
+                          width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path d="M1 2.5L4 5.5L7 2.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      </div>
+                    ) : null
+                  }
                   title={
                     <>
                       <span className="font-semibold tabular-nums">
-                        {github?.contributions?.lastYear?.toLocaleString() ?? 0}
+                        {(
+                          github?.contributions?.[selectedYear] ??
+                          github?.contributions?.lastYear ??
+                          0
+                        ).toLocaleString()}
                       </span>{" "}
-                      contributions in the last year
+                      contributions in {selectedYear || "the last year"}
                     </>
                   }
                 />
@@ -129,19 +164,6 @@ export default function Bounty() {
                 <EmptyState
                   message="Couldn't load contributions"
                   hint="GitHub activity isn't available right now. It'll show up here once the data loads."
-                  action={
-                    <a
-                      href="https://github.com/RahulScripted"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 font-gothic text-[9px] uppercase tracking-[0.1em] text-stamp border border-stamp px-3 py-1.5 hover:bg-stamp hover:text-paper transition-colors"
-                    >
-                      View on GitHub
-                      <svg width="9" height="9" viewBox="0 0 9 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M1.5 7.5L7.5 1.5M7.5 1.5H3M7.5 1.5V6" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                    </a>
-                  }
                 />
               )}
             </div>

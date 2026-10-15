@@ -8,11 +8,15 @@ export default async function handler(req, res) {
     ...(process.env.GITHUB_TOKEN && { Authorization: `Bearer ${process.env.GITHUB_TOKEN}` }),
   };
 
+  const rawYear = Array.isArray(req.query?.year) ? req.query.year[0] : req.query?.year;
+  const isYear = /^\d{4}$/.test(rawYear ?? "");
+  const yParam = isYear ? rawYear : "last";
+
   try {
     const [userRes, reposRes, contribRes, eventsRes] = await Promise.all([
       fetch(`https://api.github.com/users/${username}`, { headers }),
       fetch(`https://api.github.com/users/${username}/repos?per_page=100&type=owner`, { headers }),
-      fetch(`https://github-contributions-api.jogruber.de/v4/${username}?y=last`),
+      fetch(`https://github-contributions-api.jogruber.de/v4/${username}?y=${yParam}`),
       // Events API gives us recent push events to fill the gap
       fetch(`https://api.github.com/users/${username}/events?per_page=100`, { headers }),
     ]);
@@ -33,7 +37,7 @@ export default async function handler(req, res) {
     // Get contribution days from the external API
     let days = contrib.contributions ?? [];
 
-    if (Array.isArray(events) && days.length > 0) {
+    if (!isYear && Array.isArray(events) && days.length > 0) {
       const lastDate = days[days.length - 1]?.date;
       if (lastDate) {
         const today = new Date().toISOString().split("T")[0];
@@ -62,6 +66,12 @@ export default async function handler(req, res) {
       }
     }
 
+    const startYear = user.created_at ? new Date(user.created_at).getUTCFullYear() : null;
+    const nowYear = new Date().getUTCFullYear();
+    const years = startYear
+      ? Array.from({ length: nowYear - startYear + 1 }, (_, i) => String(nowYear - i))
+      : [...new Set((days ?? []).map((d) => d.date?.slice(0, 4)).filter(Boolean))].sort((a, b) => b - a);
+
     res.json({
       followers: user.followers ?? 0,
       publicRepos: user.public_repos ?? 0,
@@ -69,6 +79,8 @@ export default async function handler(req, res) {
       languages,
       contributions: contrib.total ?? {},
       weeks: days,
+      year: isYear ? rawYear : "last",
+      years,
     });
   } catch (e) {
     res.status(500).json({ error: e.message });

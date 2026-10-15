@@ -325,6 +325,7 @@ export default function ContributionSkyline({
   showStats = true,
   showLegend = true,
   showToggle = true,
+  toolbar,
   footer,
   locale = "en-US",
   seed = 7,
@@ -1020,27 +1021,32 @@ export default function ContributionSkyline({
             </>
           )}
         </h3>
-        {showToggle && (
-          <div role="group" aria-label="Chart view" className="relative inline-flex shrink-0 rounded-md border p-0.5" style={{ borderColor: THEME_BORDER }}>
-            <span
-              aria-hidden="true"
-              className="absolute top-0.5 bottom-0.5 left-0.5 w-8 rounded transition-transform duration-500 motion-reduce:transition-none"
-              style={{ background: THEME_FG, transform: is3d ? "translateX(100%)" : "translateX(0)", transitionTimingFunction: ease }}
-            />
-            {["2d", "3d"].map((v) => (
-              <button
-                key={v}
-                type="button"
-                aria-pressed={view === v}
-                aria-label={v === "2d" ? "Flat heat map" : "3D skyline"}
-                title={v === "2d" ? "Flat heat map" : "3D skyline"}
-                onClick={() => setView(v)}
-                className="relative z-10 grid h-7 w-8 cursor-pointer place-items-center rounded border-0 bg-transparent p-0 transition-colors duration-500 focus-visible:outline-2 focus-visible:outline-offset-2 motion-reduce:transition-none"
-                style={{ color: view === v ? THEME_BG : MUTED, outlineColor: THEME_FG }}
-              >
-                {v === "2d" ? <GridIcon /> : <CubeIcon />}
-              </button>
-            ))}
+        {(toolbar || showToggle) && (
+          <div className="flex shrink-0 items-center gap-2">
+            {toolbar}
+            {showToggle && (
+              <div role="group" aria-label="Chart view" className="relative inline-flex shrink-0 rounded-md border p-0.5" style={{ borderColor: THEME_BORDER }}>
+                <span
+                  aria-hidden="true"
+                  className="absolute top-0.5 bottom-0.5 left-0.5 w-8 rounded transition-transform duration-500 motion-reduce:transition-none"
+                  style={{ background: THEME_FG, transform: is3d ? "translateX(100%)" : "translateX(0)", transitionTimingFunction: ease }}
+                />
+                {["2d", "3d"].map((v) => (
+                  <button
+                    key={v}
+                    type="button"
+                    aria-pressed={view === v}
+                    aria-label={v === "2d" ? "Flat heat map" : "3D skyline"}
+                    title={v === "2d" ? "Flat heat map" : "3D skyline"}
+                    onClick={() => setView(v)}
+                    className="relative z-10 grid h-7 w-8 cursor-pointer place-items-center rounded border-0 bg-transparent p-0 transition-colors duration-500 focus-visible:outline-2 focus-visible:outline-offset-2 motion-reduce:transition-none"
+                    style={{ color: view === v ? THEME_BG : MUTED, outlineColor: THEME_FG }}
+                  >
+                    {v === "2d" ? <GridIcon /> : <CubeIcon />}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
         )}
       </header>

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 const BASE = import.meta.env.DEV ? "" : "";
 
@@ -20,16 +20,32 @@ export default function useStatsData() {
     codechef: null,
     loading: true,
   });
+  const currentYear = String(new Date().getFullYear());
+  const [githubYear, setGithubYear] = useState(currentYear);
+  const [githubLoading, setGithubLoading] = useState(false);
 
   useEffect(() => {
     Promise.all([
       safeFetch(`${BASE}/api/leetcode`),
-      safeFetch(`${BASE}/api/github`),
+      safeFetch(`${BASE}/api/github?year=${currentYear}`),
       safeFetch(`${BASE}/api/codechef`),
     ]).then(([leetcode, github, codechef]) => {
       setData({ leetcode, github, codechef, loading: false });
     });
-  }, []);
+  }, [currentYear]);
 
-  return data;
+  const selectGithubYear = useCallback(
+    (year) => {
+      if (year === githubYear) return;
+      setGithubYear(year);
+      setGithubLoading(true);
+      safeFetch(`${BASE}/api/github?year=${year}`).then((github) => {
+        if (github) setData((prev) => ({ ...prev, github }));
+        setGithubLoading(false);
+      });
+    },
+    [githubYear]
+  );
+
+  return { ...data, githubYear, githubLoading, selectGithubYear };
 }

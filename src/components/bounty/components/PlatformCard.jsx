@@ -1,7 +1,8 @@
 import { useState } from "react";
 import DonutChart from "../graphs/DonutChart";
+import EmptyState from "@components/shared/EmptyState";
 
-export default function PlatformCard({ icon, name, code, stats = [], easy, medium, hard, link }) {
+export default function PlatformCard({ icon, name, code, stats = [], easy, medium, hard, link, empty = false }) {
   const hasDonut = easy !== undefined && medium !== undefined && hard !== undefined;
   const [activeSegment, setActiveSegment] = useState(null);
 
@@ -36,6 +37,17 @@ export default function PlatformCard({ icon, name, code, stats = [], easy, mediu
         )}
       </div>
 
+      {/* Empty state — shown when the platform data couldn't load */}
+      {empty ? (
+        <div className="flex-1 flex items-center justify-center">
+          <EmptyState
+            compact
+            message="Couldn't load stats"
+            hint={`${name} activity isn't available right now. It'll show up here once the data loads.`}
+          />
+        </div>
+      ) : (
+       <>
       {/* Donut — grows to fill */}
       {hasDonut && (
         <div className="flex-1 flex flex-col">
@@ -78,6 +90,8 @@ export default function PlatformCard({ icon, name, code, stats = [], easy, mediu
           </div>
         ))}
       </div>
+      </>
+      )}
     </div>
   );
 }
