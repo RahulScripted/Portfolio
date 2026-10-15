@@ -6,6 +6,8 @@ import TechMastery from "./components/TechMastery";
 import ContributionSkyline from "./graphs/ContributionSkyline";
 import RadarChart from "./graphs/RadarChart";
 import EmptyState from "@components/shared/EmptyState";
+import FluidDropdown from "@components/shared/FluidDropdown";
+import BouncingBallLoader from "@components/shared/BouncingBallLoader";
 import { RADAR_DATA, RADAR_OVERALL, LANG_ICONS } from "@types/bounty";
 
 import leetcodeSvg  from "@assets/svgs/leetcode.svg";
@@ -114,7 +116,9 @@ export default function Bounty() {
               </a>
             </div>
             <div className="mt-4">
-              {days.length > 0 ? (
+              {loading ? (
+                <BouncingBallLoader label="Loading contributions" className="py-6" />
+              ) : days.length > 0 ? (
                 <ContributionSkyline
                   data={days}
                   defaultView="3d"
@@ -123,28 +127,14 @@ export default function Bounty() {
                   showLegend
                   toolbar={
                     yearOptions.length > 0 ? (
-                      <div className="relative">
-                        <select
-                          aria-label="Select contribution year"
-                          value={selectedYear}
-                          disabled={githubLoading}
-                          onChange={(e) => selectGithubYear(e.target.value)}
-                          className="appearance-none font-gothic text-[9px] uppercase tracking-[0.1em] text-ink-soft bg-paper border border-rule rounded-md h-8 pl-2.5 pr-6 cursor-pointer hover:text-ink hover:border-ink/40 focus:outline-none focus:border-stamp transition-colors disabled:opacity-50 disabled:cursor-wait"
-                        >
-                          {yearOptions.map((y) => (
-                            <option key={y} value={y}>
-                              {y}
-                            </option>
-                          ))}
-                        </select>
-                        <svg
-                          aria-hidden="true"
-                          className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-ink-soft"
-                          width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path d="M1 2.5L4 5.5L7 2.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                      </div>
+                      <FluidDropdown
+                        ariaLabel="Select contribution year"
+                        className="w-[88px]"
+                        value={selectedYear}
+                        disabled={githubLoading}
+                        onChange={selectGithubYear}
+                        options={yearOptions.map((y) => ({ value: y, label: y }))}
+                      />
                     ) : null
                   }
                   title={
