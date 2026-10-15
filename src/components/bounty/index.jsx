@@ -7,7 +7,7 @@ import ContributionSkyline from "./graphs/ContributionSkyline";
 import RadarChart from "./graphs/RadarChart";
 import EmptyState from "@components/shared/EmptyState";
 import FluidDropdown from "@components/shared/FluidDropdown";
-import BouncingBallLoader from "@components/shared/BouncingBallLoader";
+import PyramidLoader from "@components/shared/PyramidLoader";
 import { RADAR_DATA, RADAR_OVERALL, LANG_ICONS } from "@types/bounty";
 
 import leetcodeSvg  from "@assets/svgs/leetcode.svg";
@@ -129,7 +129,7 @@ export default function Bounty() {
             </div>
             <div className="mt-4">
               {loading || githubLoading ? (
-                <BouncingBallLoader label="Loading contributions" className="py-6" />
+                <PyramidLoader label="Loading contributions" className="py-6" />
               ) : days.length > 0 ? (
                 <ContributionSkyline
                   data={days}
