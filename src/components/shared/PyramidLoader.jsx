@@ -1,6 +1,10 @@
-export default function PyramidLoader({ label = "Loading", className = "" }) {
+export default function PyramidLoader({ className = "" }) {
   return (
-    <div className={"flex w-full flex-col items-center justify-center text-center " + className} role="status" aria-live="polite">
+    <div
+      className={"flex w-full items-center justify-center " + className}
+      role="status"
+      aria-label="Loading"
+    >
       <div className="pyramid-loader">
         <div className="wrapper">
           <span className="side side1" />
@@ -10,11 +14,6 @@ export default function PyramidLoader({ label = "Loading", className = "" }) {
           <span className="shadow" />
         </div>
       </div>
-      {label && (
-        <span className="mt-4 font-gothic text-[9px] uppercase tracking-[0.14em] text-ink-soft">
-          {label}
-        </span>
-      )}
     </div>
   );
 }

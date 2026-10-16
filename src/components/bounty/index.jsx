@@ -129,7 +129,7 @@ export default function Bounty() {
             </div>
             <div className="mt-4">
               {loading || githubLoading ? (
-                <PyramidLoader label="Loading contributions" className="py-6" />
+                <PyramidLoader className="min-h-[340px]" />
               ) : days.length > 0 ? (
                 <ContributionSkyline
                   data={days}
