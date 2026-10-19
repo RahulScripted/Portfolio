@@ -248,6 +248,7 @@ export default function MobileLoader({ onComplete }) {
       ) : (
         <AnimatedLoadingSkeleton />
       )}
+      <button className="fm-skip" type="button" onClick={exit}>Skip intro</button>
     </div>
   );
 }

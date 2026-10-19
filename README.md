@@ -42,8 +42,7 @@ Cream paper background · Serif headlines · Monospace metadata · Red rubber-st
 | **Routing** | React Router DOM 7.x |
 | **Icons** | React Icons |
 | **Forms** | Web3Forms (no-server contact form) |
-| **APIs** | Vercel Serverless Functions (LeetCode · GitHub · CodeChef · Visitor Counter) |
-| **Storage** | Upstash Redis (visitor counter) |
+| **APIs** | Vercel Serverless Functions (LeetCode · GitHub · CodeChef · Lighthouse) |
 | **Fonts** | Playfair Display · Space Mono · Oswald |
 | **Deployment** | Vercel |
 
@@ -86,13 +85,11 @@ Portfolio/
 │   │   ├── case-studies/          ← case study section
 │   │   │   ├── cards/             ← interactive cards with group hover effects & react-icons
 │   │   │   └── maintenance/       ← under-maintenance page with Lottie animation
-│   │   ├── philosophy/             ← engineering principles (pipe-flow connected cards)
-│   │   │   ├── deskstop/         ← desktop: zigzag layout with elbow pipe connectors
-│   │   │   └── mobile/           ← mobile: vertical spine with dot markers
+│   │   ├── lighthouse/            ← live PageSpeed Insights scores (recharts pie)
 │   │   ├── career/                ← career ledger section
 │   │   ├── contact/               ← contact form section
 │   │   ├── education/             ← education section
-│   │   ├── footer/                ← footer with social links, copyright & visitor counter
+│   │   ├── footer/                ← footer with social links & copyright
 │   │   ├── hero/                  ← hero masthead
 │   │   ├── lab-report/            ← tech stack section
 │   │   ├── loader/                ← intro loader (desktop + mobile) with Luffy reveal
@@ -105,8 +102,7 @@ Portfolio/
 │   │   │   └── MenuToggle.jsx     ← animated morphing hamburger/close icon
 │   │   ├── not-found/             ← editorial 404 page (Luffy postcard)
 │   │   ├── projects/              ← project showcase
-│   │   ├── scroll-link/           ← smooth scroll utility
-│   │   └── visitor-counter/       ← live page-view & unique-visitor tally
+│   │   └── scroll-link/           ← smooth scroll utility
 │   │
 │   ├── hooks/                     ← global custom hooks
 │   │
@@ -116,7 +112,7 @@ Portfolio/
 │   │   ├── contact/
 │   │   ├── education/
 │   │   ├── hero/
-│   │   ├── philosophy/
+│   │   ├── lighthouse/
 │   │   ├── projects/
 │   │   ├── shared/
 │   │   └── stack/
@@ -129,7 +125,7 @@ Portfolio/
 │   ├── codechef.js                ← Vercel serverless: CodeChef stats
 │   ├── github.js                  ← Vercel serverless: GitHub stats
 │   ├── leetcode.js                ← Vercel serverless: LeetCode stats
-│   └── views.js                   ← Vercel serverless: visitor counter (Upstash Redis)
+│   └── lighthouse.js              ← Vercel serverless: PageSpeed Insights scores
 │
 ├── .env                           ← API keys (never committed)
 ├── eslint.config.js
@@ -153,9 +149,9 @@ Portfolio/
 | `#about` | The Full Story | Bio and skills overview |
 | `#work` | The Evidence | Project showcase with case-file styling |
 | `#work` | Case Studies | Interactive case study cards with hover effects & maintenance page |
-| `#stack` | Lab Report | Technology stack display |
+| `#stack` | Lab Report | Technology stack display (nav: "Tech Stack") |
+| `#lighthouse` | Lighthouse Report | Live PageSpeed Insights scores as a recharts pie |
 | `#ledger` | Career Ledger | Work experience timeline |
-| `#philosophy` | Philosophy | Engineering principles with connected pipe-flow diagram |
 | `#bounty` | Bounty Board | Live coding stats dashboard |
 | `#contact` | Letters & Commissions | Contact form via Web3Forms |
 
@@ -179,8 +175,8 @@ flowchart TD
     C -->|About| D["📋 The Full Story"]
     C -->|Work| E["🔍 The Evidence"]
     C -->|Case Studies| E2["📂 Case Study Cards → Maintenance Page"]
-    C -->|Stack| F["🧪 Lab Report"]
-    C -->|Philosophy| F2["⚙️ Engineering Principles"]
+    C -->|Tech Stack| F["🧪 Lab Report"]
+    C -->|Lighthouse| F2["🚦 Lighthouse Report"]
     C -->|Experience| G["📒 Career Ledger"]
     C -->|Stats| H["🏆 Bounty Board"]
     C -->|Contact| I["✉️ Letters & Commissions"]
@@ -193,7 +189,7 @@ flowchart TD
 
 ### Prerequisites
 
-- Node.js ≥ 18
+- Node.js ≥ 22
 - npm 10.x
 
 ### Install & run
@@ -234,20 +230,19 @@ The `/api` folder contains Vercel serverless functions that fetch and cache live
 | `/api/leetcode` | LeetCode GraphQL | Rating, solved counts, rank |
 | `/api/github` | GitHub REST API + Contributions API | Repos, stars, followers, daily contributions (powers the skyline) |
 | `/api/codechef` | CodeChef scrape | Rating, stars, contests |
-| `/api/views` | Upstash Redis | Total page views & unique visitors (`GET` reads, `POST` increments) |
+| `/api/lighthouse` | Google PageSpeed Insights | Live Performance, Accessibility, Best Practices & SEO scores (powers the Lighthouse pie) |
 
 Set the following environment variables (in `.env` locally, and in the Vercel project settings for production):
 
 ```env
-GITHUB_TOKEN=your_github_pat
+GITHUB_TOKEN=your_github_pat          # optional — raises GitHub API rate limits
 
-# Visitor counter — from your Upstash Redis database
-UPSTASH_REDIS_REST_URL=your_upstash_rest_url
-UPSTASH_REDIS_REST_TOKEN=your_upstash_rest_token
-VIEWS_SALT=any_random_string   # optional — hardens IP hashing for unique counts
+# Lighthouse / PageSpeed Insights
+SITE_URL=https://rahul-goswami-1002.vercel.app   # site to audit
+PAGESPEED_API_KEY=your_pagespeed_key             # optional — avoids PSI rate limits
 ```
 
-> **Note:** The visitor counter only works on Vercel (or via `vercel dev`), since `npm run dev` does not run the `api/` functions. Visitor IPs are SHA-256 hashed with `VIEWS_SALT` and never stored in raw form.
+> **Note:** The `api/` functions only run on Vercel (or via `vercel dev`); `npm run dev` does not serve them. The Lighthouse endpoint runs a full PageSpeed audit per request, so its response is cached for 6 hours.
 
 ---
 
@@ -257,8 +252,7 @@ VIEWS_SALT=any_random_string   # optional — hardens IP hashing for unique coun
 - **Content** — data arrays in `src/types/` folders
 - **Icons** — shared icon components in `src/assets/icons/index.jsx`
 - **Contact form** — `access_key` in `src/components/contact/index.jsx` (Web3Forms)
-- **Philosophy entries** — `src/types/philosophy/index.js`
-- **Visitor counter** — logic in `api/views.js`, display in `src/components/visitor-counter/index.jsx`
+- **Lighthouse** — audited site & links in `src/types/lighthouse/index.js`; fetch logic in `api/lighthouse.js`
 
 ---
 
