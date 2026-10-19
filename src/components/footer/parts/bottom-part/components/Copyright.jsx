@@ -26,7 +26,7 @@ export default function Copyright() {
         <div className="flex flex-col">
           <div className="flex flex-col items-center gap-2 min-[600px]:flex-row min-[600px]:gap-4">
             <span>
-              &copy; 2026 Rahul Goswami | All rights reserved | Mumbai, India
+              <span className="text-[20px] align-middle">&copy;</span> 2026 Rahul Goswami | All rights reserved | Mumbai, India
             </span>
             <span className="flex gap-4">
               <Link
