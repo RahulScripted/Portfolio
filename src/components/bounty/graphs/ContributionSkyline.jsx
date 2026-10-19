@@ -326,6 +326,7 @@ export default function ContributionSkyline({
   showLegend = true,
   showToggle = true,
   toolbar,
+  currentStreak,
   footer,
   locale = "en-US",
   seed = 7,
@@ -998,7 +999,10 @@ export default function ContributionSkyline({
     { label: "1 year total", value: nf.format(stats.total), unit: noun(stats.total), sub: range(stats.first, stats.last, true) },
     { label: "Busiest day", value: nf.format(stats.busiest.count), unit: noun(stats.busiest.count), sub: stats.busiest.date ? df.format(dayMs(stats.busiest.date)) : "—" },
     { label: "Longest streak", value: nf.format(stats.longest.days), unit: stats.longest.days === 1 ? "day" : "days", sub: range(stats.longest.start, stats.longest.end) },
-    { label: "Current streak", value: nf.format(stats.current.days), unit: stats.current.days === 1 ? "day" : "days", sub: range(stats.current.start, stats.current.end) },
+    (() => {
+      const cs = currentStreak ?? stats.current;
+      return { label: "Current streak", value: nf.format(cs.days), unit: cs.days === 1 ? "day" : "days", sub: range(cs.start, cs.end) };
+    })(),
   ];
 
   const showRow = showStats && !(is3d && corners);

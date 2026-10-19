@@ -1,9 +1,10 @@
+import { useRef } from "react";
 import useStatsData from "./hooks/useStatsData";
 import SectionHeader from "@components/shared/SectionHeader";
 import OverviewGrid from "./components/OverviewGrid";
 import PlatformCard from "./components/PlatformCard";
 import TechMastery from "./components/TechMastery";
-import ContributionSkyline from "./graphs/ContributionSkyline";
+import ContributionSkyline, { buildGrid, computeStats, dayMs } from "./graphs/ContributionSkyline";
 import RadarChart from "./graphs/RadarChart";
 import EmptyState from "@components/shared/EmptyState";
 import FluidDropdown from "@components/shared/FluidDropdown";
@@ -28,6 +29,14 @@ export default function Bounty() {
 
   const yearOptions = github?.years ?? [];
   const selectedYear = githubYear;
+
+  const currentStreakRef = useRef(null);
+  if (selectedYear === currentYear && days.length > 0) {
+    const endMs = dayMs(new Date().toISOString().slice(0, 10));
+    const grid = buildGrid(days, endMs);
+    currentStreakRef.current = computeStats(grid.cells).current;
+  }
+  const currentStreak = currentStreakRef.current;
 
   return (
     <section id="bounty" className="scroll-mt-[50px] py-14 sm:py-[76px] px-3 sm:px-5" aria-label="Coding stats dashboard">
@@ -138,6 +147,7 @@ export default function Bounty() {
                   showToggle
                   showStats
                   showLegend
+                  currentStreak={currentStreak}
                   title={
                     <>
                       <span className="font-semibold tabular-nums">
