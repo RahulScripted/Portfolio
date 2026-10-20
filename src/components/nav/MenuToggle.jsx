@@ -6,14 +6,13 @@ export default function MenuToggle({
   ...props
 }) {
   return (
-    <label className="flex cursor-pointer items-center justify-center">
-      <input
-        className="hidden"
-        type="checkbox"
-        aria-label={open ? "Close menu" : "Open menu"}
-        onChange={() => onOpenChange(!open)}
-        checked={open}
-      />
+    <button
+      type="button"
+      aria-label={open ? "Close menu" : "Open menu"}
+      aria-expanded={open}
+      onClick={() => onOpenChange(!open)}
+      className="flex cursor-pointer items-center justify-center bg-transparent border-0 p-0 text-ink"
+    >
       <svg
         strokeWidth={strokeWidth}
         fill="none"
@@ -21,6 +20,7 @@ export default function MenuToggle({
         viewBox="0 0 32 32"
         strokeLinecap="round"
         strokeLinejoin="round"
+        aria-hidden="true"
         className={`size-4 transition-transform duration-500 ease-out ${open ? "-rotate-45" : ""} ${className}`}
         {...props}
       >
@@ -34,6 +34,6 @@ export default function MenuToggle({
         />
         <path d="M7 16 27 16" />
       </svg>
-    </label>
+    </button>
   );
 }

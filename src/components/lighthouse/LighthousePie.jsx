@@ -1,12 +1,5 @@
 import { PieChart, Pie, Cell, LabelList, Tooltip, ResponsiveContainer } from "recharts";
-
-// Lighthouse score bands (Google thresholds) tuned to the paper/stamp palette.
-export function bandColor(score) {
-  if (score == null) return "#D4C9BC";
-  if (score >= 90) return "#4E7B52"; // green
-  if (score >= 50) return "#C4922A"; // amber
-  return "#A6382C"; // stamp red
-}
+import { bandColor } from "@types/lighthouse";
 
 function TooltipContent({ active, payload }) {
   if (!active || !payload?.length) return null;
@@ -27,7 +20,7 @@ export default function LighthousePie({ data = [] }) {
   const slices = data.map((d) => ({ ...d, value: d.score ?? 0, fill: bandColor(d.score) }));
 
   return (
-    <div className="mx-auto aspect-square w-full max-w-[260px] [&_.recharts-text]:fill-paper">
+    <div className="h-full w-full [&_.recharts-text]:fill-paper">
       <ResponsiveContainer width="100%" height="100%">
         <PieChart>
           <Tooltip content={<TooltipContent />} />

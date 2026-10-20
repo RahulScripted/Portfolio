@@ -52,6 +52,7 @@ export default function GridProject({ project, delay }) {
           href={project.liveUrl}
           target="_blank"
           rel="noopener noreferrer"
+          aria-label={`Open case file for ${project.title}`}
           className="link-editorial group inline-flex items-center gap-1.5 after:absolute after:inset-0 after:content-['']"
         >
           <span className="hidden md:block">Open case File{" "}</span>

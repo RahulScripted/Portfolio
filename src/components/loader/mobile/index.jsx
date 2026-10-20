@@ -1,6 +1,5 @@
 import { useEffect, useState, useRef, useCallback } from "react";
 import { motion, useAnimation } from "framer-motion";
-import { luffy } from "@types/hero";
 import { randomLuffyLine } from "../messages";
 
 // Dynamically calculates grid configuration based on window width
@@ -174,8 +173,15 @@ export default function MobileLoader({ onComplete }) {
   const [fadeOut, setFadeOut] = useState(false);
   const [revealing, setRevealing] = useState(false);
   const [luffyLine] = useState(() => randomLuffyLine());
+  const [luffy, setLuffy] = useState(null);
   const timeoutRef = useRef(null);
   const revealRef = useRef(null);
+
+  useEffect(() => {
+    let active = true;
+    import("@assets/gif/luffy.gif").then((m) => active && setLuffy(m.default));
+    return () => { active = false; };
+  }, []);
 
   const exit = useCallback(() => {
     setFadeOut(true);
@@ -231,13 +237,16 @@ export default function MobileLoader({ onComplete }) {
           transition={{ type: "spring", stiffness: 220, damping: 18 }}
           style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 18 }}
         >
-          <img
-            src={luffy}
-            alt="Luffy reacting to the reveal"
-            style={{ width: 160, height: 160, objectFit: "contain", filter: "drop-shadow(3px 3px 0 rgba(0,0,0,0.6))" }}
-            loading="eager"
-            decoding="async"
-          />
+          {luffy && (
+            <img
+              src={luffy}
+              alt="Luffy reacting to the reveal"
+              width={160}
+              height={160}
+              style={{ width: 160, height: 160, objectFit: "contain", filter: "drop-shadow(3px 3px 0 rgba(0,0,0,0.6))" }}
+              decoding="async"
+            />
+          )}
           <div className="fm-stamp" style={{ position: "relative", transform: "rotate(-8deg)", opacity: 1, maxWidth: "82vw", textAlign: "center", border: "4px solid #a6382c" }}>
             <span className="fm-stamp-text" style={{ display: "block", color: "#a6382c" }}>
               <span style={{ display: "block" }}>{luffyLine.jp}</span>

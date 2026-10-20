@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState, useCallback, memo } from "react";
-import { luffy } from "@types/hero";
 import { randomLuffyLine } from "../messages";
 
 function l(e, a, t) {
@@ -73,7 +72,14 @@ export default function DesktopLoader({ onComplete }) {
   });
   const [phase, setPhase] = useState("hunt");
   const [luffyLine] = useState(() => randomLuffyLine());
+  const [luffy, setLuffy] = useState(null);
   const [lens, setLens] = useState({ x: 0, y: 0, r: -10 });
+
+  useEffect(() => {
+    let active = true;
+    import("@assets/gif/luffy.gif").then((m) => active && setLuffy(m.default));
+    return () => { active = false; };
+  }, []);
   const [progress, setProgress] = useState(0.48);
   const isTouch = typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches;
 
@@ -223,13 +229,16 @@ export default function DesktopLoader({ onComplete }) {
         <div style={{ position: "absolute", inset: 0, zIndex: 8, background: "#FBFAF5", opacity: flashOpacity, pointerEvents: "none" }} />
         <div className="fm-stampwrap">
           <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 18, opacity: stampOpacity, transform: `translateY(${stampY}px) scale(${stampScale}) rotate(${stampRot}deg)`, transition: "opacity .1s ease-out" }}>
-            <img
-              src={luffy}
-              alt="Luffy reacting to the reveal"
-              style={{ width: 150, height: 150, objectFit: "contain", filter: "drop-shadow(3px 3px 0 rgba(0,0,0,0.6))" }}
-              loading="eager"
-              decoding="async"
-            />
+            {luffy && (
+              <img
+                src={luffy}
+                alt="Luffy reacting to the reveal"
+                width={150}
+                height={150}
+                style={{ width: 150, height: 150, objectFit: "contain", filter: "drop-shadow(3px 3px 0 rgba(0,0,0,0.6))" }}
+                decoding="async"
+              />
+            )}
             <div className="fm-stamp" style={{ position: "relative", transform: "none", opacity: 1, maxWidth: "80vw", textAlign: "center", border: "4px solid #a6382c" }}>
               <span className="fm-stamp-text" style={{ display: "block", color: "#a6382c" }}>
                 <span style={{ display: "block" }}>{luffyLine.jp}</span>

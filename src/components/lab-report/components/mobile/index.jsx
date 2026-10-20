@@ -31,7 +31,6 @@ export default function MobileBoard() {
   const svgRef = useRef(null);
   const suspectRef = useRef(null);
   const cardRefs = useRef({});
-  const firstDraw = useRef(true);
   const [activeId, setActiveId] = useState(null);
 
   const layout = useCallback(() => {
@@ -55,16 +54,9 @@ export default function MobileBoard() {
       path.setAttribute("stroke-width", "2.4");
       path.setAttribute("stroke-linecap", "round");
       path.setAttribute("opacity", "0.65");
-      if (firstDraw.current) {
-        path.setAttribute("stroke-dasharray", "1200");
-        path.setAttribute("stroke-dashoffset", "1200");
-        path.style.transition = `stroke-dashoffset 0.7s ease ${i * 0.06}s`;
-        requestAnimationFrame(() => path.setAttribute("stroke-dashoffset", "0"));
-      }
       path.id = `line-${id}`;
       svg.appendChild(path);
     });
-    firstDraw.current = false;
   }, []);
 
   useEffect(() => {

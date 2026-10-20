@@ -59,7 +59,6 @@ export default function Nav() {
 
           <div className="flex items-center gap-3 min-[860px]:hidden">
             <div
-              aria-expanded={menuOpen}
               className={`z-50 flex h-[42px] w-[42px] flex-none items-center justify-center border-2 border-ink bg-paper text-ink ${
                 menuOpen ? "fixed right-3 top-[9px] sm:right-5" : "relative"
               }`}

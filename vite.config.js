@@ -17,11 +17,6 @@ export default defineConfig({
       '@animations': path.resolve(__dirname, 'src/animations'),
     },
   },
-  optimizeDeps: {
-    // Pre-bundle heavy deps so the dev server doesn't re-optimize mid-session
-    // (which causes "504 Outdated Optimize Dep" errors).
-    include: ['three', 'three/examples/jsm/environments/RoomEnvironment.js'],
-  },
   build: {
     // Target modern browsers for smaller output
     target: 'es2020',
@@ -38,7 +33,6 @@ export default defineConfig({
           'vendor-react': ['react', 'react-dom', 'react-router-dom'],
           'vendor-motion': ['framer-motion'],
           'vendor-charts': ['recharts'],
-          'vendor-three': ['three'],
         },
       },
     },

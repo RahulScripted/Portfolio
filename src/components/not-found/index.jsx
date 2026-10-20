@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowLeftIcon } from "@animations";
-import { luffy } from "@types/hero";
+import luffy from "@assets/gif/luffy.gif";
 
 /**
  * Editorial 404 — matched to "The Rahul Goswami Times" theme.

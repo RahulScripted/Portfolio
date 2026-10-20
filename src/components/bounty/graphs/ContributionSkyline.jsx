@@ -1137,18 +1137,14 @@ export default function ContributionSkyline({
           </div>
         </div>
 
-        {showStats && (
+        {showStats && showRow && (
           <div
-            aria-hidden={!showRow}
-            className="grid transition-[grid-template-rows,opacity] motion-reduce:transition-none"
-            style={{ gridTemplateRows: showRow ? "1fr" : "0fr", opacity: showRow ? 1 : 0, transitionDuration: duration + "ms", transitionTimingFunction: ease }}
+            className="overflow-hidden opacity-0 motion-safe:animate-[fadeIn_300ms_ease-out_forwards] motion-reduce:opacity-100"
           >
-            <div className="min-h-0 overflow-hidden">
-              <div className="grid grid-cols-2 gap-x-3 gap-y-4 px-3 pt-4 pb-1 sm:gap-x-4 sm:px-4">
-                {statBlocks.map((b) => (
-                  <Stat key={b.label} {...b} accent={theme.accent} size={width < 400 ? 22 : 28} align="stack" />
-                ))}
-              </div>
+            <div className="grid grid-cols-2 gap-x-3 gap-y-4 px-3 pt-4 pb-1 sm:gap-x-4 sm:px-4">
+              {statBlocks.map((b) => (
+                <Stat key={b.label} {...b} accent={theme.accent} size={width < 400 ? 22 : 28} align="stack" />
+              ))}
             </div>
           </div>
         )}
@@ -1184,9 +1180,15 @@ export default function ContributionSkyline({
                   onFocus={() => setLegendLevel(i)}
                   onBlur={() => setLegendLevel(-1)}
                   onClick={() => setLegendLevel((l) => (l === i ? -1 : i))}
-                  className="h-[11px] w-[11px] cursor-pointer rounded-[2px] border-0 p-0 transition-[background-color,transform] duration-500 hover:scale-125 focus-visible:outline-2 focus-visible:outline-offset-1 motion-reduce:transition-none"
-                  style={{ background: c, outlineColor: THEME_FG, boxShadow: "inset 0 0 0 1px rgba(127,127,127,0.12)" }}
-                />
+                  className="grid h-6 w-6 place-items-center cursor-pointer border-0 bg-transparent p-0 focus-visible:outline-2 focus-visible:outline-offset-1"
+                  style={{ outlineColor: THEME_FG }}
+                >
+                  <span
+                    aria-hidden="true"
+                    className="h-[11px] w-[11px] rounded-[2px] transition-transform duration-500 hover:scale-125 motion-reduce:transition-none"
+                    style={{ background: c, boxShadow: "inset 0 0 0 1px rgba(127,127,127,0.12)" }}
+                  />
+                </button>
               ))}
               <span className="ml-0.5">More</span>
             </div>
