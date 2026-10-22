@@ -3,6 +3,8 @@
 // Webex xAPI reference graphic. Background is fully transparent (no base
 // fill rect) so it drops onto any page background cleanly.
 
+import { motion, useReducedMotion } from "framer-motion";
+
 const COLORS = {
   arrow: "#8A8577",
   textMuted: "#6B6459",
@@ -55,19 +57,37 @@ const IconCard = ({ x, y, w, h, color, icon, label, sublabel }) => {
 
 // Curved connector with a pill-shaped label riding on the path, matching
 // the Webex xCommand / xStatus / xEvent / xConfig arrows.
-const CurvedArrow = ({ d, color, label, markerId, labelPos }) => (
-  <g>
-    <path d={d} stroke={color} strokeWidth="2.2" fill="none" markerEnd={`url(#${markerId})`} />
-    {label && (
-      <g transform={`translate(${labelPos[0]}, ${labelPos[1]})`}>
-        <rect x={-label.length * 3.6 - 8} y="-11" width={label.length * 7.2 + 16} height="22" rx="11" fill={color} />
-        <text x="0" y="4" textAnchor="middle" fill="#fff" style={{ ...mono, fontSize: "9.5px", fontWeight: 700 }}>
-          {label}
-        </text>
-      </g>
-    )}
-  </g>
-);
+const CurvedArrow = ({ d, color, label, markerId, labelPos, len = 120 }) => {
+  const reduce = useReducedMotion();
+  const dash = Math.min(12, Math.max(6, len / 6));
+  return (
+    <g>
+      <path d={d} stroke={color} strokeWidth="2.2" fill="none" markerEnd={`url(#${markerId})`} />
+      {!reduce && (
+        <motion.path
+          d={d}
+          stroke={color}
+          strokeWidth="3.6"
+          strokeLinecap="round"
+          fill="none"
+          strokeDasharray={`${dash} 800`}
+          initial={{ strokeDashoffset: dash }}
+          animate={{ strokeDashoffset: [dash, -(len + dash)] }}
+          transition={{ duration: Math.max(0.8, len / 70), repeat: Infinity, repeatDelay: 1.1, ease: "linear" }}
+          style={{ filter: `drop-shadow(0 0 3px ${color})` }}
+        />
+      )}
+      {label && (
+        <g transform={`translate(${labelPos[0]}, ${labelPos[1]})`}>
+          <rect x={-label.length * 3.6 - 8} y="-11" width={label.length * 7.2 + 16} height="22" rx="11" fill={color} />
+          <text x="0" y="4" textAnchor="middle" fill="#fff" style={{ ...mono, fontSize: "9.5px", fontWeight: 700 }}>
+            {label}
+          </text>
+        </g>
+      )}
+    </g>
+  );
+};
 
 const DashedLine = ({ d }) => (
   <path d={d} stroke={COLORS.dashed} strokeWidth="1.4" strokeDasharray="4 4" fill="none" markerEnd="url(#arr-dashed)" />

@@ -44,7 +44,7 @@ const EngineeringDecisions = ({ decisions }) => (
     <h4 className="font-display text-sm font-semibold text-ink mb-4">
       Key Engineering Decisions
     </h4>
-    <div className="space-y-3">
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3">
       {decisions.map((decision, idx) => (
         <motion.div
           key={idx}
@@ -81,7 +81,7 @@ export default function BuildSection({ data, stack, studyId }) {
         ))}
       </motion.div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+      <div className="flex flex-col gap-4">
         <ArchitectureDiagram studyId={studyId} />
         <EngineeringDecisions decisions={data.engineeringDecisions} />
       </div>

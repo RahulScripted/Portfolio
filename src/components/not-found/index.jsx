@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowLeftIcon } from "@animations";
-import luffy from "@assets/gif/luffy.gif";
+import luffy from "@assets/videos/luffy.mp4";
 
 /**
  * Editorial 404 — matched to "The Rahul Goswami Times" theme.
@@ -64,12 +64,14 @@ export default function NotFound({
                 className="absolute -top-3 left-1/2 z-20 h-6 w-24 -translate-x-1/2 -rotate-2 border border-ink/10 bg-paper-deep/80"
               />
               <div className="relative overflow-hidden bg-paper-bright">
-                <img
+                <video
                   src={postcardImage}
-                  alt={postcardAlt}
+                  aria-label={postcardAlt}
                   className="w-[340px] h-[200px] sm:w-[440px] sm:h-[240px] object-contain"
-                  loading="lazy"
-                  decoding="async"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
                 />
               </div>
               {/* Stamp corner */}

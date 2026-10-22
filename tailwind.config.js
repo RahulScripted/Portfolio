@@ -11,7 +11,7 @@ export default {
         "paper-deep":   "#E8E0D0",
         ink:            "#16140F",
         "ink-soft":     "#6B6459",
-        "ink-faint":    "#B8AFA6",
+        "ink-faint":    "#726B60",
         stamp:          "#A6382C",
         "stamp-bright": "#C0392B",
         rule:           "#D4C9BC",

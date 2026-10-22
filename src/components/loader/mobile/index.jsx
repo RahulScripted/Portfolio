@@ -177,9 +177,10 @@ export default function MobileLoader({ onComplete }) {
   const timeoutRef = useRef(null);
   const revealRef = useRef(null);
 
+  // Load the heavy reveal video lazily (keeps it off the initial critical path).
   useEffect(() => {
     let active = true;
-    import("@assets/gif/luffy.gif").then((m) => active && setLuffy(m.default));
+    import("@assets/videos/luffy.mp4").then((m) => active && setLuffy(m.default));
     return () => { active = false; };
   }, []);
 
@@ -238,13 +239,16 @@ export default function MobileLoader({ onComplete }) {
           style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 18 }}
         >
           {luffy && (
-            <img
+            <video
               src={luffy}
-              alt="Luffy reacting to the reveal"
-              width={160}
-              height={160}
-              style={{ width: 160, height: 160, objectFit: "contain", filter: "drop-shadow(3px 3px 0 rgba(0,0,0,0.6))" }}
-              decoding="async"
+              aria-label="Luffy reacting to the reveal"
+              width={210}
+              height={210}
+              autoPlay
+              loop
+              muted
+              playsInline
+              style={{ width: 210, height: 210, objectFit: "contain" }}
             />
           )}
           <div className="fm-stamp" style={{ position: "relative", transform: "rotate(-8deg)", opacity: 1, maxWidth: "82vw", textAlign: "center", border: "4px solid #a6382c" }}>

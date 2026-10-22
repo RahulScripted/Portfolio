@@ -75,9 +75,10 @@ export default function DesktopLoader({ onComplete }) {
   const [luffy, setLuffy] = useState(null);
   const [lens, setLens] = useState({ x: 0, y: 0, r: -10 });
 
+  // Load the heavy reveal video lazily (keeps it off the initial critical path).
   useEffect(() => {
     let active = true;
-    import("@assets/gif/luffy.gif").then((m) => active && setLuffy(m.default));
+    import("@assets/videos/luffy.mp4").then((m) => active && setLuffy(m.default));
     return () => { active = false; };
   }, []);
   const [progress, setProgress] = useState(0.48);
@@ -230,13 +231,16 @@ export default function DesktopLoader({ onComplete }) {
         <div className="fm-stampwrap">
           <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 18, opacity: stampOpacity, transform: `translateY(${stampY}px) scale(${stampScale}) rotate(${stampRot}deg)`, transition: "opacity .1s ease-out" }}>
             {luffy && (
-              <img
+              <video
                 src={luffy}
-                alt="Luffy reacting to the reveal"
-                width={150}
-                height={150}
-                style={{ width: 150, height: 150, objectFit: "contain", filter: "drop-shadow(3px 3px 0 rgba(0,0,0,0.6))" }}
-                decoding="async"
+                aria-label="Luffy reacting to the reveal"
+                width={230}
+                height={230}
+                autoPlay
+                loop
+                muted
+                playsInline
+                style={{ width: 230, height: 230, objectFit: "contain" }}
               />
             )}
             <div className="fm-stamp" style={{ position: "relative", transform: "none", opacity: 1, maxWidth: "80vw", textAlign: "center", border: "4px solid #a6382c" }}>

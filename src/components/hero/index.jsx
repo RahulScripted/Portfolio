@@ -159,12 +159,7 @@ export default function Hero() {
 
           {/* RIGHT */}
           <div className="border-t-2 border-ink pt-[22px] min-[940px]:border-l min-[940px]:border-t-0 min-[940px]:border-ink/20 min-[940px]:pl-[34px] min-[940px]:pt-0">
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.7, delay: 0.18 }}
-              className="relative aspect-square w-full overflow-hidden border-2 border-ink bg-paper"
-            >
+            <div className="relative aspect-square w-full overflow-hidden border-2 border-ink bg-paper">
               <img
                 src={profile}
                 alt="Rahul Goswami — Software Engineer, Mumbai"
@@ -175,7 +170,7 @@ export default function Hero() {
                 fetchPriority="high"
                 decoding="async"
               />
-            </motion.div>
+            </div>
             <motion.p
               {...settle(0.24)}
               className="mt-2 font-gothic text-[11px] font-medium leading-[1.4] tracking-[0.04em] text-ink-soft"
