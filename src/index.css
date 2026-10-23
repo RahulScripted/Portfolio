@@ -156,6 +156,11 @@
   overflow: hidden;
   cursor: none;
   user-select: none;
+  /* Promote to its own composite layer so the zoom/scale transform is handled
+     by the compositor and never registers as page-level layout shift. */
+  will-change: transform;
+  transform: translateZ(0);
+  contain: layout paint;
 }
 
 .fm-scene {

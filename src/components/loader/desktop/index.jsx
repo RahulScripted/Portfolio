@@ -219,7 +219,7 @@ export default function DesktopLoader({ onComplete }) {
             <Scene />
           </div>
         </div>
-        <div style={{ position: "absolute", left: "50%", top: "50%", width: "240vw", height: "240vh", marginLeft: "-120vw", marginTop: "-120vh", pointerEvents: "none", zIndex: 4, transform: `translate(${dispX}px, ${dispY}px)`, background: `radial-gradient(circle at 50% 50%, transparent ${N - 4}px, rgba(22,20,15,.26) ${N + 200}px, rgba(22,20,15,.42) 58%)` }} />
+        <div style={{ position: "absolute", left: "50%", top: "50%", width: "240vw", height: "240vh", marginLeft: "-120vw", marginTop: "-120vh", pointerEvents: "none", zIndex: 4, transform: `translate(${dispX}px, ${dispY}px)`, willChange: "transform", background: `radial-gradient(circle at 50% 50%, transparent ${N - 4}px, rgba(22,20,15,.26) ${N + 200}px, rgba(22,20,15,.42) 58%)` }} />
         <div className="fm-dim" style={{ opacity: dimOpacity }} />
         <div className="fm-lens" style={{ width: N * 2, height: N * 2, marginLeft: -N, marginTop: -N, transform: `translate(${dispX}px, ${dispY}px) rotate(${dispR}deg)`, opacity: lensOpacity }}>
           <div className="fm-lens-handle" />
