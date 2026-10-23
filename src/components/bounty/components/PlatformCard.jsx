@@ -28,6 +28,7 @@ export default function PlatformCard({ icon, name, code, stats = [], easy, mediu
         </div>
         {link && (
           <a href={link} target="_blank" rel="noopener noreferrer"
+            aria-label={`${name} profile`}
             className="font-gothic text-[9px] uppercase tracking-[0.1em] text-stamp border border-stamp px-2 py-0.5 hover:bg-stamp hover:text-paper transition-colors flex items-center gap-1">
             Profile
             <svg width="9" height="9" viewBox="0 0 9 9" fill="none" xmlns="http://www.w3.org/2000/svg">

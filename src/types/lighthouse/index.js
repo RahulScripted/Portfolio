@@ -16,10 +16,10 @@ export const lighthouseMeta = {
 // Lighthouse score bands (Google thresholds) tuned to the paper/stamp palette.
 // Used for the per-category score text so the number still signals the band.
 export function bandColor(score) {
-  if (score == null) return "#D4C9BC";
-  if (score >= 90) return "#4E7B52"; // green
-  if (score >= 50) return "#C4922A"; // amber
-  return "#A6382C"; // stamp red
+  if (score == null) return "#8A8277";
+  if (score >= 90) return "#3C6141"; // dark green (AA contrast on paper)
+  if (score >= 50) return "#8A6416"; // dark amber
+  return "#9A3327"; // stamp red
 }
 
 // Distinct colour per category so the four donut slices read clearly, drawn

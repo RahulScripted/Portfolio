@@ -249,7 +249,9 @@ export default function MobileLoader({ onComplete }) {
               muted
               playsInline
               style={{ width: 210, height: 210, objectFit: "contain" }}
-            />
+            >
+              <track kind="captions" label="No dialogue" />
+            </video>
           )}
           <div className="fm-stamp" style={{ position: "relative", transform: "rotate(-8deg)", opacity: 1, maxWidth: "82vw", textAlign: "center", border: "4px solid #a6382c" }}>
             <span className="fm-stamp-text" style={{ display: "block", color: "#a6382c" }}>

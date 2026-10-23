@@ -147,6 +147,10 @@
   position: fixed;
   inset: 0;
   z-index: 9999;
+  overflow: hidden;
+  /* Isolate the loader from document layout so its zoom/scale animation
+     can't register as page-level Cumulative Layout Shift. */
+  contain: layout paint size;
 }
 .fm-zoom {
   position: absolute;

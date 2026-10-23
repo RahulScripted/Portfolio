@@ -72,7 +72,9 @@ export default function NotFound({
                   loop
                   muted
                   playsInline
-                />
+                >
+                  <track kind="captions" label="No dialogue" />
+                </video>
               </div>
               {/* Stamp corner */}
               <div className="absolute top-1 right-1 font-gothic text-[9px] font-bold uppercase tracking-[0.12em] text-stamp border border-stamp px-1.5 py-0.5 rotate-[8deg] bg-paper-bright/90">

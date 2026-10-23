@@ -241,7 +241,9 @@ export default function DesktopLoader({ onComplete }) {
                 muted
                 playsInline
                 style={{ width: 230, height: 230, objectFit: "contain" }}
-              />
+              >
+                <track kind="captions" label="No dialogue" />
+              </video>
             )}
             <div className="fm-stamp" style={{ position: "relative", transform: "none", opacity: 1, maxWidth: "80vw", textAlign: "center", border: "4px solid #a6382c" }}>
               <span className="fm-stamp-text" style={{ display: "block", color: "#a6382c" }}>

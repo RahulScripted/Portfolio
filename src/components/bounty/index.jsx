@@ -127,6 +127,7 @@ export default function Bounty() {
                   href="https://github.com/RahulScripted"
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="GitHub profile"
                   className="font-gothic text-[9px] uppercase tracking-[0.1em] text-stamp border border-stamp px-2 py-0.5 hover:bg-stamp hover:text-paper transition-colors flex items-center gap-1"
                 >
                   Profile
