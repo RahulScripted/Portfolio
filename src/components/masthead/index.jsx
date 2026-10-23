@@ -1,3 +1,5 @@
+import TechText from "@components/shared/TechText";
+
 export default function Masthead() {
   const now = new Date();
   const dateStr = now.toLocaleDateString("en-GB", {
@@ -15,9 +17,27 @@ export default function Masthead() {
         <div className="border-t-[3px] border-ink pt-2 pb-1 text-center">
           <h1
             className="font-display font-normal text-ink leading-[0.9] tracking-[-0.02em]"
-            style={{ fontSize: "clamp(44px, 9vw, 108px)" }}
+            style={{ height: "clamp(72px, 14vw, 150px)" }}
+            aria-label="Rahul Goswami"
           >
-            Rahul Goswami
+            <TechText
+              text="Rahul Goswami"
+              fontWeight={400}
+              fontSize={150}
+              letterSpacing={-0.02}
+              reveal="letter"
+              selection
+              labels
+              draggable={false}
+              clickKick={false}
+              specks={12}
+              guides={false}
+              sweep
+              speed={0.3}
+              intro="none"
+              color="currentColor"
+              accentColor="currentColor"
+            />
           </h1>
           <p className="mt-3 mx-auto max-w-[720px] font-gothic text-[9px] sm:text-[13px] font-semibold uppercase tracking-[0.14em] sm:tracking-[0.42em] leading-[1.6] text-ink-soft">
             Designer Soul | Developer Brain | Engineer Heart
