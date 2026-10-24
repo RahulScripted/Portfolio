@@ -33,6 +33,30 @@ import CookieConsent from "@components/cookie-consent";
 // Minimal fallback for lazy sections (invisible, no layout shift)
 const SectionFallback = () => <div className="min-h-[200px]" />;
 
+function DeferMount({ children, minHeight = 300, rootMargin = "400px" }) {
+  const [node, setNode] = useState(null);
+  const [shown, setShown] = useState(false);
+  useEffect(() => {
+    if (!node || shown) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setShown(true);
+          io.disconnect();
+        }
+      },
+      { rootMargin }
+    );
+    io.observe(node);
+    return () => io.disconnect();
+  }, [node, shown, rootMargin]);
+  return (
+    <div ref={setNode} style={shown ? undefined : { minHeight }}>
+      {shown ? <Suspense fallback={<SectionFallback />}>{children}</Suspense> : null}
+    </div>
+  );
+}
+
 // Ink curtain that wipes in then out on every route change
 const pageFade = {
   initial: { opacity: 0, y: 18 },
@@ -95,30 +119,30 @@ function MainSite() {
           <Suspense fallback={<SectionFallback />}>
             <LabReport />
           </Suspense>
-          <Suspense fallback={<SectionFallback />}>
+          <DeferMount minHeight={520}>
             <Lighthouse />
-          </Suspense>
+          </DeferMount>
           <div className="my-8">
             <InfiniteRibbon duration={32} reverse>{ribbonPhraseEnd}</InfiniteRibbon>
           </div>
-          <Suspense fallback={<SectionFallback />}>
+          <DeferMount minHeight={400}>
             <Career />
-          </Suspense>
-          <Suspense fallback={<SectionFallback />}>
+          </DeferMount>
+          <DeferMount minHeight={400}>
             <Education />
-          </Suspense>
-          <Suspense fallback={<SectionFallback />}>
+          </DeferMount>
+          <DeferMount minHeight={600}>
             <Bounty />
-          </Suspense>
-          <Suspense fallback={<SectionFallback />}>
+          </DeferMount>
+          <DeferMount minHeight={500}>
             <CaseStudies />
-          </Suspense>
-          <Suspense fallback={<SectionFallback />}>
+          </DeferMount>
+          <DeferMount minHeight={400}>
             <Contact />
-          </Suspense>
-          <Suspense fallback={<SectionFallback />}>
+          </DeferMount>
+          <DeferMount minHeight={300}>
             <Footer />
-          </Suspense>
+          </DeferMount>
         </main>
       </div>
     </>

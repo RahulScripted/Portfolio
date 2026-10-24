@@ -1,16 +1,31 @@
-export const lighthouseScores = [
-  { id: "performance",    label: "Performance",    score: 91 },
-  { id: "accessibility",  label: "Accessibility",  score: 96 },
-  { id: "best-practices", label: "Best Practices", score: 100 },
-  { id: "seo",            label: "SEO",            score: 100 },
+// Category labels shared by both strategies.
+const CATEGORIES = [
+  { id: "performance", label: "Performance" },
+  { id: "accessibility", label: "Accessibility" },
+  { id: "best-practices", label: "Best Practices" },
+  { id: "seo", label: "SEO" },
 ];
 
-export const lighthouseMeasuredOn = "Oct 22, 2026";
+const withLabels = (scores) => CATEGORIES.map((c) => ({ ...c, score: scores[c.id] }));
 
-// Which tool / strategy the scores were captured with.
+// Two measured strategies — update the numbers after each PageSpeed run.
+export const lighthouseReports = [
+  {
+    id: "desktop",
+    label: "Desktop",
+    scores: withLabels({ performance: 98, accessibility: 96, "best-practices": 100, seo: 100 }),
+  },
+  {
+    id: "mobile",
+    label: "Mobile",
+    scores: withLabels({ performance: 79, accessibility: 96, "best-practices": 100, seo: 100 }),
+  },
+];
+
+export const lighthouseMeasuredOn = "Oct 24, 2026";
+
 export const lighthouseMeta = {
   tool: "Google PageSpeed Insights",
-  strategy: "Mobile",
 };
 
 // Lighthouse score bands (Google thresholds) tuned to the paper/stamp palette.
