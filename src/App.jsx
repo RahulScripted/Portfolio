@@ -59,6 +59,12 @@ const RIBBON_PHRASES = [
 function MainSite() {
   const alreadySeen = !!sessionStorage.getItem("intro_seen");
   const [loaded, setLoaded] = useState(alreadySeen);
+  const [canShowLoader, setCanShowLoader] = useState(false);
+  useEffect(() => {
+    if (alreadySeen) return;
+    const id = requestAnimationFrame(() => setCanShowLoader(true));
+    return () => cancelAnimationFrame(id);
+  }, [alreadySeen]);
   const [ribbonPhrase] = useState(
     () => RIBBON_PHRASES[Math.floor(Math.random() * RIBBON_PHRASES.length)]
   );
@@ -68,7 +74,7 @@ function MainSite() {
 
   return (
     <>
-      {!loaded && <Loader onComplete={() => setLoaded(true)} />}
+      {!loaded && canShowLoader && <Loader onComplete={() => setLoaded(true)} />}
       <div className="bg-paper min-h-screen text-ink">
         <svg aria-hidden="true" width="0" height="0" style={{ position: "absolute" }}>
           <filter id="rough-stamp" x="-20%" y="-20%" width="140%" height="140%">
