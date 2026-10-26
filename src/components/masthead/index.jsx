@@ -33,16 +33,15 @@ export default function Masthead() {
         </div>
         <div className="border-t-[3px] border-ink pt-2 pb-1 text-center">
           <h1
-            className="relative font-display font-normal text-ink leading-[0.9] tracking-[-0.02em]"
-            style={{ fontSize: "clamp(44px, 9vw, 108px)" }}
+            className="relative mx-auto flex items-center justify-center font-display font-normal text-ink leading-[0.9] tracking-[-0.02em]"
+            style={{ fontSize: "clamp(44px, 9vw, 108px)", height: "clamp(56px, 11vw, 128px)" }}
           >
-            <span className={showFx ? "sr-only" : undefined}>Rahul Goswami</span>
+            {/* Plain text paints instantly (LCP) and is the heading's accessible
+                content. When the canvas mounts it fades to opacity 0 — still real
+                text in the layout and a11y tree, so the heading is never empty. */}
+            <span style={{ opacity: showFx ? 0 : 1 }}>Rahul Goswami</span>
             {showFx && (
-              <span
-                aria-hidden="true"
-                className="absolute inset-0"
-                style={{ height: "clamp(72px, 14vw, 150px)" }}
-              >
+              <span aria-hidden="true" className="absolute inset-0">
                 <Suspense fallback={null}>
                   <TechText
                     text="Rahul Goswami"
