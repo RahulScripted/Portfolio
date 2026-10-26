@@ -30,14 +30,13 @@ export default function Hero() {
                 Case No. 001 — Engineering Record
               </span>
             </motion.span>
-            <motion.h2
-              {...settle(0.06)}
+            <h2
               className="mt-1 font-display font-normal text-ink leading-none tracking-[-0.02em]"
               style={{ fontSize: "clamp(38px, 6.6vw, 76px)" }}
             >
               I build software that ships, scales, and solves{" "}
               <em className="italic">real problems.</em>
-            </motion.h2>
+            </h2>
             <motion.p
               {...settle(0.14)}
               className="mt-5 max-w-[70ch] border-l-4 border-ink pl-[18px] font-text text-[clamp(17px,2vw,22px)] italic leading-[1.45] text-ink-soft"

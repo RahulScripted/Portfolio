@@ -13,12 +13,12 @@ export const lighthouseReports = [
   {
     id: "desktop",
     label: "Desktop",
-    scores: withLabels({ performance: 90, accessibility: 96, "best-practices": 100, seo: 100 }),
+    scores: withLabels({ performance: 96, accessibility: 95, "best-practices": 100, seo: 100 }),
   },
   {
     id: "mobile",
     label: "Mobile",
-    scores: withLabels({ performance: 80, accessibility: 96, "best-practices": 100, seo: 100 }),
+    scores: withLabels({ performance: 83, accessibility: 95, "best-practices": 100, seo: 100 }),
   },
 ];
 
@@ -28,8 +28,6 @@ export const lighthouseMeta = {
   tool: "Google PageSpeed Insights",
 };
 
-// Lighthouse score bands (Google thresholds) tuned to the paper/stamp palette.
-// Used for the per-category score text so the number still signals the band.
 export function bandColor(score) {
   if (score == null) return "#8A8277";
   if (score >= 90) return "#3C6141"; // dark green (AA contrast on paper)
@@ -37,8 +35,6 @@ export function bandColor(score) {
   return "#9A3327"; // stamp red
 }
 
-// Distinct colour per category so the four donut slices read clearly, drawn
-// from the site's muted editorial palette.
 export const CATEGORY_COLORS = {
   performance: "#4E7B52",    // green
   accessibility: "#C4922A",  // amber/ochre

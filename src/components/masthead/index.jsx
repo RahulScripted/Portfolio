@@ -36,8 +36,7 @@ export default function Masthead() {
             className="relative font-display font-normal text-ink leading-[0.9] tracking-[-0.02em]"
             style={{ fontSize: "clamp(44px, 9vw, 108px)" }}
           >
-            {/* Plain text = instant LCP paint. Hidden once the canvas is up. */}
-            <span style={{ visibility: showFx ? "hidden" : "visible" }}>Rahul Goswami</span>
+            <span className={showFx ? "sr-only" : undefined}>Rahul Goswami</span>
             {showFx && (
               <span
                 aria-hidden="true"
