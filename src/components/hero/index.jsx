@@ -164,8 +164,8 @@ export default function Hero() {
                 src={profile}
                 alt="Rahul Goswami — Software Engineer, Mumbai"
                 className="absolute inset-0 w-full h-full object-cover mix-blend-multiply"
-                width="600"
-                height="600"
+                width="560"
+                height="560"
                 loading="eager"
                 fetchPriority="high"
                 decoding="async"

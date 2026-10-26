@@ -1,10 +1,27 @@
-import TechText from "@components/shared/TechText";
+import { lazy, Suspense, useEffect, useState } from "react";
+
+// TechText is a heavy canvas effect — load it after first paint so the LCP
+// heading renders instantly as plain text, then the effect layers on top.
+const TechText = lazy(() => import("@components/shared/TechText"));
 
 export default function Masthead() {
   const now = new Date();
   const dateStr = now.toLocaleDateString("en-GB", {
     weekday: "long", day: "numeric", month: "long", year: "numeric",
   });
+
+  const [showFx, setShowFx] = useState(false);
+  useEffect(() => {
+    // Defer the canvas until the browser is idle so it never blocks LCP.
+    const run = () => setShowFx(true);
+    const id = "requestIdleCallback" in window
+      ? window.requestIdleCallback(run, { timeout: 1500 })
+      : window.setTimeout(run, 600);
+    return () => {
+      if ("cancelIdleCallback" in window) window.cancelIdleCallback(id);
+      else clearTimeout(id);
+    };
+  }, []);
 
   return (
     <div className="bg-paper pt-5 pb-0 px-3 sm:px-5">
@@ -16,28 +33,39 @@ export default function Masthead() {
         </div>
         <div className="border-t-[3px] border-ink pt-2 pb-1 text-center">
           <h1
-            className="font-display font-normal text-ink leading-[0.9] tracking-[-0.02em]"
-            style={{ height: "clamp(72px, 14vw, 150px)" }}
-            aria-label="Rahul Goswami"
+            className="relative font-display font-normal text-ink leading-[0.9] tracking-[-0.02em]"
+            style={{ fontSize: "clamp(44px, 9vw, 108px)" }}
           >
-            <TechText
-              text="Rahul Goswami"
-              fontWeight={400}
-              fontSize={150}
-              letterSpacing={-0.02}
-              reveal="letter"
-              selection
-              labels
-              draggable={false}
-              clickKick={false}
-              specks={12}
-              guides={false}
-              sweep
-              speed={0.3}
-              intro="none"
-              color="currentColor"
-              accentColor="currentColor"
-            />
+            {/* Plain text = instant LCP paint. Hidden once the canvas is up. */}
+            <span style={{ visibility: showFx ? "hidden" : "visible" }}>Rahul Goswami</span>
+            {showFx && (
+              <span
+                aria-hidden="true"
+                className="absolute inset-0"
+                style={{ height: "clamp(72px, 14vw, 150px)" }}
+              >
+                <Suspense fallback={null}>
+                  <TechText
+                    text="Rahul Goswami"
+                    fontWeight={400}
+                    fontSize={150}
+                    letterSpacing={-0.02}
+                    reveal="letter"
+                    selection
+                    labels
+                    draggable={false}
+                    clickKick={false}
+                    specks={12}
+                    guides={false}
+                    sweep
+                    speed={0.3}
+                    intro="none"
+                    color="currentColor"
+                    accentColor="currentColor"
+                  />
+                </Suspense>
+              </span>
+            )}
           </h1>
           <p className="mt-3 mx-auto max-w-[720px] font-gothic text-[9px] sm:text-[13px] font-semibold uppercase tracking-[0.14em] sm:tracking-[0.42em] leading-[1.6] text-ink-soft">
             Designer Soul | Developer Brain | Engineer Heart

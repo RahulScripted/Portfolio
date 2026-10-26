@@ -8,11 +8,7 @@ const webps = path.join(root, "src/assets/webps");
 const projects = path.join(root, "src/assets/projects");
 
 const jobs = [
-  { file: path.join(webps, "profile.webp"), width: 700 },
-  { file: path.join(projects, "projects1.webp"), width: 960 },
-  { file: path.join(projects, "projects2.webp"), width: 960 },
-  { file: path.join(projects, "projects3.webp"), width: 960 },
-  { file: path.join(webps, "doodle.webp"), width: 900 },
+  { file: path.join(webps, "profile.webp"), width: 560 },
 ];
 
 for (const { file, width } of jobs) {

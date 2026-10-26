@@ -13,16 +13,16 @@ export const lighthouseReports = [
   {
     id: "desktop",
     label: "Desktop",
-    scores: withLabels({ performance: 98, accessibility: 96, "best-practices": 100, seo: 100 }),
+    scores: withLabels({ performance: 90, accessibility: 96, "best-practices": 100, seo: 100 }),
   },
   {
     id: "mobile",
     label: "Mobile",
-    scores: withLabels({ performance: 79, accessibility: 96, "best-practices": 100, seo: 100 }),
+    scores: withLabels({ performance: 80, accessibility: 96, "best-practices": 100, seo: 100 }),
   },
 ];
 
-export const lighthouseMeasuredOn = "Oct 24, 2026";
+export const lighthouseMeasuredOn = "Oct 26, 2026";
 
 export const lighthouseMeta = {
   tool: "Google PageSpeed Insights",
