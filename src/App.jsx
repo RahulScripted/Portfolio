@@ -33,9 +33,10 @@ import CookieConsent from "@components/cookie-consent";
 // Minimal fallback for lazy sections (invisible, no layout shift)
 const SectionFallback = () => <div className="min-h-[200px]" />;
 
-function DeferMount({ children, minHeight = 300, rootMargin = "400px" }) {
+function DeferMount({ children, anchorId, minHeight = 300, rootMargin = "400px" }) {
   const [node, setNode] = useState(null);
   const [shown, setShown] = useState(false);
+
   useEffect(() => {
     if (!node || shown) return;
     const io = new IntersectionObserver(
@@ -50,8 +51,19 @@ function DeferMount({ children, minHeight = 300, rootMargin = "400px" }) {
     io.observe(node);
     return () => io.disconnect();
   }, [node, shown, rootMargin]);
+
+  useEffect(() => {
+    if (!anchorId || shown) return;
+    const onNav = (e) => {
+      if (e.detail === anchorId) setShown(true);
+    };
+    window.addEventListener("defermount:show", onNav);
+    if (window.location.hash === `#${anchorId}`) setShown(true);
+    return () => window.removeEventListener("defermount:show", onNav);
+  }, [anchorId, shown]);
+
   return (
-    <div ref={setNode} style={shown ? undefined : { minHeight }}>
+    <div id={anchorId} ref={setNode} className="scroll-mt-[50px]" style={shown ? undefined : { minHeight }}>
       {shown ? <Suspense fallback={<SectionFallback />}>{children}</Suspense> : null}
     </div>
   );
@@ -119,25 +131,25 @@ function MainSite() {
           <Suspense fallback={<SectionFallback />}>
             <LabReport />
           </Suspense>
-          <DeferMount minHeight={520}>
+          <DeferMount anchorId="lighthouse" minHeight={520}>
             <Lighthouse />
           </DeferMount>
           <div className="my-8">
             <InfiniteRibbon duration={32} reverse>{ribbonPhraseEnd}</InfiniteRibbon>
           </div>
-          <DeferMount minHeight={400}>
+          <DeferMount anchorId="career" minHeight={400}>
             <Career />
           </DeferMount>
-          <DeferMount minHeight={400}>
+          <DeferMount anchorId="education" minHeight={400}>
             <Education />
           </DeferMount>
-          <DeferMount minHeight={600}>
+          <DeferMount anchorId="bounty" minHeight={600}>
             <Bounty />
           </DeferMount>
-          <DeferMount minHeight={500}>
+          <DeferMount anchorId="case-studies" minHeight={500}>
             <CaseStudies />
           </DeferMount>
-          <DeferMount minHeight={400}>
+          <DeferMount anchorId="contact" minHeight={400}>
             <Contact />
           </DeferMount>
           <DeferMount minHeight={300}>

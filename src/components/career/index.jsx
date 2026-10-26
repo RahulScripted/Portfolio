@@ -11,7 +11,7 @@ const typeLabel = {
 
 export default function Career() {
   return (
-    <section id="career" className="py-14 sm:py-[76px] px-3 sm:px-5">
+    <section className="py-14 sm:py-[76px] px-3 sm:px-5">
       <div className="max-w-[1380px] mx-auto">
         <SectionHeader
           eyebrow="Known Whereabouts"

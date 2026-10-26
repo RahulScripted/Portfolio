@@ -62,7 +62,7 @@ export default function Lighthouse() {
   }, []);
 
   return (
-    <section id="lighthouse" className="scroll-mt-[50px] py-14 sm:py-[76px] px-3 sm:px-5">
+    <section className="py-14 sm:py-[76px] px-3 sm:px-5">
       <div className="max-w-[1380px] mx-auto">
         <SectionHeader
           eyebrow="Field Diagnostics"

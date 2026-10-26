@@ -5,7 +5,7 @@ import SectionHeader from "@components/shared/SectionHeader";
 
 export default function Education() {
   return (
-    <section id="education" className="py-14 sm:py-[76px] px-3 sm:px-5">
+    <section className="py-14 sm:py-[76px] px-3 sm:px-5">
       <div className="max-w-[1380px] mx-auto">
         <SectionHeader
           eyebrow="Academic Record"

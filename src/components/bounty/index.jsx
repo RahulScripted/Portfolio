@@ -39,7 +39,7 @@ export default function Bounty() {
   const currentStreak = currentStreakRef.current;
 
   return (
-    <section id="bounty" className="scroll-mt-[50px] py-14 sm:py-[76px] px-3 sm:px-5" aria-label="Coding stats dashboard">
+    <section className="py-14 sm:py-[76px] px-3 sm:px-5" aria-label="Coding stats dashboard">
       <div className="max-w-[1380px] mx-auto" aria-live="polite" aria-atomic="false">
 
         {/* Header */}
