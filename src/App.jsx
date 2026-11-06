@@ -14,7 +14,6 @@ import InfiniteRibbon from "@components/infinite-ribbon";
 const Projects = lazy(() => import("@components/projects"));
 const LabReport = lazy(() => import("@components/lab-report"));
 const Career = lazy(() => import("@components/career"));
-const Lighthouse = lazy(() => import("@components/lighthouse"));
 const Education = lazy(() => import("@components/education"));
 const Bounty = lazy(() => import("@components/bounty"));
 const CaseStudies = lazy(() => import("@components/case-studies"));
@@ -131,9 +130,6 @@ function MainSite() {
           <Suspense fallback={<SectionFallback />}>
             <LabReport />
           </Suspense>
-          <DeferMount anchorId="lighthouse" minHeight={520}>
-            <Lighthouse />
-          </DeferMount>
           <div className="my-8">
             <InfiniteRibbon duration={32} reverse>{ribbonPhraseEnd}</InfiniteRibbon>
           </div>
